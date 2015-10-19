@@ -4,11 +4,17 @@ var mysql = require('mysql');
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'T0r0nt05t4r!'
+    password: 'babka'
 });
 
 connection.connect();
 connection.query('show databases', function (err, rows, fields){
     console.log(err, rows, fields);
 })
-app.listen(3030);
+app.get('/', function(req, res) {
+	res.status(200).send('hello, world');
+});
+
+app.listen(4040, function () {
+    console.log('now listening on port 4040');
+});
