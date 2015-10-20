@@ -39,3 +39,5 @@ bower_components/
 # Compiled browserify file
 
 /**/bundle.js
+
+/**/dist/*.js

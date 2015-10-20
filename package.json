@@ -17,11 +17,15 @@
   },
   "homepage": "https://github.com/cloistered-babka/cloistered-babka#readme",
   "dependencies": {
+    "babelify": "^6.3.0",
     "backbone": "^1.2.3",
+    "browserify": "^11.2.0",
     "express": "^4.13.3",
+    "jquery": "^2.1.4",
     "path": "^0.12.7",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react.backbone": "^0.6.0"
+    "react.backbone": "^0.6.0",
+    "underscore": "^1.8.3"
   }
 }
