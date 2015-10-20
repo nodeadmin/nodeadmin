@@ -3,6 +3,9 @@ var ReactDOM = require('react-dom');
 var _ = require('underscore');
 var $ = require('jquery');
 var Backbone = require('backbone');
+var Tabs = require('material-ui/lib/tabs/tabs');
+var Tab = require('material-ui/lib/tabs/tab');
+
 
 
 
@@ -28,7 +31,7 @@ var Router = Backbone.Router.extend({
 
   	var Something = React.createClass({
 			render: function() {
-				return <h1>Hello</h1>
+				return <div><NavBar /><h1>Hello</h1></div>
 			}
   	});
   	ReactDOM.render(
@@ -80,6 +83,29 @@ var Router = Backbone.Router.extend({
   },
   records: function() {
       
+  }
+});
+
+var NavBar = React.createClass({
+  // constructor: function () {
+  //   super();
+  //   this._handleRoute = this._handleRoute.bind(this);
+  // },
+  // _handleRoute: function (e) {
+  //   e.preventDefault();
+  //   console.log('route handled');
+  //   Router.routes['setup']();
+  // },
+  render: function () {
+      // onActive={Router.routes['home']()}
+    return (
+      <Tabs>
+        <Tab label="Home"></Tab>
+        <Tab label="Database" ></Tab>
+        <Tab label="System" ></Tab>
+        <Tab label="Settings" ></Tab>
+      </Tabs>
+    )
   }
 });
 
