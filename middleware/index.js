@@ -3,6 +3,9 @@ var path = require('path');
 
 module.exports = function nodeadmin(app, express) {
 
+  app.use('/nodeadmin', express.static(__dirname + '/public'));
+
+
   var databaseRouter = express.Router();
   require('./database/databaseRoutes.js')(databaseRouter);
   app.use('/nodeadmin/db', databaseRouter);
@@ -25,6 +28,7 @@ module.exports = function nodeadmin(app, express) {
 
   app.use('/nodeadmin/', function(req,res,next){
     res.send('eyyy in admin');
+
   });
 
   return function nodeadmin(req,res,next) {
