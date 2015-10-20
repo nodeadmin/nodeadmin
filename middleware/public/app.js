@@ -4,10 +4,11 @@ var reactBone = require('react.backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 var Backbone = require('backbone');
+console.log('please work');
 
-var AdminRouter = Backbone.Router.extend({
+var Router = Backbone.Router.extend({
     routes: {
-        "/": "setup",
+        'setup': 'setup',
         "login": "login",
         "home": "home",
         "settings/profile": "profile",
@@ -24,19 +25,19 @@ var AdminRouter = Backbone.Router.extend({
     },
 
     setup: function() {
-        var something = React.createClass({
-            render: function() {
-                return <div>eeeyyyyyyy</div>
-            }
-        });
-        ReactDOM.render(
-            <something />,
-            document.body
-        );
+
+				var Something = React.createClass({
+						render: function() {
+								return <div>eeeyyyyyyy</div>
+						}
+				});
+				ReactDOM.render(
+						<Something />,
+						document.body
+				);
     },
 
     login: function() {
-
     },
 
     home: function() {
@@ -79,6 +80,7 @@ var AdminRouter = Backbone.Router.extend({
         
     }
 });
-
-new AdminRouter();
-Backbone.history.start({pushState: true});
+    
+    new Router();
+    Backbone.history.start();
+    
