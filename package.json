@@ -1,0 +1,27 @@
+{
+  "name": "cloistered-babka",
+  "version": "1.0.0",
+  "description": "node server admin middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloistered-babka/cloistered-babka.git"
+  },
+  "author": "Taylor Lehman, Laura Knight, Andrew Nickell, Alex Hutchison",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cloistered-babka/cloistered-babka/issues"
+  },
+  "homepage": "https://github.com/cloistered-babka/cloistered-babka#readme",
+  "dependencies": {
+    "backbone": "^1.2.3",
+    "express": "^4.13.3",
+    "path": "^0.12.7",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react.backbone": "^0.6.0"
+  }
+}
