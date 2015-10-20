@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var reactBone = require('react.backbone');
 var _ = require('underscore');
 var $ = require('jquery');
 var Backbone = require('backbone');
@@ -29,7 +28,7 @@ var Router = Backbone.Router.extend({
 
   	var Something = React.createClass({
 			render: function() {
-				return <div>eeeyyyyyyy</div>
+				return <h1>Hello</h1>
 			}
   	});
   	ReactDOM.render(
@@ -39,6 +38,7 @@ var Router = Backbone.Router.extend({
   },
 
   login: function() {
+
   },
 
   home: function() {
