@@ -31,3 +31,5 @@ gulp.task('default', function (){
   gulp.watch('middleware/public/src/app.js', ['transform']);
 
 });
+
+gulp.task('build', ['transform']);
