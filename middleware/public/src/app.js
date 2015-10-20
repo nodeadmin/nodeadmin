@@ -36,7 +36,7 @@ var Router = Backbone.Router.extend({
   	});
   	ReactDOM.render(
 			<Something />,
-			document.body
+			document.getElementById('react-container')
   	);
   },
 
