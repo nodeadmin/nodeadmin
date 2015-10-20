@@ -22,9 +22,20 @@
     "browserify": "^11.2.0",
     "express": "^4.13.3",
     "jquery": "^2.1.4",
+    "material-ui": "^0.12.4",
     "path": "^0.12.7",
     "react": "^0.14.0",
+    "react-addons-create-fragment": "^0.14.0",
+    "react-addons-pure-render-mixin": "^0.14.0",
+    "react-addons-transition-group": "^0.14.0",
+    "react-addons-update": "^0.14.0",
     "react-dom": "^0.14.0",
+    "react-tap-event-plugin": "^0.2.1",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.4.2"
   }
 }

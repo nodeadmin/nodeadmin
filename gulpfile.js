@@ -1,6 +1,9 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
 var browserify = require('gulp-browserify');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
 
 
 var path = {
@@ -17,6 +20,7 @@ gulp.task('transform', function(){
       insertGlobals:true
 
     }))
+    .pipe(rename('bundle.js'))
     .pipe(gulp.dest(path.babel_dest));
 
 });
