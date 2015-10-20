@@ -1,12 +1,12 @@
-# Project Name
+# NodeAdmin
 
-> Pithy project description
+> A fantasticly elegant tool for DB/Server Management with NodeJS/Express
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Taylor Lehman
+  - __Scrum Master__: Alex Hutchison
+  - __Development Team Members__: Laura Knight, Andrew Nickell, Taylor Lehman, Alex Hutchison
 
 ## Table of Contents
 
@@ -20,27 +20,16 @@
 
 ## Usage
 
-> Some usage instructions
+> just run npm install --save nodeadmin and app.use(nodeadmin)
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 4.x.x
+- Express 4.x.x
 
 ## Development
 
 ### Installing Dependencies
-
-From within the root directory:
-
-```sh
-sudo npm install -g bower
-npm install
-bower install
-```
 
 ### Roadmap
 
