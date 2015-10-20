@@ -25,7 +25,6 @@
     "path": "^0.12.7",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "react.backbone": "^0.6.0",
     "underscore": "^1.8.3"
   }
 }
