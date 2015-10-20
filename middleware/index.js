@@ -32,10 +32,7 @@ module.exports = function nodeadmin(app, express) {
   });
 
   return function nodeadmin(req,res,next) {
-    var parts = path.parse(req.url);
-    if(parts.name !== 'nodeadmin') {
       next();
-    }
   }
   
 
