@@ -18,6 +18,7 @@
   "homepage": "https://github.com/cloistered-babka/cloistered-babka#readme",
   "dependencies": {
     "express": "^4.13.3",
+    "mysql": "^2.9.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
