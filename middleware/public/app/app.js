@@ -4,6 +4,7 @@ angular.module('nodeadmin', [
   // 'nodeadmin.settings',
   // 'nodeadmin.db',
   'nodeadmin.services',
+  'nodeadmin.home',
   'nodeadmin.auth',
   'nodeadmin.main',
   'ui.router',
@@ -25,6 +26,12 @@ angular.module('nodeadmin', [
       url: '/',
       templateUrl: './app/main/main.html',
       controller: 'MainController'
+    })
+
+    .state('main.home', {
+      url: '/home',
+      templateUrl: 'app/home/home.html',
+      controller: 'HomeController'
     })
 
     .state('main.settings', {
