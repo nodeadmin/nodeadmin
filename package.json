@@ -19,6 +19,7 @@
   "dependencies": {
     "bluebird": "^2.10.2",
     "express": "^4.13.3",
+    "express-session": "^1.11.3",
     "mysql": "^2.9.0",
     "path": "^0.12.7"
   },
