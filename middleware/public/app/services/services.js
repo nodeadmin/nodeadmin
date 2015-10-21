@@ -1,6 +1,6 @@
 angular.module('nodeadmin.services', [])
 
-.factory('Auth', ['$http', function($http) {
+.factory('Auth', function($http, $window) {
   var setup = function(user) {
     return $http({
       method: 'POST',
@@ -8,7 +8,7 @@ angular.module('nodeadmin.services', [])
       data: user
     })
     .then(function(resp) {
-      // TODO: handle response
+      return resp.data.token;
     });
   };
 
@@ -18,16 +18,21 @@ angular.module('nodeadmin.services', [])
       url: 'api/auth/login',
       data: user
     }).then(function(resp) {
-      // TODO: handle response
+      return resp.data.token;
     });
+  };
+
+  var isAuth = function() {
+    return !!$window.localStorage.getItem('nodeadmin');
   };
 
   return {
     setup: setup,
-    login: login
+    login: login,
+    isAuth: isAuth
   };
 
-}]);
+});
 
   
   
