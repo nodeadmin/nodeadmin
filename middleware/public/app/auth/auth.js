@@ -1,6 +1,6 @@
 angular.module('nodeadmin.auth', [])
 
-.controller('AuthController', function($scope, $window, $state, Auth) {
+.controller('AuthController', ['$scope', '$window', '$state', 'Auth', function($scope, $window, $state, Auth) {
   $scope.user = {};
 
   $scope.setup = function() {
@@ -36,4 +36,4 @@ angular.module('nodeadmin.auth', [])
     $window.localStorage.removeItem('nodeadmin');
     $state.transitionTo('login');
   };
-});
+}]);

@@ -1,6 +1,6 @@
 angular.module('nodeadmin.services', [])
 
-.factory('Auth', function($http, $window) {
+.factory('Auth', ['$http', '$window', function($http, $window) {
   var setup = function(user) {
     return $http({
       method: 'POST',
@@ -32,7 +32,7 @@ angular.module('nodeadmin.services', [])
     isAuth: isAuth
   };
 
-});
+}]);
 
   
   
