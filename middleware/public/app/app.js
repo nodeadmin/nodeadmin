@@ -15,12 +15,20 @@ angular.module('nodeadmin', [
     .state('setup', {
       url: '/setup',
       templateUrl: './app/auth/setup.html',
-      controller: 'AuthController'
+      controller: 'AuthController',
+
+      data: {
+        doesNotRequireLogin: true
+      }
     })
     .state('login', {
       url: '/login',
       templateUrl: '',
-      controller: ''
+      controller: '',
+
+      data: {
+        doesNotRequireLogin: true
+      }
     })
     .state('main', {
       url: '/',
@@ -90,10 +98,20 @@ angular.module('nodeadmin', [
       url: '/db/records',
       templateUrl: '',
       controller: ''
-    })
+    });
    
    $urlRouterProvider.otherwise('/setup');
-});
-
-// check isAuth on each state change
+})
+// Hidden for dev
+// .run(function($rootScope, $state, Auth) {
+// // Check for token on each state change
+//   $rootScope.$on('stateChangeStart', function(event, toState) {
+//     // Check if state requires login 
+//     if (!toState.data.doesNotRequireLogin && !Auth.isAuth()) {
+//       // User isn't authenticated so prevent state change
+//       event.preventDefault();
+//       $state.transitionTo('login');
+//     }
+//   });
+// });
 
