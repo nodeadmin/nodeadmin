@@ -28,9 +28,13 @@ angular.module('nodeadmin', [
         controller: ''
       })
       .state('setup', {
-        url: '/setup',
-        templateUrl: '',
-        controller: ''
+        views: {
+          page: {
+            url: '/setup',
+            templateUrl: './auth/setup.html',
+            controller: ''
+          }
+        }
       })
       .state('login', {
         url: '/login',
