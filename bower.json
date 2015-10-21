@@ -1,0 +1,26 @@
+{
+  "name": "cloistered-babka",
+  "description": "node server admin middleware",
+  "main": "index.js",
+  "authors": [
+    "Taylor Lehman",
+    "Laura Knight",
+    "Andrew Nickell",
+    "Alex Hutchison"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/cloistered-babka/cloistered-babka",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "middleware/public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "~0.2.15",
+    "angular": "~1.4.7"
+  }
+}
