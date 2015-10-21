@@ -1,8 +1,12 @@
-
+var session = require('express-session');
 var path = require('path');
 
 module.exports = function nodeadmin(app, express) {
-
+  app.use(session({
+    secret: 'eeeeyyyyy boys and girls',
+    resave: false,
+    saveUninitialized: true 
+  }));
   app.use('/nodeadmin', express.static(__dirname + '/public'));
 
 
@@ -27,7 +31,7 @@ module.exports = function nodeadmin(app, express) {
   app.use('/nodeadmin/auth',authRouter);
 
   app.use('/nodeadmin/', function(req,res,next){
-    res.send('eyyy in admin');
+    res.send('hello');
 
   });
 

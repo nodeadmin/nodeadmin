@@ -7,11 +7,12 @@ angular.module('nodeadmin', [
   'ui.router'
 ])
   .config(function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise("home");
    $stateProvider 
       .state('home', {
         url: '/',
-        templateUrl: '',
-        controller: ''
+        templateUrl: 'home/home.html',
+        controller: 'homeController'
       })
       .state('system', {
         url: '/system',

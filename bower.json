@@ -22,6 +22,6 @@
   "dependencies": {
     "angular-ui-router": "~0.2.15",
     "angular": "~1.4.7",
-    "angular-material": "~0.11.4"
+    "bootstrap": "~3.3.5"
   }
 }
