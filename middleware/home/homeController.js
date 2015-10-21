@@ -2,11 +2,16 @@ var OS = require('os');
 
 module.exports = {
 
-  getHostname:function(req, res) {
-    OS.hostname(function (err, data) {
-      console.log('GOT HOST NAME ----->', data);
-    });
+  getHostname:function(_ , callback) {
+    return callback(null, OS.hostname());
+  },
 
+  getType:function(_, callback) {
+    return callback(null, OS.type());
+  },
+
+  getUptime:function(_, callback) {
+    return callback(null, OS.uptime())
   }
 
 }
