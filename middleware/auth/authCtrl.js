@@ -4,19 +4,19 @@
 
 
 var Promise = require('bluebird');
-var query = Promise.promisify(connection.query);
-var queries = {
-  databaseTable: 'CREATE TABLE database (id INT NOT NULL AUTO_INCREMENT, mysql_user NOT NULL VARCHAR(255), mysql_password NOT NULL VARCHAR(255), mysql_host NOT NULL VARCHAR(255), PRIMARY KEY (id))',
-  usersTable: 'CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, display_name VARCHAR(255), database_id INT NOT NULL, password NOT NULL VARCHAR(255), notification1 BOOL, PRIMARY KEY (id), FOREIGN KEY (database_id) REFERENCES database(id))',
-  insertDB: 'INSERT INTO database (mysql_user, mysql_password, mysql_host) VALUES ("' + req.body.mysqlUser + '", "' + req.body.mysqlPassword + '", "' + req.body.host + '")',
-  dbId: 'SELECT id FROM database WHERE mysql_user = "' + req.body.mysqlUser + '"'
-};
 
 
 module.exports.authCtrl = function (connection) {
   return {
     setup: function (req, res) {
-
+            
+      var queries = {
+        databaseTable: 'CREATE TABLE database (id INT NOT NULL AUTO_INCREMENT, mysql_user NOT NULL VARCHAR(255), mysql_password NOT NULL VARCHAR(255), mysql_host NOT NULL VARCHAR(255), PRIMARY KEY (id))',
+        usersTable: 'CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, display_name VARCHAR(255), database_id INT NOT NULL, password NOT NULL VARCHAR(255), notification1 BOOL, PRIMARY KEY (id), FOREIGN KEY (database_id) REFERENCES database(id))',
+        insertDB: 'INSERT INTO database (mysql_user, mysql_password, mysql_host) VALUES ("' + req.body.mysqlUser + '", "' + req.body.mysqlPassword + '", "' + req.body.host + '")',
+        dbId: 'SELECT id FROM database WHERE mysql_user = "' + req.body.mysqlUser + '"'
+      };
+      var query = Promise.promisify(connection.query);
       req.app.set('connection', connection);
 
       query('SHOW DATABASES')
@@ -63,40 +63,3 @@ module.exports.authCtrl = function (connection) {
 
 
 
-    connection.query('CREATE DATABASE nodeAdmin', function (err, result) {
-      if (err) {
-        errorHandler(err);
-      }
-      connection.query('USE nodeAdmin', function (err, result) {
-        if (err) {
-          errorHandler(err);
-        }
-        connection.query(queries.databaseTable, function (err, result) {
-          if (err) {
-            errorHandler(err);
-          }
-          connection.query(queries.usersTable, function (err, result) {
-            if (err) {
-              errorHandler(err);
-            }
-            connection.query(queries.insertDB, function (err, result) {
-              if (err) {
-                errorHandler(err);
-              }
-              connection.query(queries.dbId, function (err, result) {
-                if (err || !result) {
-                  errorHandler(err);
-                }
-                queries.insertUser = 'INSERT INTO users (username, password, database_id) VALUES ("' + req.body.username + '", "' + req.body.password + '", "' + req.body.db + '"' + results[0] + '")';
-                connection.query(queries.insertUser, function (err, result) {
-                  if (err) {
-                    errorHandler(err);
-                  }
-                  res.send(200);
-                });
-              });
-            });
-          });
-        });
-      });
-    });

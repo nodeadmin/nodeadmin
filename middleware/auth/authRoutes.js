@@ -1,5 +1,4 @@
 var mysql = require('mysql');
-var authCtrl = require('./authCtrl')(connection);
 var Promise = require("bluebird");
 module.exports = function (router) {
   'use strict';
@@ -15,12 +14,13 @@ module.exports = function (router) {
         password: req.body.password
       });
 
+      var authCtrl = require('./authCtrl')(connection);
       connection.connect(function (err) {
         if (err) {
           console.log(err);
           return;
         }
-        req.app.set('connection', connection);
+        authCtrl.setup(connection);
       });
     });
 };
