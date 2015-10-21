@@ -14,8 +14,12 @@ angular.module('nodeadmin', [
   $stateProvider
     .state('setup', {
       url: '/setup',
-      templateUrl: './app/auth/setup.html',
-      controller: 'AuthController',
+      views: {
+        content: {
+          templateUrl: './app/auth/setup.html',
+          controller: 'AuthController',          
+        }
+      },
 
       data: {
         doesNotRequireLogin: true
@@ -23,8 +27,12 @@ angular.module('nodeadmin', [
     })
     .state('login', {
       url: '/login',
-      templateUrl: '',
-      controller: '',
+      views: {
+        content: {
+          templateUrl: '',
+          controller: '',          
+        }
+      },
 
       data: {
         doesNotRequireLogin: true
@@ -32,72 +40,176 @@ angular.module('nodeadmin', [
     })
     .state('main', {
       url: '/',
-      templateUrl: './app/main/main.html',
-      controller: 'MainController'
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: './app/main/main.html',
+          controller: 'MainController'
+        }
+      }
     })
 
     .state('main.home', {
       url: '/home',
-      templateUrl: 'app/home/home.html',
-      controller: 'HomeController'
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: 'app/home/home.html',
+          controller: 'HomeController'          
+        }
+      }
     })
 
     .state('main.settings', {
       url: '/settings',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''          
+        }
+      }
     })
     .state('main.settings.users', {
       url: '/settings/users',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''          
+        }
+      }
     })
     .state('main.settings.notifications', {
       url: '/settings/notifications',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''
+        }
+      }
     })
     .state('main.settings.advanced', {
       url: '/settings/advanced',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''          
+        }
+      }
     })
 
     .state('main.system', {
       url: '/system',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''          
+        }
+      }
     })
     .state('main.system.logs', {
       url: '/system/logs',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''          
+        }
+      }
     })
     .state('main.system.fs', {
       url: '/system/fs',
-      templateUrl: '',
-      controller: ' '
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ' '          
+        }
+      }
     })
 
     .state('main.db', {
       url: '/db',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''
+        }
+      }
     })
     .state('main.db.tables', {
       url: '/db/tables',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''      
+        }
+      }
     })
     .state('main.db.createTable', {
       url: '/db/createTable',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''          
+        }
+      }
     })
     .state('main.db.records', {
       url: '/db/records',
-      templateUrl: '',
-      controller: ''
+      views: {
+        nav: {
+          templateUrl: '',
+          controller: ''
+        },
+        content: {
+          templateUrl: '',
+          controller: ''          
+        }
+      }
     });
    
    $urlRouterProvider.otherwise('/setup');
