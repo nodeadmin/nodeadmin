@@ -5,6 +5,11 @@ bower_components/
 build/
 dist/
 
+.DS_Store
+
+
+middleware/public/lib/
+
 
 ### node etc ###
 
