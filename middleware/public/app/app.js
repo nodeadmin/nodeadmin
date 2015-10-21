@@ -8,6 +8,9 @@ angular.module('nodeadmin', [
   'nodeadmin.auth',
   'nodeadmin.main',
   'nodeadmin.navbar',
+  'nodeadmin.settings',
+  'nodeadmin.system',
+  'nodeadmin.db',
   'ui.router',
   'ui.bootstrap'
 ])
@@ -62,8 +65,8 @@ angular.module('nodeadmin', [
           controller: 'NavController'
         },
         content: {
-          templateUrl: '',
-          controller: ''          
+          templateUrl: 'app/settings/settings.html',
+          controller: 'SettingsController'          
         }
       }
     })
@@ -115,8 +118,8 @@ angular.module('nodeadmin', [
           controller: 'NavController'
         },
         content: {
-          templateUrl: '',
-          controller: ''          
+          templateUrl: 'app/system/system.html',
+          controller: 'SystemController'
         }
       }
     })
@@ -155,8 +158,8 @@ angular.module('nodeadmin', [
           controller: 'NavController'
         },
         content: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/db/db.html',
+          controller: 'DBController'
         }
       }
     })
