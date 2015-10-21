@@ -1,8 +1,9 @@
 angular.module('nodeadmin', [
-  'nodeadmin.home',
-  'nodeadmin.system',
-  'nodeadmin.settings',
-  'nodeadmin.db',
+  // 'nodeadmin.home',
+  // 'nodeadmin.system',
+  // 'nodeadmin.settings',
+  // 'nodeadmin.db',
+  'nodeadmin.auth',
   'ui.router'
 ])
   .config(function ($stateProvider, $urlRouterProvider) {
@@ -29,8 +30,12 @@ angular.module('nodeadmin', [
       })
       .state('setup', {
         url: '/setup',
-        templateUrl: '',
-        controller: ''
+        views: {
+          content: {
+            templateUrl: './app/auth/setup.html',
+            controller: 'AuthController'
+          }
+        }
       })
       .state('login', {
         url: '/login',
@@ -77,6 +82,7 @@ angular.module('nodeadmin', [
         templateUrl: '',
         controller: ''
       })
-      .otherwise('/setup');
+     
+     $urlRouterProvider.otherwise('/setup');
   });
 

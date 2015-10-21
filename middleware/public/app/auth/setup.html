@@ -1,0 +1,22 @@
+<div id="setup">
+  <h1>Node Admin</h1>
+  <h3>Set up Node Admin</h3>
+  <form name='setupForm' ng-submit=''>
+    <md-input-container>
+      <label>Email</label>
+      <input type='email' ng-model='user.username' required />
+    </md-input-container>
+    <md-input-container>
+      <label>Password</label>
+      <input type='password' ng-model='user.password' required />
+   </md-input-container>
+  </form>
+  <h3>MySQL Connection</h3>
+  <form name='mySQLForm' ng-submit=''>
+    <input type='host' ng-model='user.host' required />
+    <input type='username' ng-model='user.mySQLusername' required />
+    <input type='password' ng-model='user.mySQLpassword' required />
+    <button>Sumbit</button>
+  </form>
+  <!-- set up DB & auth errors -->
+</div>
