@@ -4,22 +4,78 @@ angular.module('nodeadmin', [
   'nodeadmin.settings',
   'nodeadmin.db'
 ])
-  .config(function ($routeProvider, $httpProvider) {
-    $routeProvider
-      .when('/home', {
+  .config(function ($stateProvider, $urlRouterProvider) {
+   $stateProvider 
+      .state('home', {
+        url: '/',
         templateUrl: '',
         controller: ''
       })
-      .when('/system', {
+      .state('system', {
+        url: '/system',
         templateUrl: '',
         controller: ''
       })
-      .when('/settings', {
+      .state('settings', {
+        url: '/settings',
+        templateUrl: '',
         controller: ''
       })
-      .when('/db', {
+      .state('db', {
+        url: '/db',
+        templateUrl: '',
+        controller: ''
+      })
+      .state('setup', {
+        url: '/setup',
+        templateUrl: '',
+        controller: ''
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: '',
+        controller: ''
+      })
+      .state('settings/users', {
+        url: '/settings/users',
+        templateUrl: '',
+        controller: ''
+      })
+      .state('settings/notifications', {
+        url: '/settings/notifications',
+        templateUrl: '',
+        controller: ''
+      })
+      .state('settings/advanced', {
+        url: '/settings/advanced',
+        templateUrl: '',
+        controller: ''
+      })
+      .state('system/logs', {
+        url: '/system/logs',
+        templateUrl: '',
+        controller: ''
+      })
+      .state('system/fs', {
+        url: '/system/fs',
+        templateUrl: '',
+        controller: ' '
+      })
+      .state('db/tables', {
+        url: '/db/tables',
+        templateUrl: '',
+        controller: ''
+      })
+      .state('db/createTable', {
+        url: '/db/createTable',
+        templateUrl: '',
+        controller: ''
+      })
+      .state('db/records', {
+        url: '/db/records',
+        templateUrl: '',
         controller: ''
       })
       .otherwise('/setup');
-  })
+  });
 
