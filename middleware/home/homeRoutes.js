@@ -1,8 +1,8 @@
+var HomeController = require('./HomeController');
 
 module.exports = function(router) {
 
-  router.route('/').get(function(req, res){
-    res.send('eyyyy in home');
-  });
+  router.route('/os')
+    .get(HomeController.getHostname);
 
 };
