@@ -1,5 +1,5 @@
 angular.module('nodeadmin', [
-  // 'nodeadmin.home',
+  'nodeadmin.home',
   // 'nodeadmin.system',
   // 'nodeadmin.settings',
   // 'nodeadmin.db',
@@ -217,4 +217,5 @@ angular.module('nodeadmin', [
 //     }
 //   });
 // });
+
 
