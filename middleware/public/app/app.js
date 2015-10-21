@@ -7,6 +7,7 @@ angular.module('nodeadmin', [
   'nodeadmin.home',
   'nodeadmin.auth',
   'nodeadmin.main',
+  'nodeadmin.navbar',
   'ui.router',
   'ui.bootstrap'
 ])
@@ -38,26 +39,13 @@ angular.module('nodeadmin', [
         doesNotRequireLogin: true
       }
     })
-    .state('main', {
+
+    .state('home', {
       url: '/',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
-        },
-        content: {
-          templateUrl: './app/main/main.html',
-          controller: 'MainController'
-        }
-      }
-    })
-
-    .state('main.home', {
-      url: '/home',
-      views: {
-        nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: 'app/home/home.html',
@@ -66,12 +54,12 @@ angular.module('nodeadmin', [
       }
     })
 
-    .state('main.settings', {
+    .state('settings', {
       url: '/settings',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -79,12 +67,12 @@ angular.module('nodeadmin', [
         }
       }
     })
-    .state('main.settings.users', {
+    .state('settings.users', {
       url: '/settings/users',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -92,12 +80,12 @@ angular.module('nodeadmin', [
         }
       }
     })
-    .state('main.settings.notifications', {
+    .state('settings.notifications', {
       url: '/settings/notifications',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -105,12 +93,12 @@ angular.module('nodeadmin', [
         }
       }
     })
-    .state('main.settings.advanced', {
+    .state('settings.advanced', {
       url: '/settings/advanced',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -119,12 +107,12 @@ angular.module('nodeadmin', [
       }
     })
 
-    .state('main.system', {
+    .state('system', {
       url: '/system',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -132,12 +120,12 @@ angular.module('nodeadmin', [
         }
       }
     })
-    .state('main.system.logs', {
+    .state('system.logs', {
       url: '/system/logs',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -145,12 +133,12 @@ angular.module('nodeadmin', [
         }
       }
     })
-    .state('main.system.fs', {
+    .state('system.fs', {
       url: '/system/fs',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -159,12 +147,12 @@ angular.module('nodeadmin', [
       }
     })
 
-    .state('main.db', {
+    .state('db', {
       url: '/db',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -172,12 +160,12 @@ angular.module('nodeadmin', [
         }
       }
     })
-    .state('main.db.tables', {
+    .state('db.tables', {
       url: '/db/tables',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -185,12 +173,12 @@ angular.module('nodeadmin', [
         }
       }
     })
-    .state('main.db.createTable', {
+    .state('db.createTable', {
       url: '/db/createTable',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
@@ -198,12 +186,12 @@ angular.module('nodeadmin', [
         }
       }
     })
-    .state('main.db.records', {
+    .state('db.records', {
       url: '/db/records',
       views: {
         nav: {
-          templateUrl: '',
-          controller: ''
+          templateUrl: 'app/navbar/navbar.html',
+          controller: 'NavController'
         },
         content: {
           templateUrl: '',
