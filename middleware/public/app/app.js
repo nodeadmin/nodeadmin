@@ -2,7 +2,8 @@ angular.module('nodeadmin', [
   'nodeadmin.home',
   'nodeadmin.system',
   'nodeadmin.settings',
-  'nodeadmin.db'
+  'nodeadmin.db',
+  'ui.router'
 ])
   .config(function ($stateProvider, $urlRouterProvider) {
    $stateProvider 
