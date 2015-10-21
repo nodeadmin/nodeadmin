@@ -23,6 +23,7 @@
     "angular-ui-router": "~0.2.15",
     "angular": "~1.4.7",
     "bootstrap": "~3.3.5",
-    "angular-bootstrap": "~0.14.2"
+    "angular-bootstrap": "~0.14.2",
+    "kjur/jsrsasign": "jsrsasign#~5.0.1"
   }
 }

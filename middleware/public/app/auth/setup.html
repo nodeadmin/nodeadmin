@@ -1,23 +1,51 @@
 <div class="row">
-  <div class=""
-  <h1>Node Admin</h1>
-  <h3>Set up Node Admin</h3>
-  <form name='setupForm' ng-submit=''>
-    <md-input-container>
-      <label>Email</label>
-      <input type='email' ng-model='user.username' required />
-    </md-input-container>
-    <md-input-container>
-      <label>Password</label>
-      <input type='password' ng-model='user.password' required />
-   </md-input-container>
-  </form>
-  <h3>MySQL Connection</h3>
-  <form name='mySQLForm' ng-submit=''>
-    <input type='host' ng-model='user.host' required />
-    <input type='username' ng-model='user.mySQLusername' required />
-    <input type='password' ng-model='user.mySQLpassword' required />
-    <button>Sumbit</button>
-  </form>
-  <!-- set up DB & auth errors -->
+  <div class="col-md-4 col-md-offset-4">
+    <h1 class="text-center">Node Admin</h1>
+    <h3>Set up Node Admin</h3>
+    <form class="form-horizontal" name='setupForm' ng-submit=''>
+      <div class="form-group">
+        <label for="email" class="col-sm-3 control-label">Email</label>
+        <div class="col-sm-9">
+          <input type='email' class="form-control" placeholder="email"ng-model='user.username' required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-3 control-label">Password</label>
+        <div class="col-sm-9">
+          <input type='password' class="form-control" placeholder="password" ng-model='user.password' required />
+        </div>
+     </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <h3>MySQL Connection</h3>
+    <form class="form-horizontal" name='mySQLForm' ng-submit=''>
+      <div class="form-group">
+        <label for="host" class="col-sm-3 control-label">Host</label>
+        <div class="col-sm-9">
+          <input type='text' name="host" class="form-control" placeholder="mySQL host" ng-model='user.host' required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mysqlUser" class="col-sm-3 control-label">User</label>
+        <div class="col-sm-9">
+          <input type='text' class="form-control" name="mysqlUser" placeholder="mySQL user" ng-model='user.mysqlUsername' required />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mysqlPassword" class="col-sm-3 control-label">Password</label>
+        <div class="col-sm-9">
+          <input type='password' name="mysqlPassword" class="form-control" placeholder="mySQL Password" ng-model='user.mysqlPassword' required />
+        </div>
+      </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+    </form>
+<!-- set up DB & auth errors -->
+  </div>
 </div>

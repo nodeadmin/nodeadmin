@@ -17,9 +17,11 @@
   },
   "homepage": "https://github.com/cloistered-babka/cloistered-babka#readme",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "bluebird": "^2.10.2",
     "express": "^4.13.3",
     "express-session": "^1.11.3",
+    "jsonwebtoken": "^5.4.0",
     "mysql": "^2.9.0",
     "path": "^0.12.7"
   },
