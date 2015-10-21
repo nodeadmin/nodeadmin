@@ -3,6 +3,7 @@ angular.module('nodeadmin', [
   // 'nodeadmin.system',
   // 'nodeadmin.settings',
   // 'nodeadmin.db',
+  'nodeadmin.services',
   'nodeadmin.auth',
   'ui.router',
   'ui.bootstrap'
@@ -85,4 +86,6 @@ angular.module('nodeadmin', [
    
    $urlRouterProvider.otherwise('/setup');
 });
+
+// check isAuth on each state change
 
