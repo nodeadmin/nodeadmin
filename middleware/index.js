@@ -15,7 +15,6 @@ module.exports = function nodeadmin(app, express, port) {
     
   });
 
-
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
 
