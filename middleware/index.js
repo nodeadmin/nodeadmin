@@ -9,7 +9,6 @@ module.exports = function nodeadmin(app, express) {
   var server = http.createServer(app);
   io = sock.listen(server);
   server.listen(process.env.PORT);
-  
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
