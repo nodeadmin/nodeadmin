@@ -8,7 +8,7 @@ angular.module('nodeadmin.auth', [])
       .then(function(token) {
         // Store session token
         $window.localStorage.setItem('nodeadmin', token);
-        $state.transitionTo('main');
+        $state.transitionTo('home');
       })
       .catch(function(err) {
         console.log('Error retrieving token: ', err);
@@ -22,7 +22,7 @@ angular.module('nodeadmin.auth', [])
       .then(function(token) {
         // Store session token
         $window.localStorage.setItem('nodeadmin', token);
-        $state.transitionTo('main');
+        $state.transitionTo('home');
 
       })
       .catch(function(err) {
