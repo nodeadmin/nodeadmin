@@ -10,7 +10,7 @@ var bcrypt = require('bcrypt');
 module.exports.authCtrl = function (connection) {
   return {
     setup: function (req, res) {
-            
+      console.log('setup is getting called');           
       var queries = {
         databaseTable: 'CREATE TABLE database (id INT NOT NULL AUTO_INCREMENT, mysql_user NOT NULL VARCHAR(255), mysql_password VARCHAR(255), mysql_host NOT NULL VARCHAR(255), PRIMARY KEY (id))',
         usersTable: 'CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, display_name VARCHAR(255), database_id INT NOT NULL, password NOT NULL VARCHAR(255), notification1 BOOL, PRIMARY KEY (id), FOREIGN KEY (database_id) REFERENCES database(id))',
@@ -24,6 +24,7 @@ module.exports.authCtrl = function (connection) {
 
       query('SHOW DATABASES')
         .then(function (result) {
+          console.log('show databases was successfully called');
           result.each(function (row) {
             if (row.Database === 'nodeAdmin') {
               res.send(true);
@@ -32,22 +33,28 @@ module.exports.authCtrl = function (connection) {
           return query('CREATE DATABASE nodeAdmin');
         })
         .then(function (result) {
+          console.log('create database nodeadmin successfully called.');
           return query('USE nodeAdmin');
         })
         .then(function (result) {
+          console.log('use nodeadmin query executed successfully.');
           return query(queries.databaseTable);
         })
         .then(function (result) {
+          console.log('Creation of database table successful');
           return query(queries.usersTable);
         })
         .then(function (result) {
+          console.log('Users table successfully created');
           return query(queries.insertDB);
         })
         .join(query(queries.dbId), hash(req.body.password, 10), function (result, pass) {
+          console.log('dbID query and password hash successful'); 
           queries.insertUser = 'INSERT INTO users (username, password, database_id) VALUES ("' + req.body.username + '", "' + pass + '", "' + result[0] + '")';
           return query(queries.insertUser);
         })
         .then(function (result) {
+          console.log('User successfully added to newly created database');
           var token = jwt.sign({username: req.body.username}, 'Rwue0IHNM563p0Aa50dcsO8qxeZNFYr9');
           res.status(200).send(token);
         })

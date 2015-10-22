@@ -8,12 +8,13 @@ module.exports = function (router) {
       res.send('eyyyy in auth');
     })
     .post(function (req, res) {
+      console.log('there has been a post request to /auth/setup.');
       var connection = mysql.createConnection({
         host: req.body.host,
         user: req.body.mysqlUser,
         password: req.body.mysqlPassword
       });
-
+      console.log('Connection has been created and is as follows: ' + connection);
       var authCtrl = require('./authCtrl')(connection);
       connection.connect(function (err) {
         if (err) {
