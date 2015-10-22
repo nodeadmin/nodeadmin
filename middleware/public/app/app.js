@@ -30,8 +30,7 @@ angular.module('nodeadmin', [
       views: {
         content: {
           templateUrl: './app/auth/login.html',
-          controller: 'AuthController',
-        }
+          controller: 'AuthController'
       },
 
       data: {
