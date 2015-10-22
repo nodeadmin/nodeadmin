@@ -1,4 +1,4 @@
-var session = require('express-session');
+var jwt = require('jswebtoken');
 var path = require('path');
 
 module.exports = function nodeadmin(app, express) {

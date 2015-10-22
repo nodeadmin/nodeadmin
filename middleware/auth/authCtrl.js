@@ -4,7 +4,8 @@
 
 
 var Promise = require('bluebird');
-
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcrypt');
 
 module.exports.authCtrl = function (connection) {
   return {
@@ -16,6 +17,8 @@ module.exports.authCtrl = function (connection) {
         insertDB: 'INSERT INTO database (mysql_user, mysql_password, mysql_host) VALUES ("' + req.body.mysqlUser + '", "' + req.body.mysqlPassword + '", "' + req.body.host + '")',
         dbId: 'SELECT id FROM database WHERE mysql_user = "' + req.body.mysqlUser + '"'
       };
+
+      var hash = Promise.promisify(bcrypt.hash);
       var query = Promise.promisify(connection.query);
       req.app.set('connection', connection);
 
@@ -40,26 +43,20 @@ module.exports.authCtrl = function (connection) {
         .then(function (result) {
           return query(queries.insertDB);
         })
-        .then(function (result) {
-          return query(queries.dbId);
-        })
-        .then(function (result) {
-          queries.insertUser = 'INSERT INTO users (username, password, database_id) VALUES ("' + req.body.username + '", "' + req.body.password + '", "' + req.body.db + '"' + result[0] + '")';
+        .join(query(queries.dbId), hash(req.body.password, 10), function (result, pass) {
+          queries.insertUser = 'INSERT INTO users (username, password, database_id) VALUES ("' + req.body.username + '", "' + pass + '", "' + result[0] + '")';
           return query(queries.insertUser);
         })
         .then(function (result) {
-          res.send(200);
+          var token = jwt.sign({username: req.body.username}, 'Rwue0IHNM563p0Aa50dcsO8qxeZNFYr9');
+          res.status(200).send(token);
         })
         .catch(function(e) {
           console.error(e);
+          res.status(500);
         });
       }
   };
-}
-
-
-
-
-
+};
 
 

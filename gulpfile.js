@@ -24,7 +24,7 @@ gulp.task('transform', function(){
     .pipe(gulp.dest(path.babel_dest));
 
 });
-
+  
 
 
 gulp.task('default', function (){

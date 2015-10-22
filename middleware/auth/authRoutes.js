@@ -3,15 +3,15 @@ var Promise = require("bluebird");
 module.exports = function (router) {
   'use strict';
 
-  router.route('/')
+  router.route('/setup')
     .get(function (req, res) {
       res.send('eyyyy in auth');
     })
     .post(function (req, res) {
       var connection = mysql.createConnection({
         host: req.body.host,
-        user: req.body.user,
-        password: req.body.password
+        user: req.body.mysqlUser,
+        password: req.body.mysqlPassword
       });
 
       var authCtrl = require('./authCtrl')(connection);
