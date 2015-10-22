@@ -1,11 +1,28 @@
-<div id="login">
-  <h1>Node Admin</h1>
-  <h3>Log In</h3>
-  <form name='loginForm' ng-submit=''>
-    <input type='email' ng-model='user.username' required />
-    <input type='password' ng-model='user.password' required />
-  <button>Log In</button>
+<div class="container-fluid">
+  <form class="form-horizontal" name='loginForm' ng-submit='login()'>
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <h1 class="text-center">Node Admin</h1>
+        <h3 class="text-center">Login</h3>
+        <div class="form-group">
+          <label for="email" class="col-sm-3 control-label">Email</label>
+          <div class="col-sm-9">
+            <input type='email' class="form-control" placeholder="email"ng-model='user.username' required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-3 control-label">Password</label>
+          <div class="col-sm-9">
+            <input type='password' class="form-control" placeholder="password" ng-model='user.password' required />
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- set up DB & auth errors -->
   </form>
-  <!-- set up forgot password -->
-  <!-- set up auth errors -->
 </div>
