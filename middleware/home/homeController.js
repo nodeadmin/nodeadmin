@@ -1,4 +1,5 @@
 var OS = require('os');
+var spawn = require('child_process').spawn;
 
 module.exports = {
 

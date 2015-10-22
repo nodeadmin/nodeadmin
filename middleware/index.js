@@ -1,7 +1,16 @@
 var path = require('path');
 var bodyParser = require('body-parser');
+var http = require('http');
+var sock = require('socket.io');
+var io = undefined;
 
 module.exports = function nodeadmin(app, express) {
+  // socket setup
+  var server = http.createServer(app);
+  io = sock.listen(server);
+  server.listen(process.env.PORT);
+  
+
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
 
