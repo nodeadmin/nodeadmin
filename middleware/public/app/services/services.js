@@ -25,6 +25,16 @@ angular.module('nodeadmin.services', [])
     });
   };
 
+  var doesDBExist = function() {
+    return $http({
+      method: 'GET',
+      url: 'api/',
+    }).then(function(resp) {
+      // return boolean
+      return resp;
+    })
+  }
+
   var isAuth = function() {
     return !!$window.localStorage.getItem('nodeadmin');
   };
@@ -32,7 +42,8 @@ angular.module('nodeadmin.services', [])
   return {
     setup: setup,
     login: login,
-    isAuth: isAuth
+    isAuth: isAuth,
+    doesDBExist: doesDBExist
   };
 
 }])
