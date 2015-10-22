@@ -32,8 +32,4 @@ angular.module('nodeadmin.auth', [])
       });
   };
 
-  $scope.logout = function() {
-    $window.localStorage.removeItem('nodeadmin');
-    $state.transitionTo('login');
-  };
 }]);
