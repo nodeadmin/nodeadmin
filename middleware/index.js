@@ -1,8 +1,11 @@
 var path = require('path');
+var bodyParser = require('body-parser');
 
 module.exports = function nodeadmin(app, express) {
-  app.use('/nodeadmin', express.static(__dirname + '/public'));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({extended: true}));
 
+  app.use('/nodeadmin', express.static(__dirname + '/public'));
 
   var databaseRouter = express.Router();
   require('./database/databaseRoutes.js')(databaseRouter);
