@@ -11,6 +11,7 @@ module.exports = function (router) {
     })
     .post(function (req, res) {
       console.log('there has been a post request to /auth/setup.');
+      console.log('req.body in authroutes: ', req.body)
       var connection = mysql.createConnection({
         host: req.body.host,
         user: req.body.mysqlUser,

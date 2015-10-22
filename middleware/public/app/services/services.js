@@ -4,11 +4,14 @@ angular.module('nodeadmin.services', [])
   var setup = function(user) {
     return $http({
       method: 'POST',
-      url: '/api/auth/setup',
+      url: '/nodeadmin/api/auth/setup',
       data: user
     })
     .then(function(resp) {
+      console.log('resp', resp)
       return resp.data.token;
+    }, function(err) {
+      console.log(err);
     });
   };
 

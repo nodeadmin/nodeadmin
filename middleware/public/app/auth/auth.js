@@ -11,7 +11,7 @@ angular.module('nodeadmin.auth', [])
         $state.transitionTo('home');
       })
       .catch(function(err) {
-        console.log('Error retrieving token: ', err);
+        console.error(err);
         // Allow for error displaying on setup page
         $scope.error = err.data;
       });
@@ -23,10 +23,9 @@ angular.module('nodeadmin.auth', [])
         // Store session token
         $window.localStorage.setItem('nodeadmin', token);
         $state.transitionTo('home');
-
       })
       .catch(function(err) {
-        console.log('Error retrieving token: ', err);
+        console.error(err);
         // Allow for error displaying on login page
         $scope.error = err.data;
       });
