@@ -2,14 +2,21 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var http = require('http');
 var sock = require('socket.io');
+
 var io = undefined;
 
 module.exports = function nodeadmin(app, express) {
   // socket setup
-  var server = http.createServer(app);
-  io = sock.listen(server);
+  var server = http.Server(app);
+  io = sock(server);
+
   server.listen(process.env.PORT);
-  
+
+  io.on('connection', function (socket) {
+    console.log('Sockect connected with id ', socket.id);
+    
+  });
+
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
