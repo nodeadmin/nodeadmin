@@ -10,13 +10,13 @@ angular.module('nodeadmin', [
   'ui.router',
   'ui.bootstrap'
 ])
-.config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
     .state('setup', {
       url: '/setup',
       views: {
         content: {
-          templateUrl: './app/auth/setup.html',
+          templateUrl: 'app/auth/setup.html',
           controller: 'AuthController',          
         }
       },
@@ -30,8 +30,7 @@ angular.module('nodeadmin', [
       views: {
         content: {
           templateUrl: './app/auth/login.html',
-          controller: 'AuthController',
-        }
+          controller: 'AuthController'
       },
 
       data: {
@@ -199,7 +198,22 @@ angular.module('nodeadmin', [
       }
     });
    
-   $urlRouterProvider.otherwise('/setup');
+    $urlRouterProvider.otherwise('/setup');
+    // Add httpRequestInterceptor factory to http interceptors
+    $httpProvider.interceptors.push('httpRequestInterceptor');
+})
+.factory('httpRequestInterceptor', function($window) {
+  // Intercepts all http requests
+  return {
+    request: function(config) {
+      var jwt = $window.localStorage.getItem('nodeadmin');
+      if (jwt) {
+        // Attach JWT to request headers
+        config.headers['X-Access-Token'] = jwt;
+      }
+      return config;
+    }
+  };
 })
 // Hidden for dev
 // .run(function($rootScope, $state, Auth) {
