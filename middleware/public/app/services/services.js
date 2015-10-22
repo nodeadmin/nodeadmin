@@ -32,7 +32,26 @@ angular.module('nodeadmin.services', [])
     isAuth: isAuth
   };
 
-}]);
+}])
 
+.factory('Stats', function ($http) {
+  return {
+    serverStats:function() {
+      return $http({
+        method:'GET',
+        url:'/nodeadmin/api/home/os'
+      })
+      .then(function (data) {
+        return data;
+      })
+      .catch(function (err) {
+        return err
+      });
+    }
+  };
+
+});
   
-  
+
+
+

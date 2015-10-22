@@ -1,9 +1,15 @@
-<h1>home sweet home</h1>
 
 
 <div class="container">
+  <h1 style="margin-bottom:20px;">Web Server</h1>
   <div class="row">
-    <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 ">HI</div>
+    <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 ">
+      <p>Hostname: {{ serverStats.hostname }}</p>
+      <p>Uptime: {{ serverStats.uptime }}</p>
+      <p>Kernel: {{ serverStats.type }}</p>
+      <p>Load Averages: {{ serverStats.load }}</p>
+      <p>Memory: {{ serverStats.memory }}</p>
+    </div>
     <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 col-md-offset-2">HI</div>
   </div>
   <div style="margin-top:40px;" class="row">
