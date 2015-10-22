@@ -16,7 +16,7 @@ angular.module('nodeadmin', [
       url: '/setup',
       views: {
         content: {
-          templateUrl: './app/auth/setup.html',
+          templateUrl: 'app/auth/setup.html',
           controller: 'AuthController',          
         }
       },
