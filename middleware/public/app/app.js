@@ -273,24 +273,16 @@ angular.module('nodeadmin', [
 .run(function ($rootScope, $location, $state, Auth) {
 // Check for token on each state change
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-    console.log('tostate', toState)
-    console.log('requiredlogin?', toState.data.requireLogin)
-    console.log('is auth?', Auth.isAuth())
     // If state requires login and if user doesn't have token
     if (toState.data.requireLogin && !Auth.isAuth()) {
       // User isn't authenticated, so prevent state change
       event.preventDefault();
-      $state.transitionTo('login');
-      
-      // check for token
-      // if yes, do nothing
-      // if no
-        // get req: is there a nodeadmin database
-          // yes
-            // login
-          // no
-            // setup
-
+      // Get request to check if nodeadmin database exists
+      if (Auth.doesDBExist()) {
+        $state.transitionTo('login');
+      } else {
+        $state.transitionTo('setup');
+      }
     }
   });
 });
