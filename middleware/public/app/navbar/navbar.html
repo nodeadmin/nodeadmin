@@ -16,10 +16,18 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a ui-sref="home">Home</a></li>
-          <li><a class="active" ui-sref="db">DB</a></li>
-          <li><a ui-sref="system">System </a></li>
-          <li><a ui-sref="settings">Settings</a></li>
+          <li ng-class="{active: (_state == 'home')}">
+            <a ui-sref="home">Home</a>
+          </li>
+          <li ng-class="{active: (_state == 'db')}">
+            <a ui-sref="db">DB</a>
+          </li>
+          <li ng-class="{active: (_state == 'system')}">
+            <a ui-sref="system">System </a>
+          </li>
+          <li ng-class="{active: (_state == 'settings')}">
+            <a ui-sref="settings">Settings</a>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li ng-click="logout()"><a ui-sref="login">Logout</a></li>

@@ -1,8 +1,4 @@
 angular.module('nodeadmin', [
-  'nodeadmin.home',
-  // 'nodeadmin.system',
-  // 'nodeadmin.settings',
-  // 'nodeadmin.db',
   'nodeadmin.services',
   'nodeadmin.home',
   'nodeadmin.auth',
@@ -33,8 +29,8 @@ angular.module('nodeadmin', [
       url: '/login',
       views: {
         content: {
-          templateUrl: '',
-          controller: '',          
+          templateUrl: './app/auth/login.html',
+          controller: 'AuthController',
         }
       },
 
