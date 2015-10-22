@@ -15,19 +15,18 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <!-- {{activeTab}} -->
         <ul class="nav navbar-nav">
-          <li ng-class="{active: activeTab === 'Home'}" ng-click="setActiveTab('Home')">
+          <li ng-class="{active: (_state == 'home')}">
             <a ui-sref="home">Home</a>
           </li>
-          <li>
-            <a ng-class="{active: activeTab === 'DB'}" ui-sref="db" ng-click="setActiveTab('DB')">DB</a>
+          <li ng-class="{active: (_state == 'db')}" >
+            <a ui-sref="db">DB</a>
           </li>
-          <li>
-            <a ng-class="{active: systemActive}" ui-sref="system" ng-click="setActiveTab('System')">System </a>
+          <li ng-class="{active: (_state == 'system')}">
+            <a ui-sref="system">System </a>
           </li>
-          <li>
-            <a ng-class="{active: settingsActive}" ui-sref="settings" ng-click="setActiveTab('Settings')">Settings</a>
+          <li ng-class="{active: (_state == 'settings')}">
+            <a ui-sref="settings">Settings</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
