@@ -12,6 +12,14 @@ module.exports = {
 
   getUptime:function(callback) {
     return callback(null, OS.uptime())
+  },
+
+  getLoadAvg:function(callback) {
+    return callback(null, OS.loadavg());
+  },
+
+  getTotalMemory: function(callback) {
+    return callback(null, OS.totalmem());
   }
 
 }
