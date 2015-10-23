@@ -6,7 +6,7 @@ angular.module('nodeadmin.home', [])
 
   $scope.labels = [];
 
-  $scope.data = [
+  $scope.memory = [
     []
   ];
 
@@ -68,12 +68,12 @@ angular.module('nodeadmin.home', [])
     sock.emit('pressure');
     sock.on('memory', function(data){
       // to do D3
-      console.log(data, 'and scopr ', $scope.data);
+      console.log(data, 'and scopr ', $scope.memory);
 
-      $scope.data[0].push( data);
+      $scope.memory[0].push( data);
       $scope.labels.push(new Date().toLocaleTimeString());
-      if($scope.data[0].length > 10) {
-        $scope.data[0].shift();
+      if($scope.memory[0].length > 10) {
+        $scope.memory[0].shift();
         $scope.labels.shift();
       }
       $scope.$digest();
