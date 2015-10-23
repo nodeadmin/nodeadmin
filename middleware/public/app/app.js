@@ -191,9 +191,6 @@ angular.module('nodeadmin', [
           templateUrl: 'app/db/db.html',
           controller: 'DBController'
         },
-        data: {
-          requireLogin: true
-        }
       },
 
       data: {
