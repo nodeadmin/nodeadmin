@@ -25,6 +25,7 @@
     "jsonwebtoken": "^5.4.0",
     "mysql": "^2.9.0",
     "path": "^0.12.7",
+    "promise-mysql": "^1.1.1",
     "socket.io": "^1.3.7"
   },
   "devDependencies": {
