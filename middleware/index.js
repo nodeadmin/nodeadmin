@@ -38,6 +38,7 @@ module.exports = function nodeadmin(app, express, port) {
   io.of('/system').on('connection', function (socket) {
     console.log('I sent some sturf');
   });
+  
   io.of('/system.logs').on('connection', function (socket) {
     var unhook = hook_stdout(function (str, enc, dir) {
       socket.emit('system.logs', {data: str}); //send logs to system.logs
@@ -45,6 +46,7 @@ module.exports = function nodeadmin(app, express, port) {
     });
     setInterval(function () { console.log('some log thing') }, 2000);
   });
+
   io.on('connection', function (socket) {
     socket.emit('something', {data: "you connected, yo!"});
   });
