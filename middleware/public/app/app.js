@@ -254,34 +254,28 @@ angular.module('nodeadmin', [
     $urlRouterProvider.otherwise('/setup');
 })
 // Hidden for dev
-// .run(function ($window, $http, $rootScope, $location, $state, Auth) {
+.run(function ($window, $http, $rootScope, $location, $state, Auth) {
 
-//   // Check for token on each state change
-//   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+  // Check for token on each state change
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
-//     // Add token to headers 
-//     if (!$http.defaults.headers.common.Authorization) {
-//       // Add token on every http request
-//       var jwt = $window.localStorage.getItem('nodeadmin');
-      
-//       if (jwt) {
-//         // Attach JWT to request headers
-//         $http.defaults.headers.common.Authorization = jwt;
-//       }
-//       initialState = false;
-//     }
+    // Add token to headers for every http request
+    if (!$http.defaults.headers.common.Authorization) {
+      var jwt = $window.localStorage.getItem('nodeadmin');
+      $http.defaults.headers.common.Authorization = jwt;
+    }
 
-//     // If state requires login and if user doesn't have token
-//     if (toState.data.requireLogin && !Auth.isAuth()) {
-//       // User isn't authenticated, so prevent state change
-//       event.preventDefault();
-//       // Get request to check if nodeadmin database exists
-//       if (Auth.doesDBExist()) {
-//         $state.transitionTo('login');
-//       } else {
-//         $state.transitionTo('setup');
-//       }
-//     }
-//   });
-// });
+    // If state requires login and if user doesn't have token
+    if (toState.data.requireLogin && !Auth.isAuth()) {
+      // User isn't authenticated, so prevent state change
+      event.preventDefault();
+      // Get request to check if nodeadmin database exists
+      if (Auth.doesDBExist()) {
+        $state.transitionTo('login');
+      } else {
+        $state.transitionTo('setup');
+      }
+    }
+  });
+});
 
