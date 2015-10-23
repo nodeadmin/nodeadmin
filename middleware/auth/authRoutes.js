@@ -27,4 +27,20 @@ module.exports = function (router) {
         obj.setup(req, res);
       });
     });
+    router.route('/dbcheck')
+    .get(function(req, res) {
+      var connection = req.app.get('connection');
+      connection.query('SHOW DATABASES', function (err, results) {
+        if (err) {
+          console.log(err);
+        }
+        results.forEach(function (result) {
+          if (result.Database === 'nodeAdmin') {
+            res.send(true);
+          }
+        });
+
+        res.send(false);
+      });
+    });
 };
