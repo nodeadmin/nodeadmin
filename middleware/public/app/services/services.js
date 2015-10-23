@@ -4,7 +4,7 @@ angular.module('nodeadmin.services', [])
   var setup = function(user) {
     return $http({
       method: 'POST',
-      url: '/api/auth/setup',
+      url: '/nodeadmin/api/auth/setup',
       data: user
     })
     .then(function(resp) {
