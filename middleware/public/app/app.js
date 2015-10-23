@@ -1,5 +1,6 @@
 angular.module('nodeadmin', [
   'nodeadmin.services',
+  'nodeadmin.socket',
   'nodeadmin.home',
   'nodeadmin.auth',
   'nodeadmin.main',
