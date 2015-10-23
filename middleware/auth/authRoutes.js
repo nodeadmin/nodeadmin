@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var mysql = require('promise-mysql');
 var Promise = require("bluebird");
 var authCtrl = require('./authCtrl');
 
@@ -24,13 +24,14 @@ module.exports = function (router) {
           console.log(err);
           return;
         }
+        req.app.locals.connection = connection;
         var obj = authCtrl.authCtrl(connection);
-        obj.setup(req, res);
+        obj(req, res);
       });
     });
   router.route('/dbcheck')
     .get(function(req, res) {
-      var connection = req.connection;
+      var connection = req.app.locals.connection;
       connection.query('SHOW DATABASES', function (err, results) {
         if (err) {
           console.log(err);

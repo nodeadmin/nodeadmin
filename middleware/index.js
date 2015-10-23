@@ -2,6 +2,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var http = require('http');
 var sock = require('socket.io');
+var HomeController = require('./home/homeController');
 
 var io = undefined;
 
@@ -14,6 +15,15 @@ module.exports = function nodeadmin(app, express, port) {
   io.sockets.on('connection', function (socket) {
     
   });
+
+  io.of('/home').on('connection', function(socket) {
+    socket.on('pressure', function(){
+      setInterval(function(){
+        socket.emit('memory', HomeController.getFreeMemory());
+      }, 1000);
+    });
+  });
+
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
