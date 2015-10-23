@@ -22,7 +22,7 @@ angular.module('nodeadmin', [
       },
 
       data: {
-        doesNotRequireLogin: true
+        requireLogin: false
       }
     })
     .state('login', {
@@ -35,7 +35,7 @@ angular.module('nodeadmin', [
       },
 
       data: {
-        doesNotRequireLogin: true
+        requireLogin: false
       }
     })
 
@@ -156,6 +156,9 @@ angular.module('nodeadmin', [
         content: {
           templateUrl: 'app/db/db.html',
           controller: 'DBController'
+        },
+        data: {
+          requireLogin: true
         }
       }
     })
@@ -216,17 +219,16 @@ angular.module('nodeadmin', [
     }
   };
 })
+.run(function ($rootScope, $location, $state, Auth) {
 // Hidden for dev
-// .run(function($rootScope, $state, Auth) {
-// // Check for token on each state change
-//   $rootScope.$on('stateChangeStart', function(event, toState) {
-//     // Check if state requires login 
-//     if (!toState.data.doesNotRequireLogin && !Auth.isAuth()) {
-//       // User isn't authenticated so prevent state change
-//       event.preventDefault();
-//       $state.transitionTo('login');
-//     }
-//   });
-// });
-
+// Check for token on each state change
+  $rootScope.$on('stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    // Check if state requires login 
+    if (toState.data.requireLogin && !Auth.isAuth()) {
+      // User isn't authenticated so prevent state change
+      event.preventDefault();
+      $state.transitionTo('login');
+    }
+  });
+});
 

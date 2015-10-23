@@ -8,7 +8,10 @@ angular.module('nodeadmin.services', [])
       data: user
     })
     .then(function(resp) {
+      console.log('resp', resp)
       return resp.data.token;
+    }, function(err) {
+      console.log(err);
     });
   };
 

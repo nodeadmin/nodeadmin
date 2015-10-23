@@ -55,7 +55,7 @@ module.exports.authCtrl = function(connection) {
 										if (err) {
 											errorHandler(err);
 										}
-										console.log(dbId);
+										console.log('dbId: ', dbId);
 										queries.insertUser = 'INSERT INTO users (username, password, database_id) VALUES ("' + req.body.username + '", "' + pass + '", "' + dbId + '")';
 										connection.query(queries.insertUser, function(err, result) {
 											if (err) {
@@ -63,8 +63,7 @@ module.exports.authCtrl = function(connection) {
 											}
 
 											var token = jwt.sign({username: req.body.username}, 'Rwue0IHNM563p0Aa50dcsO8qxeZNFYr9');
-											console.log(token);
-											res.status(200).send(token);
+											res.status(200).json({token: token});
 										});
 									});
                 });
