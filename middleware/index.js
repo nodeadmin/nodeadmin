@@ -40,11 +40,12 @@ module.exports = function nodeadmin(app, express, port) {
   });
   
   io.of('/system.logs').on('connection', function (socket) {
+    socket.emit('system.logs', {data: 'heyoooo'});
     var unhook = hook_stdout(function (str, enc, dir) {
       socket.emit('system.logs', {data: str}); //send logs to system.logs
-      util.debug(str); //write the logs to default route, prefaced by 'DEBUG:'
+      // util.debug(str); //write the logs to default route, prefaced by 'DEBUG:'
     });
-    setInterval(function () { console.log('some log thing') }, 2000);
+    setInterval(function () { console.log('some log thing ' + Math.floor(Math.random()*100) ) }, 2000);
   });
 
   io.on('connection', function (socket) {
@@ -55,7 +56,7 @@ module.exports = function nodeadmin(app, express, port) {
     socket.on('pressure', function(){
       setInterval(function(){
         socket.emit('memory', HomeController.getFreeMemory());
-      }, 1000);
+      }, 5000);
     });
 
     socket.on('clientcpu', function(){
