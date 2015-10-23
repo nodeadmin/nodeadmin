@@ -1,4 +1,5 @@
 angular.module('nodeadmin.system', [])
+
 .controller('SystemController', ['$scope', 'System', function ($scope, System) {
 
   $scope.getModules = function() {
@@ -12,11 +13,11 @@ angular.module('nodeadmin.system', [])
       // Allow for error displaying on modules page
       $scope.error = err.data.error;
     })
-  },
+  };
 
   $scope.toggleMenu = function () {
     $scope.menu = !$scope.menu;
-  }
+  };
   $scope.menu = true;
 
   // Get modules on load

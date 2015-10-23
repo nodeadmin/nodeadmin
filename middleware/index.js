@@ -12,8 +12,11 @@ module.exports = function nodeadmin(app, express, port) {
   io = sock(server);
   server.listen(port || 8000);
 
-  io.sockets.on('connection', function (socket) {
-    
+  io.of('/system').on('connection', function (socket) {
+    console.log('I sent some sturf');
+  });
+  io.on('connection', function (socket) {
+    socket.emit('something', {data: "you connected, yo!"});
   });
 
   io.of('/home').on('connection', function(socket) {
@@ -29,7 +32,6 @@ module.exports = function nodeadmin(app, express, port) {
       }, 2000);
     });
   });
-
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
