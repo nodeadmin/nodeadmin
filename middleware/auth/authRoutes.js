@@ -10,23 +10,14 @@ module.exports = function (router) {
       res.send('eyyyy in auth');
     })
     .post(function (req, res) {
-      console.log('there has been a post request to /auth/setup.');
-      console.log('req.body in authroutes: ', req.body)
-      var connection = mysql.createConnection({
+      mysql.createConnection({
         host: req.body.host,
         user: req.body.mysqlUser,
         password: req.body.mysqlPassword
-      });
-      console.log('Connection has been created and is as follows: ' + connection);
-
-      connection.connect(function (err) {
-        if (err) {
-          console.log(err);
-          return;
-        }
-        req.app.locals.connection = connection;
-        var obj = authCtrl.authCtrl(connection);
-        obj(req, res);
+      }).then(function(conn) {
+          req.app.locals.connection = conn;
+          var obj = authCtrl.authCtrl(conn);
+          obj(req, res);
       });
     });
   router.route('/dbcheck')
