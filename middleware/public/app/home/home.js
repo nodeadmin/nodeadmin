@@ -55,10 +55,12 @@ angular.module('nodeadmin.home', [])
 
   $scope.load = function() {
     $scope.getServerStats();
-    var sock = SocketFactory.connect();
-    // sock.on('hello', function(data){
-    //   console.log(data);
-    // });
+    var sock = SocketFactory.connect('home');
+    console.log(sock);
+    sock.emit('pressure');
+    sock.on('memory', function(data){
+      // to do D3
+    });
 
   };
 
