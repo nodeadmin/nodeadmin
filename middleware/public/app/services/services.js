@@ -18,7 +18,7 @@ angular.module('nodeadmin.services', [])
   var login = function(user) {
     return $http({
       method: 'POST',
-      url: 'api/auth/login',
+      url: '/nodeadmin/api/auth/login',
       data: user
     }).then(function(resp) {
       return resp.data.token;
@@ -28,7 +28,7 @@ angular.module('nodeadmin.services', [])
   var doesDBExist = function() {
     return $http({
       method: 'GET',
-      url: 'api/',
+      url: '/nodeadmin/api/auth/dbcheck',
     }).then(function(resp) {
       // return boolean
       return resp;
