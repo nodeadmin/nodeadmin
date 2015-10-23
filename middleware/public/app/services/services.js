@@ -9,8 +9,6 @@ angular.module('nodeadmin.services', [])
     })
     .then(function(resp) {
       return resp.data.token;
-    }, function(err) {
-      console.log(err);
     });
   };
 
@@ -21,8 +19,6 @@ angular.module('nodeadmin.services', [])
       data: user
     }).then(function(resp) {
       return resp.data.token;
-    }, function(err) {
-      console.log(err);
     });
   };
 
