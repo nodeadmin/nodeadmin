@@ -5,15 +5,13 @@ var sock = require('socket.io');
 
 var io = undefined;
 
-module.exports = function nodeadmin(app, express) {
+module.exports = function nodeadmin(app, express, port) {
   // socket setup
-  var server = http.Server(app);
+  var server = http.createServer(app);
   io = sock(server);
+  server.listen(port || 8000);
 
-  server.listen(process.env.PORT);
-
-  io.on('connection', function (socket) {
-    console.log('Sockect connected with id ', socket.id);
+  io.sockets.on('connection', function (socket) {
     
   });
 
