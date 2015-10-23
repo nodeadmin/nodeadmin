@@ -1,6 +1,5 @@
-/*jshint unused:false*/
 
-'use strict';
+// /*jshint unused:false*/
 
 var Promise = require('bluebird');
 var jwt = require('jsonwebtoken');
@@ -53,11 +52,3 @@ module.exports.authCtrl = function (connection) {
 
 	};
 };
-
-
-
-
-
-
-
-

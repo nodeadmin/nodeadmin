@@ -20,8 +20,7 @@ module.exports = function (router) {
           obj(req, res);
       });
     });
-
-    router.route('/dbcheck')
+  router.route('/dbcheck')
     .get(function(req, res) {
       var connection = req.app.locals.connection;
       connection.query('SHOW DATABASES', function (err, results) {

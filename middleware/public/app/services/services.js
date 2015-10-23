@@ -8,7 +8,6 @@ angular.module('nodeadmin.services', [])
       data: user
     })
     .then(function(resp) {
-      console.log('resp', resp)
       return resp.data.token;
     }, function(err) {
       console.log(err);
@@ -18,12 +17,27 @@ angular.module('nodeadmin.services', [])
   var login = function(user) {
     return $http({
       method: 'POST',
-      url: 'api/auth/login',
+      url: '/nodeadmin/api/auth/login',
       data: user
     }).then(function(resp) {
       return resp.data.token;
+    }, function(err) {
+      console.log(err);
     });
   };
+
+  var doesDBExist = function() {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/auth/dbcheck',
+    }).then(function(resp) {
+      // return boolean
+      console.log('doesDBExist resp: ', resp);
+      return resp;
+    }, function(err) {
+      console.log(err);
+    })
+  }
 
   var isAuth = function() {
     return !!$window.localStorage.getItem('nodeadmin');
@@ -32,7 +46,8 @@ angular.module('nodeadmin.services', [])
   return {
     setup: setup,
     login: login,
-    isAuth: isAuth
+    isAuth: isAuth,
+    doesDBExist: doesDBExist
   };
 
 }])
