@@ -24,7 +24,6 @@ module.exports.authCtrl = function(connection) {
 
       var hash = Promise.promisify(bcrypt.hash);
       // var query = Promise.promisify(connection.query);
-      req.app.set('connection', connection);
 
       connection.query('CREATE DATABASE nodeAdmin', function(err, result) {
         if (err) {

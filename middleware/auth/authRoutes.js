@@ -28,9 +28,9 @@ module.exports = function (router) {
         obj.setup(req, res);
       });
     });
-    router.route('/dbcheck')
+  router.route('/dbcheck')
     .get(function(req, res) {
-      var connection = req.app.get('connection');
+      var connection = req.connection;
       connection.query('SHOW DATABASES', function (err, results) {
         if (err) {
           console.log(err);

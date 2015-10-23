@@ -22,6 +22,8 @@ angular.module('nodeadmin.services', [])
       data: user
     }).then(function(resp) {
       return resp.data.token;
+    }, function(err) {
+      console.log(err);
     });
   };
 
@@ -31,7 +33,10 @@ angular.module('nodeadmin.services', [])
       url: '/nodeadmin/api/auth/dbcheck',
     }).then(function(resp) {
       // return boolean
+      console.log('doesDBExist resp: ', resp);
       return resp;
+    }, function(err) {
+      console.log(err);
     })
   }
 
