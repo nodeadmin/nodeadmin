@@ -10,7 +10,12 @@
       <p>Load Averages: {{ serverStats.load }}</p>
       <p>Memory: {{ serverStats.memory }}</p>
     </div>
-    <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 col-md-offset-2">HI</div>
+    <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 col-md-offset-2">
+      <canvas id="line" class="chart chart-line" chart-data="data"
+        chart-labels="labels" chart-legend="true" chart-series="series"
+        chart-click="onClick" chart-options="{animation: false}" >
+      </canvas> 
+    </div>
   </div>
   <div style="margin-top:40px;" class="row">
     <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5">HI</div>

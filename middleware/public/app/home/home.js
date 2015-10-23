@@ -4,6 +4,14 @@ angular.module('nodeadmin.home', [])
 
   $scope.serverStats = {};
 
+  $scope.labels = [];
+
+  $scope.data = [
+    []
+  ];
+
+  $scope.series = ['Series A', 'Series B'];
+
 
   var toFileSize = function(bytes) {
     var getUnit = function(place) {
@@ -60,6 +68,15 @@ angular.module('nodeadmin.home', [])
     sock.emit('pressure');
     sock.on('memory', function(data){
       // to do D3
+      console.log(data, 'and scopr ', $scope.data);
+
+      $scope.data[0].push( data);
+      $scope.labels.push(new Date().toLocaleTimeString());
+      if($scope.data[0].length > 10) {
+        $scope.data[0].shift();
+        $scope.labels.shift();
+      }
+      $scope.$digest();
     });
 
   };
