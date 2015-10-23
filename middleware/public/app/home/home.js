@@ -1,8 +1,9 @@
 
 angular.module('nodeadmin.home', [])
-.controller('HomeController', function ($scope, Stats) {
+.controller('HomeController', function ($scope, Stats, SocketFactory) {
 
   $scope.serverStats = {};
+
 
   var toFileSize = function(bytes) {
     var getUnit = function(place) {
@@ -52,7 +53,17 @@ angular.module('nodeadmin.home', [])
 
   };
 
-  $scope.getServerStats();
+  $scope.load = function() {
+    $scope.getServerStats();
+    var sock = SocketFactory.connect();
+    // sock.on('hello', function(data){
+    //   console.log(data);
+    // });
+
+  };
+
+  $scope.load();
+
 });
 
 
