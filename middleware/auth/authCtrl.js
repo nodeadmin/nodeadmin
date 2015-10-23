@@ -1,59 +1,59 @@
-/*jshint unused:false*/
+// /*jshint unused:false*/
 
-'use strict';
+// 'use strict';
 
-var Promise = require('bluebird');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
+// var Promise = require('bluebird');
+// var jwt = require('jsonwebtoken');
+// var bcrypt = require('bcrypt');
 
-module.exports.authCtrl = function (connection) {
+// module.exports.authCtrl = function (connection) {
 
-  return function (request, response) {
+//   return function (request, response) {
     
-    query('SHOW DATABASES')
-      .then(function (result) {
-        console.log('show databases was successfully called');
-        result.each(function (row) {
-          if (row.Database === 'nodeAdmin') {
-            res.send(true);
-          }
-        });
-        return query('CREATE DATABASE nodeAdmin');
-      })
-      .then(function (result) {
-        console.log('create database nodeadmin successfully called.');
-        return query('USE nodeAdmin');
-      })
-      .then(function (result) {
-        console.log('use nodeadmin query executed successfully.');
-        return query(queries.databaseTable);
-      })
-      .then(function (result) {
-        console.log('Creation of database table successful');
-        return query(queries.usersTable);
-      })
-      .then(function (result) {
-        console.log('Users table successfully created');
-        return query(queries.insertDB);
-      })
-      .then(function(result) {
-        return hash(req.body.password, 10);
-      })
-      .then(function (pass) {
-        console.log('dbID query and password hash successful');
-        queries.insertUser = 'INSERT INTO users (username, password, database_id) VALUES ("' + req.body.username + '", "' + req.body.password + '", "' + 1 + '")';
-        return query(queries.insertUser);
-      })
-      .then(function (result) {
-        console.log('User successfully added to newly created database');
-        res.status(200).send('hello');
-      })
-      .catch(function(e) {
-        console.error(e);
-        res.status(500).send(e);
-      });
+//     query('SHOW DATABASES')
+//       .then(function (result) {
+//         console.log('show databases was successfully called');
+//         result.each(function (row) {
+//           if (row.Database === 'nodeAdmin') {
+//             res.send(true);
+//           }
+//         });
+//         return query('CREATE DATABASE nodeAdmin');
+//       })
+//       .then(function (result) {
+//         console.log('create database nodeadmin successfully called.');
+//         return query('USE nodeAdmin');
+//       })
+//       .then(function (result) {
+//         console.log('use nodeadmin query executed successfully.');
+//         return query(queries.databaseTable);
+//       })
+//       .then(function (result) {
+//         console.log('Creation of database table successful');
+//         return query(queries.usersTable);
+//       })
+//       .then(function (result) {
+//         console.log('Users table successfully created');
+//         return query(queries.insertDB);
+//       })
+//       .then(function(result) {
+//         return hash(req.body.password, 10);
+//       })
+//       .then(function (pass) {
+//         console.log('dbID query and password hash successful');
+//         queries.insertUser = 'INSERT INTO users (username, password, database_id) VALUES ("' + req.body.username + '", "' + req.body.password + '", "' + 1 + '")';
+//         return query(queries.insertUser);
+//       })
+//       .then(function (result) {
+//         console.log('User successfully added to newly created database');
+//         res.status(200).send('hello');
+//       })
+//       .catch(function(e) {
+//         console.error(e);
+//         res.status(500).send(e);
+//       })
 
-};
+// };
 
 
 

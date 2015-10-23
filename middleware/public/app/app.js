@@ -9,7 +9,8 @@ angular.module('nodeadmin', [
   'nodeadmin.system',
   'nodeadmin.db',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'chart.js'
 ])
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider

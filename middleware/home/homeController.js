@@ -21,6 +21,10 @@ module.exports = {
 
   getTotalMemory: function(callback) {
     return callback(null, OS.totalmem());
+  },
+
+  getFreeMemory: function(callback) {
+    return OS.freemem();
   }
 
 }
