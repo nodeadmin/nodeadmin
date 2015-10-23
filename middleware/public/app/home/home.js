@@ -1,6 +1,22 @@
 
 angular.module('nodeadmin.home', [])
-.controller('HomeController', function ($scope, Stats, SocketFactory) {
+.factory('HSFactory', ['SocketFactory', function (SocketFactory){
+
+  var _homeStat = {};
+
+  _homeStat.socket = SocketFactory.connect('home');
+
+  _homeStat.loadMemory = function(callback) {
+    this.socket.emit('pressure');
+    this.socket.on('memory', function (mem) {
+      callback(mem);
+    });
+  };
+
+  return _homeStat;
+
+}])
+.controller('HomeController', function ($scope, Stats, HSFactory) {
 
   $scope.serverStats = {};
 
@@ -10,7 +26,7 @@ angular.module('nodeadmin.home', [])
     []
   ];
 
-  $scope.series = ['Series A', 'Series B'];
+  $scope.series = [];
 
 
   var toFileSize = function(bytes) {
@@ -61,24 +77,27 @@ angular.module('nodeadmin.home', [])
 
   };
 
+  $scope._memoryStream = function(data) {
+    var sizeString = toFileSize( data );
+
+    // series label
+    $scope.series.push( sizeString.match(/[A-Za-z]+/)[0] );
+    // memory size
+    $scope.memory[0].push( sizeString.match(/\d+\.\d{1,2}/,'gi')[0] );
+
+    $scope.labels.push(new Date().toLocaleTimeString());
+    if($scope.memory[0].length > 6) {
+      $scope.memory[0].shift();
+      $scope.labels.shift();
+    }
+    $scope.$digest();
+  };
+
   $scope.load = function() {
     $scope.getServerStats();
-    var sock = SocketFactory.connect('home');
-    console.log(sock);
-    sock.emit('pressure');
-    sock.on('memory', function(data){
-      // to do D3
-      console.log(data, 'and scopr ', $scope.memory);
 
-      $scope.memory[0].push( data);
-      $scope.labels.push(new Date().toLocaleTimeString());
-      if($scope.memory[0].length > 10) {
-        $scope.memory[0].shift();
-        $scope.labels.shift();
-      }
-      $scope.$digest();
-    });
-
+    // load memory stream module
+    HSFactory.loadMemory($scope._memoryStream);
   };
 
   $scope.load();
