@@ -52,6 +52,10 @@ angular.module('nodeadmin', [
           templateUrl: 'app/home/home.html',
           controller: 'HomeController'          
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
 
@@ -66,6 +70,10 @@ angular.module('nodeadmin', [
           templateUrl: 'app/settings/settings.html',
           controller: 'SettingsController'          
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
     .state('settings.users', {
@@ -79,6 +87,10 @@ angular.module('nodeadmin', [
           templateUrl: '',
           controller: ''          
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
     .state('settings.notifications', {
@@ -92,6 +104,10 @@ angular.module('nodeadmin', [
           templateUrl: '',
           controller: ''
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
     .state('settings.advanced', {
@@ -105,6 +121,10 @@ angular.module('nodeadmin', [
           templateUrl: '',
           controller: ''          
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
 
@@ -119,6 +139,10 @@ angular.module('nodeadmin', [
           templateUrl: 'app/system/system.html',
           controller: 'SystemController'
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
     .state('system.logs', {
@@ -132,6 +156,10 @@ angular.module('nodeadmin', [
           templateUrl: '',
           controller: ''          
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
     .state('system.fs', {
@@ -145,6 +173,10 @@ angular.module('nodeadmin', [
           templateUrl: '',
           controller: ' '          
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
 
@@ -162,6 +194,10 @@ angular.module('nodeadmin', [
         data: {
           requireLogin: true
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
     .state('db.tables', {
@@ -175,6 +211,10 @@ angular.module('nodeadmin', [
           templateUrl: '',
           controller: ''      
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
     .state('db.createTable', {
@@ -188,6 +228,10 @@ angular.module('nodeadmin', [
           templateUrl: '',
           controller: ''          
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     })
     .state('db.records', {
@@ -201,36 +245,36 @@ angular.module('nodeadmin', [
           templateUrl: '',
           controller: ''          
         }
+      },
+
+      data: {
+        requireLogin: true
       }
     });
    
     $urlRouterProvider.otherwise('/setup');
-    // Add httpRequestInterceptor factory to http interceptors
-    $httpProvider.interceptors.push('httpRequestInterceptor');
 })
-.factory('httpRequestInterceptor', function($window) {
-  // Intercepts all http requests
-  return {
-    request: function(config) {
-      var jwt = $window.localStorage.getItem('nodeadmin');
-      if (jwt) {
-        // Attach JWT to request headers
-        config.headers['X-Access-Token'] = jwt;
-      }
-      return config;
-    }
-  };
-})
-.run(function ($rootScope, $location, $state, Auth) {
-// Hidden for dev
-// Check for token on each state change
-  $rootScope.$on('stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-    // Check if state requires login 
-    if (toState.data.requireLogin && !Auth.isAuth()) {
-      // User isn't authenticated so prevent state change
-      event.preventDefault();
-      $state.transitionTo('login');
-    }
-  });
-});
+// Hidden for dev (requires login to access states)
+// .run(function ($window, $http, $rootScope, $location, $state, Auth) {
+
+//   // Check for token on each state change
+//   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+
+//     // Add token to headers for every http request
+//     var jwt = $window.localStorage.getItem('nodeadmin');
+//     $http.defaults.headers.common['Authorization'] = jwt;
+
+//     // If state requires login and if user doesn't have token
+//     if (toState.data.requireLogin && !Auth.isAuth()) {
+//       // User isn't authenticated, so prevent state change
+//       event.preventDefault();
+//       // Get request to check if nodeadmin database exists
+//       if (Auth.doesDBExist()) {
+//         $state.transitionTo('login');
+//       } else {
+//         $state.transitionTo('setup');
+//       }
+//     }
+//   });
+// });
 
