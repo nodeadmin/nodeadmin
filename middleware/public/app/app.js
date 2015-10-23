@@ -251,38 +251,36 @@ angular.module('nodeadmin', [
     });
    
     $urlRouterProvider.otherwise('/setup');
-    
-    // Add httpRequestInterceptor factory to http interceptors
-    // $httpProvider.interceptors.push('httpRequestInterceptor');
 })
-// .factory('httpRequestInterceptor', function($window) {
-//   // Intercepts all http requests
-//   return {
-//     request: function(config) {
+// Hidden for dev
+// .run(function ($window, $http, $rootScope, $location, $state, Auth) {
+
+//   // Check for token on each state change
+//   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+
+//     // Add token to headers 
+//     if (!$http.defaults.headers.common.Authorization) {
+//       // Add token on every http request
 //       var jwt = $window.localStorage.getItem('nodeadmin');
+      
 //       if (jwt) {
 //         // Attach JWT to request headers
-//         config.headers['X-Access-Token'] = jwt;
+//         $http.defaults.headers.common.Authorization = jwt;
 //       }
-//       return config;
+//       initialState = false;
 //     }
-//   };
-// })
-// Hidden for dev
-.run(function ($rootScope, $location, $state, Auth) {
-// Check for token on each state change
-  $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-    // If state requires login and if user doesn't have token
-    if (toState.data.requireLogin && !Auth.isAuth()) {
-      // User isn't authenticated, so prevent state change
-      event.preventDefault();
-      // Get request to check if nodeadmin database exists
-      if (Auth.doesDBExist()) {
-        $state.transitionTo('login');
-      } else {
-        $state.transitionTo('setup');
-      }
-    }
-  });
-});
+
+//     // If state requires login and if user doesn't have token
+//     if (toState.data.requireLogin && !Auth.isAuth()) {
+//       // User isn't authenticated, so prevent state change
+//       event.preventDefault();
+//       // Get request to check if nodeadmin database exists
+//       if (Auth.doesDBExist()) {
+//         $state.transitionTo('login');
+//       } else {
+//         $state.transitionTo('setup');
+//       }
+//     }
+//   });
+// });
 
