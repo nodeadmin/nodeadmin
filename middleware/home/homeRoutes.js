@@ -29,4 +29,26 @@ module.exports = function(router) {
 
     });
 
+  router.route('/connections')
+    .get(function(req, res){
+      HomeController.getServerConnectionsAsync(req)
+        .then(function (data) {
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    });
+
+  router.route('/cpu')
+    .get(function (req, res) {
+      HomeController.getCpusAsync()
+        .then(function (cpus){
+          res.end(JSON.stringify(cpus));
+
+        })
+        .catch(function (err){
+          res.end(JSON.stringify(err));
+        });
+    })
+
 };

@@ -22,6 +22,12 @@ module.exports = function nodeadmin(app, express, port) {
         socket.emit('memory', HomeController.getFreeMemory());
       }, 1000);
     });
+
+    socket.on('clientcpu', function(){
+      setInterval(function(){
+        socket.emit('servercpu', HomeController.getCpus());
+      }, 2000);
+    });
   });
 
 
