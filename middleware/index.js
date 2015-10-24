@@ -13,7 +13,6 @@ var morgan = require('morgan');
 var io;
 
 var util = require('util');
-var process = require('process');
 var stdout_write = process.stdout.write;
 /*
 this overwrites process.stdout.write (the function used by console.log) and allows the user 
@@ -88,6 +87,7 @@ module.exports = function nodeadmin(app, port) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use('/nodeadmin', express.static(__dirname + '/public'));
+  app.locals.secret = 'Rwue0IHNM563p0Aa50dcsO8qxeZNFYr9';
   
   //Routes\\
   app.use('/nodeadmin/api/auth', auth);

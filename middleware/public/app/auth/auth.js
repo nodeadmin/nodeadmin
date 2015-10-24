@@ -8,6 +8,7 @@ angular.module('nodeadmin.auth', [])
       .then(function(token) {
         // Store session token
         $window.localStorage.setItem('nodeadmin', token);
+        console.log('window in setup', $window)
         if (token) {
           $state.transitionTo('home');
         } 
