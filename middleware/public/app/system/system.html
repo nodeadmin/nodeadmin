@@ -1,5 +1,4 @@
 <div id="wrapper" ng-class="{toggled: menu}">
-
   <!-- Sidebar -->
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
@@ -9,7 +8,7 @@
         </a>
       </li>
       <li>
-        <a ui-sref="system">Modules</a>
+        <a ui-sref="modules">Modules</a>
       </li>
       <li>
         <a ui-sref="logs">Logs</a>
@@ -27,13 +26,7 @@
       <div class="row">
         <div class="col-lg-12">
           <a ng-click="toggleMenu()" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-          <div class="container">
-            <h2>Modules</h2>
-            <div class="module-container">
-              <pre>{{ modules }}</pre>
-            </div>
-            <div class="error" ng-show="error">{{ error }}</div>
-          </div>
+          <div ui-view />
         </div>
       </div>
     </div>

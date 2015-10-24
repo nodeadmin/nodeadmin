@@ -7,6 +7,8 @@ angular.module('nodeadmin', [
   'nodeadmin.navbar',
   'nodeadmin.settings',
   'nodeadmin.system',
+  'nodeadmin.system.modules',
+  'nodeadmin.system.logs',
   'nodeadmin.db',
   'ui.router',
   'ui.bootstrap',
@@ -89,6 +91,7 @@ angular.module('nodeadmin', [
     })
 
     .state('system', {
+      abstract: true,
       parent: 'main',
       url: 'system',
       templateUrl: 'app/system/system.html',
@@ -97,11 +100,20 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
+    .state('modules', {
+      parent: 'system',
+      url: '',
+      templateUrl: 'app/system/modules/modules.html',
+      controller: 'ModulesController',
+      data: {
+        requireLogin: true
+      }
+    })
     .state('logs', {
       parent: 'system',
-      url: 'system/logs',
-      templateUrl: 'app/navbar/navbar.html',
-      controller: 'NavController',
+      url: '/logs',
+      templateUrl: 'app/system/logs/logs.html',
+      controller: 'LogsController',
       data: {
         requireLogin: true
       }
