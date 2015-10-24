@@ -1,12 +1,11 @@
 angular.module('nodeadmin.system', [])
 .controller('SystemController', ['$scope', 'System', function ($scope, System) {
-  $scope.modules = {};
 
   $scope.getModules = function() {
     System.getModules()
     .then(function(modules) {
       console.log('what are the modules? ', modules);
-      $scope.modules = modules;
+      $scope.modules = modules.data;
     })
     .catch(function(err) {
       console.error(err.data.error);
@@ -18,7 +17,7 @@ angular.module('nodeadmin.system', [])
   $scope.toggleMenu = function () {
     $scope.menu = !$scope.menu;
   }
-  $scope.menu = false;
+  $scope.menu = true;
 
   // Get modules on load
   $scope.getModules();
