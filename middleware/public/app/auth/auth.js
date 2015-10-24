@@ -8,7 +8,6 @@ angular.module('nodeadmin.auth', [])
       .then(function(token) {
         // Store session token
         $window.localStorage.setItem('nodeadmin', token);
-        console.log('window in setup', $window)
         if (token) {
           $state.transitionTo('home');
         } 
@@ -34,6 +33,11 @@ angular.module('nodeadmin.auth', [])
         // Allow for error displaying on login page
         $scope.error = err.data.error;
       });
+  };
+
+  $scope.logout = function() {
+    $window.localStorage.removeItem('nodeadmin');
+    $state.transitionTo('login');
   };
 
 }]);
