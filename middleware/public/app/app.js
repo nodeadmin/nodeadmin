@@ -15,14 +15,7 @@ angular.module('nodeadmin', [
 ])
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
-    .state('setup', {
-      url: '/setup',
-      templateUrl: 'app/auth/setup.html',
-      controller: 'AuthController',
-      data: {
-        requireLogin: false
-      }
-    })
+   
     .state('login', {
       url: '/login',
       templateUrl: './app/auth/login.html',
@@ -164,7 +157,7 @@ angular.module('nodeadmin', [
       }
     });
    
-    $urlRouterProvider.otherwise('/setup');
+    $urlRouterProvider.otherwise('/login');
 })
 // Hidden for dev (requires login to access states)
 .run(function ($window, $http, $rootScope, $location, $state, Auth) {
@@ -180,14 +173,9 @@ angular.module('nodeadmin', [
     if (toState.data.requireLogin && !Auth.isAuth()) {
       // User isn't authenticated, so prevent state change
       event.preventDefault();
-      // Get request to check if nodeadmin database exists
-      console.log('does DBexist in app.js', Auth.doesDBExist())
-      if (Auth.doesDBExist()) {
-        $state.transitionTo('login');
-      } else {
-        $state.transitionTo('setup');
-      }
-    }
+
+      $state.transitionTo('login');         
+    };
   });
 });
 
