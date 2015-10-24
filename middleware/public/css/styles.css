@@ -1,4 +1,5 @@
 .log-line {
-    padding-top: .25%;
-    padding-bottom: .25%;
+    padding-top: .75%;
+    padding-bottom: .75%;
+    border-bottom: 1px solid;
 }
