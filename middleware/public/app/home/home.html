@@ -1,8 +1,7 @@
-
-
 <div class="container">
-  <h1 style="margin-bottom:20px;">Web Server</h1>
+  <h1 style="margin-bottom:20px;">Overview</h1>
   <div class="row">
+    <h3>Server</h3>
     <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 ">
       <p>Hostname: {{ serverStats.hostname }}</p>
       <p>Uptime: {{ serverStats.uptime }}</p>
@@ -18,7 +17,21 @@
     </div>
   </div>
   <div style="margin-top:40px;" class="row">
-    <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5">HI</div>
+    <h3>CPU's</h3>
+    <div style="border:1px solid grey; background-color:lightgrey;" class="col-md-5">
+      <div ng-repeat="cpu in cpu_cores">
+        <p><span style="font-variant:small-caps;">Model:</span> {{ cpu.model }}</p>
+        <p><span style="font-variant:small-caps;">Speed:</span> {{ cpu.speed }}</p>
+        <p><span style="font-variant:small-caps;">User:</span> <span style="color:blue;">{{ cpu.times.user }}</span></p>
+        <p><span style="font-variant:small-caps;">System:</span> <span style="color:red;">{{ cpu.times.sys }}</span></p>
+        <p><span style="font-variant:small-caps;">Idle:</span> <span style="color:green;">{{ cpu.times.idle }}</span></p>
+        <hr>        
+      </div>
+      <p></p>
+      <p></p>
+      <p></p>
+    </div>
+
     <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 col-md-offset-2">HI</div>
   </div>
 </div>
