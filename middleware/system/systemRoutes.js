@@ -1,11 +1,14 @@
+var exec = require('child_process').exec;
 
 module.exports = function(router) {
   router.route('/modules')
     .get(function (req, res){
-      res.send('eyyyy in system');
-    })
-    .catch(function(err) {
-      console.log(err);
-      res.status(500).json({error: err});
+      exec('npm list --long', function(err, stdout, stderr) {
+        if (err) {
+          console.log('Error executing npm list --long: ', err);
+        }
+        console.log('\n \n \n \n \n NPM LIST: ', stdout);
+        res.send(stdout);
+      });
     });
 };

@@ -166,16 +166,16 @@ angular.module('nodeadmin', [
     $http.defaults.headers.common['Authorization'] = jwt;
 
     // If state requires login and if user doesn't have token
-    if (toState.data.requireLogin && !Auth.isAuth()) {
-      // User isn't authenticated, so prevent state change
-      event.preventDefault();
-      // Get request to check if nodeadmin database exists
-      if (Auth.doesDBExist()) {
-        $state.transitionTo('login');
-      } else {
-        $state.transitionTo('setup');
-      }
-    }
+    // if (toState.data.requireLogin && !Auth.isAuth()) {
+    //   // User isn't authenticated, so prevent state change
+    //   event.preventDefault();
+    //   // Get request to check if nodeadmin database exists
+    //   if (Auth.doesDBExist()) {
+    //     $state.transitionTo('login');
+    //   } else {
+    //     $state.transitionTo('setup');
+    //   }
+    // }
   });
 });
 
