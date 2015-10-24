@@ -27,7 +27,7 @@ router.route('/setup')
         res.status(500).json({error: 'something broke.'});
       }
     });
-
+  });
 router.route('/dbcheck')
   .get(function(req, res) {
     var connection = req.app.locals.connection;
