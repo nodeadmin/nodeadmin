@@ -48,6 +48,21 @@ angular.module('nodeadmin.services', [])
 
 }])
 
+.factory('System', function ($http) {
+  var getModules = function() {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/system/modules'
+    }).then(function(resp) {
+      return resp;
+    })
+  }
+
+  return {
+    getModules: getModules
+  }
+})
+
 .factory('Stats', function ($http) {
   return {
     serverStats:function() {
