@@ -1,11 +1,16 @@
-var path = require('path');
+var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');
 var sock = require('socket.io');
 var HomeController = require('./home/homeController');
+var auth = require('./auth/authRoutes.js');
+var database = require('./database/databaseRoutes.js');
+var settings = require('./settings/settingsRoutes.js');
+var system = require('./system/systemRoutes.js');
+var home = require('./home/homeRoutes.js');
 var morgan = require('morgan');
 
-var io = undefined;
+var io;
 
 var util = require('util');
 var process = require('process');
@@ -21,15 +26,16 @@ function hook_stdout(callback) {
         return function(string, encoding, fd) {
             write.apply(process.stdout, arguments);
             callback(string, encoding, fd);
-        }
-    })(process.stdout.write)
+        };
+    })(process.stdout.write);
 
     return function() {
         process.stdout.write = stdout_write;
-    }
-};
+    };
+}
 
-module.exports = function nodeadmin(app, express, port) {
+module.exports = function nodeadmin(app, port) {
+  'use strict';
   // socket setup
   app.use(
     morgan('combined', {
@@ -43,7 +49,6 @@ module.exports = function nodeadmin(app, express, port) {
   io.of('/system').on('connection', function (socket) {
     console.log('connection made to /system');
     var unhook;
-    var a;
     socket.on('getlogs', function () {
       console.log('received message about getlogs');
       unhook = hook_stdout(function (str, enc, dir) {
@@ -62,7 +67,7 @@ module.exports = function nodeadmin(app, express, port) {
 
 
   io.on('connection', function (socket) {
-    socket.emit('something', {data: "you connected, yo!"});
+    socket.emit('something', {data: 'you connected, yo!'});
   });
 
   io.of('/home').on('connection', function(socket) {
@@ -71,47 +76,34 @@ module.exports = function nodeadmin(app, express, port) {
         socket.emit('memory', HomeController.getFreeMemory());
       }, 5000);
     });
-
     socket.on('clientcpu', function(){
       setInterval(function(){
         socket.emit('servercpu', HomeController.getCpus());
       }, 2000);
     });
   });
+  
+  //Third party middleware\\
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
-
   app.use('/nodeadmin', express.static(__dirname + '/public'));
-
-  var databaseRouter = express.Router();
-  require('./database/databaseRoutes.js')(databaseRouter);
-  app.use('/nodeadmin/api/db', databaseRouter);
-
-  var settingsRouter = express.Router();
-  require('./settings/settingsRoutes.js')(settingsRouter);
-  app.use('/nodeadmin/api/settings',settingsRouter);
-
-  var systemRouter = express.Router();
-  require('./system/systemRoutes.js')(systemRouter);
-  app.use('/nodeadmin/api/system',systemRouter);
-
-  var homeRouter = express.Router();
-  require('./home/homeRoutes.js')(homeRouter);
-  app.use('/nodeadmin/api/home',homeRouter);
-
-  var authRouter = express.Router();
-  require('./auth/authRoutes.js')(authRouter);
-  app.use('/nodeadmin/api/auth',authRouter);
-
-  app.use('/nodeadmin/', function(req,res,next){
+  
+  //Routes\\
+  app.use('/nodeadmin/api/auth', auth);
+  app.use('/nodeadmin/api/db', database);
+  app.use('/nodeadmin/api/settings',settings);
+  app.use('/nodeadmin/api/system',system);
+  app.use('/nodeadmin/api/home',home);
+  app.use('/nodeadmin/', function(req,res){
     res.send('hello');
-
   });
 
+  //middleware\\
+
   return function nodeadmin(req,res,next) {
-      next();
-  }
-  
+    next();
+  };
+
 
 };

@@ -16,11 +16,11 @@ connection.query('show databases', function (err, rows, fields){
 
 
 
-app.use(nodeadmin(app, express, 4040));
+app.use(nodeadmin(app, 4040));
 app.use('/', function(req, res, next) {
 
   res.send('<h1>HELLO WORLD</h1>');
 
 });
 
-// app.listen(4040);
+//app.listen(4040);
