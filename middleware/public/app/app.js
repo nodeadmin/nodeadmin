@@ -171,14 +171,14 @@ angular.module('nodeadmin', [
     $urlRouterProvider.otherwise('/login');
 })
 // Hidden for dev (requires login to access states)
-.run(function ($window, $http, $rootScope, $location, $state, Auth) {
+// .run(function ($window, $http, $rootScope, $location, $state, Auth) {
 
-  // Check for token on each state change
-  $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+//   // Check for token on each state change
+//   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
-    // Add token to headers for every http request
-    var jwt = $window.localStorage.getItem('nodeadmin');
-    $http.defaults.headers.common['Authorization'] = jwt;
+//     // Add token to headers for every http request
+//     var jwt = $window.localStorage.getItem('nodeadmin');
+//     $http.defaults.headers.common['Authorization'] = jwt;
 
     // If state requires login and if user doesn't have token
     if (toState.data.requireLogin && !Auth.isAuth()) {
