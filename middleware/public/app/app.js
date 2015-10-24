@@ -112,7 +112,7 @@ angular.module('nodeadmin', [
     .state('logs', {
       parent: 'system',
       url: '/logs',
-      templateUrl: 'app/system/logs/logs.html',
+      templateUrl: 'app/system/serverLogs/serverLogs.html',
       controller: 'LogsController',
       data: {
         requireLogin: true
