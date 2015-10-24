@@ -2,17 +2,16 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');
 var sock = require('socket.io');
+var morgan = require('morgan');
 var HomeController = require('./home/homeController');
 var auth = require('./auth/authRoutes.js');
 var database = require('./database/databaseRoutes.js');
 var settings = require('./settings/settingsRoutes.js');
 var system = require('./system/systemRoutes.js');
 var home = require('./home/homeRoutes.js');
-var morgan = require('morgan');
 
 var io;
 
-var util = require('util');
 var stdout_write = process.stdout.write;
 /*
 this overwrites process.stdout.write (the function used by console.log) and allows the user 
@@ -36,11 +35,6 @@ function hook_stdout(callback) {
 module.exports = function nodeadmin(app, port) {
   'use strict';
   // socket setup
-  app.use(
-    morgan('combined', {
-      skip: function () {}
-    })
-  );
   var server = http.createServer(app);
   io = sock(server);
   server.listen(port || 8000);
@@ -84,6 +78,7 @@ module.exports = function nodeadmin(app, port) {
   
   //Third party middleware\\
 
+  app.use(morgan('combined'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use('/nodeadmin', express.static(__dirname + '/public'));

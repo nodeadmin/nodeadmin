@@ -3,7 +3,7 @@ var router = express.Router();
 // var Promise = require("bluebird");
 var mysql = require('promise-mysql');
 var authCtrl = require('./authCtrl');
-
+var connection;
 router.route('/setup')
   .get(function (req, res) {
     res.send('eyyyy in auth');
@@ -14,7 +14,7 @@ router.route('/setup')
       user: req.body.mysqlUser,
       password: req.body.mysqlPassword
     }).then(function(conn) {
-        req.app.locals.connection = conn;
+        connection = conn;
         var obj = authCtrl.authCtrl(conn);
         obj(req, res);
     }).catch(function (e) {
@@ -30,18 +30,23 @@ router.route('/setup')
   });
 router.route('/dbcheck')
   .get(function(req, res) {
-    var connection = req.app.locals.connection;
-    connection.query('SHOW DATABASES', function (err, results) {
-      if (err) {
+    connection.query('SHOW DATABASES')
+      .then(function (results) {
+        results.forEach(function (result) {
+          if (result.Database === 'nodeAdmin') {
+            res.send(true);
+          }
+        });
+        res.send(false);
+      })
+      .catch(function (err) {
         console.log(err);
-      }
-      results.forEach(function (result) {
-        if (result.Database === 'nodeAdmin') {
-          res.send(true);
-        }
       });
-      res.send(false);
-    });
   });
+router.route('/login')
+.post(function (req, res) {
+  var user = req.body.username;
+  var pass = req.body.pass;
 
+})
 module.exports = router;
