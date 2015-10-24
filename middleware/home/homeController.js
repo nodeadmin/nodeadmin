@@ -1,5 +1,6 @@
 var OS = require('os');
 var spawn = require('child_process').spawn;
+var server = require('net');
 
 module.exports = {
 
@@ -25,9 +26,17 @@ module.exports = {
 
   getFreeMemory: function(callback) {
     return OS.freemem();
+  },
+
+  getServerConnections: function(req, callback) {
+    // req.connection.server
+  },
+
+  getCpus: function(callback) {
+    return OS.cpus();
   }
 
-}
+};
 
 
 

@@ -13,6 +13,13 @@ angular.module('nodeadmin.home', [])
     });
   };
 
+  _homeStat.loadCpus = function(callback) {
+    this.socket.emit('clientcpu');
+    this.socket.on('servercpu', function (cpus) {
+      callback(cpus);
+    });
+  };
+
   return _homeStat;
 
 }])
@@ -20,13 +27,15 @@ angular.module('nodeadmin.home', [])
 
   $scope.serverStats = {};
 
+  // memory data
   $scope.labels = [];
-
   $scope.memory = [
     []
   ];
-
   $scope.series = [];
+
+  // cpu data
+  $scope.cpu_cores = [];
 
 
   var toFileSize = function(bytes) {
@@ -93,11 +102,17 @@ angular.module('nodeadmin.home', [])
     $scope.$digest();
   };
 
+  $scope._cpuStream = function(data) {
+      $scope.cpu_cores = data;
+      $scope.$digest();
+  };
+
   $scope.load = function() {
     $scope.getServerStats();
 
     // load memory stream module
     HSFactory.loadMemory($scope._memoryStream);
+    HSFactory.loadCpus($scope._cpuStream);
   };
 
   $scope.load();
