@@ -28,8 +28,8 @@ angular.module('nodeadmin.services', [])
       url: '/nodeadmin/api/auth/dbcheck',
     }).then(function(resp) {
       // return boolean
-      console.log('doesDBExist resp: ', resp);
-      return resp;
+      console.log('doesDBExist resp in services: ', resp.data);
+      return resp.data;
     }, function(err) {
       console.log(err);
     })
