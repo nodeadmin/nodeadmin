@@ -1,5 +1,5 @@
 angular.module('nodeadmin.main', [])
-.controller('MainController', ['$scope', '$state', function ($scope, $state) {
+.controller('MainController', ['$scope', '$state', '$window', function ($scope, $window, $state) {
 
 $scope.logout = function() {
   $window.localStorage.removeItem('nodeadmin');

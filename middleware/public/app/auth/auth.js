@@ -8,12 +8,14 @@ angular.module('nodeadmin.auth', [])
       .then(function(token) {
         // Store session token
         $window.localStorage.setItem('nodeadmin', token);
-        $state.transitionTo('home');
+        if (token) {
+          $state.transitionTo('home');
+        } 
       })
       .catch(function(err) {
-        console.error(err);
+        console.error(err.data.error);
         // Allow for error displaying on setup page
-        $scope.error = err.data;
+        $scope.error = err.data.error;
       });
   };
 
@@ -22,12 +24,14 @@ angular.module('nodeadmin.auth', [])
       .then(function(token) {
         // Store session token
         $window.localStorage.setItem('nodeadmin', token);
-        $state.transitionTo('home');
+        if (token) {
+          $state.transitionTo('home');
+        } 
       })
       .catch(function(err) {
-        console.error(err);
+        console.error(err.data.error);
         // Allow for error displaying on login page
-        $scope.error = err.data;
+        $scope.error = err.data.error;
       });
   };
 

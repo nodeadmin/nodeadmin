@@ -9,8 +9,6 @@ angular.module('nodeadmin.services', [])
     })
     .then(function(resp) {
       return resp.data.token;
-    }, function(err) {
-      console.log(err);
     });
   };
 
@@ -21,8 +19,6 @@ angular.module('nodeadmin.services', [])
       data: user
     }).then(function(resp) {
       return resp.data.token;
-    }, function(err) {
-      console.log(err);
     });
   };
 
@@ -51,6 +47,22 @@ angular.module('nodeadmin.services', [])
   };
 
 }])
+
+.factory('System', function ($http) {
+  var getModules = function() {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/system/modules'
+    }).then(function(resp) {
+      console.log('this is the module resp: ', resp)
+      return resp;
+    })
+  }
+
+  return {
+    getModules: getModules
+  }
+})
 
 .factory('Stats', function ($http) {
   return {

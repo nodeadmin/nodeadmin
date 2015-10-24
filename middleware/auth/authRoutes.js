@@ -18,6 +18,10 @@ module.exports = function (router) {
           req.app.locals.connection = conn;
           var obj = authCtrl.authCtrl(conn);
           obj(req, res);
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.status(500).json({error: err});
       });
     });
   router.route('/dbcheck')
