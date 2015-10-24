@@ -4,7 +4,6 @@ angular.module('nodeadmin', [
   'nodeadmin.home',
   'nodeadmin.auth',
   'nodeadmin.main',
-  'nodeadmin.navbar',
   'nodeadmin.settings',
   'nodeadmin.system',
   'nodeadmin.system.modules',
@@ -16,14 +15,7 @@ angular.module('nodeadmin', [
 ])
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
-    .state('setup', {
-      url: '/setup',
-      templateUrl: 'app/auth/setup.html',
-      controller: 'AuthController',
-      data: {
-        requireLogin: false
-      }
-    })
+   
     .state('login', {
       url: '/login',
       templateUrl: './app/auth/login.html',
@@ -37,7 +29,7 @@ angular.module('nodeadmin', [
       abstract: true,
       url: '/',
       templateUrl: 'app/main/main.html',
-      controller: 'MainController',
+      controller: 'AuthController',
       data: {
         requireLogin: true
       }
@@ -65,8 +57,8 @@ angular.module('nodeadmin', [
     .state('users', {
       parent: 'settings',
       url: 'settings/users',
-      templateUrl: 'app/navbar/navbar.html',
-      controller: 'NavController',
+      templateUrl: '',
+      controller: '',
       data: {
         requireLogin: true
       }
@@ -74,8 +66,8 @@ angular.module('nodeadmin', [
     .state('notifications', {
       parent: 'settings',
       url: 'settings/notifications',
-      templateUrl: 'app/navbar/navbar.html',
-      controller: 'NavController',
+      templateUrl: '',
+      controller: '',
       data: {
         requireLogin: true
       }
@@ -83,8 +75,8 @@ angular.module('nodeadmin', [
     .state('advanced', {
       parent: 'settings',
       url: 'settings/advanced',
-      templateUrl: 'app/navbar/navbar.html',
-      controller: 'NavController',
+      templateUrl: '',
+      controller: '',
       data: {
         requireLogin: true
       }
@@ -121,8 +113,8 @@ angular.module('nodeadmin', [
     .state('fs', {
       parent: 'system',
       url: 'system/fs',
-      templateUrl: 'app/navbar/navbar.html',
-      controller: 'NavController',
+      templateUrl: '',
+      controller: '',
       data: {
         requireLogin: true
       }
@@ -140,8 +132,8 @@ angular.module('nodeadmin', [
     .state('tables', {
       parent: 'db',
       url: 'db/tables',
-      templateUrl: 'app/navbar/navbar.html',
-      controller: 'NavController',
+      templateUrl: '',
+      controller: '',
       data: {
         requireLogin: true
       }
@@ -149,8 +141,8 @@ angular.module('nodeadmin', [
     .state('createTable', {
       parent: 'db',
       url: 'db/createTable',
-      templateUrl: 'app/navbar/navbar.html',
-      controller: 'NavController',
+      templateUrl: '',
+      controller: '',
       data: {
         requireLogin: true
       }
@@ -158,14 +150,14 @@ angular.module('nodeadmin', [
     .state('records', {
       parent: 'db',
       url: 'db/records',
-      templateUrl: 'app/navbar/navbar.html',
-      controller: 'NavController',
+      templateUrl: '',
+      controller: '',
       data: {
         requireLogin: true
       }
     });
    
-    $urlRouterProvider.otherwise('/setup');
+    $urlRouterProvider.otherwise('/login');
 })
 // Hidden for dev (requires login to access states)
 .run(function ($window, $http, $rootScope, $location, $state, Auth) {
@@ -181,13 +173,9 @@ angular.module('nodeadmin', [
     if (toState.data.requireLogin && !Auth.isAuth()) {
       // User isn't authenticated, so prevent state change
       event.preventDefault();
-      // Get request to check if nodeadmin database exists
-      if (Auth.doesDBExist()) {
-        $state.transitionTo('login');
-      } else {
-        $state.transitionTo('setup');
-      }
-    }
+
+      $state.transitionTo('login');         
+    };
   });
 });
 
