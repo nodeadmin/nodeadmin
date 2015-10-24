@@ -12,6 +12,10 @@ angular.module('nodeadmin.system', [])
       // Allow for error displaying on modules page
       $scope.error = err.data.error;
     })
-  }
+  },
 
+  $scope.toggleMenu = function () {
+    $scope.menu = !$scope.menu;
+  }
+  $scope.menu = false;
 }]);

@@ -1,26 +1,72 @@
-<div class="container">
-  <h2>Modules</h2>
-  <table class="table">
-    <thead>
-      <th>Module Name</th>
-      <th>Info 1</th>
-      <th>Info 2</th>
-      <th>Info 3</th>
-      <th>Info 4</th>
-    </thead>
-    <tbody>
-    <!-- <tr ng-repeat = "module in system">
-      <td>{{module.name}}</td>
-      etc
-    </tr> -->
-      <tr>
-        <td>module name</td>
-        <td>info 1</td>
-        <td>info 2</td>
-        <td>info 3</td>
-        <td>info 4</td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="error" ng-show="error">{{ error }}</div>
+<div id="wrapper" ng-class="{toggled: menu}">
+
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a href="#">
+          Start Bootstrap
+        </a>
+      </li>
+      <li>
+        <a href="#">Dashboard</a>
+      </li>
+      <li>
+        <a href="#">Shortcuts</a>
+      </li>
+      <li>
+        <a href="#">Overview</a>
+      </li>
+      <li>
+        <a href="#">Events</a>
+      </li>
+      <li>
+        <a href="#">About</a>
+      </li>
+      <li>
+        <a href="#">Services</a>
+      </li>
+      <li>
+        <a href="#">Contact</a>
+      </li>
+    </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <a ng-click="toggleMenu()" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+          <div class="container">
+            <h2>Modules</h2>
+            <table class="table">
+              <thead>
+                <th>Module Name</th>
+                <th>Info 1</th>
+                <th>Info 2</th>
+                <th>Info 3</th>
+                <th>Info 4</th>
+              </thead>
+              <tbody>
+              <!-- <tr ng-repeat = "module in system">
+                <td>{{module.name}}</td>
+                etc
+              </tr> -->
+                <tr>
+                  <td>module name</td>
+                  <td>info 1</td>
+                  <td>info 2</td>
+                  <td>info 3</td>
+                  <td>info 4</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="error" ng-show="error">{{ error }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
