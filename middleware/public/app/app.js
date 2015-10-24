@@ -9,6 +9,7 @@ angular.module('nodeadmin', [
   'nodeadmin.system.modules',
   'nodeadmin.system.logs',
   'nodeadmin.db',
+  'nodeadmin.db.viewdb',
   'ui.router',
   'ui.bootstrap',
   'chart.js'
@@ -121,10 +122,20 @@ angular.module('nodeadmin', [
     })
 
     .state('db', {
+      abstract: true,
       parent: 'main',
       url: 'db',
       templateUrl: 'app/db/db.html',
       controller: 'DBController',
+      data: {
+        requireLogin: true
+      }
+    })
+    .state('viewDB', {
+      parent: 'db',
+      url: '',
+      templateUrl: 'app/db/viewDB/viewDB.html',
+      controller: 'DBViewController',
       data: {
         requireLogin: true
       }
