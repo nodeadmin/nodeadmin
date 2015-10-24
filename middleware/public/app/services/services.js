@@ -28,7 +28,6 @@ angular.module('nodeadmin.services', [])
       method: 'GET',
       url: '/nodeadmin/api/system/modules'
     }).then(function(resp) {
-      console.log('this is the module resp: ', resp)
       return resp;
     })
   }

@@ -4,7 +4,6 @@ angular.module('nodeadmin.system.modules', [])
 $scope.getModules = function() {
   System.getModules()
   .then(function(modules) {
-    console.log('what are the modules? ', modules);
     $scope.modules = modules.data;
   })
   .catch(function(err) {
