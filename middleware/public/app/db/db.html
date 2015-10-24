@@ -1,7 +1,7 @@
 <div id="wrapper" ng-class="{toggled: menu}">
 
   <!-- Sidebar -->
-  <div id="sidebar-wrapper">
+  <!-- <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand">
         <a href="#">
@@ -30,8 +30,16 @@
         <a href="#">Contact</a>
       </li>
     </ul>
-  </div>
+  </div> -->
   <!-- /#sidebar-wrapper -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <div ng-repeat="db in databases">
+        <li><a ui-sref="#/db/{{db.Database}}">{{ db.Database }}</a></li>
+        
+      </div>
+    </ul>
+  </div>
 
   <!-- Page Content -->
   <div id="page-content-wrapper">
