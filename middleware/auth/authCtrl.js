@@ -14,7 +14,7 @@ module.exports.authCtrl = function (connection) {
 		        insertDB: 'INSERT INTO db (mysql_user, mysql_password, mysql_host) VALUES ("' + req.body.mysqlUser + '", "' + req.body.mysqlPassword + '", "' + req.body.host + '")',
 		        dbId: 'SELECT id FROM db WHERE mysql_user = "' + req.body.mysqlUser + '"'
     };
-    req.app.locals.secret = ('secret', 'Rwue0IHNM563p0Aa50dcsO8qxeZNFYr9');
+   
     connection.query('SHOW DATABASES')
       .then(function (result) {
         result.forEach(function (row) {
