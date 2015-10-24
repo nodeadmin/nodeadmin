@@ -6,7 +6,6 @@ var authCtrl = require('./authCtrl');
 
 router.route('/setup')
   .get(function (req, res) {
-    console.log(req.body.hello);
     res.send('eyyyy in auth');
   })
   .post(function (req, res) {
@@ -42,7 +41,6 @@ router.route('/dbcheck')
           res.send(true);
         }
       });
-
       res.send(false);
     });
   });
