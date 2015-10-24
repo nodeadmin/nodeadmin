@@ -7,6 +7,8 @@ angular.module('nodeadmin', [
   'nodeadmin.navbar',
   'nodeadmin.settings',
   'nodeadmin.system',
+  'nodeadmin.system.modules',
+  'nodeadmin.system.logs',
   'nodeadmin.db',
   'ui.router',
   'ui.bootstrap',
@@ -16,237 +18,148 @@ angular.module('nodeadmin', [
   $stateProvider
     .state('setup', {
       url: '/setup',
-      views: {
-        content: {
-          templateUrl: 'app/auth/setup.html',
-          controller: 'AuthController'        
-        }
-      },
-
+      templateUrl: 'app/auth/setup.html',
+      controller: 'AuthController',
       data: {
         requireLogin: false
       }
     })
     .state('login', {
       url: '/login',
-      views: {
-        content: {
-          templateUrl: './app/auth/login.html',
-          controller: 'AuthController'
-        }
-      },
-
+      templateUrl: './app/auth/login.html',
+      controller: 'AuthController',
       data: {
         requireLogin: false
       }
     })
 
-    .state('home', {
+    .state('main', {
+      abstract: true,
       url: '/',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: 'app/home/home.html',
-          controller: 'HomeController'          
-        }
-      },
+      templateUrl: 'app/main/main.html',
+      controller: 'MainController',
+      data: {
+        requireLogin: true
+      }
+    })
 
+    .state('home', {
+      parent: 'main',
+      url: '',
+      templateUrl: 'app/home/home.html',
+      controller: 'HomeController',
       data: {
         requireLogin: true
       }
     })
 
     .state('settings', {
-      url: '/settings',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: 'app/settings/settings.html',
-          controller: 'SettingsController'          
-        }
-      },
-
+      parent: 'main',
+      url: 'settings',
+      templateUrl: 'app/settings/settings.html',
+      controller: 'SettingsController',
       data: {
         requireLogin: true
       }
     })
-    .state('settings.users', {
-      url: '/settings/users',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: '',
-          controller: ''          
-        }
-      },
-
+    .state('users', {
+      parent: 'settings',
+      url: 'settings/users',
+      templateUrl: 'app/navbar/navbar.html',
+      controller: 'NavController',
       data: {
         requireLogin: true
       }
     })
-    .state('settings.notifications', {
-      url: '/settings/notifications',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: '',
-          controller: ''
-        }
-      },
-
+    .state('notifications', {
+      parent: 'settings',
+      url: 'settings/notifications',
+      templateUrl: 'app/navbar/navbar.html',
+      controller: 'NavController',
       data: {
         requireLogin: true
       }
     })
-    .state('settings.advanced', {
-      url: '/settings/advanced',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: '',
-          controller: ''          
-        }
-      },
-
+    .state('advanced', {
+      parent: 'settings',
+      url: 'settings/advanced',
+      templateUrl: 'app/navbar/navbar.html',
+      controller: 'NavController',
       data: {
         requireLogin: true
       }
     })
 
     .state('system', {
-      url: '/system',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: 'app/system/system.html',
-          controller: 'SystemController'
-        }
-      },
-
+      abstract: true,
+      parent: 'main',
+      url: 'system',
+      templateUrl: 'app/system/system.html',
+      controller: 'SystemController',
       data: {
         requireLogin: true
       }
     })
-    .state('system.logs', {
-      url: '/system/logs',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: '',
-          controller: ''          
-        }
-      },
-
+    .state('modules', {
+      parent: 'system',
+      url: '',
+      templateUrl: 'app/system/modules/modules.html',
+      controller: 'ModulesController',
       data: {
         requireLogin: true
       }
     })
-    .state('system.fs', {
-      url: '/system/fs',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: '',
-          controller: ' '          
-        }
-      },
-
+    .state('logs', {
+      parent: 'system',
+      url: '/logs',
+      templateUrl: 'app/system/serverLogs/serverLogs.html',
+      controller: 'LogsController',
+      data: {
+        requireLogin: true
+      }
+    })
+    .state('fs', {
+      parent: 'system',
+      url: 'system/fs',
+      templateUrl: 'app/navbar/navbar.html',
+      controller: 'NavController',
       data: {
         requireLogin: true
       }
     })
 
     .state('db', {
-      url: '/db',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: 'app/db/db.html',
-          controller: 'DBController'
-        },
-        data: {
-          requireLogin: true
-        }
-      },
-
+      parent: 'main',
+      url: 'db',
+      templateUrl: 'app/db/db.html',
+      controller: 'DBController',
       data: {
         requireLogin: true
       }
     })
-    .state('db.tables', {
-      url: '/db/tables',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: '',
-          controller: ''      
-        }
-      },
-
+    .state('tables', {
+      parent: 'db',
+      url: 'db/tables',
+      templateUrl: 'app/navbar/navbar.html',
+      controller: 'NavController',
       data: {
         requireLogin: true
       }
     })
-    .state('db.createTable', {
-      url: '/db/createTable',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: '',
-          controller: ''          
-        }
-      },
-
+    .state('createTable', {
+      parent: 'db',
+      url: 'db/createTable',
+      templateUrl: 'app/navbar/navbar.html',
+      controller: 'NavController',
       data: {
         requireLogin: true
       }
     })
-    .state('db.records', {
-      url: '/db/records',
-      views: {
-        nav: {
-          templateUrl: 'app/navbar/navbar.html',
-          controller: 'NavController'
-        },
-        content: {
-          templateUrl: '',
-          controller: ''          
-        }
-      },
-
+    .state('records', {
+      parent: 'db',
+      url: 'db/records',
+      templateUrl: 'app/navbar/navbar.html',
+      controller: 'NavController',
       data: {
         requireLogin: true
       }
@@ -254,7 +167,7 @@ angular.module('nodeadmin', [
    
     $urlRouterProvider.otherwise('/setup');
 })
-//Hidden for dev (requires login to access states)
+// Hidden for dev (requires login to access states)
 .run(function ($window, $http, $rootScope, $location, $state, Auth) {
 
   // Check for token on each state change

@@ -24,10 +24,9 @@ router.route('/setup')
       } else if (e.errno === 'ENOTFOUND') {
         res.status(500).json({error: 'We couldn\'t find the host that you provided. Double check to make sure you typed it in correctly and try again.'});
       } else {
-        res.status(500).json({error: "something broke."});
+        res.status(500).json({error: 'something broke.'});
       }
     });
-  });
 
 router.route('/dbcheck')
   .get(function(req, res) {

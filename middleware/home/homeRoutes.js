@@ -33,4 +33,28 @@ router.route('/os')
 
   });
 
+router.route('/connections')
+  .get(function(req, res){
+    'use strict';
+    HomeController.getServerConnectionsAsync(req)
+      .then(function (data) {
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  });
+
+router.route('/cpu')
+  .get(function (req, res) {
+    'use strict';
+    HomeController.getCpusAsync()
+      .then(function (cpus){
+        res.end(JSON.stringify(cpus));
+
+      })
+      .catch(function (err){
+        res.end(JSON.stringify(err));
+      });
+  });
+
 module.exports = router;

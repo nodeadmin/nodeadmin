@@ -49,7 +49,7 @@ module.exports.authCtrl = function (connection) {
       })
       .catch(function(e) {
         console.error(e);
-        res.status(500).send(e);
+        res.status(500).json({error: e});
       });
 
 	};

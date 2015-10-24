@@ -9,21 +9,29 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><img height="100%" src="resources/babka.jpeg"/></a>
+      <a class="navbar-brand" href="#">BABKA</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-init="currTab = 'home'">
       <ul class="nav navbar-nav">
-        <li class="active"><a ui-sref="home">Home</a></li>
-        <li><a class="active" ui-sref="main.db">DB</a></li>
-        <li><a ui-sref="main.system">System </a></li>
-        <li><a ui-sref="main.settings">Settings</a></li>
+        <li ng-class="{active: (currTab == 'home')}" ng-click="currTab = 'home'">
+          <a ui-sref="home">Home</a>
+        </li>
+        <li ng-class="{active: (currTab == 'db')}" ng-click="currTab = 'db'">
+          <a ui-sref="db">DB</a>
+        </li>
+        <li ng-class="{active: (currTab == 'system')}" ng-click="currTab = 'system'">
+          <a ui-sref="modules">System </a>
+        </li>
+        <li ng-class="{active: (currTab == 'settings')}" ng-click="currTab = 'settings'">
+          <a ui-sref="settings">Settings</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li ng-click="logout()"><a sref="#">Logout</a></li>
+        <li ng-click="logout()"><a ui-sref="login">Logout</a></li>
       </ul>
-    </div><!-- /.navbar-collapse
-
-  </div><!-- /.container-fluid -->
+    </div>
 </nav>
+
+<div ui-view></div>
