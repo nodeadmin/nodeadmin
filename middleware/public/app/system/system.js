@@ -1,6 +1,6 @@
 angular.module('nodeadmin.system', [])
 
-.controller('SystemController', ['$scope', 'System', function ($scope, System) {
+.controller('SystemController', ['$scope', '$state', 'System', function ($scope, $state, System) {
 
   $scope.getModules = function() {
     System.getModules()
@@ -13,6 +13,10 @@ angular.module('nodeadmin.system', [])
       // Allow for error displaying on modules page
       $scope.error = err.data.error;
     })
+  };
+  
+  $scope.subState = function (stateName) {
+    $state.transitionTo(stateName);
   };
 
   $scope.toggleMenu = function () {
