@@ -1,22 +1,20 @@
 var express = require('express');
 var router = express.Router();
-// var Promise = require("bluebird");
 var mysql = require('promise-mysql');
-var authCtrl = require('./authCtrl');
-
-router.route('/setup')
+var jwt = require('jsonwebtoken');
+var connection;
+router.route('/login')
   .get(function (req, res) {
     res.send('eyyyy in auth');
   })
   .post(function (req, res) {
     mysql.createConnection({
-      host: req.body.host,
       user: req.body.mysqlUser,
       password: req.body.mysqlPassword
     }).then(function(conn) {
-        req.app.locals.connection = conn;
-        var obj = authCtrl.authCtrl(conn);
-        obj(req, res);
+        connection = conn;
+        var token = jwt.sign({msg: 'welcome!'}, req.app.locals.secret);
+				res.status(200).json({token: token});
     }).catch(function (e) {
       console.log(e);
       if(e.errno === 1045) {
@@ -26,21 +24,6 @@ router.route('/setup')
       } else {
         res.status(500).json({error: 'something broke.'});
       }
-    });
-  });
-router.route('/dbcheck')
-  .get(function(req, res) {
-    var connection = req.app.locals.connection;
-    connection.query('SHOW DATABASES', function (err, results) {
-      if (err) {
-        console.log(err);
-      }
-      results.forEach(function (result) {
-        if (result.Database === 'nodeAdmin') {
-          res.send(true);
-        }
-      });
-      res.send(false);
     });
   });
 
