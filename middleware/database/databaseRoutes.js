@@ -22,8 +22,3 @@ router.use(tokenCheck);
 module.exports = router;
 
 
-
-
-
-
->>>>>>> before merge
