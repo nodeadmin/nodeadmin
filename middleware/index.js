@@ -1,19 +1,26 @@
-var path = require('path');
+var express = require('express');
 var bodyParser = require('body-parser');
 var http = require('http');
 var sock = require('socket.io');
 var HomeController = require('./home/homeController');
+var auth = require('./auth/authRoutes.js');
+var database = require('./database/databaseRoutes.js');
+var settings = require('./settings/settingsRoutes.js');
+var system = require('./system/systemRoutes.js');
+var home = require('./home/homeRoutes.js');
 
-var io = undefined;
+var io;
 
-module.exports = function nodeadmin(app, express, port) {
+module.exports = function nodeadmin(app, port) {
+  'use strict';
+  
   // socket setup
   var server = http.createServer(app);
   io = sock(server);
   server.listen(port || 8000);
 
   io.sockets.on('connection', function (socket) {
-    
+    socket.emit('connected', { msg: 'You have successfully connected' });
   });
 
   io.of('/home').on('connection', function(socket) {
@@ -23,41 +30,27 @@ module.exports = function nodeadmin(app, express, port) {
       }, 1000);
     });
   });
-
-
+  
+  //Third party middleware\\
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
-
   app.use('/nodeadmin', express.static(__dirname + '/public'));
-
-  var databaseRouter = express.Router();
-  require('./database/databaseRoutes.js')(databaseRouter);
-  app.use('/nodeadmin/api/db', databaseRouter);
-
-  var settingsRouter = express.Router();
-  require('./settings/settingsRoutes.js')(settingsRouter);
-  app.use('/nodeadmin/api/settings',settingsRouter);
-
-  var systemRouter = express.Router();
-  require('./system/systemRoutes.js')(systemRouter);
-  app.use('/nodeadmin/api/system',systemRouter);
-
-  var homeRouter = express.Router();
-  require('./home/homeRoutes.js')(homeRouter);
-  app.use('/nodeadmin/api/home',homeRouter);
-
-  var authRouter = express.Router();
-  require('./auth/authRoutes.js')(authRouter);
-  app.use('/nodeadmin/api/auth',authRouter);
-
-  app.use('/nodeadmin/', function(req,res,next){
+  
+  //Routes\\
+  app.use('/nodeadmin/api/auth', auth);
+  app.use('/nodeadmin/api/db', database);
+  app.use('/nodeadmin/api/settings',settings);
+  app.use('/nodeadmin/api/system',system);
+  app.use('/nodeadmin/api/home',home);
+  app.use('/nodeadmin/', function(req,res){
     res.send('hello');
-
   });
 
+  //middleware\\
+
   return function nodeadmin(req,res,next) {
-      next();
-  }
-  
+    next();
+  };
+
 
 };
