@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var sock = require('socket.io');
 var HomeController = require('./home/homeController');
+var morgan = require('morgan');
 
 var io = undefined;
 
@@ -30,6 +31,11 @@ function hook_stdout(callback) {
 
 module.exports = function nodeadmin(app, express, port) {
   // socket setup
+  app.use(
+    morgan('combined', {
+      skip: function () {}
+    })
+  );
   var server = http.createServer(app);
   io = sock(server);
   server.listen(port || 8000);
@@ -46,11 +52,11 @@ module.exports = function nodeadmin(app, express, port) {
       });
     });
 
-    a = setInterval(function () { console.log('some log thing ' + Math.floor(Math.random()*100) ) }, 1000);
+    // a = setInterval(function () { console.log('some log thing ' + Math.floor(Math.random()*100) ) }, 1000);
 
     socket.on('stoplogs', function () {
       process.stdout.write = stdout_write;
-      clearInterval(a);
+      // clearInterval(a);
     });
   });
 

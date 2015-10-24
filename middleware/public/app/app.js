@@ -7,6 +7,7 @@ angular.module('nodeadmin', [
   'nodeadmin.navbar',
   'nodeadmin.settings',
   'nodeadmin.system',
+  'nodeadmin.system.modules',
   'nodeadmin.system.logs',
   'nodeadmin.db',
   'ui.router',
@@ -90,10 +91,20 @@ angular.module('nodeadmin', [
     })
 
     .state('system', {
+      abstract: true,
       parent: 'main',
       url: 'system',
       templateUrl: 'app/system/system.html',
       controller: 'SystemController',
+      data: {
+        requireLogin: true
+      }
+    })
+    .state('modules', {
+      parent: 'system',
+      url: '',
+      templateUrl: 'app/system/modules/modules.html',
+      controller: 'ModulesController',
       data: {
         requireLogin: true
       }
