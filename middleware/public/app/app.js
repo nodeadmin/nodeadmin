@@ -105,7 +105,11 @@ angular.module('nodeadmin', [
     .state('logs', {
       parent: 'system',
       url: '/logs',
+<<<<<<< Updated upstream
       templateUrl: 'app/system/serverLogs/serverLogs.html',
+=======
+      templateUrl: 'app/system/logs/logs.html',
+>>>>>>> Stashed changes
       controller: 'LogsController',
       data: {
         requireLogin: true
