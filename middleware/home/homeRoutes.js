@@ -33,7 +33,6 @@ module.exports = function(router) {
     .get(function(req, res){
       HomeController.getServerConnectionsAsync(req)
         .then(function (data) {
-          console.log('connections areeee here ', data);
         })
         .catch(function (err) {
           console.log(err);

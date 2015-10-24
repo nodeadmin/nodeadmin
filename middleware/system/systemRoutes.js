@@ -7,7 +7,6 @@ module.exports = function(router) {
         if (err) {
           console.log('Error executing npm list --long: ', err);
         }
-        console.log('\n \n \n \n \n NPM LIST: ', stdout);
         res.send(stdout);
       });
     });
