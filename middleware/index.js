@@ -15,13 +15,6 @@ var spawn = require('child_process').spawn;
 var io;
 var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
 
-
-/*
-this overwrites process.stdout.write (the function used by console.log) and allows the user 
-to redirect the stream --- the change can be reverted by invoking the function returned 
-by this function
-*/
-
 module.exports = function nodeadmin(app, port) {
   'use strict';
 
