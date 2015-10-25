@@ -19,10 +19,9 @@ angular.module('nodeadmin.system.logs', [])
   });
 
   $scope.getLogs = function () {
-    console.log('func has been called');
     socket.emit('getlogs');
     socket.on('logs', function (log) {
-      $scope.$apply($scope.logfile.push(log.data));
+      $scope.$apply($scope.logfile.unshift(log));
     });
   }
   $scope.getLogs();
