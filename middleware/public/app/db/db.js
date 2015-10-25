@@ -1,8 +1,30 @@
 angular.module('nodeadmin.db', [])
-.controller('DBController', ['$scope', function ($scope) {
-  $scope.awesomeTable = 'I am an Awesome Table';
-  $scope.toggleMenu = function () {
-    $scope.menu = !$scope.menu;
+.factory('dbFactory', function ($http) {
+  return {
+    getDatabases:function() {
+      return $http({
+        method:'GET',
+        url:'/nodeadmin/api/db/connect'
+      });
+    }
   }
-  $scope.menu = false;
+})
+.controller('DBController', ['$scope','dbFactory', function ($scope, dbFactory) {
+
+  console.log(dbFactory);
+  $scope.databases = [];
+
+  $scope.loadDatabases = function() {
+    dbFactory.getDatabases()
+      .then(function (dbs) {
+        $scope.databases = dbs.data;
+
+        // $scope.$digest();
+
+      })
+
+  };
+
+  $scope.loadDatabases();
+
 }]);
