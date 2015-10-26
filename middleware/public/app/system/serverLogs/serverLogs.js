@@ -12,7 +12,6 @@ angular.module('nodeadmin.system.logs', [])
       
     }
   };
-  setTimeout(checkConnection, 5000);
 
   socket.on('system', function (data) {
     console.log('received in system');
@@ -25,10 +24,6 @@ angular.module('nodeadmin.system.logs', [])
     });
   }
   $scope.getLogs();
-
-
-  // var sysLogsSock = SocketFactory.connect('system.logs');
-  // console.log(sysLogsSock);
 
   $scope.$on("$destroy", function () {
     console.log('stop sending shit');
