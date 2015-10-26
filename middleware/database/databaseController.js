@@ -9,8 +9,8 @@ module.exports = {
   },
 
   connect: function (req, res) {
-    client = client.getClientDB();
-    client.query('SHOW DATABASES', function(err, row) {
+    var db = client.getClientDB();
+    db.query('SHOW DATABASES', function(err, row) {
       row && res.end(JSON.stringify(row));
     });
   },
