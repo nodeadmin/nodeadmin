@@ -29,12 +29,12 @@ angular.module('nodeadmin.services', [])
       url: '/nodeadmin/api/system/modules'
     }).then(function(resp) {
       return resp;
-    })
-  }
+    });
+  };
 
   return {
     getModules: getModules
-  }
+  };
 })
 
 .factory('Stats', function ($http) {
@@ -53,8 +53,17 @@ angular.module('nodeadmin.services', [])
     }
   };
 
-});
+})
+
+.factory('RecordsFactory', ['$http', function ($http) {
+  return {
+    getRecords: function (db, table, data) {
+      return $get('/nodeadmin/' + db + '/' + table + '/' + records)
+      .then(function (response) {
+        console.log(response.data);
+      });
+    }
+  };
+}]);
   
-
-
 

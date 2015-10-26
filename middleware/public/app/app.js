@@ -16,7 +16,6 @@ angular.module('nodeadmin', [
 ])
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
-   
     .state('login', {
       url: '/login',
       templateUrl: './app/auth/login.html',
@@ -160,11 +159,11 @@ angular.module('nodeadmin', [
     })
     .state('records', {
       parent: 'db',
-      url: 'db/records',
-      templateUrl: '',
-      controller: '',
+      url: 'db/:database/:table/records',
+      templateUrl: 'app/db/records.html',
+      controller: 'RecordsController',
       data: {
-        requireLogin: true
+        requireLogin: false 
       }
     });
    
@@ -184,7 +183,6 @@ angular.module('nodeadmin', [
     if (toState.data.requireLogin && !Auth.isAuth()) {
       // User isn't authenticated, so prevent state change
       event.preventDefault();
-
       $state.transitionTo('login');         
     };
   });

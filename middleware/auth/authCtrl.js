@@ -9,10 +9,6 @@ module.exports.authCtrl = function (connection) {
   'use strict';
   return function (req, res) {
 		var queries = {
-		        databaseTable: 'CREATE TABLE db (id INT NOT NULL AUTO_INCREMENT, mysql_user VARCHAR(255) NOT NULL, mysql_password VARCHAR(255), mysql_host VARCHAR(255) NOT NULL, PRIMARY KEY (id))',
-		        usersTable: 'CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT, username VARCHAR(255) NOT NULL, display_name VARCHAR(255),     database_id INT NOT NULL, password VARCHAR(255) NOT NULL, notification1 BOOL, PRIMARY KEY (id), FOREIGN KEY (database_id) REFERENCES db(id))',
-		        insertDB: 'INSERT INTO db (mysql_user, mysql_password, mysql_host) VALUES ("' + req.body.mysqlUser + '", "' + req.body.mysqlPassword + '", "' + req.body.host + '")',
-		        dbId: 'SELECT id FROM db WHERE mysql_user = "' + req.body.mysqlUser + '"'
     };
    
     connection.query('SHOW DATABASES')
@@ -44,8 +40,6 @@ module.exports.authCtrl = function (connection) {
         return connection.query(queries.insertUser);
       })
       .then(function (result) {
-        var token = jwt.sign({username: req.body.username}, req.app.locals.secret);
-				res.status(200).json({token: token});
       })
       .catch(function(e) {
         console.error(e);
