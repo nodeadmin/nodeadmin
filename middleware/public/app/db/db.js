@@ -3,6 +3,7 @@ angular.module('nodeadmin.db', [])
   $scope.records = {};
   $scope.headers = []; 
   $scope.error = '';
+  $scope.mode = false; 
   $scope.getRecords = function () {
     console.log($stateParams);
     RecordsFactory.getRecords($stateParams.database, $stateParams.table)
@@ -15,6 +16,9 @@ angular.module('nodeadmin.db', [])
     .catch(function (err) {
       $scope.error = err;
     });
+  };
+  $scope.editCell = function () {
+      $scope.mode = 'edit';
   };
   $scope.getRecords();
   console.log($scope.records);

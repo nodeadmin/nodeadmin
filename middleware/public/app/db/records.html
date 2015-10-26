@@ -10,7 +10,11 @@
       </thead>
       <tbody>
         <tr ng-repeat="row in records">
-          <td ng-repeat="(column, data) in row">{{data}}</td>
+          <td ng-repeat="(column, data) in row" ng-click="editCell()">
+            <span ng-show="mode != 'edit'">{{data}}</span>
+            <input ng-show="mode == 'edit'" ng-model="data" />
+            <button ng-show="mode== 'edit'" class="btn btn-sm btn-success">Save</button>
+          </td>
         </tr>
       </table>
     </div>
