@@ -32,7 +32,7 @@ angular.module('nodeadmin.system.logs', [])
 
   $scope.$on("$destroy", function () {
     console.log('stop sending shit');
-    socket.emit('stopLog');
+    socket.emit('stoplogs');
   });
 
 }]);
