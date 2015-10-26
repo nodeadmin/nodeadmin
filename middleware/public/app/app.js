@@ -10,8 +10,8 @@ angular.module('nodeadmin', [
   'nodeadmin.system.logs',
   'nodeadmin.db',
   'nodeadmin.db.viewdb',
-  'nodeadmin.db.deleteTable',
   'nodeadmin.db.viewTables',
+  'nodeadmin.db.deleteTable',
   'ui.router',
   'ui.bootstrap',
   'chart.js'
@@ -150,15 +150,15 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    .state('deleteTable', {
-      parent: 'tables',
-      url: '/deleteTable',
-      templateUrl: 'app/db/viewTables/deleteTable.html',
-      controller: 'TableViewController',
-      data: {
-        requireLogin: true
-      }
-    })
+    // .state('deleteTable', {
+    //   parent: 'tables',
+    //   url: '/deleteTable',
+    //   templateUrl: 'app/db/viewTables/deleteTable.html',
+    //   controller: 'DeleteTableController',
+    //   data: {
+    //     requireLogin: true
+    //   }
+    // })
     .state('createTable', {
       parent: 'db',
       url: '/createTable',

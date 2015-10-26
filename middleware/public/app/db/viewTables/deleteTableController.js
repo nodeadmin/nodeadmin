@@ -1,12 +1,12 @@
 angular.module('nodeadmin.db.deleteTable', [])
-  .controller('DeleteTableController', function($scope, $uibModalInstance) {
+  .controller('DeleteTableController', function($scope, $modalInstance) {
 
   $scope.ok = function() {
     // drop table
-    $uibModalInstance.close();
+    $modalInstance.close();
   };
 
   $scope.cancel = function() {
-    $uibModalInstance.dismiss('cancel');
+    $modalInstance.dismiss('cancel');
   };
 });
