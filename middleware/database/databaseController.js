@@ -1,8 +1,6 @@
 var  mysql = require('mysql');
-var db = mysql.createConnection({
-  user:'taylor',
-  password:'winget'
-});
+var client = require('../auth/clientdb.js');
+
 
 module.exports = {
 
@@ -11,7 +9,8 @@ module.exports = {
   },
 
   connect: function (req, res) {
-    db.query('SHOW DATABASES', function(err, row) {
+    client = client.getClientDB();
+    client.query('SHOW DATABASES', function(err, row) {
       row && res.end(JSON.stringify(row));
     });
   },

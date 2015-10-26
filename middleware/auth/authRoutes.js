@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('promise-mysql');
 var jwt = require('jsonwebtoken');
-var connection;
+var connectionWrapper = require('./clientdb.js');
 router.route('/login')
   .get(function (req, res) {
     res.send('eyyyy in auth');
@@ -12,8 +12,8 @@ router.route('/login')
       user: req.body.mysqlUser,
       password: req.body.mysqlPassword
     }).then(function(conn) {
-        connection = conn;
         var token = jwt.sign({msg: 'welcome!'}, req.app.locals.secret);
+        connectionWrapper.bindClientDB(conn);
 				res.status(200).json({token: token});
     }).catch(function (e) {
       console.log(e);
