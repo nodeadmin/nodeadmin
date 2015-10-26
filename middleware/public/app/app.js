@@ -9,7 +9,7 @@ angular.module('nodeadmin', [
   'nodeadmin.system.modules',
   'nodeadmin.system.logs',
   'nodeadmin.db',
-  'nodeadmin.db.viewdb',
+  'nodeadmin.db.dbhome',
   'ui.router',
   'ui.bootstrap',
   'chart.js'
@@ -130,15 +130,24 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    .state('viewDB', {
+    .state('dbhome', {
       parent: 'db',
       url: '',
-      templateUrl: 'app/db/viewDB/viewDB.html',
-      controller: 'DBViewController',
+      templateUrl: 'app/db/dbHome/dbHome.html',
+      controller: 'DBHomeController',
       data: {
         requireLogin: true
       }
     })
+    // .state('viewDB', {
+    //   parent: 'db',
+    //   url: 'viewDB',
+    //   templateUrl: 'app/db/viewDB/viewDB.html',
+    //   controller: 'DBViewController',
+    //   data: {
+    //     requireLogin: true
+    //   }
+    // })
     .state('tables', {
       parent: 'db',
       url: 'db/tables',

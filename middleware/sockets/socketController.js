@@ -1,20 +1,22 @@
 var spawn = require('child_process').spawn;
 var HomeController = require('../home/homeController');
-
+var fs = require('fs');
+var ls;
 
 module.exports = function (io) {
   io.of('/system').on('connection', function (socket) {
     socket.on('getlogs', function () {
-      var ls = spawn('tail', ['-f', __dirname + "/../logs/access.log"]);
-
+      ls = spawn('tail', ['-f', __dirname + "/../serverLogs/access.log"]);
       ls.stdout.on('readable', function() {
         var asMessage = this.read().toString();
         socket.emit('logs', asMessage);
       });  
     });
     socket.on('stoplogs', function () {
-      ls.kill();
-      fs.truncate(__dirname + '/access.log');
+      ls.removeListener('readable', function () {
+        ls.kill();
+      });
+      fs.truncate(__dirname + '/../serverLogs/access.log');
     });
 
   });
