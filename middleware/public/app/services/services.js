@@ -1,7 +1,6 @@
 angular.module('nodeadmin.services', [])
 
 .factory('Auth', ['$http', '$window', function($http, $window) {
-
   var login = function(user) {
     return $http({
       method: 'POST',
@@ -29,7 +28,6 @@ angular.module('nodeadmin.services', [])
       method: 'GET',
       url: '/nodeadmin/api/system/modules'
     }).then(function(resp) {
-      console.log('this is the module resp: ', resp)
       return resp;
     });
   };
@@ -68,6 +66,4 @@ angular.module('nodeadmin.services', [])
   };
 }]);
   
-
-
 

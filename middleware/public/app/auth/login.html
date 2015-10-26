@@ -1,19 +1,19 @@
 <div class="container-fluid">
-  <form class="form-horizontal" name='loginForm' ng-submit='login()'>
+  <form class="form-horizontal" name='setupForm' ng-submit='login()'>
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
         <h1 class="text-center">Node Admin</h1>
-        <h3 class="text-center">Login</h3>
+        <h3>MySQL Connection</h3>
         <div class="form-group">
-          <label for="mysqlUser" class="col-sm-3 control-label">mysql user</label>
+          <label for="mysqlUser" class="col-sm-3 control-label">User</label>
           <div class="col-sm-9">
-            <input type='text' class="form-control" placeholder="mysqlUser"ng-model='user.mysqlUser' required />
+            <input type='text' class="form-control" name="mysqlUser" placeholder="mySQL user" ng-model='user.mysqlUser' required />
           </div>
         </div>
         <div class="form-group">
-          <label for="mysqlPassword" class="col-sm-3 control-label">mysql password</label>
+          <label for="mysqlPassword" class="col-sm-3 control-label">Password</label>
           <div class="col-sm-9">
-            <input type='password' class="form-control" placeholder="mysql password" ng-model='user.mysqlPassword' required />
+            <input type='password' name="mysqlPassword" class="form-control" placeholder="mySQL Password" ng-model='user.mysqlPassword' />
           </div>
         </div>
         <div class="form-group">
@@ -25,11 +25,11 @@
     </div>
   </form>
   <div class="row" ng-show="error">
-      <div class="col-md-4 col-md-offset-4">
-        <div class="alert alert-danger" role="alert">
-          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="error">{{ error }}</span>
-        </div>
+    <div class="col-md-4 col-md-offset-4">
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="error">{{ error }}</span>
       </div>
     </div>
+  </div>
 </div>

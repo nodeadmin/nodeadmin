@@ -3,79 +3,32 @@ var bodyParser = require('body-parser');
 var http = require('http');
 var sock = require('socket.io');
 var morgan = require('morgan');
-var HomeController = require('./home/homeController');
+var fs = require('fs');
+
+//NodeAdmin Routers\\
 var auth = require('./auth/authRoutes.js');
 var database = require('./database/databaseRoutes.js');
 var settings = require('./settings/settingsRoutes.js');
 var system = require('./system/systemRoutes.js');
 var home = require('./home/homeRoutes.js');
 
-var io;
-
-var stdout_write = process.stdout.write;
-/*
-this overwrites process.stdout.write (the function used by console.log) and allows the user 
-to redirect the stream --- the change can be reverted by invoking the function returned 
-by this function
-*/
-function hook_stdout(callback) {
-
-    process.stdout.write = (function(write) {
-        return function(string, encoding, fd) {
-            write.apply(process.stdout, arguments);
-            callback(string, encoding, fd);
-        };
-    })(process.stdout.write);
-
-    return function() {
-        process.stdout.write = stdout_write;
-    };
-}
-
 module.exports = function nodeadmin(app, port) {
   'use strict';
-  // socket setup
+
+  //Socket Connection\\
   var server = http.createServer(app);
-  io = sock(server);
+  var io = sock(server);
   server.listen(port || 8000);
-  
-  io.of('/system').on('connection', function (socket) {
-    console.log('connection made to /system');
-    var unhook;
-    socket.on('getlogs', function () {
-      console.log('received message about getlogs');
-      unhook = hook_stdout(function (str, enc, dir) {
-        socket.emit('logs', {data: str}); //send logs to system.logs
-        // util.debug(str); //write the logs to default route, prefaced by 'DEBUG:'
-      });
-    });
 
-    // a = setInterval(function () { console.log('some log thing ' + Math.floor(Math.random()*100) ) }, 1000);
+  //Socket Controller\\
+  require('./sockets/socketController.js')(io);
 
-    socket.on('stoplogs', function () {
-      process.stdout.write = stdout_write;
-      // clearInterval(a);
-    });
-  });
-
-
-  io.on('connection', function (socket) {
-    socket.emit('something', {data: 'you connected, yo!'});
-  });
-
-  io.of('/home').on('connection', function(socket) {
-    socket.on('pressure', function(){
-      setInterval(function(){
-        socket.emit('memory', HomeController.getFreeMemory());
-      }, 5000);
-    });
-    socket.on('clientcpu', function(){
-      setInterval(function(){
-        socket.emit('servercpu', HomeController.getCpus());
-      }, 2000);
-    });
-  });
-  
+  //Logs\\
+  var accessLogStream = fs.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'});
+  app.use(morgan('combined', {
+    stream:accessLogStream
+  }));
+    
   //Third party middleware\\
 
   app.use(morgan('dev'));
@@ -94,8 +47,7 @@ module.exports = function nodeadmin(app, port) {
     res.send('hello');
   });
 
-  //middleware\\
-
+  //Middleware\\
   return function nodeadmin(req,res,next) {
     next();
   };
