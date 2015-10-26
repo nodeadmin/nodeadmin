@@ -2,6 +2,7 @@ var  mysql = require('mysql');
 var client = require('../auth/clientdb.js');
 
 
+
 module.exports = {
 
   getDatabases: function (req, res) {
@@ -9,8 +10,8 @@ module.exports = {
   },
 
   connect: function (req, res) {
-    client = client.getClientDB();
-    client.query('SHOW DATABASES', function(err, row) {
+    db = client.getClientDB();
+    db.query('SHOW DATABASES', function (err, row) {
       row && res.end(JSON.stringify(row));
     });
   },
