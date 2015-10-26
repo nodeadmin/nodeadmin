@@ -24,7 +24,7 @@ module.exports = function nodeadmin(app, port) {
   require('./sockets/socketController.js')(io);
 
   //Logs\\
-  var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
+  var accessLogStream = fs.createWriteStream(__dirname + '/serverLogs/access.log', {flags: 'a'});
   app.use(morgan('combined', {
     stream:accessLogStream
   }));
