@@ -14,6 +14,12 @@ angular.module('nodeadmin.db', [])
   console.log(dbFactory);
   $scope.databases = [];
 
+  $scope.menu = false;
+
+  $scope.toggleMenu = function () {
+    $scope.menu = !$scope.menu;
+  };
+
   $scope.loadDatabases = function() {
     dbFactory.getDatabases()
       .then(function (dbs) {
