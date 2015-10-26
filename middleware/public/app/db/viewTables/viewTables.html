@@ -1,6 +1,18 @@
 <div class="container">
-  <h2>Tables</h2>
+  <h2 class="text-center">Tables</h2>
   <button class="btn btn-default"><a ui-sref="createTable">Create Table</a></button>
+  <form class="form-horizontal" name="filterForm">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="form-group">
+          <input type="text" ng-model="search" class="form-control" placeholder="search tables">
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
   <div class="table-container">
     <table class="table">
       <thead>
@@ -11,10 +23,11 @@
         <th>Actions</th>
       </thead>
       <tbody>
-      <!-- TODO: populate table of tables <tr ng-repeat = "table in database">
-        <td>{{table.name}}</td>
-        etc
-      </tr> -->
+        <!-- TODO: add filter -->
+        <!-- TODO: populate table of tables <tr ng-repeat = "table in database | filter: search">
+          <td>{{table.name}}</td>
+          etc
+        </tr> -->
         <tr>
           <td>table name</td>
           <td>info 1</td>
@@ -24,14 +37,14 @@
           <td><button class="btn btn-primary" type="button" ng-click="open('sm')">Delete Table</button></td>
         </tr>
       </tbody>
-      </table>
+    </table>
   </div>
   <div class="row" ng-show="error">
-      <div class="col-md-4 col-md-offset-4">
-        <div class="alert alert-danger" role="alert">
-          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-          <span class="error">{{ error }}</span>
-        </div>
+    <div class="col-md-4 col-md-offset-4">
+      <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="error">{{ error }}</span>
       </div>
     </div>
+  </div>
 </div>
