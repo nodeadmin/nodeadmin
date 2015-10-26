@@ -8,12 +8,14 @@ angular.module('nodeadmin.db.viewTables', [])
 
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'deleteTable.html',
+          templateUrl: 'app/db/viewTables/deleteTable.html',
           controller: 'DeleteTableController',
           size: size,
-          resolve: {
-            
-          }
+          // resolve: {
+          //   resolved: function() {
+          //     console.log('resolved')
+          //   }
+          // }
         });
       };
 
