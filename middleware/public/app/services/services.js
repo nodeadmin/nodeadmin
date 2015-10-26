@@ -68,6 +68,20 @@ angular.module('nodeadmin.services', [])
       })
     }
   };
+
+  .factory('TablesFactory', ['$http', function ($http) {
+    return {
+      getRecords: function (db) {
+        return $http.get('/nodeadmin/api/db/' + db + '')
+        .then(function (response) {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch(function (err) {
+          return err;
+        })
+      }
+    };
 }]);
   
 

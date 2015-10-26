@@ -160,15 +160,6 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    // .state('deleteTable', {
-    //   parent: 'tables',
-    //   url: '/deleteTable',
-    //   templateUrl: 'app/db/viewTables/deleteTable.html',
-    //   controller: 'DeleteTableController',
-    //   data: {
-    //     requireLogin: true
-    //   }
-    // })
     .state('createTable', {
       parent: 'db',
       url: '/createTable',
