@@ -57,11 +57,15 @@ angular.module('nodeadmin.services', [])
 
 .factory('RecordsFactory', ['$http', function ($http) {
   return {
-    getRecords: function (db, table, data) {
-      return $get('/nodeadmin/' + db + '/' + table + '/' + records)
+    getRecords: function (db, table) {
+      return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/records')
       .then(function (response) {
         console.log(response.data);
-      });
+        return response.data;
+      })
+      .catch(function (err) {
+        return err;
+      })
     }
   };
 }]);

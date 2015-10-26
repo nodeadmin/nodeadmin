@@ -1,10 +1,23 @@
 angular.module('nodeadmin.db', [])
-.controller('RecordsController', ['$scope', '$RecordsFactory', '$location', function ($scope, $RecordsFactory, $location) {
+.controller('RecordsController', ['$scope', 'RecordsFactory', '$stateParams', function ($scope, RecordsFactory, $stateParams) {
   $scope.records = {};
-  
+  $scope.headers = []; 
+  $scope.error = '';
   $scope.getRecords = function () {
-    console.log($location.path);
+    console.log($stateParams);
+    RecordsFactory.getRecords($stateParams.database, $stateParams.table)
+    .then(function (result) {
+      for (var prop in result[0]) {
+        $scope.headers.push(prop);
+      } 
+      $scope.records = result;
+    })
+    .catch(function (err) {
+      $scope.error = err;
+    });
   };
+  $scope.getRecords();
+  console.log($scope.records);
 }])  
 .factory('dbFactory', function ($http) {
   return {
@@ -14,7 +27,7 @@ angular.module('nodeadmin.db', [])
         url:'/nodeadmin/api/db/connect'
       });
     }
-  }
+  };
 })
 .controller('DBController', ['$scope','dbFactory', function ($scope, dbFactory) {
 
@@ -34,7 +47,7 @@ angular.module('nodeadmin.db', [])
 
         // $scope.$digest();
 
-      })
+      });
 
   };
 

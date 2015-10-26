@@ -159,7 +159,7 @@ angular.module('nodeadmin', [
     })
     .state('records', {
       parent: 'db',
-      url: 'db/:database/:table/records',
+      url: '/:database/:table/records',
       templateUrl: 'app/db/records.html',
       controller: 'RecordsController',
       data: {
