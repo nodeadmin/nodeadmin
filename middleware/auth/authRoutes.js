@@ -13,6 +13,13 @@ router.route('/login')
       password: req.body.mysqlPassword
     }).then(function(conn) {
         var token = jwt.sign({msg: 'welcome!'}, req.app.locals.secret);
+        //Enables performance_schema if it was disabled\\
+        conn.query(
+          "update performance_schema.setup_consumers set enabled='YES' where name='events_waits_current';", 
+          function (err, rows, fields) {
+            console.log('enabling performance_schema... err: ', err, 'rows: ', rows);
+          }
+        );
         connectionWrapper.bindClientDB(conn);
 				res.status(200).json({token: token});
     }).catch(function (e) {
