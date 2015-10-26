@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
   user: 'root',
   password: 'babka'
 });
-router.use(tokenCheck);
+//router.use(tokenCheck);
 
 router.route('/')
 .get(function(req, res){
