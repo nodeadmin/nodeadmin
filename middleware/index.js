@@ -24,12 +24,14 @@ module.exports = function nodeadmin(app, port) {
   require('./sockets/socketController.js')(io);
 
   //Logs\\
-  var accessLogStream = fs.createWriteStream(__dirname + '/logs/access.log', {flags: 'a'});
+  var accessLogStream = fs.createWriteStream(__dirname + '/access.log', {flags: 'a'});
   app.use(morgan('combined', {
     stream:accessLogStream
   }));
     
   //Third party middleware\\
+
+  app.use(morgan('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use('/nodeadmin', express.static(__dirname + '/public'));
