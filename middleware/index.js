@@ -78,7 +78,7 @@ module.exports = function nodeadmin(app, port) {
   
   //Third party middleware\\
 
-  app.use(morgan('combined'));
+  app.use(morgan('dev'));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use('/nodeadmin', express.static(__dirname + '/public'));
