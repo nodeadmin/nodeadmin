@@ -2,12 +2,10 @@
 var express = require('express');
 var router = express.Router();
 var tokenCheck = require('../auth/tokenCheck.js');
+var getClientDB = require('../auth/clientdb.js').getClientDB;
 var DbController = require('./databaseController.js');
 var mysql = require('mysql');
-var connection = mysql.createConnection({
-  user: 'root',
-  password: 'babka'
-});
+
 router.use(tokenCheck);
 
 router.route('/')
@@ -19,7 +17,8 @@ router.route('/')
 router.route('/:database/:table/records')
 .get(function(req, res) {
   var db = req.params.database,
-    table = req.params.table;
+    table = req.params.table,
+    connection = getClientDB();
 
   connection.query('USE ' + db, function (err, result) {
     if (err) {

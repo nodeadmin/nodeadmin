@@ -1,1 +1,22 @@
-<h1>I'm Mr. Meeksees!</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <h1>{{error}}</h1>
+        <thead>
+          <tr>
+          <th ng-repeat="header in headers">{{header}}</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in records">
+          <td ng-repeat="(column, data) in row" ng-click="editCell()">
+            <span ng-show="mode != 'edit'">{{data}}</span>
+            <input ng-show="mode == 'edit'" ng-model="data" />
+            <button ng-show="mode== 'edit'" class="btn btn-sm btn-success">Save</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
