@@ -71,48 +71,62 @@ angular.module('nodeadmin.services', [])
           })
       }
     }
-  }])
+  }
+])
 
-.factory('DBInfoFactory', ['$http', function($http) {
-  var getPerformanceTimers = function() {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/db/performance',
-    }).then(function (resp) {
-      // console.log(resp);
-      return resp.data;
-    });
-  };
-  var getInfo = function () {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/db/info',
-    }).then(function (resp) {
-      console.log(resp);
-      return resp.data;
-    });
-  };
+.factory('DBInfoFactory', ['$http',
+  function($http) {
+    var getPerformanceTimers = function() {
+      return $http({
+        method: 'GET',
+        url: '/nodeadmin/api/db/performance',
+      }).then(function(resp) {
+        // console.log(resp);
+        return resp.data;
+      });
+    };
+    var getInfo = function() {
+      return $http({
+        method: 'GET',
+        url: '/nodeadmin/api/db/info',
+      }).then(function(resp) {
+        console.log(resp);
+        return resp.data;
+      });
+    };
 
-  return {
-    getPerformanceTimers: getPerformanceTimers,
-    getInfo: getInfo
-  };
+    return {
+      getPerformanceTimers: getPerformanceTimers,
+      getInfo: getInfo
+    };
+  }
+])
 
-}])
-  
 .factory('Tables', ['$http',
   function($http) {
-    return {
-      getTables: function(databaseName) {
-        return $http.get('/nodeadmin/api/db/' + databaseName + '/tables')
-          .then(function(response) {
-            // console.log('tablesfactory response: ', response.data);
-            return response.data;
-          })
-          .catch(function(err) {
-            return err;
-          })
-      }
+    getTables = function(databaseName) {
+      return $http({
+        method: 'GET',
+        url: '/nodeadmin/api/db/' + databaseName + '/tables'
+      }).then(function(response) {
+        return response.data;
+      })
     };
+
+    dropTable = function(databaseName, tableName) {
+      return $http({
+        method: 'DELETE',
+        url: '/nodeadmin/api/db/' + databaseName + '/tables',
+        data: tableName
+      }).then(function(response) {
+        // Return boolean
+        return response.data;
+      })
+    };
+
+    return {
+      getTables: getTables,
+      dropTable: dropTable
+    }
   }
 ]);

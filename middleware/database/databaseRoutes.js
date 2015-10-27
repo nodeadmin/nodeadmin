@@ -29,7 +29,10 @@ router.route('/:database/tables')
         res.status(200).json(result);
       });
     });
-  });
+  })
+  .delete(function(req, res) {
+    console.log('delete req', req.body)
+  })
 
 router.route('/:database/:table/records')
   .get(function(req, res) {
