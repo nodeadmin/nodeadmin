@@ -13,11 +13,12 @@ router.route('/')
     res.send('eyyyy in db');
   });
 
-router.route('/:database')
+router.route('/:database/tables')
   .get(function(req, res) {
     var db = req.params.database;
+    connection = getClientDB();
 
-    connection.query('USE' + db, function(err, result) {
+    connection.query('USE ' + db, function(err, result) {
       if (err) {
         console.log(err);
       }
@@ -34,6 +35,7 @@ router.route('/:database/:table/records')
   .get(function(req, res) {
     var db = req.params.database,
       table = req.params.table;
+      connection = getClientDB();
 
     connection.query('USE ' + db, function(err, result) {
       if (err) {

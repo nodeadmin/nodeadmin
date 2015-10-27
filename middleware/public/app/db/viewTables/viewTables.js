@@ -1,7 +1,27 @@
 angular.module('nodeadmin.db.viewTables', [])
-  .controller('TableViewController', ['$scope', '$uibModal',
-    function($scope, $uibModal) {
+  .controller('TableViewController', ['$scope', '$uibModal', '$stateParams', 'Tables',
+    function($scope, $uibModal, $stateParams, Tables) {
 
+      $scope.tables = [];
+
+      $scope.getTables = function() {
+        var databaseName = $stateParams.database;
+        Tables.getTables(databaseName)
+          .then(function(result) {
+            result.forEach(function(table) {
+              $scope.tables.push(table['Tables_in_' + databaseName]);
+            })
+          })
+          .catch(function(err) {
+            $scope.error = err;
+          });
+      };
+
+      // Get tables on load
+      $scope.getTables();
+
+
+      // `Delete table` modal
       $scope.animationsEnabled = true;
 
       $scope.open = function(size) {
@@ -24,5 +44,3 @@ angular.module('nodeadmin.db.viewTables', [])
       };
     }
   ])
-
-// on load should display all tables in selected db (by dbname in url)

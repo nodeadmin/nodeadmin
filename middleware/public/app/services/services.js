@@ -74,13 +74,13 @@ angular.module('nodeadmin.services', [])
   }
 ])
 
-.factory('TablesFactory', ['$http',
+.factory('Tables', ['$http',
   function($http) {
     return {
-      getRecords: function(db) {
-        return $http.get('/nodeadmin/api/db/' + db + '')
+      getTables: function(databaseName) {
+        return $http.get('/nodeadmin/api/db/' + databaseName + '/tables')
           .then(function(response) {
-            console.log(response.data);
+            console.log('tablesfactory response: ', response.data);
             return response.data;
           })
           .catch(function(err) {

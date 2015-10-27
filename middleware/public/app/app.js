@@ -153,7 +153,7 @@ angular.module('nodeadmin', [
     // })
     .state('tables', {
       parent: 'db',
-      url: '/tables',
+      url: '/:database/tables',
       templateUrl: 'app/db/viewTables/viewTables.html',
       controller: 'TableViewController',
       data: {

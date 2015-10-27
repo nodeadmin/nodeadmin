@@ -17,9 +17,6 @@
     <table class="table">
       <thead>
         <th>Table Name</th>
-        <th>Info 1</th>
-        <th>Info 2</th>
-        <th>Info 3</th>
         <th>Actions</th>
       </thead>
       <tbody>
@@ -28,11 +25,8 @@
           <td>{{table.name}}</td>
           etc
         </tr> -->
-        <tr>
-          <td>table name</td>
-          <td>info 1</td>
-          <td>info 2</td>
-          <td>info 3</td>
+        <tr ng-repeat="table in tables">
+          <td> {{ table }} </td>
           <!-- TODO: delete table should open modal for that specific table -->
           <td><button class="btn btn-primary" type="button" ng-click="open('sm')">Delete Table</button></td>
         </tr>
