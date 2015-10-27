@@ -68,6 +68,23 @@ angular.module('nodeadmin.services', [])
       })
     }
   };
+}])
+
+.factory('PerformanceGraphFactory', ['$http', function($http) {
+  var getPerformanceTimers = function() {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/db/performance',
+    }).then(function(resp) {
+      console.log(resp);
+      return resp.data;
+    });
+  };
+
+  return {
+    getPerformanceTimers: getPerformanceTimers
+  };
+
 }]);
   
 
