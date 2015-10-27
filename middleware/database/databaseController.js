@@ -10,7 +10,7 @@ module.exports = {
   },
 
   connect: function (req, res) {
-    db = client.getClientDB();
+    var db = client.getClientDB();
     db.query('SHOW DATABASES', function (err, row) {
       row && res.end(JSON.stringify(row));
     });

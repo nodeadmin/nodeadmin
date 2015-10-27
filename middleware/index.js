@@ -25,13 +25,15 @@ module.exports = function nodeadmin(app, port) {
 
   //Logs\\
   var accessLogStream = fs.createWriteStream(__dirname + '/serverLogs/access.log', {flags: 'a'});
-  app.use(morgan('combined', {
-    stream:accessLogStream
-  }));
+  // app.use(morgan('combined', {
+  //   stream:accessLogStream
+  // }));
     
   //Third party middleware\\
 
-  app.use(morgan('dev'));
+  app.use(morgan('dev', {
+    stream:accessLogStream
+  }));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use('/nodeadmin', express.static(__dirname + '/public'));

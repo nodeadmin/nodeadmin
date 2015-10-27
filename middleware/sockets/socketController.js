@@ -21,9 +21,6 @@ module.exports = function (io) {
 
   });
 
-  
-
-
   io.on('connection', function (socket) {
     socket.emit('something', {data: 'you connected, yo!'});
   });

@@ -51,6 +51,22 @@ router.route('/:database/:table/records')
     });
   });
 
+router.route('/performance')
+.get(function (req, res) {
+  var db = 'performance_schema';
+  var table = 'performance_timers';
+
+  connection.query('USE ' + db, function (err, result) {
+    if (err) {
+      console.log(err);
+    }
+    connection.query('SELECT * FROM ' + table, function (err, result) {
+
+      res.status(200).json(result);
+    });
+  });
+});
+
 router.route('/db')
   .get(DbController.getDatabases)
 
