@@ -2,6 +2,8 @@ angular.module('nodeadmin.db.dbhome', [])
 .controller('DBHomeController', ['$scope', 'DBInfoFactory', '$uibModal',
   function ($scope, DBInfoFactory, $uibModal) {
 
+    $scope.animationsEnabled = true;
+
     $scope.open = function(type) {
       if(type === 'createDB') {
 

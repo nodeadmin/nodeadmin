@@ -3,25 +3,45 @@ angular.module('nodeadmin.db', [])
   $scope.records = {};
   $scope.headers = []; 
   $scope.error = '';
-  $scope.mode = false; 
+  $scope.isEditing = ''; 
+  $scope.primaryKey = '';
+
+
   $scope.getRecords = function () {
     console.log($stateParams);
     RecordsFactory.getRecords($stateParams.database, $stateParams.table)
     .then(function (result) {
-      for (var prop in result[0]) {
-        $scope.headers.push(prop);
-      } 
-      $scope.records = result;
+      $scope.records = result[0];
+      $scope.headers = result[1];
+      for (var i = 0; i < result[1].length; i++) {
+        if ($scope.headers[i].Key === 'PRI') {
+          $scope.primaryKey = $scope.headers[i].Field;
+          return;
+        }
+        console.log('No Primary key');
+      }
     })
     .catch(function (err) {
       $scope.error = err;
     });
   };
-  $scope.editCell = function () {
-      $scope.mode = 'edit';
+  $scope.editCell = function (id) {
+     $scope.isEditing = id;
+  };
+  $scope.saveCell = function (data, index, id) {
+    var update = {
+      table: $stateParams.table,
+      col: $scope.headers[index].Field,
+      val: data,
+      pk: $scope.primaryKey
+    };
+    console.log(id);
+    console.log($scope.headers[index].Field);
+    console.log(data);
+    console.log($stateParams.table);
+    $scope.isEditing = false;
   };
   $scope.getRecords();
-  console.log($scope.records);
 }])  
 .factory('dbFactory', function ($http) {
   return {

@@ -1,22 +1,25 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-striped">
+     <table class="table table-striped">
         <h1>{{error}}</h1>
         <thead>
           <tr>
-          <th ng-repeat="header in headers">{{header}}</th>
+            <th ng-repeat="header in headers">{{header.Field}}-{{header.Type}}-{{header.Key}}</th>
           </tr>
       </thead>
       <tbody>
         <tr ng-repeat="row in records">
-          <td ng-repeat="(column, data) in row" ng-click="editCell()">
-            <span ng-show="mode != 'edit'">{{data}}</span>
-            <input ng-show="mode == 'edit'" ng-model="data" />
-            <button ng-show="mode== 'edit'" class="btn btn-sm btn-success">Save</button>
+          <td ng-repeat="(column, data) in row track by $index">
+            <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span>
+            <div ng-show="isEditing == $id">
+              <input type="text" class="form-control input-sm" ng-model="data" />
+                <button ng-click="saveCell(data, $index, $id)" class="btn btn-default btn-xs">Save</button>
+              </span>
+            </div>
           </td>
         </tr>
-      </table>
+      </table> 
     </div>
   </div>
 </div>
