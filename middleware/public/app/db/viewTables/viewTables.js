@@ -33,7 +33,7 @@ angular.module('nodeadmin.db.viewTables', [])
           animation: $scope.animationsEnabled,
           templateUrl: 'app/db/viewTables/deleteTable.html',
           controller: 'DeleteTableController',
-          size: size
+          size: size,
         });
       };
 

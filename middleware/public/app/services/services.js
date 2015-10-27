@@ -74,7 +74,7 @@ angular.module('nodeadmin.services', [])
   }
 ])
 
-.factory('DBInfoFactory', ['$http',
+.factory('PerformanceGraphFactory', ['$http',
   function($http) {
     var getPerformanceTimers = function() {
       return $http({
@@ -152,6 +152,6 @@ angular.module('nodeadmin.services', [])
       returnDropTableName: returnDropTableName,
       dropTable: dropTable,
       didDropTable: didDropTable
-    }
+    };
   }
 ]);
