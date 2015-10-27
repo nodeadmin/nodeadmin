@@ -26,7 +26,7 @@
           etc
         </tr> -->
         <tr ng-repeat="table in tables">
-          <td> {{ table }} </td>
+          <td ui-sref="records({ database: databaseName, table: table   })"> {{ table }} </td>
           <!-- TODO: delete table should open modal for that specific table -->
           <td><button class="btn btn-primary" type="button" ng-click="open('sm')">Delete Table</button></td>
         </tr>

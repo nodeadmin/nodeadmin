@@ -6,6 +6,7 @@ angular.module('nodeadmin.db.viewTables', [])
 
       $scope.getTables = function() {
         var databaseName = $stateParams.database;
+        $scope.databaseName = databaseName;
         Tables.getTables(databaseName)
           .then(function(result) {
             result.forEach(function(table) {
