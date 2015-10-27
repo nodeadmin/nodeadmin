@@ -17,12 +17,7 @@
         <th>Actions</th>
       </thead>
       <tbody>
-        <!-- TODO: add filter -->
-        <!-- TODO: populate table of tables <tr ng-repeat = "table in database | filter: search">
-          <td>{{table.name}}</td>
-          etc
-        </tr> -->
-        <tr ng-repeat="table in tables">
+        <tr ng-repeat="table in tables | filter: search">
           <td ui-sref="records({ database: databaseName, table: table   })"> {{ table }} </td>
           <!-- TODO: delete table should open modal for that specific table -->
           <td><button class="btn btn-primary" type="button" ng-click="open('sm', table)">Delete Table</button></td>
