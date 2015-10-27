@@ -16,7 +16,20 @@ module.exports = {
     });
   },
 
-
+  createDatabase: function (req, res) {
+    var connection = client.getClientDB();
+    var DatabaseName = req.body.name;
+    if(DatabaseName && typeof DatabaseName === 'string' && connection.query) {
+      connection.query('CREATE DATABASE ?? ', [DatabaseName], function (err, result) {
+        
+        if(!err) {
+          res.end(null, JSON.stringify(result));
+        } else {
+          res.end(JSON.stringify(err), null);
+        }
+      });
+    }
+  }
 
 };
 
