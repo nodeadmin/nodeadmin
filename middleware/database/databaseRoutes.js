@@ -41,11 +41,11 @@ router.route('/:database/:table/records')
       if (err) {
         console.log(err);
       }
-      connection.query('SELECT * FROM ' + table, function(err, result) {
+      connection.query('SELECT * FROM ' + table + '; DESCRIBE ' + table, function(err, result) {
         if (err) {
           console.log(err);
         }
-
+        console.log(result);
         res.status(200).json(result);
       });
     });
