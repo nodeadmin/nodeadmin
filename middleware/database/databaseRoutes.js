@@ -16,7 +16,7 @@ router.route('/')
 router.route('/:database/tables')
   .get(function(req, res) {
     var db = req.params.database;
-  var connection = getClientDB();
+    var connection = getClientDB();
 
     connection.query('USE ' + db, function(err, result) {
       if (err) {
@@ -30,8 +30,24 @@ router.route('/:database/tables')
       });
     });
   })
+
+router.route('/:database/:table')
   .delete(function(req, res) {
-    console.log('delete req', req.body)
+    var db = req.params.database;
+    var table = req.params.table;
+    var connection = getClientDB();
+
+    connection.query('USE ' + db, function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      connection.query('DROP TABLE ' + table, function(err, result) {
+        if (err) {
+          console.log(err);
+        }
+        res.status(200).send(true);
+      });
+    });
   })
 
 router.route('/:database/:table/records')
@@ -55,35 +71,35 @@ router.route('/:database/:table/records')
   });
 
 router.route('/performance')
-.get(function (req, res) {
-  var db = 'performance_schema';
-  var table = 'performance_timers';
-  var connection = getClientDB();
+  .get(function(req, res) {
+    var db = 'performance_schema';
+    var table = 'performance_timers';
+    var connection = getClientDB();
 
-  connection.query('USE ' + db, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    connection.query('SELECT * FROM ' + table, function (err, result) {
+    connection.query('USE ' + db, function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      connection.query('SELECT * FROM ' + table, function(err, result) {
 
+        res.status(200).json(result);
+      });
+    });
+  });
+
+router.route('/info')
+  .get(function(req, res) {
+    var db = 'information_schema';
+    var table = 'processlist'
+    var connection = getClientDB();
+
+    connection.query('SELECT * FROM ' + db + '.' + table, function(err, result) {
+      if (err) {
+        console.log(err);
+      }
       res.status(200).json(result);
     });
   });
-});
-
-router.route('/info')
-.get(function (req, res) {
-  var db = 'information_schema';
-  var table = 'processlist'
-  var connection = getClientDB();
-
-  connection.query('SELECT * FROM ' + db + '.' + table, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    res.status(200).json(result);
-  });
-});
 
 router.route('/db')
   .get(DbController.getDatabases)
