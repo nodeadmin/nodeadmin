@@ -82,6 +82,20 @@ router.route('/info')
   });
 });
 
+router.route('/query')
+.post(function (req, res) {
+  var connection = getClientDB()
+
+  connection.query(req.body.data.query, function (err, result) {
+    if (err) {
+      console.log(err, result);
+      res.status(400).json(err);
+    } else {
+      res.status(200).json(result);
+    }
+  });
+});
+
 router.route('/db')
   .get(DbController.getDatabases)
 
