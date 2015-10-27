@@ -115,4 +115,22 @@ angular.module('nodeadmin.services', [])
       }
     };
   }
-]);
+])
+
+.factory('Database', ['$http', 
+  function ($http) {
+    return {
+      createDB:function(name) {
+        return $http({
+          method:'POST',
+          url:'/nodeadmin/api/db/create/',
+          data:name
+        })
+        .then(function (res) {
+          console.log('got response for database creation', res);
+          return res;
+        })
+      }
+    }
+
+}])

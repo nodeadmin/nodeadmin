@@ -88,4 +88,8 @@ router.route('/db')
 router.route('/connect')
   .get(DbController.connect)
 
+router.route('/create')
+  .post(DbController.createDatabase)
+
+
 module.exports = router;
