@@ -38,7 +38,7 @@ angular.module('nodeadmin.db', [])
 })
 .controller('DBController', ['$scope','dbFactory', function ($scope, dbFactory) {
 
-  console.log(dbFactory);
+  // console.log(dbFactory);
   $scope.databases = [];
 
   $scope.menu = false;
