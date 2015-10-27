@@ -21,12 +21,12 @@ router.route('/:database/tables')
     connection.query('USE ' + db, function(err, result) {
       if (err) {
         console.log(err);
-        res.status(500).send(err);
+        res.status(500).send(err.toString());
       }
       connection.query('SHOW TABLES', function(err, result) {
         if (err) {
           console.log(err)
-          res.status(500).send(err);
+          res.status(500).send(err.toString());
         }
         res.status(200).json(result);
       });
@@ -42,12 +42,12 @@ router.route('/:database/:table')
     connection.query('USE ' + db, function(err, result) {
       if (err) {
         console.log(err);
-        res.status(500).send(err);
+        res.status(500).send(err.toString());
       }
       connection.query('DROP TABLE ' + table, function(err, result) {
         if (err) {
           console.log(err);
-          res.status(500).send(err);
+          res.status(500).send(err.toString());
         }
         res.status(200).send(true);
       });
@@ -110,5 +110,9 @@ router.route('/db')
 
 router.route('/connect')
   .get(DbController.connect)
+
+router.route('/create')
+  .post(DbController.createDatabase)
+
 
 module.exports = router;

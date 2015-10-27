@@ -3,8 +3,6 @@ angular.module('nodeadmin.db.viewTables', [])
     function($scope, $uibModal, $stateParams, Tables) {
 
       $scope.tables = [];
-      $scope.didDropTable = Tables.didDropTable();
-      console.log('didDropTable', $scope.didDropTable)
 
       $scope.getTables = function() {
         var databaseName = $stateParams.database;
@@ -33,7 +31,7 @@ angular.module('nodeadmin.db.viewTables', [])
           animation: $scope.animationsEnabled,
           templateUrl: 'app/db/viewTables/deleteTable.html',
           controller: 'DeleteTableController',
-          size: size,
+          size: size
         });
       };
 

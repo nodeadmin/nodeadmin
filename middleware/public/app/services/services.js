@@ -74,7 +74,7 @@ angular.module('nodeadmin.services', [])
   }
 ])
 
-.factory('PerformanceGraphFactory', ['$http',
+.factory('DBInfoFactory', ['$http',
   function($http) {
     var getPerformanceTimers = function() {
       return $http({
@@ -107,7 +107,6 @@ angular.module('nodeadmin.services', [])
 
     // Allow access to table name between DeleteTable & TableView controllers
     var dropTableName;
-    var dropTableSuccess = false;
 
     getTables = function(databaseName) {
       return $http({
@@ -124,10 +123,6 @@ angular.module('nodeadmin.services', [])
 
     returnDropTableName = function() {
       return dropTableName;
-    }
-
-    didDropTable = function() {
-      return dropTableSuccess;
     };
 
     dropTable = function(databaseName, tableName) {
@@ -135,13 +130,10 @@ angular.module('nodeadmin.services', [])
         method: 'DELETE',
         url: '/nodeadmin/api/db/' + databaseName + '/' + tableName + ''
       }).then(function(response) {
-        // Returns a boolean
-        dropTableSuccess = true;
-        didDropTable();
         return response.data;
       }, function(err) {
-        console.error(err);
-        return err;
+        console.error('MySQL error number: ', err.data)
+        return err.data;
       });
 
     };
@@ -151,7 +143,24 @@ angular.module('nodeadmin.services', [])
       saveTableName: saveTableName,
       returnDropTableName: returnDropTableName,
       dropTable: dropTable,
-      didDropTable: didDropTable
     };
   }
-]);
+])
+
+.factory('Database', ['$http', 
+  function ($http) {
+    return {
+      createDB:function(name) {
+        return $http({
+          method:'POST',
+          url:'/nodeadmin/api/db/create/',
+          data:name
+        })
+        .then(function (res) {
+          console.log('got response for database creation', res);
+          return res;
+        })
+      }
+    }
+
+}])

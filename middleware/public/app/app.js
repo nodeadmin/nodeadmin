@@ -10,6 +10,7 @@ angular.module('nodeadmin', [
   'nodeadmin.system.logs',
   'nodeadmin.db',
   'nodeadmin.db.dbhome',
+  'nodeadmin.db.createdb',
   'nodeadmin.db.deleteTable',
   'nodeadmin.db.viewTables',
   'ui.router',
