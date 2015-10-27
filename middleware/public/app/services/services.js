@@ -79,7 +79,7 @@ angular.module('nodeadmin.services', [])
       method: 'GET',
       url: '/nodeadmin/api/db/performance',
     }).then(function(resp) {
-      console.log(resp);
+      // console.log(resp);
       return resp.data;
     });
   };
@@ -96,7 +96,7 @@ angular.module('nodeadmin.services', [])
       getTables: function(databaseName) {
         return $http.get('/nodeadmin/api/db/' + databaseName + '/tables')
           .then(function(response) {
-            console.log('tablesfactory response: ', response.data);
+            // console.log('tablesfactory response: ', response.data);
             return response.data;
           })
           .catch(function(err) {
