@@ -16,7 +16,7 @@ router.route('/')
 router.route('/:database/tables')
   .get(function(req, res) {
     var db = req.params.database;
-    connection = getClientDB();
+  var connection = getClientDB();
 
     connection.query('USE ' + db, function(err, result) {
       if (err) {
@@ -35,7 +35,7 @@ router.route('/:database/:table/records')
   .get(function(req, res) {
     var db = req.params.database,
       table = req.params.table;
-      connection = getClientDB();
+    var connection = getClientDB();
 
     connection.query('USE ' + db, function(err, result) {
       if (err) {
@@ -55,6 +55,7 @@ router.route('/performance')
 .get(function (req, res) {
   var db = 'performance_schema';
   var table = 'performance_timers';
+  var connection = getClientDB();
 
   connection.query('USE ' + db, function (err, result) {
     if (err) {
@@ -67,10 +68,28 @@ router.route('/performance')
   });
 });
 
+router.route('/info')
+.get(function (req, res) {
+  var db = 'information_schema';
+  var table = 'processlist'
+  var connection = getClientDB();
+
+  connection.query('SELECT * FROM ' + db + '.' + table, function (err, result) {
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).json(result);
+  });
+});
+
 router.route('/db')
   .get(DbController.getDatabases)
 
 router.route('/connect')
   .get(DbController.connect)
+
+router.route('/create')
+  .post(DbController.createDatabase)
+
 
 module.exports = router;

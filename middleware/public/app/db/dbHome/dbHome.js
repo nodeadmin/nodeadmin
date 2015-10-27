@@ -1,12 +1,35 @@
 angular.module('nodeadmin.db.dbhome', [])
-.controller('DBHomeController', ['$scope', 'PerformanceGraphFactory', 
-  function ($scope, PerformanceGraphFactory) {
+.controller('DBHomeController', ['$scope', 'DBInfoFactory', '$uibModal',
+  function ($scope, DBInfoFactory, $uibModal) {
+
+    $scope.open = function(type) {
+      if(type === 'createDB') {
+
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'app/db/dbHome/dbcreate.html',
+          controller: 'DBCreateController',
+          size: 'sm',
+        });
+
+      }
+    };
+
     var perfData;
-    PerformanceGraphFactory.getPerformanceTimers()
-    .then(function(data) {
+    DBInfoFactory.getPerformanceTimers()
+    .then(function (data) {
       var perfData = data;
-      $scope.headers = Object.keys(perfData[0])
-      $scope.rows = perfData;
+      // console.log(perfData);
+      $scope.perfHeaders = Object.keys(perfData[0]);
+      $scope.perfRows = perfData;
+    });
+    DBInfoFactory.getInfo()
+    .then(function (data) {
+      var infoData = data;
+      console.log(infoData);
+      delete infoData[0]['INFO'];
+      $scope.infoHeaders = Object.keys(infoData[0]);
+      $scope.infoRows = infoData;
     });
   }
 ]);

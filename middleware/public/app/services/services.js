@@ -73,19 +73,29 @@ angular.module('nodeadmin.services', [])
     }
   }])
 
-.factory('PerformanceGraphFactory', ['$http', function($http) {
+.factory('DBInfoFactory', ['$http', function($http) {
   var getPerformanceTimers = function() {
     return $http({
       method: 'GET',
       url: '/nodeadmin/api/db/performance',
-    }).then(function(resp) {
+    }).then(function (resp) {
       // console.log(resp);
+      return resp.data;
+    });
+  };
+  var getInfo = function () {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/db/info',
+    }).then(function (resp) {
+      console.log(resp);
       return resp.data;
     });
   };
 
   return {
-    getPerformanceTimers: getPerformanceTimers
+    getPerformanceTimers: getPerformanceTimers,
+    getInfo: getInfo
   };
 
 }])
@@ -105,4 +115,22 @@ angular.module('nodeadmin.services', [])
       }
     };
   }
-]);
+])
+
+.factory('Database', ['$http', 
+  function ($http) {
+    return {
+      createDB:function(name) {
+        return $http({
+          method:'POST',
+          url:'/nodeadmin/api/db/create/',
+          data:name
+        })
+        .then(function (res) {
+          console.log('got response for database creation', res);
+          return res;
+        })
+      }
+    }
+
+}])
