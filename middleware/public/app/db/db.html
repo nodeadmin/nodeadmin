@@ -35,9 +35,8 @@
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <div ng-repeat="db in databases">
-        <li><a ui-sref="tables({ db: db.Database })">{{ db.Database }}</a></li>
+        <li><a ui-sref="tables({ database: db.Database })">{{ db.Database }}</a></li>
       </div>
-      <li><a ui-sref="records">Records</li>
     </ul>
   </div>
 
