@@ -16,7 +16,6 @@ angular.module('nodeadmin', [
   'nodeadmin.db.deleteTable',
   'ui.router',
   'ui.bootstrap',
-  'ui.grid',
   'chart.js'
 ])
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
