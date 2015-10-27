@@ -104,6 +104,9 @@ angular.module('nodeadmin.services', [])
 
 .factory('Tables', ['$http',
   function($http) {
+    
+    var dropTableName;
+
     getTables = function(databaseName) {
       return $http({
         method: 'GET',
@@ -112,6 +115,14 @@ angular.module('nodeadmin.services', [])
         return response.data;
       })
     };
+
+    saveTableName = function(tableName) {
+      dropTableName = tableName;
+    };
+
+    returnDropTableName = function() {
+      return dropTableName;
+    }
 
     dropTable = function(databaseName, tableName) {
       return $http({
@@ -126,6 +137,8 @@ angular.module('nodeadmin.services', [])
 
     return {
       getTables: getTables,
+      saveTableName: saveTableName,
+      returnDropTableName: returnDropTableName,
       dropTable: dropTable
     }
   }

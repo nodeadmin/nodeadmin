@@ -12,7 +12,6 @@ angular.module('nodeadmin', [
   'nodeadmin.db.dbhome',
   'nodeadmin.db.deleteTable',
   'nodeadmin.db.viewTables',
-  'nodeadmin.db.deleteTable',
   'ui.router',
   'ui.bootstrap',
   'chart.js'
