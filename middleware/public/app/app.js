@@ -153,7 +153,7 @@ angular.module('nodeadmin', [
     // })
     .state('tables', {
       parent: 'db',
-      url: '/:database/tables',
+      url: '/:database',
       templateUrl: 'app/db/viewTables/viewTables.html',
       controller: 'TableViewController',
       data: {
@@ -162,7 +162,7 @@ angular.module('nodeadmin', [
     })
     .state('createTable', {
       parent: 'db',
-      url: '/createTable',
+      url: '/:database/createTable',
       templateUrl: '',
       controller: '',
       data: {
@@ -171,7 +171,7 @@ angular.module('nodeadmin', [
     })
     .state('records', {
       parent: 'db',
-      url: '/:database/:table/records',
+      url: '/:database/:table',
       templateUrl: 'app/db/records.html',
       controller: 'RecordsController',
       data: {
