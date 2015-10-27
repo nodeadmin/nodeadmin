@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <h2 class="text-center">Tables</h2>
   <button class="btn btn-default"><a ui-sref="createTable">Create Table</a></button>
   <form class="form-horizontal" name="filterForm">
@@ -11,7 +11,7 @@
     </div>
   </form>
   <div class="table-container">
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <th>Table Name</th>
         <th>Actions</th>
@@ -20,7 +20,7 @@
         <tr ng-repeat="table in tables | filter: search">
           <td> {{ table }} </td>
           <!-- TODO: delete table should open modal for that specific table -->
-          <td><button class="btn btn-primary" type="button" ng-click="open('sm')">Delete Table</button></td>
+          <td><button class="btn btn-primary" type="button" ng-click="open('sm', table)">Delete Table</button></td>
         </tr>
       </tbody>
     </table>

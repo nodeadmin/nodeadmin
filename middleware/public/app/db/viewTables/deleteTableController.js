@@ -1,8 +1,10 @@
 angular.module('nodeadmin.db.deleteTable', [])
-  .controller('DeleteTableController', function($scope, $modalInstance) {
+  .controller('DeleteTableController', function($scope, $modalInstance, Tables) {
 
   $scope.ok = function() {
-    // drop table
+    // Drop table
+    console.log('tablename inside deletetable controller: ', tableName)
+    Tables.dropTable($stateParams.database, tableName);
     $modalInstance.close();
   };
 
