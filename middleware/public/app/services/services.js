@@ -104,9 +104,10 @@ angular.module('nodeadmin.services', [])
 
 .factory('Tables', ['$http',
   function($http) {
-    
+
     // Allow access to table name between DeleteTable & TableView controllers
     var dropTableName;
+    var dropTableSuccess = false;
 
     getTables = function(databaseName) {
       return $http({
@@ -125,21 +126,32 @@ angular.module('nodeadmin.services', [])
       return dropTableName;
     }
 
+    didDropTable = function() {
+      return dropTableSuccess;
+    };
+
     dropTable = function(databaseName, tableName) {
       return $http({
         method: 'DELETE',
         url: '/nodeadmin/api/db/' + databaseName + '/' + tableName + ''
-        }).then(function(response) {
-          console.log('what si resposne', response)
+      }).then(function(response) {
+        // Returns a boolean
+        dropTableSuccess = true;
+        didDropTable();
         return response.data;
-      })
+      }, function(err) {
+        console.error(err);
+        return err;
+      });
+
     };
 
     return {
       getTables: getTables,
       saveTableName: saveTableName,
       returnDropTableName: returnDropTableName,
-      dropTable: dropTable
+      dropTable: dropTable,
+      didDropTable: didDropTable
     }
   }
 ]);

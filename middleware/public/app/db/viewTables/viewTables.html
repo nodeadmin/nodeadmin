@@ -10,6 +10,9 @@
       </div>
     </div>
   </form>
+  <div ng-show="didDropTable" class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ dropTable }} was deleted.
+  </div>
   <div class="table-container">
     <table class="table table-striped">
       <thead>

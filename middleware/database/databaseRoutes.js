@@ -21,10 +21,12 @@ router.route('/:database/tables')
     connection.query('USE ' + db, function(err, result) {
       if (err) {
         console.log(err);
+        res.status(500).send(err);
       }
       connection.query('SHOW TABLES', function(err, result) {
         if (err) {
           console.log(err)
+          res.status(500).send(err);
         }
         res.status(200).json(result);
       });
@@ -40,10 +42,12 @@ router.route('/:database/:table')
     connection.query('USE ' + db, function(err, result) {
       if (err) {
         console.log(err);
+        res.status(500).send(err);
       }
       connection.query('DROP TABLE ' + table, function(err, result) {
         if (err) {
           console.log(err);
+          res.status(500).send(err);
         }
         res.status(200).send(true);
       });
