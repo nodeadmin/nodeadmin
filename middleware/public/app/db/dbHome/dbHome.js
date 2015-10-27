@@ -1,6 +1,20 @@
 angular.module('nodeadmin.db.dbhome', [])
-.controller('DBHomeController', ['$scope', 'DBInfoFactory', 
-  function ($scope, DBInfoFactory) {
+.controller('DBHomeController', ['$scope', 'DBInfoFactory', '$uibModal',
+  function ($scope, DBInfoFactory, $uibModal) {
+
+    $scope.open = function(type) {
+      if(type === 'createDB') {
+
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'app/db/dbHome/dbcreate.html',
+          controller: 'DBCreateController',
+          size: 'sm',
+        });
+
+      }
+    };
+
     var perfData;
     DBInfoFactory.getPerformanceTimers()
     .then(function (data) {
