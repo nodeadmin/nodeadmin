@@ -4,21 +4,42 @@
     <div class="btn btn-default">Remove DB</div>
   </div>
   <div style="margin-top:40px;" class="row">
+    <h3>Performance Timers</h3>
     <div style="border:1px solid grey; background-color:lightgrey;" class="col-md-10">
       <table class="table table-striped">
         <h1>{{error}}</h1>
         <thead>
           <tr>
-            <th ng-repeat="header in headers">{{header}}</th>
+            <th ng-repeat="header in perfHeaders">{{header}}</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="row in rows">
+          <tr ng-repeat="row in perfRows">
             <td ng-repeat="(column, data) in row">{{data}}</td>
           </tr>
         </tbody>
       </table>
     </div>
     <!-- <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-1 col-md-offset-2">HI</div>
+  </div> -->
+</div>
+<div style="margin-top:40px;" class="row">
+  <h3>Process List</h3>
+  <div style="border:1px solid grey; background-color:lightgrey;" class="col-md-10">
+    <table class="table table-striped">
+      <h1>{{error}}</h1>
+      <thead>
+        <tr>
+          <th ng-repeat="header in infoHeaders">{{header}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in infoRows">
+          <td ng-repeat="(column, data) in row">{{data}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-1 col-md-offset-2">HI</div>
   </div> -->
 </div>
