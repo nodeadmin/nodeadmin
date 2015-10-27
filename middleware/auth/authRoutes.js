@@ -10,7 +10,8 @@ router.route('/login')
   .post(function (req, res) {
     mysql.createConnection({
       user: req.body.mysqlUser,
-      password: req.body.mysqlPassword
+      password: req.body.mysqlPassword,
+      multipleStatements: true 
     }).then(function(conn) {
         var token = jwt.sign({msg: 'welcome!'}, req.app.locals.secret);
         //Enables performance_schema if it was disabled\\
