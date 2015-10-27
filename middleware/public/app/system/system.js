@@ -9,6 +9,6 @@ angular.module('nodeadmin.system', [])
   $scope.toggleMenu = function () {
     $scope.menu = !$scope.menu;
   };
-  $scope.menu = true;
+  $scope.menu = false;
 
 }]);
