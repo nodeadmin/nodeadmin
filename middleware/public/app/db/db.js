@@ -17,8 +17,11 @@ angular.module('nodeadmin.db', [])
       $scope.error = err;
     });
   };
-  $scope.editCell = function () {
-      $scope.mode = 'edit';
+  $scope.editCell = function (data) {
+    data.editing = true;
+  };
+  $scope.saveCell = function () {
+    $scope.mode = false;
   };
   $scope.getRecords();
   console.log($scope.records);
