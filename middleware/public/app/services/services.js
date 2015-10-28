@@ -163,7 +163,7 @@ angular.module('nodeadmin.services', [])
   }
 ])
 
-.factory('Database', ['$http', 
+.factory('DatabaseFactory', ['$http', 
   function ($http) {
     return {
       createDB:function(name) {
