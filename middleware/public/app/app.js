@@ -11,7 +11,7 @@ angular.module('nodeadmin', [
   'nodeadmin.db',
   'nodeadmin.db.dbhome',
   'nodeadmin.db.createdb',
-  'nodeadmin.db.deleteTable',
+  'nodeadmin.db.deletedb',
   'nodeadmin.db.viewTables',
   'nodeadmin.db.deleteTable',
   'nodeadmin.db.query',

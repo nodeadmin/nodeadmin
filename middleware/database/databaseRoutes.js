@@ -40,5 +40,8 @@ router.route('/connect')
 router.route('/create')
   .post(DbController.createDatabase)
 
+router.route('/delete')
+  .post(DbController.deleteDatabase)
+
 
 module.exports = router;

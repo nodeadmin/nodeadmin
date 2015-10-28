@@ -13,7 +13,15 @@ angular.module('nodeadmin.db.dbhome', [])
           controller: 'DBCreateController',
           size: 'sm',
         });
+      }
+      else if(type === 'deleteDB') {
 
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'app/db/dbHome/dbdelete.html',
+          controller: 'DBDeleteController',
+          size: 'sm',
+        });
       }
     };
 
