@@ -6,25 +6,28 @@ angular.module('nodeadmin.db', [])
   $scope.error = '';
   $scope.isEditing = ''; 
   $scope.primaryKey = '';
-
-
+  $scope.table = $stateParams.table;
   $scope.getRecords = function () {
     console.log($scope.headers);
     RecordsFactory.getRecords($stateParams.database, $stateParams.table)
     .then(function (result) {
       $scope.records = result[0];
       $scope.headers = result[1];
-      for (var i = 0; i < result[1].length; i++) {
-        if ($scope.headers[i].Key === 'PRI') {
-          $scope.primaryKey = $scope.headers[i].Field;
-          return;
-        }
-        console.log('No Primary key');
-      }
+      $scope.getPrimaryKey($scope.headers);
     })
     .catch(function (err) {
       $scope.error = err;
     });
+  };
+
+  $scope.getPrimaryKey = function (headers) {
+    for (var i = 0; i < headers.length; i++) {
+      if (headers[i].Key === 'PRI') {
+        $scope.primaryKey = headers[i].Field;
+        return;
+      }
+      console.log('No Primary key');
+    }
   };
   $scope.editCell = function (id) {
      $scope.isEditing = id;
@@ -43,10 +46,6 @@ angular.module('nodeadmin.db', [])
     .catch(function (err) {
       console.log(err);
     });
-    console.log(id);
-    console.log($scope.headers[index].Field);
-    console.log(data);
-    console.log($stateParams.table);
     $scope.isEditing = false;
   };
   $scope.getRecords();
@@ -80,7 +79,6 @@ angular.module('nodeadmin.db', [])
         // $scope.$digest();
 
       });
-
   };
 
   $scope.loadDatabases();
