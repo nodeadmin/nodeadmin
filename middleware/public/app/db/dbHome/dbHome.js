@@ -1,12 +1,12 @@
 angular.module('nodeadmin.db.dbhome', [])
-.controller('DBHomeController', ['$scope', 'DBInfoFactory', '$uibModal',
-  function ($scope, DBInfoFactory, $uibModal) {
+.controller('DBHomeController', ['$scope', 'DBInfoFactory', '$uibModal','$state','$stateParams',
+  function ($scope, DBInfoFactory, $uibModal, $state, $stateParams) {
 
     $scope.animationsEnabled = true;
 
-    $scope.onDelete = function(arg) {
-      console.log('parent heres and was called', arg);
-    };
+    $scope.$on('$stateChangeSuccess', function(event, unfoundState, fromState, fromParams) {
+      debugger
+    })
 
     $scope.open = function(type) {
       if(type === 'createDB') {
@@ -16,7 +16,15 @@ angular.module('nodeadmin.db.dbhome', [])
           templateUrl: 'app/db/dbHome/dbcreate.html',
           controller: 'DBCreateController',
           size: 'sm',
+          resolve: {
+            state:'$state'
+          }
         });
+
+        modalInstance.result
+          .then(function (results){
+            $scope.success = results;
+          });
       }
       else if(type === 'deleteDB') {
 
