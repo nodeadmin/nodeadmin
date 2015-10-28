@@ -51,7 +51,7 @@ angular.module('nodeadmin.db.dbhome', [])
     DBInfoFactory.getInfo()
     .then(function (data) {
       var infoData = data;
-      console.log(infoData);
+      // console.log(infoData);
       delete infoData[0]['INFO'];
       $scope.infoHeaders = Object.keys(infoData[0]);
       $scope.infoRows = infoData;
