@@ -173,8 +173,18 @@ angular.module('nodeadmin.services', [])
           data:name
         })
         .then(function (res) {
-          console.log('got response for database creation', res);
           return res;
+        })
+      },
+
+      deleteDB: function (name) {
+        return $http({
+          method:'POST',
+          url:'/nodeadmin/api/db/delete/',
+          data:name
+        })
+        .then(function (res){
+          return res
         })
       }
     }
