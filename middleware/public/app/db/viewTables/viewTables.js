@@ -35,7 +35,11 @@ angular.module('nodeadmin.db.viewTables', [])
         });
 
         modalInstance.result.then(function(result) {
+          // TODO: find better solution for success vs error
           if (typeof result === 'string') {
+            // Reload current tables in view
+            $scope.tables = [];
+            $scope.getTables();
             $scope.success = result;
           } else {
             $scope.error = result.data;

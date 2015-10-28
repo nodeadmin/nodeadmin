@@ -7,7 +7,6 @@ angular.module('nodeadmin.db.deleteTable', [])
     // Drop table
     Tables.dropTable($stateParams.database, $scope.dropTable)
       .then(function(droppedTable) {
-        // remove table from page
         $modalInstance.close(droppedTable);
       })
       .catch(function(err) {
