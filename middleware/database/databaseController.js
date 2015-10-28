@@ -60,8 +60,9 @@ module.exports = {
         if (err) {
           console.log(err);
           res.status(500).send(err.toString());
+        } else {
+          res.status(200).json(result);
         }
-        res.status(200).json(result);
       });
     });
   },
@@ -81,8 +82,9 @@ module.exports = {
           console.log(err);
           // Displays human-readable errors
           res.status(500).send(err.toString());
+        } else {
+          res.status(200).send(table);
         }
-        res.status(200).send(table);
       });
     });
   },

@@ -35,6 +35,7 @@ angular.module('nodeadmin.db.viewTables', [])
         });
 
         modalInstance.result.then(function(result) {
+          // TODO: find better solution
           if (typeof result === 'string') {
             $scope.success = result;
           } else {
