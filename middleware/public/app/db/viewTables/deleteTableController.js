@@ -5,8 +5,14 @@ angular.module('nodeadmin.db.deleteTable', [])
 
   $scope.ok = function() {
     // Drop table
-    Tables.dropTable($stateParams.database, $scope.dropTable);
-    $modalInstance.close();
+    Tables.dropTable($stateParams.database, $scope.dropTable)
+      .then(function(droppedTable) {
+        // remove table from page
+        $modalInstance.close(droppedTable);
+      })
+      .catch(function(err) {
+        $modalInstance.close(err);
+      });
   };
 
   $scope.cancel = function() {

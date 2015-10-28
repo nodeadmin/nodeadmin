@@ -133,41 +133,37 @@ angular.module('nodeadmin.services', [])
     // Allow access to table name between DeleteTable & TableView controllers
     var dropTableName;
 
-    getTables = function(databaseName) {
+    var getTables = function(databaseName) {
       return $http({
         method: 'GET',
         url: '/nodeadmin/api/db/' + databaseName + '/tables'
       }).then(function(response) {
         return response.data;
-      })
+      });
     };
 
-    saveTableName = function(tableName) {
+    var saveTableName = function(tableName) {
       dropTableName = tableName;
     };
 
-    returnDropTableName = function() {
+    var returnDropTableName = function() {
       return dropTableName;
     };
 
-    dropTable = function(databaseName, tableName) {
+    var dropTable = function(databaseName, tableName) {
       return $http({
         method: 'DELETE',
         url: '/nodeadmin/api/db/' + databaseName + '/' + tableName + ''
       }).then(function(response) {
         return response.data;
-      }, function(err) {
-        console.error('MySQL error number: ', err.data)
-        return err.data;
       });
-
     };
 
     return {
       getTables: getTables,
       saveTableName: saveTableName,
       returnDropTableName: returnDropTableName,
-      dropTable: dropTable
+      dropTable: dropTable,
     };
   }
 ])

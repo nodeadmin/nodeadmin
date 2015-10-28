@@ -11,7 +11,7 @@ angular.module('nodeadmin.db.viewTables', [])
           .then(function(result) {
             result.forEach(function(table) {
               $scope.tables.push(table['Tables_in_' + databaseName]);
-            })
+            });
           })
           .catch(function(err) {
             $scope.error = err.data;
@@ -33,10 +33,18 @@ angular.module('nodeadmin.db.viewTables', [])
           controller: 'DeleteTableController',
           size: size
         });
+
+        modalInstance.result.then(function(result) {
+          if (typeof result === 'string') {
+            $scope.success = result;
+          } else {
+            $scope.error = result.data;
+          }
+        });
       };
 
       $scope.toggleAnimation = function() {
         $scope.animationsEnabled = !$scope.animationsEnabled;
       };
     }
-  ])
+  ]);

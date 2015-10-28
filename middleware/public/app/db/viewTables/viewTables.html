@@ -1,4 +1,12 @@
 <div class="container-fluid">
+  <div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{error}}
+  </div>
+  <div ng-show="success" class="alert alert-success alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    Successfully deleted {{ success }}
+  </div>
   <h2 class="text-center">Tables</h2>
   <button class="btn btn-default"><a ui-sref="createTable">Create Table</a></button>
   <form class="form-horizontal" name="filterForm">
@@ -24,13 +32,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-  <div class="row" ng-show="error">
-    <div class="col-md-4 col-md-offset-4">
-      <div class="alert alert-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        <span class="error">{{ error }}</span>
-      </div>
-    </div>
   </div>
 </div>
