@@ -3,8 +3,6 @@
 var mysql = require('mysql');
 var client = require('../auth/clientdb.js');
 
-
-
 module.exports = {
 
   getDatabases: function(req, res) {
@@ -90,14 +88,22 @@ module.exports = {
 
   getRecords: function(req, res) {
     var db = req.params.database,
-      table = req.params.table;
-    var connection = client.getClientDB();
+      table = req.params.table,
+      connection = client.getClientDB();
 
-    connection.query('USE ' + db, function(err, result) {
+    connection.query({
+      sql:'USE ??',
+      timeout: 40000,
+      values: [db]
+    }, function(err, result) {
       if (err) {
         console.log(err);
       }
-      connection.query('SELECT * FROM ' + table + '; DESCRIBE ' + table, function(err, result) {
+      connection.query({
+        sql: 'SELECT * FROM ??; DESCRIBE ??',
+        timeout: 40000,
+        values: [table, table]
+      }, function(err, result, fields) {
         if (err) {
           console.log(err);
         }
@@ -111,16 +117,22 @@ module.exports = {
       table = req.body.table,
       column = req.body.col,
       value = req.body.val,
-      primaryKey = req.body.pk;
-
-    var raw = 'UPDATE ' + table + ' SET ' + column + '="' + value + '" WHERE ' + primaryKey + '="PRIMARY KEY"';
-    var connection = getClientDB();
-
-    connection.query('USE ' + db, function(err, result) {
+      primaryKey = req.body.pk,
+      connection = client.getClientDB();
+    console.log(req.body);
+    connection.query({
+      sql:'USE ??',
+      timeout: 40000,
+      values: [db]
+    }, function(err, result) {
       if (err) {
         console.log(err);
       }
-      connection.query(raw, function(err, result) {
+      connection.query({
+        sql: 'UPDATE ?? SET ?? = ?? WHERE ?? = "PRIMARY KEY"',
+        timeout: 40000,
+        values: [table, column, value, primaryKey]
+      }, function(err, result) {
         if (err) {
           console.log(err);
         }

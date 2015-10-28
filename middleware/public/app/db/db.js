@@ -1,3 +1,4 @@
+/* jshint strict: false */
 angular.module('nodeadmin.db', [])
 .controller('RecordsController', ['$scope', 'RecordsFactory', '$stateParams', function ($scope, RecordsFactory, $stateParams) {
   $scope.records = {};
@@ -8,7 +9,7 @@ angular.module('nodeadmin.db', [])
 
 
   $scope.getRecords = function () {
-    console.log($stateParams);
+    console.log($scope.headers);
     RecordsFactory.getRecords($stateParams.database, $stateParams.table)
     .then(function (result) {
       $scope.records = result[0];
