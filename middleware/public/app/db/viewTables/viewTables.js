@@ -37,13 +37,8 @@ angular.module('nodeadmin.db.viewTables', [])
         modalInstance.result.then(function(result) {
           // TODO: find better solution for success vs error
           if (typeof result === 'string') {
-            // Remove dropped table 
-            for (var i = 0; i < $scope.tables.length; i++) {
-              if ($scope.tables[i] === result) {
-                $scope.tables.splice(i, 1);
-              }
-            }
             // Reload current tables in view
+            $scope.tables = [];
             $scope.getTables();
             $scope.success = result;
           } else {
