@@ -159,20 +159,11 @@ angular.module('nodeadmin.services', [])
       });
     };
 
-    var updateView = function(droppedTable, error) {
-      return {
-        droppedTable: droppedTable,
-        error: error
-      };
-      
-    };
-
     return {
       getTables: getTables,
       saveTableName: saveTableName,
       returnDropTableName: returnDropTableName,
       dropTable: dropTable,
-      updateView: updateView
     };
   }
 ])

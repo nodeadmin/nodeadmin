@@ -79,7 +79,7 @@ module.exports = {
       connection.query('DROP TABLE ??', [table], function(err, result) {
         if (err) {
           console.log(err);
-          res.status(500).send(JSON.stringify(err));
+          res.status(500).send(err.toString());
         }
         res.status(200).send(table);
       });
