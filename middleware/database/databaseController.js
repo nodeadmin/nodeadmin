@@ -29,6 +29,45 @@ module.exports = {
         }
       });
     }
+  },
+
+  showTables: function(req, res) {
+    var db = req.params.database;
+    var connection = client.getClientDB();
+
+    connection.query('USE ' + db, function(err, result) {
+      if (err) {
+        console.log(err);
+        res.status(500).send(JSON.stringify(err));
+      }
+      connection.query('SHOW TABLES', function(err, result) {
+        if (err) {
+          console.log(err)
+          res.status(500).send(JSON.stringify(err));
+        }
+        res.status(200).json(result);
+      });
+    });
+  },
+
+  dropTable: function(req, res) {
+    var db = req.params.database;
+    var table = req.params.table;
+    var connection = client.getClientDB();
+
+    connection.query('USE ' + db, function(err, result) {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err.toString());
+      }
+      connection.query('DROP TABLE ' + table, function(err, result) {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err.toString());
+        }
+        res.status(200).send(true);
+      });
+    });
   }
 
 };
