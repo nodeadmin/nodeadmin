@@ -109,14 +109,11 @@ module.exports = {
     var table = 'performance_timers';
     var connection = client.getClientDB();
 
-    connection.query('USE ' + db, function(err, result) {
+    connection.query('SELECT * FROM ??.??', [db, table], function(err, result) {
       if (err) {
         console.log(err);
       }
-      connection.query('SELECT * FROM ' + table, function(err, result) {
-
-        res.status(200).json(result);
-      });
+      res.status(200).json(result);
     });
   },
 
@@ -125,7 +122,7 @@ module.exports = {
     var table = 'processlist'
     var connection = client.getClientDB();
 
-    connection.query('SELECT * FROM ' + db + '.' + table, function(err, result) {
+    connection.query('SELECT * FROM ??.??', [db, table]/*+ db + '.' + table*/, function(err, result) {
       if (err) {
         console.log(err);
       }

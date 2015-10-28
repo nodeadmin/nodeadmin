@@ -90,7 +90,7 @@ angular.module('nodeadmin.services', [])
         method: 'GET',
         url: '/nodeadmin/api/db/info',
       }).then(function(resp) {
-        console.log(resp);
+        // console.log(resp);
         return resp.data;
       });
     };
