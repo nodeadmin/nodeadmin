@@ -35,13 +35,12 @@ angular.module('nodeadmin.db.viewTables', [])
         });
 
         modalInstance.result.then(function(result) {
-            console.log('modal results:', result);
-            if (typeof result === 'string') {
-              $scope.success = result;
-            } else {
-              $scope.error = result.data;
-            }
-          });
+          if (typeof result === 'string') {
+            $scope.success = result;
+          } else {
+            $scope.error = result.data;
+          }
+        });
       };
 
       $scope.toggleAnimation = function() {
