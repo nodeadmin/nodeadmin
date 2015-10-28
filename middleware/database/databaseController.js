@@ -99,7 +99,6 @@ module.exports = {
         if (err) {
           console.log(err);
         }
-        console.log(result);
         res.status(200).json(result);
       });
     });
@@ -139,7 +138,6 @@ module.exports = {
 
     connection.query(req.body.data.query, function(err, result) {
       if (err) {
-        console.log(err, result);
         res.status(400).json(err);
       } else {
         res.status(200).json(result);
