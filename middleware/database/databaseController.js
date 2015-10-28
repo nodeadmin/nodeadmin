@@ -117,9 +117,11 @@ module.exports = {
       table = req.body.table,
       column = req.body.col,
       value = req.body.val,
+      set = {},
       primaryKey = req.body.pk,
       connection = client.getClientDB();
-    console.log(req.body);
+
+    set[column] = value;
     connection.query({
       sql:'USE ??',
       timeout: 40000,
@@ -129,9 +131,9 @@ module.exports = {
         console.log(err);
       }
       connection.query({
-        sql: 'UPDATE ?? SET ?? = ?? WHERE ?? = "PRIMARY KEY"',
+        sql: 'UPDATE ?? SET ? WHERE ?? = "PRIMARY KEY"',
         timeout: 40000,
-        values: [table, column, value, primaryKey]
+        values: [table, set, primaryKey]
       }, function(err, result) {
         if (err) {
           console.log(err);
