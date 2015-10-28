@@ -11,7 +11,7 @@ angular.module('nodeadmin.db.createdb', [])
     if(name.match(validDBreg) && name.match(' ') === null) {
       DatabaseFactory.createDB($scope.database)
         .then(function (res) {
-          state.transitionTo('dbhome', {success: res}, { reload: true});
+          // close modal and send mysql response
           $modalInstance.close(res);
         });
     } else {
