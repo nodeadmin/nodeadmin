@@ -1,11 +1,15 @@
 <div>
-  <div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    {{error}}
+  <div class="row">    
+    <div ng-show="error" class="col-md-11 alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{error.status}} / {{ error.statusText }} error {{ error.config.method }}
+    </div>
   </div>
-  <div ng-show="success" class="alert alert-success alert-dismissable" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    {{success.status}} / {{ success.statusText }} successfull {{ success.config.method }}
+  <div class="row">    
+    <div ng-show="success" class="col-md-11 alert alert-success alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{success.status}} / {{ success.statusText }} successfull {{ success.config.method }}
+    </div>
   </div>
 
   <div class="row">
@@ -14,6 +18,7 @@
       <button ng-click="open('deleteDB')" class="btn pull-right btn-sm btn-danger">Remove DB</button>
     </div>
   </div>
+
   <div style="" class="row">
     <h4>Performance Timers</h4>
     <div style="border:1px solid grey; background-color:lightgrey;" class="col-md-11">
@@ -31,25 +36,26 @@
         </tbody>
       </table>
     </div>
-</div>
-<div style="margin-top:40px;" class="row">
-  <h4>Process List</h4>
-  <div style="border:1px solid grey; background-color:lightgrey;" class="col-md-11">
-    <table class="table table-striped">
-      <h1>{{error}}</h1>
-      <thead>
-        <tr>
-          <th ng-repeat="header in infoHeaders">{{header}}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="row in infoRows">
-          <td ng-repeat="(column, data) in row">{{data}}</td>
-        </tr>
-      </tbody>
-    </table>
   </div>
-  <!-- <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-1 col-md-offset-2">HI</div>
-  </div> -->
-</div>
+
+  <div style="margin-top:40px;" class="row">
+  <h4>Process List</h4>
+
+    <div style="border:1px solid grey; background-color:lightgrey;" class="col-md-11">
+      <table class="table table-striped">
+        <h1>{{error}}</h1>
+        <thead>
+          <tr>
+            <th ng-repeat="header in infoHeaders">{{header}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in infoRows">
+            <td ng-repeat="(column, data) in row">{{data}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </div>
