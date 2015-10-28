@@ -69,6 +69,15 @@ angular.module('nodeadmin.services', [])
           .catch(function(err) {
             return err;
           })
+      },
+      editRecord: function(db, table, data) {
+        return $http.put('/nodeadmin/api/db/' + db + '/' + table + '/records', data)
+        .then(function (response) {
+          return response;
+        })
+        .catch(function (err) {
+          return err;
+        });
       }
     }
   }
