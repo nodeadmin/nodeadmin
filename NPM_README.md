@@ -4,16 +4,17 @@
 
 ## Team
 
-  - __Product Owner__: [Taylor Lehman](https://github.com/taylorleh)
-  - __Scrum Master__: [Alex Hutchison](https://github.com/dutchers)
-  - __Development Team Members__: [Laura Knight](https://github.com/ljknight), [Andrew Nickell](https://github.com/nickell-andrew), [Taylor Lehman](https://github.com/taylorleh), [Alex Hutchison](https://github.com/dutchers)
+  - __Product Owner__: Taylor Lehman
+  - __Scrum Master__: Alex Hutchison
+  - __Development Team Members__: Laura Knight, Andrew Nickell, Taylor Lehman, Alex Hutchison
 
 ## Table of Contents
 1. [Installation](#installation)
-1. [Api](#api)
-1. [Usage](#usage)
 1. [Requirements](#requirements)
+1. [API](#api)
+1. [Usage](#usage)
 1. [Team](#team)
+1. [License](#license)
 1. [Contributing](#contributing)
 
 ## Installation
@@ -54,13 +55,11 @@ Navigate to /nodeadmin and log in to your server's mysql database with a usernam
 
 > **Settings** offers a variety of (not yet implemented) options for configuring Nodeadmin
 
-<!-- ## Development -->
-
-### Roadmap
-
-View the project roadmap [here](https://github.com/cloistered-babka/cloistered-babka/issues)
 
 
-## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+## License
+[MIT](LINK_HERE)
+
+## Contribute to Nodeadmin 
+[Github](https://github.com/cloistered-babka/cloistered-babka/)
