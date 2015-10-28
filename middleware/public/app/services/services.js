@@ -7,7 +7,7 @@ angular.module('nodeadmin.services', [])
         method: 'POST',
         url: '/nodeadmin/api/auth/login',
         data: user
-      }).then(function(resp) {
+      }).then(function (resp) {
         return resp.data.token;
       });
     };
@@ -29,7 +29,7 @@ angular.module('nodeadmin.services', [])
     return $http({
       method: 'GET',
       url: '/nodeadmin/api/system/modules'
-    }).then(function(resp) {
+    }).then(function (resp) {
       return resp;
     });
   };
@@ -46,8 +46,8 @@ angular.module('nodeadmin.services', [])
           method: 'GET',
           url: '/nodeadmin/api/home/os'
         })
-        .then(function(data) {
-          return data;
+        .then(function (resp) {
+          return resp;
         })
         .catch(function(err) {
           return err
@@ -62,9 +62,9 @@ angular.module('nodeadmin.services', [])
     return {
       getRecords: function(db, table) {
         return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/records')
-          .then(function(response) {
-            console.log(response.data);
-            return response.data;
+          .then(function (resp) {
+            console.log(resp.data);
+            return resp.data;
           })
           .catch(function(err) {
             return err;
@@ -99,9 +99,25 @@ angular.module('nodeadmin.services', [])
       getPerformanceTimers: getPerformanceTimers,
       getInfo: getInfo
     };
+}])
+
+.factory('QueryFactory', ['$http', 
+  function ($http) {
+    var submit = function (query) {
+      return $http.post('/nodeadmin/api/db/query', JSON.stringify({"data": query}))
+        .then(function (resp) {
+          return resp;
+        })
+        .catch(function(err) {
+          return err;
+        });
+    }
+    return {
+      submit: submit
+    }
   }
 ])
-
+  
 .factory('Tables', ['$http',
   function($http) {
 
@@ -142,7 +158,7 @@ angular.module('nodeadmin.services', [])
       getTables: getTables,
       saveTableName: saveTableName,
       returnDropTableName: returnDropTableName,
-      dropTable: dropTable,
+      dropTable: dropTable
     };
   }
 ])
