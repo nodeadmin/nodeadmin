@@ -4,6 +4,10 @@ angular.module('nodeadmin.db.dbhome', [])
 
     $scope.animationsEnabled = true;
 
+    $scope.onDelete = function(arg) {
+      console.log('parent heres and was called', arg);
+    };
+
     $scope.open = function(type) {
       if(type === 'createDB') {
 
@@ -16,12 +20,23 @@ angular.module('nodeadmin.db.dbhome', [])
       }
       else if(type === 'deleteDB') {
 
+
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
           templateUrl: 'app/db/dbHome/dbdelete.html',
           controller: 'DBDeleteController',
           size: 'sm',
+          resolve: {
+            databases: function() {
+              return $scope.$parent.databases;
+            }
+          }
         });
+
+        modalInstance.result
+          .then(function (results) {
+            $scope.success = results;
+          });
       }
     };
 
