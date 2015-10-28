@@ -11,7 +11,7 @@ angular.module('nodeadmin.db.viewTables', [])
           .then(function(result) {
             result.forEach(function(table) {
               $scope.tables.push(table['Tables_in_' + databaseName]);
-            })
+            });
           })
           .catch(function(err) {
             $scope.error = err.data;
@@ -31,18 +31,24 @@ angular.module('nodeadmin.db.viewTables', [])
           animation: $scope.animationsEnabled,
           templateUrl: 'app/db/viewTables/deleteTable.html',
           controller: 'DeleteTableController',
-          size: size
+          size: size,
+          resolve: {
+            table: function() {
+              console.log('whtat is this', $scope.$parent);
+            }
+          }
         });
 
-        modalInstance.result
-          .then(function(results) {
-            console.log('modal results:',results)
-            $scope.success = results;
-          })
+        modalInstance.result.then(function(result) {
+            console.log('modal results:',result);
+            $scope.success = result;
+          }, function() {
+            // cancel
+          });
       };
 
       $scope.toggleAnimation = function() {
         $scope.animationsEnabled = !$scope.animationsEnabled;
       };
     }
-  ])
+  ]);

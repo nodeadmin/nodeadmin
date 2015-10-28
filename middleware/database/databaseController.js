@@ -58,7 +58,7 @@ module.exports = {
       }
       connection.query('SHOW TABLES', function(err, result) {
         if (err) {
-          console.log(err)
+          console.log(err);
           res.status(500).send(JSON.stringify(err));
         }
         res.status(200).json(result);
@@ -81,7 +81,7 @@ module.exports = {
           console.log(err);
           res.status(500).send(JSON.stringify(err));
         }
-        res.status(200).send(true);
+        res.status(200).send(table);
       });
     });
   },

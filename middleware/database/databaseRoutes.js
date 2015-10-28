@@ -13,7 +13,7 @@ router.route('/')
   });
 
 router.route('/:database/:table')
-  .delete(DbController.dropTable)
+  .delete(DbController.dropTable);
 
 router.route('/:database/tables')
   .get(DbController.getTables);
