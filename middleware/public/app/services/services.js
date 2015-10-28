@@ -7,7 +7,7 @@ angular.module('nodeadmin.services', [])
         method: 'POST',
         url: '/nodeadmin/api/auth/login',
         data: user
-      }).then(function(resp) {
+      }).then(function (resp) {
         return resp.data.token;
       });
     };
@@ -29,7 +29,7 @@ angular.module('nodeadmin.services', [])
     return $http({
       method: 'GET',
       url: '/nodeadmin/api/system/modules'
-    }).then(function(resp) {
+    }).then(function (resp) {
       return resp;
     });
   };
@@ -46,8 +46,8 @@ angular.module('nodeadmin.services', [])
           method: 'GET',
           url: '/nodeadmin/api/home/os'
         })
-        .then(function(data) {
-          return data;
+        .then(function (resp) {
+          return resp;
         })
         .catch(function(err) {
           return err
@@ -62,9 +62,9 @@ angular.module('nodeadmin.services', [])
     return {
       getRecords: function(db, table) {
         return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/records')
-          .then(function(response) {
-            console.log(response.data);
-            return response.data;
+          .then(function (resp) {
+            console.log(resp.data);
+            return resp.data;
           })
           .catch(function(err) {
             return err;
@@ -80,48 +80,94 @@ angular.module('nodeadmin.services', [])
         });
       }
     }
-  }])
+  }
+])
 
-.factory('DBInfoFactory', ['$http', function($http) {
-  var getPerformanceTimers = function() {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/db/performance',
-    }).then(function (resp) {
-      // console.log(resp);
-      return resp.data;
-    });
-  };
-  var getInfo = function () {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/db/info',
-    }).then(function (resp) {
-      console.log(resp);
-      return resp.data;
-    });
-  };
+.factory('DBInfoFactory', ['$http',
+  function($http) {
+    var getPerformanceTimers = function() {
+      return $http({
+        method: 'GET',
+        url: '/nodeadmin/api/db/performance',
+      }).then(function(resp) {
+        // console.log(resp);
+        return resp.data;
+      });
+    };
+    var getInfo = function() {
+      return $http({
+        method: 'GET',
+        url: '/nodeadmin/api/db/info',
+      }).then(function(resp) {
+        console.log(resp);
+        return resp.data;
+      });
+    };
 
-  return {
-    getPerformanceTimers: getPerformanceTimers,
-    getInfo: getInfo
-  };
-
+    return {
+      getPerformanceTimers: getPerformanceTimers,
+      getInfo: getInfo
+    };
 }])
+
+.factory('QueryFactory', ['$http', 
+  function ($http) {
+    var submit = function (query) {
+      return $http.post('/nodeadmin/api/db/query', JSON.stringify({"data": query}))
+        .then(function (resp) {
+          return resp;
+        })
+        .catch(function(err) {
+          return err;
+        });
+    }
+    return {
+      submit: submit
+    }
+  }
+])
   
 .factory('Tables', ['$http',
   function($http) {
+
+    // Allow access to table name between DeleteTable & TableView controllers
+    var dropTableName;
+
+    getTables = function(databaseName) {
+      return $http({
+        method: 'GET',
+        url: '/nodeadmin/api/db/' + databaseName + '/tables'
+      }).then(function(response) {
+        return response.data;
+      })
+    };
+
+    saveTableName = function(tableName) {
+      dropTableName = tableName;
+    };
+
+    returnDropTableName = function() {
+      return dropTableName;
+    };
+
+    dropTable = function(databaseName, tableName) {
+      return $http({
+        method: 'DELETE',
+        url: '/nodeadmin/api/db/' + databaseName + '/' + tableName + ''
+      }).then(function(response) {
+        return response.data;
+      }, function(err) {
+        console.error('MySQL error number: ', err.data)
+        return err.data;
+      });
+
+    };
+
     return {
-      getTables: function(databaseName) {
-        return $http.get('/nodeadmin/api/db/' + databaseName + '/tables')
-          .then(function(response) {
-            // console.log('tablesfactory response: ', response.data);
-            return response.data;
-          })
-          .catch(function(err) {
-            return err;
-          })
-      }
+      getTables: getTables,
+      saveTableName: saveTableName,
+      returnDropTableName: returnDropTableName,
+      dropTable: dropTable
     };
   }
 ])
@@ -136,8 +182,18 @@ angular.module('nodeadmin.services', [])
           data:name
         })
         .then(function (res) {
-          console.log('got response for database creation', res);
           return res;
+        })
+      },
+
+      deleteDB: function (name) {
+        return $http({
+          method:'POST',
+          url:'/nodeadmin/api/db/delete/',
+          data:name
+        })
+        .then(function (res){
+          return res
         })
       }
     }

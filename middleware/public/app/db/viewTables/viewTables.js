@@ -14,29 +14,24 @@ angular.module('nodeadmin.db.viewTables', [])
             })
           })
           .catch(function(err) {
-            $scope.error = err;
+            $scope.error = err.data;
           });
       };
 
       // Get tables on load
       $scope.getTables();
 
-
       // `Delete table` modal
       $scope.animationsEnabled = true;
 
-      $scope.open = function(size) {
+      $scope.open = function(size, tableName) {
+        Tables.saveTableName(tableName);
 
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
           templateUrl: 'app/db/viewTables/deleteTable.html',
           controller: 'DeleteTableController',
-          size: size,
-          // resolve: {
-          //   resolved: function() {
-          //     console.log('resolved')
-          //   }
-          // }
+          size: size
         });
       };
 

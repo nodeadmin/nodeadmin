@@ -1,11 +1,8 @@
-
 /* jshint strict: false, unused: false */
 var express = require('express');
 var router = express.Router();
 var tokenCheck = require('../auth/tokenCheck.js');
-var getClientDB = require('../auth/clientdb.js').getClientDB;
 var DbController = require('./databaseController.js');
-var mysql = require('mysql');
 
 router.use(tokenCheck);
 
@@ -15,76 +12,24 @@ router.route('/')
     res.send('eyyyy in db');
   });
 
-router.route('/:database/tables')
-  .get(function(req, res) {
-    var db = req.params.database;
-  var connection = getClientDB();
+router.route('/:database/:table')
+  .delete(DbController.dropTable)
 
-    connection.query('USE ' + db, function(err, result) {
-      if (err) {
-        console.log(err);
-      }
-      connection.query('SHOW TABLES', function(err, result) {
-        if (err) {
-          console.log(err);
-        }
-        res.status(200).json(result);
-      });
-    });
-  });
+router.route('/:database/tables')
+  .get(DbController.getTables);
 
 router.route('/:database/:table/records')
-  .get(function(req, res) {
-    var db = req.params.database,
-      table = req.params.table;
-    var connection = getClientDB();
-
-    connection.query('USE ' + db, function(err, result) {
-      if (err) {
-        console.log(err);
-      }
-      connection.query('SELECT * FROM ' + table + '; DESCRIBE ' + table, function(err, result) {
-        if (err) {
-          console.log(err);
-        }
-        res.status(200).json(result);
-      });
-    });
-  })
-  .put(function (req, res) {
-    DbController.updateRecord(req, res);
-  });
-
+  .get(DbController.getRecords)
+  .put(DbController.updateRecord);
+  
 router.route('/performance')
-.get(function (req, res) {
-  var db = 'performance_schema';
-  var table = 'performance_timers';
-  var connection = getClientDB();
-
-  connection.query('USE ' + db, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    connection.query('SELECT * FROM ' + table, function (err, result) {
-
-      res.status(200).json(result);
-    });
-  });
-});
+  .get(DbController.getPerformanceStats);
 
 router.route('/info')
-.get(function (req, res) {
-  var db = 'information_schema';
-  var table = 'processlist';
-  var connection = getClientDB();
+  .get(DbController.getInfoStats);
 
-  connection.query('SELECT * FROM ' + db + '.' + table, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    res.status(200).json(result);
-  });
-});
+router.route('/query')
+  .post(DbController.queryClientDB);
 
 router.route('/db')
   .get(DbController.getDatabases);
@@ -94,6 +39,9 @@ router.route('/connect')
 
 router.route('/create')
   .post(DbController.createDatabase);
+
+router.route('/delete')
+  .post(DbController.deleteDatabase)
 
 
 module.exports = router;

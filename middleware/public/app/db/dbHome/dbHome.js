@@ -2,6 +2,8 @@ angular.module('nodeadmin.db.dbhome', [])
 .controller('DBHomeController', ['$scope', 'DBInfoFactory', '$uibModal',
   function ($scope, DBInfoFactory, $uibModal) {
 
+    $scope.animationsEnabled = true;
+
     $scope.open = function(type) {
       if(type === 'createDB') {
 
@@ -11,7 +13,15 @@ angular.module('nodeadmin.db.dbhome', [])
           controller: 'DBCreateController',
           size: 'sm',
         });
+      }
+      else if(type === 'deleteDB') {
 
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'app/db/dbHome/dbdelete.html',
+          controller: 'DBDeleteController',
+          size: 'sm',
+        });
       }
     };
 

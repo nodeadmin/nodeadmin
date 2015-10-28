@@ -11,9 +11,10 @@ angular.module('nodeadmin', [
   'nodeadmin.db',
   'nodeadmin.db.dbhome',
   'nodeadmin.db.createdb',
-  'nodeadmin.db.deleteTable',
+  'nodeadmin.db.deletedb',
   'nodeadmin.db.viewTables',
   'nodeadmin.db.deleteTable',
+  'nodeadmin.db.query',
   'ui.router',
   'ui.bootstrap',
   'chart.js'
@@ -177,6 +178,15 @@ angular.module('nodeadmin', [
       controller: 'RecordsController',
       data: {
         requireLogin: false 
+      }
+    })
+    .state('kwikwery', {
+      parent: 'main',
+      url:'kwikwery',
+      templateUrl: 'app/db/query/query.html',
+      controller: 'QueryController',
+      data: {
+        requireLogin: false
       }
     });
    
