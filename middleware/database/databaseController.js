@@ -54,7 +54,7 @@ module.exports = {
     connection.query('USE ??', [db], function(err, result) {
       if (err) {
         console.log(err);
-        res.status(500).send(err.toString());
+        res.status(500).send(JSON.stringify(err));
       }
       connection.query('SHOW TABLES', function(err, result) {
         if (err) {
@@ -74,7 +74,7 @@ module.exports = {
     connection.query('USE ??', [db], function(err, result) {
       if (err) {
         console.log(err);
-        res.status(500).send(err.toString());
+        res.status(500).send(JSON.stringify(err));
       }
       connection.query('DROP TABLE ??', [table], function(err, result) {
         if (err) {
