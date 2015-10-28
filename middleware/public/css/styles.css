@@ -17,3 +17,28 @@
   border: 1px solid #eee;
   height: 100px;
 }
+
+.menu-div {
+  position: absolute;
+  top: -20px;
+  left: -21px;
+  border-top: none;
+  border-radius: 0px 0px 7px 0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.toggle-menu {
+  position: relative;
+  background-color: transparent;
+  border-top: none;
+  border-radius: 0px 0px 5px 0px;
+  color: #999999;
+  padding: 0px;
+  margin: 0px;
+}
+
+.toggle-menu:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+}
