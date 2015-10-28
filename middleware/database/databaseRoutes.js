@@ -13,20 +13,23 @@ router.route('/')
     res.send('eyyyy in db');
   });
 
+router.route('/:database/:table')
+  .delete(DbController.dropTable)
+
 router.route('/:database/tables')
-.get(DbController.getTables);
+  .get(DbController.getTables);
 
 router.route('/:database/:table/records')
-.get(DbController.getRecords);
+  .get(DbController.getRecords);
 
 router.route('/performance')
-.get(DbController.getPerformanceStats);
+  .get(DbController.getPerformanceStats);
 
 router.route('/info')
-.get(DbController.getInfoStats);
+  .get(DbController.getInfoStats);
 
 router.route('/query')
-.post(DbController.queryClientDB);
+  .post(DbController.queryClientDB);
 
 router.route('/db')
   .get(DbController.getDatabases)

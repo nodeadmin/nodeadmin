@@ -71,33 +71,34 @@ angular.module('nodeadmin.services', [])
           })
       }
     }
-  }])
+  }
+])
 
-.factory('DBInfoFactory', ['$http', function($http) {
-  var getPerformanceTimers = function() {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/db/performance',
-    }).then(function (resp) {
-      // console.log(resp);
-      return resp.data;
-    });
-  };
-  var getInfo = function () {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/db/info',
-    }).then(function (resp) {
-      console.log(resp);
-      return resp.data;
-    });
-  };
+.factory('DBInfoFactory', ['$http',
+  function($http) {
+    var getPerformanceTimers = function() {
+      return $http({
+        method: 'GET',
+        url: '/nodeadmin/api/db/performance',
+      }).then(function(resp) {
+        // console.log(resp);
+        return resp.data;
+      });
+    };
+    var getInfo = function() {
+      return $http({
+        method: 'GET',
+        url: '/nodeadmin/api/db/info',
+      }).then(function(resp) {
+        console.log(resp);
+        return resp.data;
+      });
+    };
 
-  return {
-    getPerformanceTimers: getPerformanceTimers,
-    getInfo: getInfo
-  };
-
+    return {
+      getPerformanceTimers: getPerformanceTimers,
+      getInfo: getInfo
+    };
 }])
 
 .factory('QueryFactory', ['$http', 
@@ -119,17 +120,45 @@ angular.module('nodeadmin.services', [])
   
 .factory('Tables', ['$http',
   function($http) {
+
+    // Allow access to table name between DeleteTable & TableView controllers
+    var dropTableName;
+
+    getTables = function(databaseName) {
+      return $http({
+        method: 'GET',
+        url: '/nodeadmin/api/db/' + databaseName + '/tables'
+      }).then(function(response) {
+        return response.data;
+      })
+    };
+
+    saveTableName = function(tableName) {
+      dropTableName = tableName;
+    };
+
+    returnDropTableName = function() {
+      return dropTableName;
+    };
+
+    dropTable = function(databaseName, tableName) {
+      return $http({
+        method: 'DELETE',
+        url: '/nodeadmin/api/db/' + databaseName + '/' + tableName + ''
+      }).then(function(response) {
+        return response.data;
+      }, function(err) {
+        console.error('MySQL error number: ', err.data)
+        return err.data;
+      });
+
+    };
+
     return {
-      getTables: function(databaseName) {
-        return $http.get('/nodeadmin/api/db/' + databaseName + '/tables')
-          .then(function (resp) {
-            // console.log('tablesfactory resp: ', resp.data);
-            return resp.data;
-          })
-          .catch(function(err) {
-            return err;
-          })
-      }
+      getTables: getTables,
+      saveTableName: saveTableName,
+      returnDropTableName: returnDropTableName,
+      dropTable: dropTable
     };
   }
 ])
