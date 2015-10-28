@@ -1,5 +1,5 @@
 angular.module('nodeadmin.db.createdb', [])
-.controller('DBCreateController', function ($scope, $modalInstance, Database) {
+.controller('DBCreateController', function ($scope, $modalInstance, DatabaseFactory) {
 
   $scope.database = {};
 
@@ -9,7 +9,7 @@ angular.module('nodeadmin.db.createdb', [])
     var name = $scope.database.name;
 
     if(name.match(validDBreg) && name.match(' ') === null) {
-      Database.createDB($scope.database)
+      DatabaseFactory.createDB($scope.database)
         .then(function (res) {
           $modalInstance.close(res.data);
         });
