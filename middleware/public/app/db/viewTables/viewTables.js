@@ -31,19 +31,16 @@ angular.module('nodeadmin.db.viewTables', [])
           animation: $scope.animationsEnabled,
           templateUrl: 'app/db/viewTables/deleteTable.html',
           controller: 'DeleteTableController',
-          size: size,
-          resolve: {
-            table: function() {
-              console.log('whtat is this', $scope.$parent);
-            }
-          }
+          size: size
         });
 
         modalInstance.result.then(function(result) {
-            console.log('modal results:',result);
-            $scope.success = result;
-          }, function() {
-            // cancel
+            console.log('modal results:', result);
+            if (typeof result === 'string') {
+              $scope.success = result;
+            } else {
+              $scope.error = result.data;
+            }
           });
       };
 
