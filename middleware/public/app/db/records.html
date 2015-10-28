@@ -1,8 +1,10 @@
 <div class="container-fluid">
+	<div class="row">
+		<h1 class="text-center">{{table}}</h1>
+	</div>
   <div class="row">
     <div class="col-md-12">
-     <table class="table table-striped">
-        <h1>{{error}}</h1>
+     <table class="table table-bordered table-hover">
         <thead>
           <tr>
             <th ng-repeat="header in headers">{{header.Field}}-{{header.Type}}-{{header.Key}}</th>
