@@ -1,5 +1,5 @@
 angular.module('nodeadmin.db.createdb', [])
-.controller('DBCreateController', function ($scope, $modalInstance, DatabaseFactory) {
+.controller('DBCreateController', function ($scope, $modalInstance, DatabaseFactory, state) {
 
   $scope.database = {};
 
@@ -11,7 +11,8 @@ angular.module('nodeadmin.db.createdb', [])
     if(name.match(validDBreg) && name.match(' ') === null) {
       DatabaseFactory.createDB($scope.database)
         .then(function (res) {
-          $modalInstance.close(res.data);
+          // close modal and send mysql response
+          $modalInstance.close(res);
         });
     } else {
       // TODO: error handling
