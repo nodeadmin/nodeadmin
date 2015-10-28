@@ -51,15 +51,15 @@ module.exports = {
     var db = req.params.database;
     var connection = client.getClientDB();
 
-    connection.query('USE ' + db, function(err, result) {
+    connection.query('USE ??', [db], function(err, result) {
       if (err) {
         console.log(err);
-        res.status(500).send(err.toString());
+        res.status(500).send(JSON.stringify(err));
       }
       connection.query('SHOW TABLES', function(err, result) {
         if (err) {
           console.log(err)
-          res.status(500).send(err.toString());
+          res.status(500).send(JSON.stringify(err));
         }
         res.status(200).json(result);
       });
@@ -71,15 +71,15 @@ module.exports = {
     var table = req.params.table;
     var connection = client.getClientDB();
 
-    connection.query('USE ' + db, function(err, result) {
+    connection.query('USE ??', [db], function(err, result) {
       if (err) {
         console.log(err);
-        res.status(500).send(err.toString());
+        res.status(500).send(JSON.stringify(err));
       }
-      connection.query('DROP TABLE ' + table, function(err, result) {
+      connection.query('DROP TABLE ??', [table], function(err, result) {
         if (err) {
           console.log(err);
-          res.status(500).send(err.toString());
+          res.status(500).send(JSON.stringify(err));
         }
         res.status(200).send(true);
       });

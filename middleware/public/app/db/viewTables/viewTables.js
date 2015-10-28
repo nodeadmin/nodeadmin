@@ -33,6 +33,12 @@ angular.module('nodeadmin.db.viewTables', [])
           controller: 'DeleteTableController',
           size: size
         });
+
+        modalInstance.result
+          .then(function(results) {
+            console.log('modal results:',results)
+            $scope.success = results;
+          })
       };
 
       $scope.toggleAnimation = function() {
