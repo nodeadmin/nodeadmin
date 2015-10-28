@@ -13,11 +13,8 @@ angular.module('nodeadmin', [
   'nodeadmin.db.createdb',
   'nodeadmin.db.deleteTable',
   'nodeadmin.db.viewTables',
-<<<<<<< HEAD
-=======
   'nodeadmin.db.deleteTable',
   'nodeadmin.db.query',
->>>>>>> 73249f2e9894408d4f3839d4c3f6a96ccb3de5d2
   'ui.router',
   'ui.bootstrap',
   'chart.js'
