@@ -35,6 +35,13 @@ angular.module('nodeadmin.db', [])
       val: data,
       pk: $scope.primaryKey
     };
+    RecordsFactory.editRecord($stateParams.database, $stateParams.table, update)
+    .then(function (result) {
+      console.log(result);
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
     console.log(id);
     console.log($scope.headers[index].Field);
     console.log(data);
