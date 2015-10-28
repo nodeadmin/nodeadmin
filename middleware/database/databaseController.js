@@ -122,7 +122,7 @@ module.exports = {
     var table = 'processlist'
     var connection = client.getClientDB();
 
-    connection.query('SELECT * FROM ??.??', [db, table]/*+ db + '.' + table*/, function(err, result) {
+    connection.query('SELECT * FROM ??.??', [db, table], function(err, result) {
       if (err) {
         console.log(err);
       }
