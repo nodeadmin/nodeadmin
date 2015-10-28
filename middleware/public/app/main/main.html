@@ -9,30 +9,53 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">NODEADMIN</a>
+      <a class="navbar-brand" ui-sref="#">
+        <span class="glyphicon glyphicon-compressed" aria-hidden="true"></span>
+        NODEADMIN
+      </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-init="currTab = 'home'">
       <ul class="nav navbar-nav">
         <li ng-class="{active: (currTab == 'home')}" ng-click="currTab = 'home'">
-          <a ui-sref="home">Home</a>
+          <a ui-sref="home">
+            <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+            Overview
+          </a>
         </li>
         <li ng-class="{active: (currTab == 'db')}" ng-click="currTab = 'db'">
-          <a ui-sref="dbhome">DB</a>
+          <a ui-sref="dbhome">
+            <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
+            DB
+          </a>
         </li>
         <li ng-class="{active: (currTab == 'system')}" ng-click="currTab = 'system'">
-          <a ui-sref="modules">System </a>
-        </li>
-        <li ng-class="{active: (currTab == 'settings')}" ng-click="currTab = 'settings'">
-          <a ui-sref="settings">Settings</a>
+          <a ui-sref="modules">
+            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>
+            System
+          </a>
         </li>
         <li>
-          <a ui-sref="kwikwery">KwiKwery(TM)</a>
+          <a ui-sref="kwikwery">
+            <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+            KwiKwery(TM)
+          </a>
+        </li>
+        <li ng-class="{active: (currTab == 'settings')}" ng-click="currTab = 'settings'">
+          <a ui-sref="settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            Settings
+          </a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li ng-click="logout()"><a>Logout</a></li>
+        <li ng-click="logout()">
+          <a ui-sref="login">
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+            Logout
+          </a>
+        </li>
       </ul>
     </div>
 </nav>
