@@ -10,7 +10,6 @@
 .grid {
     width: auto;
       height: 100%;
-
 }
 
 .CodeMirror {
@@ -19,6 +18,9 @@
 }
 
 .menu-div {
+  /*position: fixed;
+  top: 52px;
+  left: 248px;*/
   position: absolute;
   top: -20px;
   left: -21px;
