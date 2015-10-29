@@ -6,7 +6,6 @@ angular.module('nodeadmin.settings.users', [])
       $scope.getUsers = function() {
         Users.getUsers()
           .then(function(result) {
-            console.log('result', result)
             $scope.users = result[0];
             $scope.headers = result[1];
             $scope.getPrimaryKey($scope.headers);
