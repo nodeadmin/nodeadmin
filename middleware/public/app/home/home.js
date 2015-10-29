@@ -24,7 +24,7 @@ angular.module('nodeadmin.home', [])
 
 }])
 .controller('HomeController', function ($scope, Stats, HSFactory) {
-
+  $scope.loading = true;
   $scope.serverStats = {};
 
   // memory data
@@ -109,15 +109,15 @@ angular.module('nodeadmin.home', [])
   };
 
   $scope.load = function() {
-    $scope.getServerStats();
+    return new Promise(function () {
+      
+      $scope.getServerStats();
 
-    // load memory stream module
-   HSFactory.loadMemory($scope._memoryStream);
-    HSFactory.loadCpus($scope._cpuStream);
-  };
-  $scope.timeConverter = function () {
-    $scope.cpu_cores[1].times.idle = 
-    $scope.digest();
+     HSFactory.loadMemory($scope._memoryStream);
+     HSFactory.loadCpus($scope._cpuStream);
+    })
+      // load memory stream module
+   $scope.loading = false;
   };
 
   $scope.load();

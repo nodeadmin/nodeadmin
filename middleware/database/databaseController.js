@@ -92,8 +92,11 @@ module.exports = {
   getRecords: function(req, res) {
     var db = req.params.database,
       table = req.params.table,
+      rowCount = 100, //Shouldn't be hardcoded, need to add a query to get request, but this will do for now
+      offset = req.params.page > 1 ? req.params.page * rowCount : 0,
+      limit = [offset, rowCount],
       connection = client.getClientDB();
-
+    console.log(rowCount, offset, req.params.page);
     connection.query({
       sql:'USE ??',
       timeout: 40000,
@@ -103,12 +106,12 @@ module.exports = {
         console.log(err);
       }
       connection.query({
-        sql: 'SELECT * FROM ??; DESCRIBE ??',
+        sql: 'SELECT * FROM ?? LIMIT ?; DESCRIBE ??; SELECT count(*) FROM ??',
         timeout: 40000,
-        values: [table, table]
+        values: [table, limit, table, table]
       }, function(err, result, fields) {
         if (err) {
-          console.log(err);
+          console.log(err, offset, req.params.page, rowCount);
         }
         res.status(200).json(result);
       });

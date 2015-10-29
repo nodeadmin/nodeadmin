@@ -3,15 +3,20 @@
 		<h1 class="text-center">{{table}}</h1>
 	</div>
   <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <input type="text" class="form-control" ng-model="records.search" />
+    </div>
+  </div>
+  <div class="row">
     <div class="col-md-12">
      <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th ng-repeat="header in headers">{{header.Field}}-{{header.Type}}-{{header.Key}}</th>
+            <th ng-repeat="header in headers"><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{header.Type}} {{header.Key}}"></span>  {{header.Field}}</th>
           </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="row in records">
+        <tr ng-repeat="row in records | filter:records.search">
           <td ng-repeat="(column, data) in row track by $index">
             <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span>
             <div ng-show="isEditing == $id">
@@ -25,4 +30,7 @@
       <div class="col-sm-2 col-sm-offset-5" ng-show="loading"><h4 class="text-centered">Loading...</h4></div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <uib-pagination total-items="recordsCount" ng-change="paganacion()" ng-model="currentPage" rotate="false" boundary-links="true" max-size="maxSize" items-per-page="100"></uib-pagination>
 </div>

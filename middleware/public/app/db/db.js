@@ -1,19 +1,25 @@
 /* jshint strict: false */
 angular.module('nodeadmin.db', [])
-.controller('RecordsController', ['$scope', 'RecordsFactory', '$stateParams', function ($scope, RecordsFactory, $stateParams) {
+.controller('RecordsController', ['$scope', 'RecordsFactory', 'PaganacionFactory', '$state', '$stateParams', function ($scope, RecordsFactory, PaganacionFactory, $state, $stateParams) {
   $scope.records = {};
   $scope.headers = []; 
   $scope.error = '';
   $scope.isEditing = ''; 
   $scope.primaryKey = '';
+  $scope.maxSize = PaganacionFactory.maxSize;
   $scope.table = $stateParams.table;
   $scope.loading = true;
+  $scope.currentPage = PaganacionFactory.currentPage;
+  $scope.recordsCount = PaganacionFactory.records;
   $scope.getRecords = function () {
     console.log($scope.headers);
-    RecordsFactory.getRecords($stateParams.database, $stateParams.table)
+    RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page)
     .then(function (result) {
       $scope.records = result[0];
       $scope.headers = result[1];
+      PaganacionFactory.records = result[2][0]['count(*)'];
+      $scope.recordsCount = PaganacionFactory.records;
+      console.log($scope.recordsCount);
       $scope.getPrimaryKey($scope.headers);
     })
     .catch(function (err) {
@@ -23,7 +29,15 @@ angular.module('nodeadmin.db', [])
       $scope.loading = false;
     });
   };
-
+  
+  $scope.paganacion = function () {
+    PaganacionFactory.currentPage = $scope.currentPage;
+    $state.go('records', {
+      database:$stateParams.database,
+      table: $scope.table,
+      page: $scope.currentPage 
+    });
+  };
   $scope.getPrimaryKey = function (headers) {
     for (var i = 0; i < headers.length; i++) {
       if (headers[i].Key === 'PRI') {
@@ -64,6 +78,13 @@ angular.module('nodeadmin.db', [])
     }
   };
 })
+.factory('PaganacionFactory', [function () {
+  return {
+    currentPage: 1,
+    records: 0,
+    maxSize: 10
+  };
+}])
 .controller('DBController', ['$scope','dbFactory', function ($scope, dbFactory) {
 
   // console.log(dbFactory);

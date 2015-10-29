@@ -60,8 +60,8 @@ angular.module('nodeadmin.services', [])
 .factory('RecordsFactory', ['$http',
   function($http) {
     return {
-      getRecords: function(db, table) {
-        return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/records')
+      getRecords: function(db, table, page) {
+        return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/' + page)
           .then(function (resp) {
             console.log(resp.data);
             return resp.data;
