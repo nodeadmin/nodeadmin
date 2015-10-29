@@ -8,7 +8,4 @@ router.use(tokenCheck);
 router.route('/modules')
   .get(SystemController.getNpmModules);
 
-router.route('/filesystem')
-  .get(SystemController.getModuleChildren);
-
 module.exports = router;
