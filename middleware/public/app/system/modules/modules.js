@@ -71,7 +71,6 @@ $scope.getModules = function() {
     $scope.colorDependencies(modules.data);
   })
   .catch(function(err) {
-    console.error(err.data.error);
     // Allow for error displaying on modules page
     $scope.error = err.data.error;
   })
