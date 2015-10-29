@@ -1,0 +1,48 @@
+<div>
+  <table class="table table-striped">
+    <tbody>
+      <thead>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Length / Values</th>
+        <th>Default</th>
+        <th>Null</th>
+        <th>Index</th>
+      </thead>
+      <tr>
+        <td><input type="text" name="" id=""></td>
+
+        <td>
+          <select name="" id="">
+            <option ng-repeat="type in dataTypes.common" value="{{type}}">{{ type }}</option>
+            <optgroup label="numeric">
+              <option ng-repeat="type in dataTypes.numeric" value="{{type}}">{{ type }}</option>
+            </optgroup>
+            <optgroup label="Date And Time">
+              <option ng-repeat="type in dataTypes.dateTime" value="{{type}}">{{ type }}</option>
+            </optgroup>
+            <optgroup label="String">
+              <option ng-repeat="type in dataTypes.string" value="{{type}}">{{ type }}</option>
+            </optgroup>
+            
+          </select>
+        </td>
+        <td><input type="text" name="" id=""></td>
+
+        <td><select name="" id="">
+          <option value="">AS DEFINED:</option>
+          <option value="null">NULL</option>
+          <option value="current_timestamp">CURRENT_TIMESTAMP</option>
+        </select></td>
+        
+        <td><input type="radio" name="" id=""></td>
+
+        <td>
+          <select name="" id="">
+            <option ng-repeat="quality in qualities" value="{{ quality }}">{{ quality }}</option>
+          </select>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
