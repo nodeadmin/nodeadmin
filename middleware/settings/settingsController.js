@@ -10,7 +10,7 @@ module.exports = {
         console.log(err);
         res.status(500).send(err.toString());
       }
-      connection.query('SELECT * FROM user', function(err, result) {
+      connection.query('SELECT * FROM user; DESCRIBE user', function(err, result) {
         if (err) {
           console.log(err);
           res.status(500).send(err.toString());
