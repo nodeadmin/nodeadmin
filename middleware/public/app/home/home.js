@@ -20,6 +20,11 @@ angular.module('nodeadmin.home', [])
     });
   };
 
+  _homeStat.endSocket = function(callback) {
+    this.socket.emit('endpressure');
+    this.socket.emit('endclientcpu');
+  };
+
   return _homeStat;
 
 }])
@@ -121,6 +126,10 @@ angular.module('nodeadmin.home', [])
   };
 
   $scope.load();
+
+  $scope.$on("$destroy", function () {
+    HSFactory.endSocket();
+  });
 
 })
 .filter('toHours', function () {
