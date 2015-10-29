@@ -159,11 +159,25 @@ angular.module('nodeadmin.services', [])
       });
     };
 
+    var createTable = function(database, table, schema) {
+      return $http({
+        method:'POST',
+        url: ['/nodeadmin/api',database, table].join('/'),
+        data: schema
+      }).then(function (response){
+        return response;
+      })
+      .catch(function (error){
+        return error;
+      })
+    }
+
     return {
       getTables: getTables,
       saveTableName: saveTableName,
       returnDropTableName: returnDropTableName,
       dropTable: dropTable,
+      createTable: createTable
     };
   }
 ])

@@ -3,7 +3,7 @@
     <form class="form-inline">
       <div class="form-group">
         <label for="tablename">Table Name: </label>
-        <input type="text" class="form-control" id="tablename" placeholder="Table Name">
+        <input type="text" class="form-control" id="tablename" ng-model="tablename" placeholder="Table Name">
       </div>
       <div class="input-group col-xs-2 pull-right">
         <!-- decrement button -->
@@ -21,7 +21,7 @@
     </form>
   </div>
 
-  <table class="table table-striped table-bordered" style="margin-top:40px;"> 
+  <table class="table table-condensed table-striped table-bordered" style="margin-top:40px;"> 
     <tbody>
     <thead>
     <tr>    
@@ -110,4 +110,7 @@
     </tr>
     </tbody>
   </table>
+  <div class="row">
+      <button ng-click="processTable()" class="pull-right text-warning btn btn-default">Create</button>
+  </div>
 </div>
