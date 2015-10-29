@@ -96,7 +96,6 @@ module.exports = {
       offset = req.params.page > 1 ? req.params.page * rowCount : 0,
       limit = [offset, rowCount],
       connection = client.getClientDB();
-    console.log(rowCount, offset, req.params.page);
     connection.query({
       sql:'USE ??',
       timeout: 40000,
@@ -111,7 +110,6 @@ module.exports = {
         values: [table, limit, table, table]
       }, function(err, result, fields) {
         if (err) {
-          console.log(err, offset, req.params.page, rowCount);
         }
         res.status(200).json(result);
       });

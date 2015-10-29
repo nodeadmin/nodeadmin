@@ -12,14 +12,12 @@ angular.module('nodeadmin.db', [])
   $scope.currentPage = PaganacionFactory.currentPage;
   $scope.recordsCount = PaganacionFactory.records;
   $scope.getRecords = function () {
-    console.log($scope.headers);
     RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page)
     .then(function (result) {
       $scope.records = result[0];
       $scope.headers = result[1];
       PaganacionFactory.records = result[2][0]['count(*)'];
       $scope.recordsCount = PaganacionFactory.records;
-      console.log($scope.recordsCount);
       $scope.getPrimaryKey($scope.headers);
     })
     .catch(function (err) {
@@ -59,7 +57,6 @@ angular.module('nodeadmin.db', [])
     };
     RecordsFactory.editRecord($stateParams.database, $stateParams.table, update)
     .then(function (result) {
-      console.log(result);
     })
     .catch(function (err) {
       console.log(err);
