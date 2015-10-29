@@ -14,6 +14,7 @@ angular.module('nodeadmin', [
   'nodeadmin.db.createdb',
   'nodeadmin.db.deletedb',
   'nodeadmin.db.viewTables',
+  'nodeadmin.db.createtable',
   'nodeadmin.db.deleteTable',
   'nodeadmin.db.query',
   'ui.router',
@@ -163,11 +164,11 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    .state('createTable', {
+    .state('createtable', {
       parent: 'db',
-      url: '/:database/createTable',
-      templateUrl: '',
-      controller: '',
+      url: '/:database/createtable',
+      templateUrl: 'app/db/viewTables/createtable.html',
+      controller: 'CreateTableViewController',
       data: {
         requireLogin: true
       }

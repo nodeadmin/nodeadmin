@@ -13,7 +13,10 @@ angular.module('nodeadmin.db.deletedb', [])
         var ind = databases.map(function (db) { return db.Database; }).indexOf($scope.data.repeatSelect);
         databases.splice(ind, 1);
         $modalInstance.close(res);
-      });
+      })
+      .catch(function (error) {
+        $modalInstance.close(error);
+      })
   };
 
   $scope.cancel = function() {
