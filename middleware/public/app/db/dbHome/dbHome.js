@@ -3,6 +3,15 @@ angular.module('nodeadmin.db.dbhome', [])
   function ($scope, DBInfoFactory, $uibModal, $state) {
 
     $scope.animationsEnabled = true;
+    
+    $scope.alerts = {
+      error:[],
+      success:[]
+    };
+
+    $scope.closeAlert = function(type, index) {
+      $scope.alerts[type].splice(index, 1);
+    };
 
     $scope.open = function(type) {
       if(type === 'createDB') {
@@ -21,8 +30,12 @@ angular.module('nodeadmin.db.dbhome', [])
           .then(function (results){
             // refresh parent view sidebar to ensure DB was created properly
             $scope.$parent.loadDatabases();
-            // set success message
-            $scope.success = results;
+            
+            $scope.alerts[results.status === 200 ? 'success' : 'error'].push({
+              msg:results.statusText,
+              status:results.status,
+              method:results.config.method,
+            });
           });
       }
       else if(type === 'deleteDB') {
@@ -43,7 +56,11 @@ angular.module('nodeadmin.db.dbhome', [])
         modalInstance.result
           .then(function (results) {
             // set success message
-            $scope.success = results;
+            $scope.alerts[results.status === 200 ? 'success' : 'error'].push({
+              msg:results.statusText,
+              status:results.status,
+              method:results.config.method,
+            });
           });
       }
     };
