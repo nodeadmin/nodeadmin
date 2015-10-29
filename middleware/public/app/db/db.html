@@ -1,8 +1,8 @@
 <div id="wrapper" ng-class="{toggled: menu}">
   <div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
+    <ul class="sidebar-nav bg-default">
       <div ng-repeat="db in databases">
-        <li><a ui-sref="tables({ database: db.Database })">{{ db.Database }}</a></li>
+        <li><a ui-sref="tables({ database: db.Database })" class="text-primary">{{ db.Database }}</a></li>
       </div>
     </ul>
   </div>

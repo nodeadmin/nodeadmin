@@ -23,11 +23,12 @@
 .toggle-menu-div {
   position: fixed;
   top: 52px;
-  left: 248px;
+  left: 249px;
   /*position: absolute;
   top: -20px;
   left: -21px;*/
   border-top: none;
+  border-left: none;
   border-radius: 0px 0px 7px 0px;
   padding: 0px;
   margin: 0px;
@@ -42,14 +43,13 @@
   background-color: transparent;
   border-top: none;
   border-radius: 0px 0px 5px 0px;
-  color: #999999;
   padding: 0px;
   margin: 0px;
 }
 
 .toggle-menu-button:hover {
-  color: #fff;
-  background: rgba(255,255,255,0.2);
+  text-decoration: none;
+  /*color: #fff;*/
 }
 
 @media(min-width:768px) {
