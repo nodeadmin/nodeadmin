@@ -195,3 +195,19 @@ angular.module('nodeadmin.services', [])
     }
 
 }])
+
+.factory('Users', ['$http', function($http) {
+  var getUsers = function() {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/settings/users'
+    }).then(function(response) {
+      return response.data;
+    });
+  };
+
+  return {
+    getUsers: getUsers
+  };
+
+}])

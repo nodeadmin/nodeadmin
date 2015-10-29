@@ -6,6 +6,7 @@ angular.module('nodeadmin', [
   'nodeadmin.auth',
   'nodeadmin.main',
   'nodeadmin.settings',
+  'nodeadmin.settings.users',
   'nodeadmin.system',
   'nodeadmin.system.modules',
   'nodeadmin.system.logs',
@@ -53,6 +54,7 @@ angular.module('nodeadmin', [
     })
 
     .state('settings', {
+      abstract: true,
       parent: 'main',
       url: 'settings',
       templateUrl: 'app/settings/settings.html',
@@ -63,31 +65,31 @@ angular.module('nodeadmin', [
     })
     .state('users', {
       parent: 'settings',
-      url: 'settings/users',
-      templateUrl: '',
-      controller: '',
+      url: '',
+      templateUrl: 'app/settings/users/users.html',
+      controller: 'UsersController',
       data: {
         requireLogin: true
       }
     })
-    .state('notifications', {
-      parent: 'settings',
-      url: 'settings/notifications',
-      templateUrl: '',
-      controller: '',
-      data: {
-        requireLogin: true
-      }
-    })
-    .state('advanced', {
-      parent: 'settings',
-      url: 'settings/advanced',
-      templateUrl: '',
-      controller: '',
-      data: {
-        requireLogin: true
-      }
-    })
+    // .state('notifications', {
+    //   parent: 'settings',
+    //   url: 'settings/notifications',
+    //   templateUrl: '',
+    //   controller: '',
+    //   data: {
+    //     requireLogin: true
+    //   }
+    // })
+    // .state('advanced', {
+    //   parent: 'settings',
+    //   url: 'settings/advanced',
+    //   templateUrl: '',
+    //   controller: '',
+    //   data: {
+    //     requireLogin: true
+    //   }
+    // })
 
     .state('system', {
       abstract: true,
