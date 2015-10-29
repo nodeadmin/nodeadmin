@@ -6,35 +6,44 @@ var ls;
 module.exports = function (io) {
   io.of('/system').on('connection', function (socket) {
     socket.on('getlogs', function () {
-      ls = spawn('tail', ['-f', __dirname + "/../serverLogs/access.log"]);
+      ls = ls || spawn('tail', ['-f', __dirname + "/../serverLogs/access.log"]);
       ls.stdout.on('readable', function() {
-        var asMessage = this.read().toString();
-        socket.emit('logs', asMessage);
+        var buffer = this.read();
+        if(buffer !== null) {
+          var asMessage = buffer.toString();
+          socket.emit('logs', asMessage);
+        }
       });  
     });
     socket.on('stoplogs', function () {
-      ls.removeListener('readable', function () {
-        ls.kill();
+      ls.kill();
+      ls.on('exit', function () {
+        ls = null;
+        fs.truncate(__dirname + '/../serverLogs/access.log');
       });
-      fs.truncate(__dirname + '/../serverLogs/access.log');
     });
 
-  });
-
-  io.on('connection', function (socket) {
-    socket.emit('something', {data: 'you connected, yo!'});
   });
 
   io.of('/home').on('connection', function(socket) {
+    var memoryTick, cpuTick;
     socket.on('pressure', function(){
-      setInterval(function(){
+      socket.emit('memory', HomeController.getFreeMemory());
+      memoryTick = setInterval(function(){
         socket.emit('memory', HomeController.getFreeMemory());
-      }, 5000);
+      }, 2500);
+    });
+    socket.on('endpressure', function () {
+      clearInterval(memoryTick);
     });
     socket.on('clientcpu', function(){
-      setInterval(function(){
+      socket.emit('servercpu', HomeController.getCpus());
+      cpuTick = setInterval(function(){
         socket.emit('servercpu', HomeController.getCpus());
-      }, 2000);
+      }, 500);
+    });
+    socket.on('endclientcpu', function () {
+      clearInterval(cpuTick);
     });
   });
 
