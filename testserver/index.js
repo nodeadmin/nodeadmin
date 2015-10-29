@@ -23,16 +23,32 @@ connection.query('use testserverdb', function (err, rows) {
 });
 
 connection.query(
-  'CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20), species VARCHAR(20), sex CHAR(1));',
+  'CREATE TABLE pet (id MEDIUMINT NOT NULL AUTO_INCREMENT, name VARCHAR(20), owner VARCHAR(20), species VARCHAR(20), sex CHAR(1), PRIMARY KEY (id) );',
   function (err, rows) {
     console.log('creating pet table... err: ', err, 'rows: ', rows);
   }
 );
 
+owners = ['"Laura"', '"Alex"', '"Taylor"', '"Andrew"'];
+species = ['"Dog"', '"Cat"', '"Tiger"', '"Iguana"', '"Hamster"', '"Fish"'];
+names = ['"Spot"', '"Fido"', '"Shadow"', '"Nightwing"', '"Curtains"', '"Honeybooboo"'];
+
+randomIdx = function (array) {
+  length = array.length || array;
+  return Math.floor(Math.random()*length);
+}
+
+randomName = names[randomIdx(names)];
+randomOwner = owners[randomIdx(owners)];
+randomSpecies = species[randomIdx(species)];
+randomGender = randomIdx(2);
+
 connection.query(
-  'insert into pet (name, owner, species, sex) values ("Spot", "Alex", "Dog", 1)',
+  // 'insert into pet (name, owner, species, sex) values (??, ??, ??, ??)',
+  // [randomName, randomOwner, randomSpecies, randomGender],
+  'insert into pet (name, owner, species, sex) values (' + randomName +', ' + randomOwner +', ' + randomSpecies +', ' + randomGender + ')',
   function (err, rows) {
-    console.log('inserting spot into pets... err: ', err, 'rows: ', rows);
+    console.log('inserting into pets... err: ', err, 'rows: ', rows);
   }
 );
 
