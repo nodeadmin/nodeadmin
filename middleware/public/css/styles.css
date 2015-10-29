@@ -17,20 +17,24 @@
   height: 100px;
 }
 
-.menu-div {
-  /*position: fixed;
+.toggle-menu-div {
+  position: fixed;
   top: 52px;
-  left: 248px;*/
-  position: absolute;
+  left: 248px;
+  /*position: absolute;
   top: -20px;
-  left: -21px;
+  left: -21px;*/
   border-top: none;
   border-radius: 0px 0px 7px 0px;
   padding: 0px;
   margin: 0px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
-.toggle-menu {
+.toggle-menu-button {
   position: relative;
   background-color: transparent;
   border-top: none;
@@ -40,7 +44,13 @@
   margin: 0px;
 }
 
-.toggle-menu:hover {
+.toggle-menu-button:hover {
   color: #fff;
   background: rgba(255,255,255,0.2);
+}
+
+@media(min-width:768px) {
+  #wrapper.toggled .toggle-menu-div {
+    left: 0px;
+  }
 }
