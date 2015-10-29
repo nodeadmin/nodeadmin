@@ -1,4 +1,4 @@
-
+/* jshint strict: false, camelcase: false */
 angular.module('nodeadmin.home', [])
 .factory('HSFactory', ['SocketFactory', function (SocketFactory){
 
@@ -52,9 +52,9 @@ angular.module('nodeadmin.home', [])
         case 4:
           return ' Tb';
         default:
-          return "you've got too much memory";
+          return 'you\'ve got too much memory';
       }
-    }
+    };
 
     var toSize = function(bytes, ind) {
       ind = ind || 0;
@@ -67,14 +67,15 @@ angular.module('nodeadmin.home', [])
       } else {
         return toSize(bytes /= 1024, ind + 1);
       }
-    }
+    };
     return toSize(bytes);
-  }
+  };
 
 
   $scope.getServerStats = function() {
     Stats.serverStats()
       .then(function (stats){
+        console.log(stats);
         stats.data.memory = toFileSize(stats.data.memory);
         var _load = stats.data.load.reduce(function (avg, sample) {
           return avg += sample;
@@ -82,7 +83,7 @@ angular.module('nodeadmin.home', [])
 
         stats.data.load = _load.toFixed(2) + ' seconds';
         $scope.serverStats = stats.data;
-      })
+      });
 
   };
 
@@ -103,20 +104,30 @@ angular.module('nodeadmin.home', [])
   };
 
   $scope._cpuStream = function(data) {
-      $scope.cpu_cores = data;
-      $scope.$digest();
+    $scope.cpu_cores = data;
+    $scope.$digest();
   };
 
   $scope.load = function() {
     $scope.getServerStats();
 
     // load memory stream module
-    HSFactory.loadMemory($scope._memoryStream);
+   HSFactory.loadMemory($scope._memoryStream);
     HSFactory.loadCpus($scope._cpuStream);
+  };
+  $scope.timeConverter = function () {
+    $scope.cpu_cores[1].times.idle = 
+    $scope.digest();
   };
 
   $scope.load();
 
+})
+.filter('toHours', function () {
+  return function (input) {
+    return ((input / 1000) / 60) / 60;
+  };
 });
+
 
 

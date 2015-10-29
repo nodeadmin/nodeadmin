@@ -1,37 +1,40 @@
-<div class="container">
-  <h1 style="margin-bottom:20px;">Overview</h1>
+<div class="container-fluid">
   <div class="row">
-    <h3>Server</h3>
-    <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 ">
-      <p>Hostname: {{ serverStats.hostname }}</p>
-      <p>Uptime: {{ serverStats.uptime }}</p>
-      <p>Kernel: {{ serverStats.type }}</p>
-      <p>Load Averages: {{ serverStats.load }}</p>
-      <p>Memory: {{ serverStats.memory }}</p>
-    </div>
-    <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 col-md-offset-2">
-      <canvas id="line" class="chart chart-line" chart-data="memory"
-        chart-labels="labels" chart-legend="true" chart-series="series"
-        chart-click="onClick" chart-options="{animation: false, scaleFontSize:8}" >
-      </canvas> 
-    </div>
-  </div>
-  <div style="margin-top:40px;" class="row">
-    <h3>CPU's</h3>
-    <div style="border:1px solid grey; background-color:lightgrey;" class="col-md-5">
-      <div ng-repeat="cpu in cpu_cores">
-        <p><span style="font-variant:small-caps;">Model:</span> {{ cpu.model }}</p>
-        <p><span style="font-variant:small-caps;">Speed:</span> {{ cpu.speed }}</p>
-        <p><span style="font-variant:small-caps;">User:</span> <span style="color:blue;">{{ cpu.times.user }}</span></p>
-        <p><span style="font-variant:small-caps;">System:</span> <span style="color:red;">{{ cpu.times.sys }}</span></p>
-        <p><span style="font-variant:small-caps;">Idle:</span> <span style="color:green;">{{ cpu.times.idle }}</span></p>
-        <hr>        
+    <div class="col-md-8 col-md-offset-2">
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <p>Hostname: {{ serverStats.hostname }}</p>
+              <p>Uptime: {{ serverStats.uptime }}</p>
+              <p>Kernel: {{ serverStats.type }}</p>
+              <p>Load Averages: {{ serverStats.load }}</p>
+              <p>Memory: {{ serverStats.memory | limitTo:3 }} Gb</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5 col-sm-offset-2">
+          <div class="panel panel-default"> 
+            <div class="panel-body">
+              <div ng-repeat="cpu in cpu_cores">
+                <p>Model: {{ cpu.model }}</p>
+                <p>Speed: {{ cpu.speed }}</p>
+                <p>User: {{ cpu.times.user | toHours | number: 2 }} hrs</p>
+                <p>System: {{ cpu.times.sys | toHours | number: 2}} hrs</p>
+                <p>Idle: {{ cpu.times.idle | toHours | number: 2}} hrs</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <p></p>
-      <p></p>
-      <p></p>
+        <div class="row">
+          <div class="col-sm-6 col-sm-offset-3">
+            <canvas id="line" class="chart chart-line" chart-data="memory"
+              chart-labels="labels" chart-legend="true" chart-series="series"
+              chart-click="onClick" chart-options="{animation: false, scaleFontSize:8}" >
+            </canvas> 
+          </div>
+        </div>
     </div>
-
-    <div style="height: 200px; border:1px solid grey; background-color:lightgrey;" class="col-md-5 col-md-offset-2">HI</div>
   </div>
-</div>
+</div

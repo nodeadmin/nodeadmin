@@ -1,5 +1,8 @@
 #wrapper {
-  margin-top: -20px;
+  padding-top: 50px;  
+}
+#home {
+  padding-top: 100px;
 }
 .log-line {
     padding-top: .75%;

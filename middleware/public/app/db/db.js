@@ -7,6 +7,7 @@ angular.module('nodeadmin.db', [])
   $scope.isEditing = ''; 
   $scope.primaryKey = '';
   $scope.table = $stateParams.table;
+  $scope.loading = true;
   $scope.getRecords = function () {
     console.log($scope.headers);
     RecordsFactory.getRecords($stateParams.database, $stateParams.table)
@@ -17,6 +18,9 @@ angular.module('nodeadmin.db', [])
     })
     .catch(function (err) {
       $scope.error = err;
+    })
+    .finally(function () {
+      $scope.loading = false;
     });
   };
 
