@@ -34,18 +34,8 @@ angular.module('nodeadmin.services', [])
     });
   };
 
-  var getFileSystem = function() {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/system/filesystem'
-    }).then(function(resp) {
-      return resp;
-    });
-  };
-
   return {
-    getModules: getModules,
-    getFileSystem: getFileSystem
+    getModules: getModules
   };
 })
 

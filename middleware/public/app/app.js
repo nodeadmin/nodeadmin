@@ -9,7 +9,6 @@ angular.module('nodeadmin', [
   'nodeadmin.system',
   'nodeadmin.system.modules',
   'nodeadmin.system.logs',
-  'nodeadmin.system.fileSystem',
   'nodeadmin.db',
   'nodeadmin.db.dbhome',
   'nodeadmin.db.createdb',
@@ -117,15 +116,6 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    .state('fs', {
-      parent: 'system',
-      url: '/fs',
-      templateUrl: 'app/system/fileSystem/fileSystem.html',
-      controller: 'FileSystemController',
-      data: {
-        requireLogin: true
-      }
-    })
 
     .state('db', {
       abstract: true,
@@ -146,15 +136,6 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    // .state('viewDB', {
-    //   parent: 'db',
-    //   url: 'viewDB',
-    //   templateUrl: 'app/db/viewDB/viewDB.html',
-    //   controller: 'DBViewController',
-    //   data: {
-    //     requireLogin: true
-    //   }
-    // })
     .state('tables', {
       parent: 'db',
       url: '/:database',
