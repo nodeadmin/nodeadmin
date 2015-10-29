@@ -9,6 +9,7 @@ angular.module('nodeadmin', [
   'nodeadmin.system',
   'nodeadmin.system.modules',
   'nodeadmin.system.logs',
+  'nodeadmin.system.fileSystem',
   'nodeadmin.db',
   'nodeadmin.db.dbhome',
   'nodeadmin.db.createdb',
@@ -119,9 +120,9 @@ angular.module('nodeadmin', [
     })
     .state('fs', {
       parent: 'system',
-      url: 'system/fs',
-      templateUrl: '',
-      controller: '',
+      url: '/fs',
+      templateUrl: 'app/system/fileSystem/fileSystem.html',
+      controller: 'FileSystemController',
       data: {
         requireLogin: true
       }
