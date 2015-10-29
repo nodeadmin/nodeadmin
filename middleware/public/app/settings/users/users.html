@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="user in users">
+          <tr ng-repeat="user in users | filter: search">
             <td ng-repeat="(column, data) in user track by $index">
               <span>{{data}}</span>
               <!-- <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span> -->
