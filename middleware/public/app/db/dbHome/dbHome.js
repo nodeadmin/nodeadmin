@@ -47,20 +47,32 @@ angular.module('nodeadmin.db.dbhome', [])
           });
       }
     };
+    var trackPerformance = function () {
+      DBInfoFactory.getPerformanceTimers()
+      .then(function (data) {
+        var perfData = data;
+        $scope.perfHeaders = Object.keys(perfData[0]);
+        $scope.perfRows = perfData;
+      });
+    };
+    trackPerformance();
+    var performanceTracker = setInterval(trackPerformance, 500);
+    var trackInfo = function () {
+      DBInfoFactory.getInfo()
+      .then(function (data) {
+        var infoData = data;
+        delete infoData[0]['INFO'];
+        $scope.infoHeaders = Object.keys(infoData[0]);
+        $scope.infoRows = infoData;
+      });
+    };
+    trackInfo();
+    var infoTracker = setInterval(trackInfo, 500);
 
-    var perfData;
-    DBInfoFactory.getPerformanceTimers()
-    .then(function (data) {
-      var perfData = data;
-      $scope.perfHeaders = Object.keys(perfData[0]);
-      $scope.perfRows = perfData;
+    $scope.$on("$destroy", function () {
+      clearInterval(performanceTracker);
+      clearInterval(infoTracker);
     });
-    DBInfoFactory.getInfo()
-    .then(function (data) {
-      var infoData = data;
-      delete infoData[0]['INFO'];
-      $scope.infoHeaders = Object.keys(infoData[0]);
-      $scope.infoRows = infoData;
-    });
+
   }
 ]);
