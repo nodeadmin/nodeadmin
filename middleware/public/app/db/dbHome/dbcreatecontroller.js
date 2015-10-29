@@ -13,7 +13,10 @@ angular.module('nodeadmin.db.createdb', [])
         .then(function (res) {
           // close modal and send mysql response
           $modalInstance.close(res);
-        });
+        })
+        .catch(function (error) {
+          $modalInstance.close(error);
+        })
     } else {
       // TODO: error handling
     }
