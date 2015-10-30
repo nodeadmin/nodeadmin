@@ -1,12 +1,14 @@
 <div id="wrapper" ng-class="{toggled: menu}">
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav bg-default">
+      <li class="sidebar-brand text-primary">
+        Databases
+      </li>
       <div ng-repeat="db in databases">
         <li><a ui-sref="tables({ database: db.Database })" class="text-primary">{{ db.Database }}</a></li>
       </div>
     </ul>
   </div>
-
   <!-- Page Content -->
   <div id="page-content-wrapper">
     <div class="container-fluid">
@@ -14,8 +16,8 @@
         <div class="col-lg-12">
           <toggle-menu></toggle-menu>
           <div ui-view />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
