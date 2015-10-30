@@ -31,11 +31,17 @@
         <tbody>
           <tr ng-repeat="user in users">
             <td ng-repeat="(column, data) in user track by $index">
-              <span>{{data}}</span>
+              <span ng-hide="isEditing == $id" ng-dblclick="editCell($id, column, data, user)">{{data}}</span>
+              <div ng-show="isEditing == $id">
+                <input type="text" class="form-control input-sm" ng-model="newData"/>
+                  <button ng-click="saveCell(column, newData)" class="btn btn-success btn-xs">Save</button>
+                  <button ng-click="cancel()" class="btn btn-warning btn-xs">Cancel</button>
+                </span>
+              </div>
             </td>
             <td>
               <button class="btn btn-primary" ng-click="openGrants(user)">View Grants</button>
-              <button class="btn btn-primary" >Edit User</button>
+              <button class="btn btn-primary">Change Password</button>
             </td>
           </tr>
         </tbody>

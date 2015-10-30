@@ -48,6 +48,18 @@ module.exports = {
     }
   },
 
+  editUser: function(req, res) {
+    var connection = client.getClientDB();
+    var column = req.body.column;
+    var oldData = req.body.oldData;
+    var newData = req.body.newData;
+    var row = req.body.row;
+
+    console.log('\n\n\n\n\n\n\nwhat we are editing', req.body)
+
+    // connection.query()
+  },
+
   getGrants: function(req, res) {
     var user = req.params.user;
     var host = req.params.host;

@@ -232,6 +232,16 @@ angular.module('nodeadmin.services', [])
     });
   };
 
+  var editUser = function(data) {
+    return $http({
+      method: 'PUT',
+      url: '/nodeadmin/api/settings/users/',
+      data: data,
+    }).then(function (response) {
+      return response.data;
+    });
+  };
+
   var getGrants = function(user, host) {
     return $http({
       method: 'GET',
@@ -255,6 +265,7 @@ angular.module('nodeadmin.services', [])
 
   return {
     getUsers: getUsers,
+    editUser: editUser,
     getGrants: getGrants,
     saveGrantInfo: saveGrantInfo,
     returnGrantUser: returnGrantUser,

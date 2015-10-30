@@ -15,6 +15,52 @@ angular.module('nodeadmin.settings.users', [])
       };
       $scope.getUsers();
 
+      // Editing user cells
+      $scope.oldData = '';
+      $scope.newData = '';
+      $scope.column = '';
+      $scope.row = {};
+
+      $scope.editCell = function(id, column, oldData, user) {
+        $scope.isEditing = id;
+        $scope.oldData = oldData;
+        $scope.column = column;
+        $scope.row = user;
+        // console.log('id', id, column, oldData);
+      };
+
+      $scope.saveCell = function(column, newData) {
+        // console.log('save', column, newData)
+        $scope.newData = newData;
+
+        if (column !== $scope.column) {
+          $scope.error = 'Error editing user.';
+          return;
+        }
+
+        var update = {
+          column: $scope.column,
+          oldData: $scope.oldData,
+          newData: $scope.newData,
+          row: $scope.row
+        };
+
+        Users.editUser(update)
+          .then(function(result) {
+            console.log('successful put?', result);
+          })
+          .catch(function(err) {
+            $scope.error = err.data;
+          });
+
+        $scope.isEditing = false;
+      };
+
+      $scope.cancel = function() {
+        $scope.isEditing = false;
+      };
+
+      // Modals
       $scope.animationsEnabled = true;
 
       // Grants modal
@@ -28,6 +74,7 @@ angular.module('nodeadmin.settings.users', [])
         });
       };
 
+      // Add user modal
       $scope.openAddUser = function() {
         var addUserModalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
@@ -42,7 +89,7 @@ angular.module('nodeadmin.settings.users', [])
             $scope.getUsers();
             $scope.success = result;
           } else {
-            $scope.error = result.data;            
+            $scope.error = result.data;
           }
         });
 
