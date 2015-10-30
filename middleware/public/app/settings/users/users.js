@@ -53,16 +53,3 @@ angular.module('nodeadmin.settings.users', [])
     }
 
   ]);
-
-
-// update grants/privileges per user
-// revoke user
-// call flush privileges to save new grants
-
-// create user
-// update after adding new user
-
-// set/change password
-// rename user
-// MySQL user names can be up to 16 characters long.
-// drop user
