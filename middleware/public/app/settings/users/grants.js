@@ -9,7 +9,6 @@ angular.module('nodeadmin.settings.grants', [])
     $scope.getGrants = function() {
       Users.getGrants($scope.user, $scope.host)
         .then(function(result) {
-          console.log('grants result', result)
           for (var i = 0; i < result.length; i++) {
             for (var key in result[i]) {
               $scope.grants.push(result[i][key]);

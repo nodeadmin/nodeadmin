@@ -62,15 +62,12 @@ angular.module('nodeadmin.settings.users', [])
         $scope.isEditing = false;
       };
 
-      // Modals
-      $scope.animationsEnabled = true;
-
       // Grants modal
       $scope.openGrants = function(user) {
         Users.saveGrantInfo(user);
 
         var grantsModalInstance = $uibModal.open({
-          animation: $scope.animationsEnabled,
+          animation: true,
           templateUrl: 'app/settings/users/grants.html',
           controller: 'GrantsController',
         });
@@ -79,7 +76,7 @@ angular.module('nodeadmin.settings.users', [])
       // Add user modal
       $scope.openAddUser = function() {
         var addUserModalInstance = $uibModal.open({
-          animation: $scope.animationsEnabled,
+          animation: true,
           templateUrl: 'app/settings/users/addUser.html',
           controller: 'AddUserController',
         });
@@ -94,15 +91,18 @@ angular.module('nodeadmin.settings.users', [])
             $scope.error = result.data;
           }
         });
+      };
 
       // Delete user modal
-      $scope.openDeleteUser = function() {
+      $scope.openDeleteUser = function(user) {
+        Users.saveDeleteUser(user);
+        console.log($scope.deleteUser)
         var deleteUserModalInstance = $uibModal.open({
-          animation: $scope.animationsEnabled,
+          animation: true,
           templateUrl: 'app/settings/users/deleteUser.html',
           controller: 'DeleteUserController',
         });
-      };
+      // };
 
         // deleteUserModalInstance.result.then(function(result) {
         //   if (result === true) {
@@ -114,10 +114,6 @@ angular.module('nodeadmin.settings.users', [])
         //     $scope.error = result.data;
         //   }
         // });
-
-        $scope.toggleAnimation = function() {
-          $scope.animationsEnabled = !$scope.animationsEnabled;
-        };
       };
     }
 
