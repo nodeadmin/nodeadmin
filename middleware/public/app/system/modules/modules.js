@@ -1,7 +1,7 @@
 angular.module('nodeadmin.system.modules', ['ngSanitize'])
 .controller('ModulesController', ['$scope', 'System', '$sce', function ($scope, System, $sce) {
 
-$scope.colorDependencies = function(string) {
+var colorDependencies = function(string) {
   var byLine = string.split('\n');
   var replacedString = [];
 
@@ -18,8 +18,6 @@ $scope.colorDependencies = function(string) {
         return 'orange';
       case 8:
         return 'green';
-      case null:
-        return 'wheat';
     }
   }
 
@@ -34,7 +32,6 @@ $scope.colorDependencies = function(string) {
     var links = /\s(http|https):\/\/*/;
     ArrStr.forEach(function(lineString, ln) {
 
-      //want to split out the '|'s but wrap the rest of the string in spans
       var lineString = lineString.split('').map(function (ch, ind) {
         if(ch.charCodeAt() === 9500 ) {
           return wrapSpan(ch, ind);
@@ -64,13 +61,10 @@ $scope.colorDependencies = function(string) {
 
 };
 
-$scope.getModules = function() {
+getModules = function() {
   System.getModules()
   .then(function(modules) {
-    
-    // $scope.modules = $scope.colorDependencies(modules.data);
-    // $scope.modules = modules.data;
-    $scope.colorDependencies(modules.data);
+    colorDependencies(modules.data);
   })
   .catch(function(err) {
     // Allow for error displaying on modules page
@@ -79,5 +73,5 @@ $scope.getModules = function() {
 };
 
 // Get modules on load
-$scope.getModules();
+getModules();
 }]);
