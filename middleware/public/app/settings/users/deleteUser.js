@@ -4,15 +4,13 @@ angular.module('nodeadmin.settings.deleteUser', [])
   $scope.deleteUser = Users.getDeleteUser();
 
   $scope.ok = function() {
-    console.log('ok')
-    // Drop table
-    // Tables.dropTable($stateParams.database, $scope.dropTable)
-    //   .then(function(droppedTable) {
-    //     $modalInstance.close(droppedTable);
-    //   })
-    //   .catch(function(err) {
-    //     $modalInstance.close(err);
-    //   });
+    Users.deleteUser($scope.deleteUser.user, $scope.deleteUser.host)
+      .then(function(result) {
+        $modalInstance.close(result);
+      })
+      .catch(function(err) {
+        $modalInstance.close(err);
+      });    
   };
 
   $scope.cancel = function() {

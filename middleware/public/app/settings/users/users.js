@@ -26,11 +26,9 @@ angular.module('nodeadmin.settings.users', [])
         $scope.oldData = oldData;
         $scope.column = column;
         $scope.row = user;
-        // console.log('id', id, column, oldData);
       };
 
       $scope.saveCell = function(column, newData) {
-        // console.log('save', column, newData)
         $scope.newData = newData;
 
         if (column !== $scope.column) {
@@ -48,7 +46,7 @@ angular.module('nodeadmin.settings.users', [])
         Users.editUser(update)
           .then(function(result) {
             // Update view
-            $scope.success = 'Successfully updated user information.'
+            $scope.success = 'Successfully updated user information.';
             $scope.getUsers();
           })
           .catch(function(err) {
@@ -102,18 +100,17 @@ angular.module('nodeadmin.settings.users', [])
           templateUrl: 'app/settings/users/deleteUser.html',
           controller: 'DeleteUserController',
         });
-      // };
 
-        // deleteUserModalInstance.result.then(function(result) {
-        //   if (result === true) {
-        //     // Reload current users
-        //     $scope.users = [];
-        //     $scope.getUsers();
-        //     $scope.success = 'Successfully added a new user.';
-        //   } else {
-        //     $scope.error = result.data;
-        //   }
-        // });
+        deleteUserModalInstance.result.then(function(result) {
+          if (typeof result === 'string') {
+            // Reload current users
+            // $scope.users = [];
+            // $scope.getUsers();
+            $scope.success = result;
+          } else {
+            $scope.error = result.data;
+          }
+        });
       };
     }
 

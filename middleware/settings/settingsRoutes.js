@@ -17,7 +17,8 @@ router.route('/users')
   .put(SettingsController.editUser);
 
 router.route('/users/:user/:host')
-  .get(SettingsController.getGrants);
+  .get(SettingsController.getGrants)
+  .delete(SettingsController.deleteUser);
 
 module.exports = router;
 
