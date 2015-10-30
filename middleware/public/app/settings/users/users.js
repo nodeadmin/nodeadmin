@@ -17,15 +17,6 @@ angular.module('nodeadmin.settings.users', [])
       };
       $scope.getUsers();
 
-      $scope.getGrants = function() {
-        Users.getGrants('root', 'localhost')
-          .then(function(result) {
-            console.log('grants result', result)
-          })
-      }
-
-      $scope.getGrants();
-
       // Grants modal
       $scope.animationsEnabled = true;
 
