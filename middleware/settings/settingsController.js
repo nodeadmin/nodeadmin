@@ -54,10 +54,38 @@ module.exports = {
     var oldData = req.body.oldData;
     var newData = req.body.newData;
     var row = req.body.row;
+    var newRow = {};
+    newRow.host = row.host;
+    newRow.user = row.user;
 
-    console.log('\n\n\n\n\n\n\nwhat we are editing', req.body)
+    newRow[column] = newData;
 
-    // connection.query()
+    // UPDATE mysql.user set user = <newrootname> where user = 'root';
+
+    // RENAME USER 'jeffrey'@'localhost' TO 'jeff'@'127.0.0.1';
+
+    // "RENAME USER " + "'" + row.user + "'" + "@" + "'" + row.host + "'" + " TO " + "'" + newRow.user + "'" + "@" + "'" + newRow.host + "'" + ""
+
+    // "RENAME USER "  + row.user + "@" + row.host + " TO " + newRow.user + "@" + newRow.host + ""
+
+    // "UPDATE mysql.user SET USER = " + "'" + newRow.user + "'" + " WHERE USER = " + "'" + row.user + "'" + ""
+
+    connection.query("RENAME USER " + "'" + row.user + "'" + "@" + "'" + row.host + "'" + " TO " + "'" + newRow.user + "'" + "@" + "'" + newRow.host + "'" + "", function(err, result) {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err.toString());
+        } else {
+          connection.query('FLUSH PRIVILEGES', function(err, result) {
+            if(err) {
+              console.log(err);
+              res.status(500).send(err.toString());
+            } else {
+              res.status(200).send(true);
+            }
+          })
+        }
+      });
+
   },
 
   getGrants: function(req, res) {
