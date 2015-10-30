@@ -94,7 +94,6 @@ angular.module('nodeadmin.settings.users', [])
       // Delete user modal
       $scope.openDeleteUser = function(user) {
         Users.saveDeleteUser(user);
-        console.log($scope.deleteUser)
         var deleteUserModalInstance = $uibModal.open({
           animation: true,
           templateUrl: 'app/settings/users/deleteUser.html',
@@ -103,7 +102,7 @@ angular.module('nodeadmin.settings.users', [])
 
         deleteUserModalInstance.result.then(function(result) {
           if (typeof result === 'string') {
-            // Reload current users
+            // TODO: Reload updated users
             // $scope.users = [];
             // $scope.getUsers();
             $scope.success = result;
