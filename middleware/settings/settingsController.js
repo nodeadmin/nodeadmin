@@ -31,7 +31,7 @@ module.exports = {
         console.log(err);
         res.status(500).send(err.toString());
       } else {
-        res.status(200).json(JSON.stringify(result));
+        res.status(200).send(result);
       }
     });
   }
