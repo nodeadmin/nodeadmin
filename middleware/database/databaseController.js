@@ -3,6 +3,7 @@
 var mysql = require('mysql');
 var client = require('../auth/clientdb.js');
 
+
 module.exports = {
 
   getDatabases: function(req, res) {
@@ -90,7 +91,64 @@ module.exports = {
   },
 
   createTable: function(req, res) {
+    var connection = client.getClientDB();
+    var database = req.params.database;
+    var table = req.params.table;
+    var schema = req.body;
 
+
+    var query = 'CREATE TABLE ??.?? ( ';
+    var placeholders = [].concat(database, table);
+
+    // loop through table field definitions
+    while(schema.length) {
+
+      // pop off field definition
+      var row = schema.shift();
+
+      for( var prop in row ) {
+
+        switch(prop) {
+        case 'fieldName':
+          placeholders.push(row[prop]);
+          query+= ' ?? '
+          break;
+        case 'type':
+          // currently this wont work for types with an associated length
+          query+= row[prop].concat(' ');
+          break;
+        case 'default':
+          // this just straight up isnt implmented yet
+          query+= ' ?? ';
+          break;
+        case 'quality':
+          query+= row[prop].concat(' ');
+          break;
+        case 'auto':
+          query+= 'AUTO_INCREMENT'.concat(' ');
+          break;
+        case 'null':
+          row[prop] === true ? query+= 'NULL'.concat(' ') : '';
+          break;
+        default:
+          // client is intentionally sql injecting
+          res.status(200).end('<h2>!por que?</h2>');
+        }
+      }
+      // last line in query cannot have comma
+      schema.length >= 1 ?  query+= ' , \n' : ' ';
+    }
+
+    // close query statement
+    query+= ')';
+
+    connection.query(query, placeholders, function (err, result, fields) {
+      if(err) {
+        res.status(400).json(err);
+      } else {
+        res.status(200).json(result);
+      }
+    })
   },
 
   getRecords: function(req, res) {

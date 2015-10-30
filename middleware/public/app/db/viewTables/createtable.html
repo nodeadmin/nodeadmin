@@ -31,6 +31,7 @@
       <th>Default</th>
       <th>Null</th>
       <th>Index</th>
+      <th>AUTO INC</th>
     </tr>
     </thead>
 
@@ -102,11 +103,16 @@
 
       <td>
         <select ng-model="field.quality" name="" id="">
-          <option value="PRIMARY">PRIMARY</option>
+          <option value="PRIMARY KEY">PRIMARY</option>
           <option value="UNIQUE">UNIQUE</option>
           <option value="INDEX">INDEX</option>
         </select>
       </td>
+
+      <td>
+        <input ng-model="field.auto" type="checkbox" value="AUTO_INCREMENT">
+      </td>
+
     </tr>
     </tbody>
   </table>
