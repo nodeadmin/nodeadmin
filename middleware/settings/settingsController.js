@@ -64,21 +64,36 @@ module.exports = {
     newRow[column] = newData;
 
     connection.query("RENAME USER " + "'" + row.user + "'" + "@" + "'" + row.host + "'" + " TO " + "'" + newRow.user + "'" + "@" + "'" + newRow.host + "'" + "", function(err, result) {
-        if (err) {
-          console.log(err);
-          res.status(500).send(err.toString());
-        } else {
-          connection.query('FLUSH PRIVILEGES', function(err, result) {
-            if(err) {
-              console.log(err);
-              res.status(500).send(err.toString());
-            } else {
-              res.status(200).send(true);
-            }
-          });
-        }
-      });
+      if (err) {
+        console.log(err);
+        res.status(500).send(err.toString());
+      } else {
+        connection.query('FLUSH PRIVILEGES', function(err, result) {
+          if (err) {
+            console.log(err);
+            res.status(500).send(err.toString());
+          } else {
+            res.status(200).send(true);
+          }
+        });
+      }
+    });
 
+  },
+
+  deleteUser: function(req, res) {
+    var connection = client.getClientDB();
+    var host = req.params.host;
+    var user = req.params.user;
+
+    connection.query("DROP USER " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err.toString());
+      } else {
+        res.status(200).send(result);
+      }
+    });
   },
 
   getGrants: function(req, res) {

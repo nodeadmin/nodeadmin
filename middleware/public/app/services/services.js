@@ -212,7 +212,7 @@ angular.module('nodeadmin.services', [])
 
 .factory('Users', ['$http', function($http) {
   var grantUser = {};
-  var deleteUser = {};
+  var deletedUser = {};
 
   var getUsers = function() {
     return $http({
@@ -244,11 +244,20 @@ angular.module('nodeadmin.services', [])
   };
 
   var saveDeleteUser = function(user) {
-    deleteUser = user;
+    deletedUser = user;
   };
 
   var getDeleteUser = function() {
-    return deleteUser;
+    return deletedUser;
+  };
+
+  var deleteUser = function(user, host) {
+    return $http({
+      method: 'DELETE',
+      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/'    
+    }).then(function(response) {
+      return response.data;
+    });
   };
 
   var getGrants = function(user, host) {
@@ -280,7 +289,8 @@ angular.module('nodeadmin.services', [])
     returnGrantUser: returnGrantUser,
     addUser: addUser,
     saveDeleteUser: saveDeleteUser,
-    getDeleteUser: getDeleteUser
+    getDeleteUser: getDeleteUser,
+    deleteUser: deleteUser
   };
 
 }])
