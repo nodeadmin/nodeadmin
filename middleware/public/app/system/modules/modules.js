@@ -1,5 +1,5 @@
-angular.module('nodeadmin.system.modules', [])
-.controller('ModulesController', ['$scope', 'System', function ($scope, System) {
+angular.module('nodeadmin.system.modules', ['ngSanitize'])
+.controller('ModulesController', ['$scope', 'System', '$sce', function ($scope, System, $sce) {
 
 $scope.colorDependencies = function(string) {
   var byLine = string.split('\n');
@@ -18,6 +18,8 @@ $scope.colorDependencies = function(string) {
         return 'orange';
       case 8:
         return 'green';
+      case null:
+        return 'wheat';
     }
   }
 
@@ -32,6 +34,7 @@ $scope.colorDependencies = function(string) {
     var links = /\s(http|https):\/\/*/;
     ArrStr.forEach(function(lineString, ln) {
 
+      //want to split out the '|'s but wrap the rest of the string in spans
       var lineString = lineString.split('').map(function (ch, ind) {
         if(ch.charCodeAt() === 9500 ) {
           return wrapSpan(ch, ind);
@@ -57,8 +60,7 @@ $scope.colorDependencies = function(string) {
     });
   };
   recurseHeirarchy(byLine);
-  var p = document.getElementsByTagName('pre')[0];
-  p.innerHTML = replacedString.join('\n');
+  $scope.modules = $sce.trustAsHtml('<div>' + replacedString.join('</div><div>') + '</div>');
 
 };
 

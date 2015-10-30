@@ -1,7 +1,8 @@
 <div>
   <h2>Modules</h2>
   <div class="module-container">
-    <pre style="background-color:#383838; color:wheat" class="well">{{ modules }}</pre>
+    <!-- <pre style="background-color:#383838; color:wheat" class="well">{{ modules }}</pre> -->
+    <pre ng-bind-html="modules" style="background-color:#383838; color:wheat" class="well"></pre>
   </div>
   <div class="row" ng-show="error">
       <div class="col-md-4 col-md-offset-4">
