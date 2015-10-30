@@ -212,6 +212,7 @@ angular.module('nodeadmin.services', [])
 
 .factory('Users', ['$http', function($http) {
   var grantUser = {};
+  var deleteUser = {};
 
   var getUsers = function() {
     return $http({
@@ -242,6 +243,14 @@ angular.module('nodeadmin.services', [])
     });
   };
 
+  var saveDeleteUser = function(user) {
+    deleteUser = user;
+  };
+
+  var getDeleteUser = function() {
+    return deleteUser;
+  };
+
   var getGrants = function(user, host) {
     return $http({
       method: 'GET',
@@ -269,7 +278,9 @@ angular.module('nodeadmin.services', [])
     getGrants: getGrants,
     saveGrantInfo: saveGrantInfo,
     returnGrantUser: returnGrantUser,
-    addUser: addUser
+    addUser: addUser,
+    saveDeleteUser: saveDeleteUser,
+    getDeleteUser: getDeleteUser
   };
 
 }])
