@@ -13,8 +13,9 @@ router.route('/')
 
 router.route('/users')
   .get(SettingsController.getUsers);
-  // post
-  // put
+
+router.route('/users/:user/:host')
+  .get(SettingsController.getGrants);
 
 module.exports = router;
 

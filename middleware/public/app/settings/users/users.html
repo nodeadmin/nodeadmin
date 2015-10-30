@@ -23,23 +23,23 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th ng-repeat="header in headers">{{header.Field}}-{{header.Type}}-{{header.Key}}</th>
+            <th>Host</th>
+            <th>User</th>          
+            <th>Options</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="user in users | filter: search">
+          <tr ng-repeat="user in users">
             <td ng-repeat="(column, data) in user track by $index">
               <span>{{data}}</span>
-              <!-- <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span> -->
-              <!-- <div ng-show="isEditing == $id">
-                <input type="text" class="form-control input-sm" ng-model="data" />
-                <button ng-click="saveCell(data, $index, $id)" class="btn btn-default btn-xs">Save</button>
-              </div> -->
+            </td>
+            <td>
+              <button class="btn btn-primary" ng-click="open(user)">View Grants</button>
+              <button class="btn btn-primary">Edit User</button>
             </td>
           </tr>
         </tbody>
       </table>
-      <div class="col-sm-2 col-sm-offset-5" ng-show="loading"><h4 class="text-centered">Loading...</h4></div>
     </div>
   </div>
 </div>

@@ -1,14 +1,15 @@
 angular.module('nodeadmin.settings.users', [])
-  .controller('UsersController', ['$scope', 'Users',
-    function($scope, Users) {
-      $scope.primaryKey = [];
+  .controller('UsersController', ['$scope', 'Users', '$uibModal',
+    function($scope, Users, $uibModal) {
+      $scope.headers = [];
 
       $scope.getUsers = function() {
         Users.getUsers()
           .then(function(result) {
-            $scope.users = result[0];
-            $scope.headers = result[1];
-            $scope.getPrimaryKey($scope.headers);
+            console.log('result', result)
+
+            $scope.users = result;
+
           })
           .catch(function(err) {
             $scope.error = err.data;
@@ -16,12 +17,44 @@ angular.module('nodeadmin.settings.users', [])
       };
       $scope.getUsers();
 
-      $scope.getPrimaryKey = function(headers) {
-        for (var i = 0; i < headers.length; i++) {
-          if (headers[i].Key === 'PRI') {
-            $scope.primaryKey.push(headers[i].Field);
-          }
-        }
+      $scope.getGrants = function() {
+        Users.getGrants('root', 'localhost')
+          .then(function(result) {
+            console.log('grants result', result)
+          })
+      }
+
+      $scope.getGrants();
+
+      // Grants modal
+      $scope.animationsEnabled = true;
+
+      $scope.open = function(user) {
+        // user.user
+        // user.host
+        Users.saveGrantInfo(user);
+
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'app/settings/users/grants.html',
+          controller: 'GrantsController',
+        });
+      };
+
+      $scope.toggleAnimation = function() {
+        $scope.animationsEnabled = !$scope.animationsEnabled;
       };
     }
+
   ]);
+
+// view grants per user
+// update grants/privileges per user
+// revoke user
+// call flush privileges to save new grants
+
+// create user
+// set/change password
+// rename user
+// MySQL user names can be up to 16 characters long.
+// drop user
