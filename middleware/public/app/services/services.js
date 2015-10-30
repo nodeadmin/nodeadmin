@@ -209,3 +209,56 @@ angular.module('nodeadmin.services', [])
     }
 
 }])
+
+.factory('Users', ['$http', function($http) {
+  var grantUser = {};
+
+  var getUsers = function() {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/settings/users'
+    }).then(function(response) {
+      return response.data;
+    });
+  };
+
+  var addUser = function(user) {
+    return $http({
+      method: 'POST',
+      url: '/nodeadmin/api/settings/users',
+      data: user
+    }).then(function(response) {
+      return response.data;
+    });
+  };
+
+  var getGrants = function(user, host) {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/'
+    }).then(function(response) {
+      return response.data;
+    });
+  };
+
+  var saveGrantInfo = function(userInfo) {
+    var user = userInfo.user;
+    var host = userInfo.host;
+
+    grantUser.user = user;
+    grantUser.host = host;
+  };
+
+  var returnGrantUser = function() {
+    return grantUser;
+  };
+
+  return {
+    getUsers: getUsers,
+    getGrants: getGrants,
+    saveGrantInfo: saveGrantInfo,
+    returnGrantUser: returnGrantUser,
+    addUser: addUser
+  };
+
+}])

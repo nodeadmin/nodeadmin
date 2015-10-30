@@ -2,31 +2,11 @@
   <!-- Sidebar -->
   <div id="sidebar-wrapper" class="bg-default text-primary">
     <ul class="sidebar-nav">
-      <li class="sidebar-brand">
-        <a href="#">
-          Start Bootstrap
-        </a>
+      <li class="sidebar-brand text-primary">
+        Settings
       </li>
       <li>
-        <a href="#" class="bg-default text-primary">Dashboard</a>
-      </li>
-      <li>
-        <a href="#" class="bg-default text-primary">Shortcuts</a>
-      </li>
-      <li>
-        <a href="#" class="bg-default text-primary">Overview</a>
-      </li>
-      <li>
-        <a href="#" class="bg-default text-primary">Events</a>
-      </li>
-      <li>
-        <a href="#" class="bg-default text-primary">About</a>
-      </li>
-      <li>
-        <a href="#" class="bg-default text-primary">Services</a>
-      </li>
-      <li>
-        <a href="#" class="bg-default text-primary">Contact</a>
+        <a ui-sref="users" class="bg-default text-primary">Users</a>
       </li>
     </ul>
   </div>
@@ -37,11 +17,9 @@
       <div class="row">
         <div class="col-lg-12">
           <toggle-menu></toggle-menu>
-          {{ somesettings }}
-          <h1>eeeeeey in settings</h1>
+          <div ui-view />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-

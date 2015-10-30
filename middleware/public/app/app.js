@@ -6,6 +6,9 @@ angular.module('nodeadmin', [
   'nodeadmin.auth',
   'nodeadmin.main',
   'nodeadmin.settings',
+  'nodeadmin.settings.users',
+  'nodeadmin.settings.grants',
+  'nodeadmin.settings.adduser',
   'nodeadmin.system',
   'nodeadmin.system.modules',
   'nodeadmin.system.logs',
@@ -53,6 +56,7 @@ angular.module('nodeadmin', [
     })
 
     .state('settings', {
+      abstract: true,
       parent: 'main',
       url: 'settings',
       templateUrl: 'app/settings/settings.html',
@@ -63,31 +67,31 @@ angular.module('nodeadmin', [
     })
     .state('users', {
       parent: 'settings',
-      url: 'settings/users',
-      templateUrl: '',
-      controller: '',
+      url: '',
+      templateUrl: 'app/settings/users/users.html',
+      controller: 'UsersController',
       data: {
         requireLogin: true
       }
     })
-    .state('notifications', {
-      parent: 'settings',
-      url: 'settings/notifications',
-      templateUrl: '',
-      controller: '',
-      data: {
-        requireLogin: true
-      }
-    })
-    .state('advanced', {
-      parent: 'settings',
-      url: 'settings/advanced',
-      templateUrl: '',
-      controller: '',
-      data: {
-        requireLogin: true
-      }
-    })
+    // .state('notifications', {
+    //   parent: 'settings',
+    //   url: 'settings/notifications',
+    //   templateUrl: '',
+    //   controller: '',
+    //   data: {
+    //     requireLogin: true
+    //   }
+    // })
+    // .state('advanced', {
+    //   parent: 'settings',
+    //   url: 'settings/advanced',
+    //   templateUrl: '',
+    //   controller: '',
+    //   data: {
+    //     requireLogin: true
+    //   }
+    // })
 
     .state('system', {
       abstract: true,
@@ -117,15 +121,6 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    .state('fs', {
-      parent: 'system',
-      url: 'system/fs',
-      templateUrl: '',
-      controller: '',
-      data: {
-        requireLogin: true
-      }
-    })
 
     .state('db', {
       abstract: true,
@@ -146,15 +141,6 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    // .state('viewDB', {
-    //   parent: 'db',
-    //   url: 'viewDB',
-    //   templateUrl: 'app/db/viewDB/viewDB.html',
-    //   controller: 'DBViewController',
-    //   data: {
-    //     requireLogin: true
-    //   }
-    // })
     .state('tables', {
       parent: 'db',
       url: '/:database',
