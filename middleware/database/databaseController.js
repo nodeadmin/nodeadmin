@@ -89,6 +89,10 @@ module.exports = {
     });
   },
 
+  createTable: function(req, res) {
+
+  },
+
   getRecords: function(req, res) {
     var db = req.params.database,
       table = req.params.table,

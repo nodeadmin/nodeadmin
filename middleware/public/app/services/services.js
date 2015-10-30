@@ -162,7 +162,7 @@ angular.module('nodeadmin.services', [])
     var createTable = function(database, table, schema) {
       return $http({
         method:'POST',
-        url: ['/nodeadmin/api',database, table].join('/'),
+        url: ['/nodeadmin/api/db',database, table].join('/'),
         data: schema
       }).then(function (response){
         return response;
