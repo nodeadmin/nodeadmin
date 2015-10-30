@@ -175,7 +175,7 @@ angular.module('nodeadmin', [
     })
     .state('records', {
       parent: 'db',
-      url: '/:database/:table',
+      url: '/:database/:table/:page',
       templateUrl: 'app/db/records.html',
       controller: 'RecordsController',
       data: {
@@ -209,7 +209,7 @@ angular.module('nodeadmin', [
       // User isn't authenticated, so prevent state change
       event.preventDefault();
       $state.transitionTo('login');         
-    };
+    }
   });
 });
 

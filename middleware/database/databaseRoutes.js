@@ -18,7 +18,7 @@ router.route('/:database/:table')
 router.route('/:database/tables')
   .get(DbController.getTables);
 
-router.route('/:database/:table/records')
+router.route('/:database/:table/:page')
   .get(DbController.getRecords)
   .put(DbController.updateRecord);
   
