@@ -1,0 +1,31 @@
+<div id="add-user">
+  <div class="modal-header">
+    <h3 class="modal-title">Add a User</h3>
+  </div>
+  <form name="addUserForm">
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="mysqlUser" class="col-sm-3 control-label">User</label>
+        <div class="col-sm-9">
+          <input type='text' class="form-control" name="mysqlUser" placeholder="mySQL user" ng-model='user.user' ng-required="true" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mysqlPassword" class="col-sm-3 control-label">Password</label>
+        <div class="col-sm-9">
+          <input type='password' name="mysqlPassword" class="form-control" placeholder="mySQL Password" ng-model='user.password' />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mysqlHost" class="col-sm-3 control-label">Host</label>
+        <div class="col-sm-9">
+          <input type='host' name="mysqlHost" class="form-control" placeholder="Host" ng-model='user.host' />
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" type="submit" ng-click="addUserForm.$valid && addUser()">Save</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

@@ -21,6 +21,33 @@ module.exports = {
     });
   },
 
+  addUser: function(req, res) {
+    var connection = client.getClientDB();
+    var user = req.body.user;
+    var password = req.body.password;
+    var host = req.body.host || 'localhost';
+
+    if (!password) {
+      connection.query("CREATE USER " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err.toString());
+        } else {
+          res.status(200).send(true);
+        }
+      });
+    } else {
+      connection.query("CREATE USER " + "'" + user + "'" + "@" + "'" + host + "'" + "IDENTIFIED BY " + "'" + password + "'" + "", function(err, result) {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err.toString());
+        } else {
+          res.status(200).send(true);
+        }
+      });
+    }
+  },
+
   getGrants: function(req, res) {
     var user = req.params.user;
     var host = req.params.host;
@@ -31,7 +58,7 @@ module.exports = {
         console.log(err);
         res.status(500).send(err.toString());
       } else {
-        res.status(200).json(JSON.stringify(result));
+        res.status(200).send(result);
       }
     });
   }

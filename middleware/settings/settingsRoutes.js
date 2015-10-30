@@ -12,7 +12,8 @@ router.route('/')
   });
 
 router.route('/users')
-  .get(SettingsController.getUsers);
+  .get(SettingsController.getUsers)
+  .post(SettingsController.addUser);
 
 router.route('/users/:user/:host')
   .get(SettingsController.getGrants);

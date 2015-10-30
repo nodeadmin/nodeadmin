@@ -3,7 +3,9 @@
     <h3 class="modal-title">Grants for {{ user }} @ {{ host }}</h3>
   </div>
   <div class="modal-body">
-    <div>{{ grants }}</div>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="grant in grants">{{ grant }}</li>
+    </ul>
   </div>
   <div class="modal-footer">
     <button class="btn btn-warning" type="button" ng-click="cancel()">Close</button>
