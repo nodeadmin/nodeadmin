@@ -13,7 +13,8 @@ router.route('/')
 
 router.route('/users')
   .get(SettingsController.getUsers)
-  .post(SettingsController.addUser);
+  .post(SettingsController.addUser)
+  .put(SettingsController.editUser);
 
 router.route('/users/:user/:host')
   .get(SettingsController.getGrants);
