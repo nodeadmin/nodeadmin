@@ -95,6 +95,26 @@ angular.module('nodeadmin.settings.users', [])
           }
         });
 
+      // Delete user modal
+      $scope.openDeleteUser = function() {
+        var deleteUserModalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'app/settings/users/deleteUser.html',
+          controller: 'DeleteUserController',
+        });
+      };
+
+        // deleteUserModalInstance.result.then(function(result) {
+        //   if (result === true) {
+        //     // Reload current users
+        //     $scope.users = [];
+        //     $scope.getUsers();
+        //     $scope.success = 'Successfully added a new user.';
+        //   } else {
+        //     $scope.error = result.data;
+        //   }
+        // });
+
         $scope.toggleAnimation = function() {
           $scope.animationsEnabled = !$scope.animationsEnabled;
         };
