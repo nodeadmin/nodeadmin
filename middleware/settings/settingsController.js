@@ -54,21 +54,14 @@ module.exports = {
     var oldData = req.body.oldData;
     var newData = req.body.newData;
     var row = req.body.row;
+
+    // Copy old information
     var newRow = {};
     newRow.host = row.host;
     newRow.user = row.user;
 
+    // Add new user information
     newRow[column] = newData;
-
-    // UPDATE mysql.user set user = <newrootname> where user = 'root';
-
-    // RENAME USER 'jeffrey'@'localhost' TO 'jeff'@'127.0.0.1';
-
-    // "RENAME USER " + "'" + row.user + "'" + "@" + "'" + row.host + "'" + " TO " + "'" + newRow.user + "'" + "@" + "'" + newRow.host + "'" + ""
-
-    // "RENAME USER "  + row.user + "@" + row.host + " TO " + newRow.user + "@" + newRow.host + ""
-
-    // "UPDATE mysql.user SET USER = " + "'" + newRow.user + "'" + " WHERE USER = " + "'" + row.user + "'" + ""
 
     connection.query("RENAME USER " + "'" + row.user + "'" + "@" + "'" + row.host + "'" + " TO " + "'" + newRow.user + "'" + "@" + "'" + newRow.host + "'" + "", function(err, result) {
         if (err) {
@@ -82,7 +75,7 @@ module.exports = {
             } else {
               res.status(200).send(true);
             }
-          })
+          });
         }
       });
 

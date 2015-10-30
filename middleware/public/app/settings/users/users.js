@@ -47,7 +47,9 @@ angular.module('nodeadmin.settings.users', [])
 
         Users.editUser(update)
           .then(function(result) {
-            console.log('successful put?', result);
+            // Update view
+            $scope.success = 'Successfully updated user information.'
+            $scope.getUsers();
           })
           .catch(function(err) {
             $scope.error = err.data;
@@ -87,7 +89,7 @@ angular.module('nodeadmin.settings.users', [])
             // Reload current users
             $scope.users = [];
             $scope.getUsers();
-            $scope.success = result;
+            $scope.success = 'Successfully added a new user.';
           } else {
             $scope.error = result.data;
           }
