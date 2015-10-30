@@ -9,6 +9,7 @@ angular.module('nodeadmin', [
   'nodeadmin.settings.users',
   'nodeadmin.settings.grants',
   'nodeadmin.settings.adduser',
+  'nodeadmin.settings.deleteUser',
   'nodeadmin.system',
   'nodeadmin.system.modules',
   'nodeadmin.system.logs',
