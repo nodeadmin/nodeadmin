@@ -16,7 +16,7 @@ angular.module('nodeadmin.db', [])
     .then(function (result) {
       $scope.records = result[0];
       $scope.headers = result[1];
-      PaganacionFactory.records = result[2][0]['count(*)'];
+      PaganacionFactory.records = result[2][0]['count(*)'] - 1;
       $scope.recordsCount = PaganacionFactory.records;
       $scope.getPrimaryKey($scope.headers);
     })
@@ -49,13 +49,15 @@ angular.module('nodeadmin.db', [])
      $scope.isEditing = id;
   };
   $scope.saveCell = function (data, index, id) {
+    console.log('hello');
     var update = {
       table: $stateParams.table,
       col: $scope.headers[index].Field,
       val: data,
       pk: $scope.primaryKey
     };
-    RecordsFactory.editRecord($stateParams.database, $stateParams.table, update)
+    console.log(update);
+    RecordsFactory.editRecord($stateParams.database, $stateParams.table, $stateParams.page, update)
     .then(function (result) {
     })
     .catch(function (err) {

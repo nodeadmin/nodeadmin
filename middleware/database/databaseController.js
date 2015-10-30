@@ -118,7 +118,7 @@ module.exports = {
 
   updateRecord: function (req, res) {
     var db = req.params.database, 
-      table = req.body.table,
+      table = req.params.table,
       column = req.body.col,
       value = req.body.val,
       set = {},
