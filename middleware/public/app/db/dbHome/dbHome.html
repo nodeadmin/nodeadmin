@@ -1,7 +1,7 @@
 <div>
   <div class="row">
     <uib-alert class="col-md-11" ng-repeat="alert in alerts.success" dismiss-on-timeout="5000"
-    type="success" close="closeAlert('success', $index)">{{alert.status}} / {{ alert.msg }} successfull {{ alert.method }}
+    type="success" close="closeAlert('success', $index)">{{alert.status}} / {{ alert.msg }} successful {{ alert.method }}
     </uib-alert>
     <uib-alert class="col-md-11" ng-repeat="alert in alerts.error"
     type="danger" close="closeAlert('error', $index)">{{alert.status}} / {{ alert.msg }} error {{ alert.method }}
@@ -9,34 +9,33 @@
   </div>
 
   <div class="row">
-    <div style="padding:10px 10px 10px 0;" class="col-md-11">
+    <div style="padding:10px 10px 10px 0;" class="col-md-11 well">
       <button ng-click="open('createDB')" style="margin-left:20px;" class="btn pull-right btn-sm btn-primary">Add DB</button>
       <button ng-click="open('deleteDB')" class="btn pull-right btn-sm btn-danger">Remove DB</button>
     </div>
   </div>
 
   <div style="" class="row">
-    <h4>Performance Timers</h4>
-    <div style="border:1px solid grey;" class="col-md-11">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th ng-repeat="header in perfHeaders">{{header}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="row in perfRows">
-            <td ng-repeat="(column, data) in row">{{data}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div style="border:1px solid grey;" class="col-md-11 well">
+        <h4>Performance Timers</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th ng-repeat="header in perfHeaders">{{header}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in perfRows">
+              <td ng-repeat="(column, data) in row">{{data}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
   </div>
 
   <div style="margin-top:40px;" class="row">
-  <h4>Process List</h4>
-
-    <div style="border:1px solid grey;" class="col-md-11">
+    <div style="border:1px solid grey;" class="col-md-11 well">
+      <h4>Process List</h4>
       <table class="table table-striped">
         <thead>
           <tr>
