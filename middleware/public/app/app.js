@@ -8,6 +8,7 @@ angular.module('nodeadmin', [
   'nodeadmin.settings',
   'nodeadmin.settings.users',
   'nodeadmin.settings.grants',
+  'nodeadmin.settings.adduser',
   'nodeadmin.system',
   'nodeadmin.system.modules',
   'nodeadmin.system.logs',

@@ -208,6 +208,16 @@ angular.module('nodeadmin.services', [])
     });
   };
 
+  var addUser = function(user) {
+    return $http({
+      method: 'POST',
+      url: '/nodeadmin/api/settings/users',
+      data: user
+    }).then(function(response) {
+      return response.data;
+    });
+  };
+
   var getGrants = function(user, host) {
     return $http({
       method: 'GET',
@@ -233,7 +243,8 @@ angular.module('nodeadmin.services', [])
     getUsers: getUsers,
     getGrants: getGrants,
     saveGrantInfo: saveGrantInfo,
-    returnGrantUser: returnGrantUser
+    returnGrantUser: returnGrantUser,
+    addUser: addUser
   };
 
 }])
