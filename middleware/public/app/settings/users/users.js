@@ -60,14 +60,18 @@ angular.module('nodeadmin.settings.users', [])
         $scope.isEditing = false;
       };
 
+      $scope.editPrivileges = function() {
+        // save username
+      };
+
       // Grants modal
       $scope.openGrants = function(user) {
         Users.saveGrantInfo(user);
 
         var grantsModalInstance = $uibModal.open({
           animation: true,
-          templateUrl: 'app/settings/users/grants.html',
-          controller: 'GrantsController',
+          templateUrl: 'app/settings/users/viewPrivileges.html',
+          controller: 'ViewPrivilegesController',
         });
       };
 
