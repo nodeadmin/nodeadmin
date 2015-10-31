@@ -17,8 +17,15 @@ router.route('/users')
   .put(SettingsController.editUser);
 
 router.route('/users/:user/:host')
-  .get(SettingsController.getGrants)
   .delete(SettingsController.deleteUser);
+
+// 'SHOW GRANTS' per user
+router.route('/users/:user/:host/showgrants')
+  .get(SettingsController.getGrants);
+
+// Get grants record per user for editing
+router.route('/users/:user/:host/getgrantsrecord')
+  .get(SettingsController.getGrantsRecord);
 
 module.exports = router;
 

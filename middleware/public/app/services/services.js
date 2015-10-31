@@ -211,10 +211,11 @@ angular.module('nodeadmin.services', [])
 }])
 
 .factory('Users', ['$http', function($http) {
+  // Saves user for getting grants & for deleting
   var grantUser = {};
   var deletedUser = {};
 
-  var getUsers = function() {
+  var getAll = function() {
     return $http({
       method: 'GET',
       url: '/nodeadmin/api/settings/users'
@@ -243,6 +244,7 @@ angular.module('nodeadmin.services', [])
     });
   };
 
+  // For sharing information between modal & main view
   var saveDeleteUser = function(user) {
     deletedUser = user;
   };
@@ -260,15 +262,27 @@ angular.module('nodeadmin.services', [])
     });
   };
 
+  // 'SHOW GRANTS' per user
   var getGrants = function(user, host) {
     return $http({
       method: 'GET',
-      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/'
+      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/showgrants/'
     }).then(function(response) {
       return response.data;
     });
   };
 
+  // Get grants record per user for editing
+  var getGrantsRecord = function(user, host) {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/getgrantsrecord/'
+    }).then(function(response) {
+      return response.data;
+    });
+  };
+
+  // For sharing information between modal & main view
   var saveGrantInfo = function(userInfo) {
     var user = userInfo.user;
     var host = userInfo.host;
@@ -282,9 +296,10 @@ angular.module('nodeadmin.services', [])
   };
 
   return {
-    getUsers: getUsers,
+    getAll: getAll,
     editUser: editUser,
     getGrants: getGrants,
+    getGrantsRecord: getGrantsRecord,
     saveGrantInfo: saveGrantInfo,
     returnGrantUser: returnGrantUser,
     addUser: addUser,

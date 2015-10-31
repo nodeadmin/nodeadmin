@@ -78,7 +78,7 @@ angular.module('nodeadmin', [
     })
     .state('grants', {
       parent: 'settings',
-      url: '/grants',
+      url: '/:user?host',
       templateUrl: 'app/settings/users/editPrivileges.html',
       controller: 'EditPrivilegesController',
       data: {

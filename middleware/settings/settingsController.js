@@ -109,5 +109,20 @@ module.exports = {
         res.status(200).send(result);
       }
     });
+  },
+// "SELECT * FROM mysql.user WHERE user = " +  "'" + user + "'" +  " AND host =  " + "'" + host + "'" + ""
+  getGrantsRecord: function(req, res) {
+    var user = req.params.user;
+    var host = req.params.host;
+    var connection = client.getClientDB();
+
+    connection.query("SELECT * FROM mysql.user WHERE user = " +  "'" + user + "'" +  " AND host =  " + "'" + host + "'" + "; DESCRIBE mysql.user", function(err, result) {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err.toString());
+      } else {
+        res.status(200).send(result);
+      }
+    })
   }
 };

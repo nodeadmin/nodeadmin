@@ -16,7 +16,7 @@
           <tr>
           </thead>
           <tbody>
-            <tr>
+            <tr ng-repeat="row in record">
               <td ng-repeat="(column, data) in row track by $index">
                 <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span>
                 <div ng-show="isEditing == $id">

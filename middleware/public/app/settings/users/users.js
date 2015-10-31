@@ -4,8 +4,8 @@ angular.module('nodeadmin.settings.users', [])
       $scope.headers = [];
       $scope.users = [];
 
-      $scope.getUsers = function() {
-        Users.getUsers()
+      $scope.getAll = function() {
+        Users.getAll()
           .then(function(result) {
             $scope.users = result;
           })
@@ -13,7 +13,7 @@ angular.module('nodeadmin.settings.users', [])
             $scope.error = err.data;
           });
       };
-      $scope.getUsers();
+      $scope.getAll();
 
       // Editing user cells
       $scope.oldData = '';
@@ -47,7 +47,7 @@ angular.module('nodeadmin.settings.users', [])
           .then(function(result) {
             // Update view
             $scope.success = 'Successfully updated user information.';
-            $scope.getUsers();
+            $scope.getAll();
           })
           .catch(function(err) {
             $scope.error = err.data;
@@ -83,7 +83,7 @@ angular.module('nodeadmin.settings.users', [])
           if (result === true) {
             // Reload current users
             $scope.users = [];
-            $scope.getUsers();
+            $scope.getAll();
             $scope.success = 'Successfully added a new user.';
           } else {
             $scope.error = result.data;
@@ -104,7 +104,7 @@ angular.module('nodeadmin.settings.users', [])
           if (typeof result === 'string') {
             // TODO: Reload updated users
             // $scope.users = [];
-            // $scope.getUsers();
+            // $scope.getAll();
             $scope.success = result;
           } else {
             $scope.error = result.data;
