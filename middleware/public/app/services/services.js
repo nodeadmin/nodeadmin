@@ -166,10 +166,7 @@ angular.module('nodeadmin.services', [])
         data: schema
       }).then(function (response){
         return response;
-      })
-      .catch(function (error){
-        return error;
-      })
+      });
     }
 
     return {
