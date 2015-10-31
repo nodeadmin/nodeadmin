@@ -8,7 +8,7 @@
     Successfully deleted {{ success }}
   </div>
   <h2 class="text-center">Tables</h2>
-  <button ui-sref="createtable({ database: databaseName })" class="btn btn-sm btn-success">Create Table</a></button>
+  <button ui-sref="createtable({ database: databaseName })" class="btn btn-sm btn-success">Create Table</button>
   <form class="form-horizontal" name="filterForm">
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
@@ -19,7 +19,7 @@
     </div>
   </form>
   <div class="table-container">
-    <table class="table table-striped">
+    <table class="table table-bordered table-hover">
       <thead>
         <th>Table Name</th>
         <th>Actions</th>
@@ -27,7 +27,6 @@
       <tbody>
         <tr ng-repeat="table in tables | filter: search">
           <td ui-sref="records({ database: databaseName, table: table, page: 1 })"> {{ table }} </td>
-          <!-- TODO: delete table should open modal for that specific table -->
           <td><button class="btn btn-sm btn-danger" type="button" ng-click="open('sm', table)">Delete Table</button></td>
         </tr>
       </tbody>

@@ -60,10 +60,6 @@ angular.module('nodeadmin.settings.users', [])
         $scope.isEditing = false;
       };
 
-      $scope.editPrivileges = function() {
-        // save username
-      };
-
       // Grants modal
       $scope.openGrants = function(user) {
         Users.saveGrantInfo(user);

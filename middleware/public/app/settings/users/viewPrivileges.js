@@ -6,6 +6,10 @@ angular.module('nodeadmin.settings.viewprivileges', [])
     $scope.host = grantUser.host;
     $scope.grants = [];
 
+    $scope.saveGrantInfo = function(user) {
+      Users.saveGrantInfo(user);
+    };
+
     $scope.getGrants = function() {
       Users.getGrants($scope.user, $scope.host)
         .then(function(result) {

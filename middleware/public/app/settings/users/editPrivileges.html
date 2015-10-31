@@ -1,0 +1,32 @@
+<div id="edit-privileges">
+  <div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{error}}
+  </div>
+  <div ng-show="success" class="alert alert-success alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    Successfully edited permissions.
+  </div>
+  <h2 class="text-center">Permissions for {{ user }}</h2>
+  <div class="table-container">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th ng-repeat="header in headers"><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{header.Type}} {{header.Key}}"></span>  {{header.Field}}</th>
+          <tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td ng-repeat="(column, data) in row track by $index">
+                <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span>
+                <div ng-show="isEditing == $id">
+                  <input type="text" class="form-control input-sm" ng-model="data" />
+                  <button ng-click="saveCell(data, $index, $id)" class="btn btn-default btn-xs">Save</button>
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
