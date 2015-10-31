@@ -3,7 +3,9 @@ angular.module('nodeadmin.db.createtable', [])
 
     $scope.alerts = { success: [], error: [] };
 
-    $scope.fields = [{}];
+    $scope.fields = [{
+      'null':'NOT NULL'
+    }];
     $scope.tablename = '';
     $scope.database = $stateParams.database;
 
