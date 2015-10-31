@@ -18,7 +18,10 @@ module.exports = function nodeadmin(app, port) {
   //Socket Connection\\
   var server = http.createServer(app);
   var io = sock(server);
-  server.listen(port || 8000);
+
+  var expressListen = app.listen;
+  app.listen = server.listen.bind(server);
+  // server.listen(port || 8000);
 
   //Socket Controller\\
   require('./sockets/socketController.js')(io);
