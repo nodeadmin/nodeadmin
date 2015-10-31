@@ -3,6 +3,10 @@
 var mysql = require('mysql');
 var client = require('../auth/clientdb.js');
 
+var bindFieldLength = function(type, val) {
+  return type+'('+val+')';
+};
+
 
 module.exports = {
 
@@ -115,7 +119,11 @@ module.exports = {
           break;
         case 'type':
           // currently this wont work for types with an associated length
-          query+= row[prop].concat(' ');
+          var _type = row['fieldLength'] 
+          ? bindFieldLength(row[prop],row['fieldLength']) 
+          : row[prop];
+
+          query+= _type.concat(' ');
           break;
         case 'default':
           // this just straight up isnt implmented yet
@@ -128,7 +136,10 @@ module.exports = {
           query+= 'AUTO_INCREMENT'.concat(' ');
           break;
         case 'null':
-          row[prop] === true ? query+= 'NULL'.concat(' ') : '';
+          query+= row[prop].concat(' ');
+          break;
+        case 'fieldLength':
+          // ignore fieldlength and apply to type
           break;
         default:
           // client is intentionally sql injecting
