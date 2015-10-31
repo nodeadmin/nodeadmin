@@ -3,7 +3,7 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="row">
         <div class="col-sm-5">
-          <div class="panel panel-default well">
+          <div class="panel panel-default well" style="border: 1px solid;">
             <div class="panel-body">
               <p ng-show="loading">loading...</p>
               <p>Hostname: {{ serverStats.hostname }}</p>
@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="col-sm-5 col-sm-offset-2">
-          <div class="panel panel-default well"> 
+          <div class="panel panel-default well" style="border: 1px solid;"> 
             <div class="panel-body">
               <p ng-show="loading">loading...</p>
               <div ng-repeat="cpu in cpu_cores">
@@ -30,7 +30,7 @@
         </div>
       </div>
         <div class="row">
-          <div class="col-sm-6 col-sm-offset-3 well">
+          <div class="col-sm-6 col-sm-offset-3 well" style="border: 1px solid;">
             <p ng-show="loading">loading...</p>
             <canvas id="line" class="chart chart-line" chart-data="memory"
               chart-labels="labels" chart-legend="true" chart-series="series"
