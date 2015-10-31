@@ -1,10 +1,18 @@
 angular.module('nodeadmin.db.createtable', [])
 .controller('CreateTableViewController', ['$scope', '$uibModal', '$stateParams', 'Tables', function ($scope, $uibModal, $stateParams, Tables) {
 
+    $scope.alerts = { success: [], error: [] };
+
     $scope.fields = [{}];
     $scope.tablename = '';
     $scope.database = $stateParams.database;
 
+    // closes alert notification & used on close-after-timeout
+    $scope.closeAlert = function(type, index) {
+      $scope.alerts[type].splice(index, 1);
+    };
+
+    // adds additional field rows to table create form
     $scope.addField = function(num) {
 
       do {
@@ -14,6 +22,7 @@ angular.module('nodeadmin.db.createtable', [])
       
     };
 
+    // create table submit handler
     $scope.processTable = function() {
 
       if(!$scope.tablename) {
@@ -27,10 +36,16 @@ angular.module('nodeadmin.db.createtable', [])
 
       Tables.createTable($scope.database, $scope.tablename, $scope.fields)
         .then(function (response) {
+          console.log('\n response ', response);
+          $scope.alerts['success'].push({
+            msg:response.statusText,
+            status:response.status,
+            method:response.config.method,
+          });
 
         })
         .catch(function (error){
-          
+          $scope.alerts['error'].push(error);
         });
     };
 
