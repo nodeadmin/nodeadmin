@@ -7,7 +7,7 @@ module.exports = {
       if (err) {
         console.log('Error executing npm list --long: ', err);
       }
-      res.send(stdout);
+      res.send({"stdout": stdout, "stderr": stderr });
     });
   },
   
