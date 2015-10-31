@@ -1,9 +1,20 @@
-<div>
+<div class="container-fluid">
+
+  <div class="row">
+    <uib-alert class="col-md-11" ng-repeat="alert in alerts.success" dismiss-on-timeout="5000"
+    type="success" close="closeAlert('success', $index)">{{alert.status}} / {{ alert.msg }} successful {{ alert.method }}
+    </uib-alert>
+    <uib-alert class="col-md-11" ng-repeat="alert in alerts.error"
+    type="danger" close="closeAlert('error', $index)"> 
+    Error {{alert.status}} / {{ alert.statusText }} ( {{ alert.data.sqlState }} - {{ alert.data.code }} )
+    </uib-alert>
+  </div>
+
   <div class="row well" style="margin-top:10px;">
     <form class="form-inline">
       <div class="form-group">
         <label for="tablename">Table Name: </label>
-        <input type="text" class="form-control" id="tablename" ng-model="tablename" placeholder="Table Name">
+        <input ng-required='true' type="text" class="form-control" id="tablename" ng-model="tablename" placeholder="Table Name">
       </div>
       <div class="input-group col-xs-2 pull-right">
         <!-- decrement button -->
@@ -20,102 +31,104 @@
       </div>
     </form>
   </div>
+  
+  <div class="table-container">    
+    <table class="table table-hover table-bordered table-condensed" style="margin-top:40px;"> 
+      <tbody>
+      <thead>
+      <tr>    
+        <th uib-popover="On the Top!" ><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Name</th>
+        <th>Type</th>
+        <th>Length / Values</th>
+        <th>Default</th>
+        <th>Null</th>
+        <th>Index</th>
+        <th>AUTO INC</th>
+      </tr>
+      </thead>
 
-  <table class="table table-condensed table-striped table-bordered" style="margin-top:40px;"> 
-    <tbody>
-    <thead>
-    <tr>    
-      <th uib-popover="On the Top!" ><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Name</th>
-      <th>Type</th>
-      <th>Length / Values</th>
-      <th>Default</th>
-      <th>Null</th>
-      <th>Index</th>
-      <th>AUTO INC</th>
-    </tr>
-    </thead>
+      <tr ng-repeat="field in fields">
+        <td>
+          <input type="text" name="" ng-model="field.fieldName" id="">
+        </td>
 
-    <tr ng-repeat="field in fields">
-      <td>
-        <input type="text" name="" ng-model="field.fieldName" id="">
-      </td>
+        <td>
+          <select ng-model="field.type" name="" id="">
+          <option value="INT"> INT </option>
+          <option value="VARCHAR"> VARCHAR </option>
+          <option value="TEXT"> TEXT </option>
+          <option value="DATE"> DATE </option>
 
-      <td>
-        <select ng-model="field.type" name="" id="">
-        <option value="INT"> INT </option>
-        <option value="VARCHAR"> VARCHAR </option>
-        <option value="TEXT"> TEXT </option>
-        <option value="DATE"> DATE </option>
+          <optgroup label="Numeric">
+            <option value="SMALLINT">SMALLINT</option>
+            <option value="MEDIUMINT">MEDIUMINT</option>
+            <option value="INT">INT</option>
+            <option value="INTEGER">INTEGER</option>
+            <option value="BIGINT">BIGINT</option>
+            <option value="REAL">REAL</option>
+            <option value="DOUBLE">DOUBLE</option>
+            <option value="FLOAT">FLOAT</option>
+            <option value="DECIMAL">DECIMAL</option>
+            <option value="NUMERIC">NUMERIC</option>
+          </optgroup>
+          <optgroup label="Date And Time">
+            <option value="DATE">DATE</option>
+            <option value="TIME">TIME</option>
+            <option value="TIMESTAMP">TIMESTAMP</option>
+            <option value="DATETIME">DATETIME</option>
+            <option value="YEAR">YEAR</option>
+          </optgroup>
+          <optgroup label="String">
+            <option value="CHAR">CHAR</option>
+            <option value="BINARY">BINARY</option>
+            <option value="VARBINARY">VARBINARY</option>
+            <option value="TINYBLOB">TINYBLOB</option>
+            <option value="BLOB">BLOB</option>
+            <option value="MEDIUMBLOB">MEDIUMBLOB</option>
+            <option value="LONGBLOB">LONGBLOB</option>
+            <option value="TINYTEXT">TINYTEXT</option>
+            <option value="TEXT">TEXT</option>
+            <option value="MEDIUMTEXT">MEDIUMTEXT</option>
+            <option value="LONGTEXT">LONGTEXT</option>
+            <option value="ENUM">ENUM</option>
+            <option value="SET">SET</option>
+          </optgroup> 
+          </select>
+        </td>
 
-        <optgroup label="Numeric">
-          <option value="SMALLINT">SMALLINT</option>
-          <option value="MEDIUMINT">MEDIUMINT</option>
-          <option value="INT">INT</option>
-          <option value="INTEGER">INTEGER</option>
-          <option value="BIGINT">BIGINT</option>
-          <option value="REAL">REAL</option>
-          <option value="DOUBLE">DOUBLE</option>
-          <option value="FLOAT">FLOAT</option>
-          <option value="DECIMAL">DECIMAL</option>
-          <option value="NUMERIC">NUMERIC</option>
-        </optgroup>
-        <optgroup label="Date And Time">
-          <option value="DATE">DATE</option>
-          <option value="TIME">TIME</option>
-          <option value="TIMESTAMP">TIMESTAMP</option>
-          <option value="DATETIME">DATETIME</option>
-          <option value="YEAR">YEAR</option>
-        </optgroup>
-        <optgroup label="String">
-          <option value="CHAR">CHAR</option>
-          <option value="BINARY">BINARY</option>
-          <option value="VARBINARY">VARBINARY</option>
-          <option value="TINYBLOB">TINYBLOB</option>
-          <option value="BLOB">BLOB</option>
-          <option value="MEDIUMBLOB">MEDIUMBLOB</option>
-          <option value="LONGBLOB">LONGBLOB</option>
-          <option value="TINYTEXT">TINYTEXT</option>
-          <option value="TEXT">TEXT</option>
-          <option value="MEDIUMTEXT">MEDIUMTEXT</option>
-          <option value="LONGTEXT">LONGTEXT</option>
-          <option value="ENUM">ENUM</option>
-          <option value="SET">SET</option>
-        </optgroup> 
-        </select>
-      </td>
+        <td>
+          <input type="text" name="" ng-model="field.fieldLength" id="">
+        </td>
 
-      <td>
-        <input type="text" name="" ng-model="field.fieldLength" id="">
-      </td>
+        <td>
+          <select ng-model="field.default" name="" id="">
+            <option value="">NONE</option>
+            <option value="">AS DEFINED:</option>
+            <option value="null">NULL</option>
+            <option value="current_timestamp">CURRENT_TIMESTAMP</option>
+          </select>
+        </td>
+        
+        <td>
+          <input ng-model="field.null" type="checkbox" ng-true-value="'NULL'" ng-false-value="'NOT NULL'" name="" id="">
+        </td>
 
-      <td>
-        <select ng-model="field.default" name="" id="">
-          <option value="">NONE</option>
-          <option value="">AS DEFINED:</option>
-          <option value="null">NULL</option>
-          <option value="current_timestamp">CURRENT_TIMESTAMP</option>
-        </select>
-      </td>
-      
-      <td>
-        <input ng-model="field.null" type="checkbox" ng-true-value="'NULL'" ng-false-value="'NOT NULL'" name="" id="">
-      </td>
+        <td>
+          <select ng-model="field.quality" name="" id="">
+            <option value="PRIMARY KEY">PRIMARY</option>
+            <option value="UNIQUE">UNIQUE</option>
+            <option value="INDEX">INDEX</option>
+          </select>
+        </td>
 
-      <td>
-        <select ng-model="field.quality" name="" id="">
-          <option value="PRIMARY KEY">PRIMARY</option>
-          <option value="UNIQUE">UNIQUE</option>
-          <option value="INDEX">INDEX</option>
-        </select>
-      </td>
+        <td>
+          <input ng-model="field.auto" type="checkbox" value="AUTO_INCREMENT">
+        </td>
 
-      <td>
-        <input ng-model="field.auto" type="checkbox" value="AUTO_INCREMENT">
-      </td>
-
-    </tr>
-    </tbody>
-  </table>
+      </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="row">
       <button ng-click="processTable()" class="pull-right text-warning btn btn-default">Create</button>
   </div>
