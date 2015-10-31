@@ -1,6 +1,15 @@
 angular.module('nodeadmin.system.modules', ['ngSanitize'])
 .controller('ModulesController', ['$scope', 'System', '$sce', function ($scope, System, $sce) {
 
+$scope.alerts = {
+  error:[],
+  success:[]
+};
+
+$scope.closeAlert = function(type, index) {
+  $scope.alerts[type].splice(index, 1);
+};
+
 var colorDependencies = function(string) {
   var byLine = string.split('\n');
   var replacedString = [];
@@ -63,8 +72,12 @@ var colorDependencies = function(string) {
 
 getModules = function() {
   System.getModules()
-  .then(function(modules) {
-    colorDependencies(modules.data);
+  .then(function(resp) {
+    var modules = resp.data.stdout;
+    if (resp.data.stderr.length > 0) {
+      $scope.alerts.error.push(resp.data.stderr);
+    }
+    colorDependencies(modules);
   })
   .catch(function(err) {
     // Allow for error displaying on modules page
