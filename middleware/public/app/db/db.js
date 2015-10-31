@@ -1,71 +1,123 @@
 /* jshint strict: false */
 angular.module('nodeadmin.db', [])
-.controller('RecordsController', ['$scope', 'RecordsFactory', 'PaganacionFactory', '$state', '$stateParams', function ($scope, RecordsFactory, PaganacionFactory, $state, $stateParams) {
-  $scope.records = {};
-  $scope.headers = []; 
-  $scope.error = '';
-  $scope.isEditing = ''; 
-  $scope.primaryKey = '';
-  $scope.maxSize = PaganacionFactory.maxSize;
-  $scope.table = $stateParams.table;
-  $scope.loading = true;
-  $scope.currentPage = PaganacionFactory.currentPage;
-  $scope.recordsCount = PaganacionFactory.records;
-  $scope.getRecords = function () {
-    RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page)
-    .then(function (result) {
-      $scope.records = result[0];
-      $scope.headers = result[1];
-      PaganacionFactory.records = result[2][0]['count(*)'] - 1;
-      $scope.recordsCount = PaganacionFactory.records;
-      $scope.getPrimaryKey($scope.headers);
-    })
-    .catch(function (err) {
-      $scope.error = err;
-    })
-    .finally(function () {
-      $scope.loading = false;
-    });
-  };
-  
-  $scope.paganacion = function () {
-    PaganacionFactory.currentPage = $scope.currentPage;
-    $state.go('records', {
-      database:$stateParams.database,
-      table: $scope.table,
-      page: $scope.currentPage 
-    });
-  };
-  $scope.getPrimaryKey = function (headers) {
-    for (var i = 0; i < headers.length; i++) {
-      if (headers[i].Key === 'PRI') {
-        $scope.primaryKey = headers[i].Field;
-        return;
-      }
-      console.log('No Primary key');
-    }
-  };
-  $scope.editCell = function (id) {
-     $scope.isEditing = id;
-  };
-  $scope.saveCell = function (data, index, id) {
-    console.log('hello');
-    var update = {
-      table: $stateParams.table,
-      col: $scope.headers[index].Field,
-      val: data,
-      pk: $scope.primaryKey
+.controller('RecordsController', ['$scope', 'RecordsFactory', 'PaganacionFactory', 'ForeignFactory', '$state', '$stateParams',
+  function ($scope, RecordsFactory, PaganacionFactory, ForeignFactory, $state, $stateParams) {
+    var numTypes=['integer', 'int', 'smallint', 'tinyint', 'mediumint', 'bigint', 'decimal', 'numeric', 'float', 'double', 'bit'];
+    $scope.records = {};
+    $scope.headers = []; 
+    $scope.row = {};
+    $scope.rowing = false;
+    $scope.error = '';
+    $scope.isEditing = ''; 
+    $scope.primaryKey = '';
+    $scope.maxSize = PaganacionFactory.maxSize;
+    $scope.table = $stateParams.table;
+    $scope.loading = true;
+    $scope.currentPage = PaganacionFactory.currentPage;
+    $scope.recordsCount = PaganacionFactory.records;
+    $scope.foreignValues = [];
+    $scope.foreignColumn = '';
+    $scope.getRecords = function () {
+      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page)
+      .then(function (result) {
+        $scope.records = result[0];
+        $scope.headers = result[1];
+        $scope.getForeignValues(result[3]);
+        PaganacionFactory.records = result[2][0]['count(*)'];
+        $scope.recordsCount = PaganacionFactory.records;
+        $scope.getPrimaryKey($scope.headers);
+      })
+      .catch(function (err) {
+        $scope.error = err;
+      })
+      .finally(function () {
+        $scope.loading = false;
+      });
     };
-    console.log(update);
-    RecordsFactory.editRecord($stateParams.database, $stateParams.table, $stateParams.page, update)
-    .then(function (result) {
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
-    $scope.isEditing = false;
-  };
-  $scope.getRecords();
+
+    $scope.getForeignValues = function (constraints) {
+      var refTable = constraints[0]['REFERENCED_TABLE_NAME'];
+      var refColumn = constraints[0]['REFERENCED_COLUMN_NAME'];
+      $scope.foreignColumn = refColumn;
+      ForeignFactory.getForeignValues($stateParams.database, refTable, refColumn)
+      .then(function (result) {
+        result.forEach(function(item) {
+          for (var key in item) {
+            $scope.foreignValues.push(item[key]);
+          }
+       });
+      console.log($scope.foreignValues);
+      });
+    };
+
+    $scope.paganacion = function () {
+      PaganacionFactory.currentPage = $scope.currentPage;
+      $state.go('records', {
+        database:$stateParams.database,
+        table: $scope.table,
+        page: $scope.currentPage 
+      });
+    };
+    
+    $scope.isRef = function (column) {
+      console.log($scope.foreignColumn);
+      if (column === 'CountryCode') {
+        return true;
+      }
+      return false;
+    };
+
+    $scope.isNum = function (input) {
+      var type = input.split('(')[0];
+      if (numTypes.indexOf(type) > -1) {
+        return true;
+      }
+      return false;
+    };
+
+    $scope.getPrimaryKey = function (headers) {
+      for (var i = 0; i < headers.length; i++) {
+        if (headers[i].Key === 'PRI') {
+          $scope.primaryKey = headers[i].Field;
+          return;
+        }
+        console.log('No Primary key');
+      }
+    };
+
+    $scope.showForm = function () {
+      $scope.rowing = true;
+      console.log($scope.rowing);
+    };
+    
+    $scope.addRow = function () {
+      console.log($scope.row);
+      RecordsFactory.addRecord($stateParams.database, $stateParams.table, $stateParams.page, $scope.row);
+    };
+
+    $scope.editCell = function (id, data) {
+      console.log(data);
+      $scope.isEditing = id;
+    };
+
+    $scope.updateRow = function (data, index) {
+      var update = {
+        table: $stateParams.table,
+        col: $scope.headers[index].Field,
+        val: data,
+        pk: $scope.primaryKey
+      };
+      
+      RecordsFactory.editRecord($stateParams.database, $stateParams.table, $stateParams.page, update)
+      .then(function (result) {
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+      $scope.isEditing = false;
+    };
+
+    $scope.getRecords();
 }])  
 .factory('dbFactory', function ($http) {
   return {

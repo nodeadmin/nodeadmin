@@ -71,6 +71,7 @@ angular.module('nodeadmin.services', [])
           });
       },
       editRecord: function(db, table, page, data) {
+        console.log('edit record is getting called');
         return $http.put('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
         .then(function (response) {
           return response;
@@ -78,10 +79,33 @@ angular.module('nodeadmin.services', [])
         .catch(function (err) {
           return err;
         });
+      },
+      addRecord: function (db, table, page, data) {
+        return $http.post('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
       }
     };
   }
 ])
+
+.factory('ForeignFactory', ['$http', function ($http) {
+  return {
+    getForeignValues: function (db, refTable, refColumn) {
+      return $http.get('/nodeadmin/api/db/' + db + '/fk/' + refTable + '/' + refColumn)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+    }
+  };
+}])
 
 .factory('DBInfoFactory', ['$http',
   function($http) {

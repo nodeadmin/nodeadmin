@@ -1,4 +1,16 @@
 <div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <span class="glyphicon glyphicon-plus" ng-click="showForm()" ng-hide="rowing" tooltip-placement="right" uib-tooltip="add row"></span>
+      <form class="form" ng-show="rowing" ng-submit="addRow(row)">
+        <div class="form-group col-xs-2" ng-repeat="header in headers">
+          <label for="{{header.Field}}">{{header.Field}}</label>
+          <input type="text" class="form-control" name="header.Field" placeholder="{{header.Type}} {{header.Extra}}"ng-model="row[header.Field]" />
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="rowing = false">Add Row</button>
+      </form>
+    </div>
+  </div>
 	<div class="row">
 		<h1 class="text-center">{{table}}</h1>
 	</div>
@@ -16,12 +28,13 @@
           </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="row in records | filter:search">
+        <tr ng-repeat="row in records | filter:search" ng-dblclick="editCell($id, row)">
+          <button ng-show="isEditing == $id">button</button>
           <td ng-repeat="(column, data) in row track by $index">
-            <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span>
-            <div ng-show="isEditing == $id">
-              <input type="text" class="form-control input-sm" ng-model="data" />
-                <button ng-click="saveCell(data, $index, $id)" class="btn btn-default btn-xs">Save</button>
+            <span ng-hide="isEditing == $parent.$id" >{{data}}</span>
+            <div ng-show="isEditing == $parent.$id">
+              <input ng-if="isRef(column)"type="text" class="form-control input-sm" ng-model="data" />
+                <button ng-click="updateRow(row, $index, $id)" class="btn btn-default btn-xs">Save</button>
               </span>
             </div>
           </td>

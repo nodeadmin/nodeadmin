@@ -57,3 +57,7 @@
     left: 0px;
   }
 }
+
+.form-group {
+  padding-left: 10px;
+}

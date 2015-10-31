@@ -101,16 +101,13 @@ module.exports = {
       timeout: 40000,
       values: [db]
     }, function(err, result) {
-      if (err) {
-        console.log(err);
-      }
+      if (err) { res.status(500).json(err); }
       connection.query({
-        sql: 'SELECT * FROM ?? LIMIT ?; DESCRIBE ??; SELECT count(*) FROM ??',
+        sql: 'SELECT * FROM ?? LIMIT ?; DESCRIBE ??; SELECT count(*) FROM ??; SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME = (\'City\' OR \'Country\' OR \'CountryLanguage\') AND TABLE_NAME=?',
         timeout: 40000,
-        values: [table, limit, table, table]
+        values: [table, limit, table, table, table]
       }, function(err, result, fields) {
-        if (err) {
-        }
+        if (err) { console.log(err); }
         res.status(200).json(result);
       });
     });
@@ -131,22 +128,72 @@ module.exports = {
       timeout: 40000,
       values: [db]
     }, function(err, result) {
-      if (err) {
-        console.log(err);
-      }
+      if (err) { res.status(500).json(err); }
       connection.query({
         sql: 'UPDATE ?? SET ? WHERE ?? = "PRIMARY KEY"',
         timeout: 40000,
         values: [table, set, primaryKey]
       }, function(err, result) {
-        if (err) {
-          console.log(err);
-        }
+        if (err) { res.status(500).json(err); }
+        console.log(result);
         res.status(200).json(result);
       });
     });
   },
-  
+
+  addRecord: function (req, res) {
+    var database = req.params.database,
+        table = req.params.table,
+        columns = Object.keys(req.body),
+        values = [],
+        connection = client.getClientDB();
+
+    for (var key in req.body) {
+      values.push(req.body[key]);
+    }
+
+    connection.query({
+      sql: 'USE ??',
+      timeout: 40000,
+      values: [database]
+    }, function (err, result){
+      if (err) { res.status(500).json(err); }
+      connection.query({
+        sql: 'INSERT INTO ?? (??) VALUES (?)',
+        timeout: 40000,
+        values: [table, columns, values]
+      }, function (err, result) {
+        if (err) { res.status(500).json(err); }
+        console.log('Everything is cool!');
+        console.log(result);
+        res.status(201).json(result);
+      });
+    });
+  },
+
+  getForeignValues: function (req, res) {
+    var db = req.params.database,
+        table = req.params.refTable,
+        column = req.params.refColumn,
+        connection = client.getClientDB();
+    console.log(db, table, column);
+    connection.query({
+      sql: 'USE ??',
+      timeout: 40000,
+      values: [db]
+    }, function (err, result) {
+      if (err) { console.log(err); }
+      connection.query({
+        sql: 'SELECT DISTINCT(??) FROM ??',
+        timeout: 40000,
+        values: [column, table]
+      }, function (err, results) {
+        if (err) { console.log(err); }
+        res.status(201).json(results);
+      });
+    });
+  },
+
   getPerformanceStats: function(req, res) {
     var db = 'performance_schema';
     var table = 'performance_timers';

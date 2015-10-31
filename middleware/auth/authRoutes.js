@@ -18,7 +18,6 @@ router.route('/login')
         conn.query(
           "update performance_schema.setup_consumers set enabled='YES' where name='events_waits_current';", 
           function (err, rows, fields) {
-            console.log('enabling performance_schema... err: ', err, 'rows: ', rows);
           }
         );
         connectionWrapper.bindClientDB(conn);
