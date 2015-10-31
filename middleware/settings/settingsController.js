@@ -133,8 +133,29 @@ module.exports = {
     var column = req.body.column;
     var val = req.body.val;
 
-    // Update column in mysql.user with new val
-    connection.query('')
+    if (val === 'grant') {
+      connection.query("GRANT ALL ON *.* TO " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err.toString());
+        } else {
+          res.status(200).send(result);
+        }
+      })
+    } else if (val === 'revoke') {
+      connection.query("REVOKE ALL PRIVILEGES, GRANT OPTION FROM " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err.toString());
+        } else {
+          res.status(200).send(result);
+        }
+      });
+    } else {
+      // TODO: Update column in mysql.user with new val
+      // connection.query('')      
+    }
+
   },
 
   getGrantsDescription: function(req, res) {

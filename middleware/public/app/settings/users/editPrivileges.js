@@ -3,44 +3,79 @@ angular.module('nodeadmin.settings.editprivileges', [])
     $scope.user = $stateParams.user;
     $scope.host = $stateParams.host;
     $scope.headers = [];
-    
-    Users.getGrantsRecord($scope.user, $scope.host)
-      .then(function(response) {
-        $scope.success = '';
-        console.log(response)
-        $scope.record = response[0];
-        // Describe table
-        $scope.headers = response[1];
-      })
-      .catch(function(err) {
-        $scope.error = err;
-      });
 
-    $scope.editCell = function (id, column) {
-       $scope.isEditing = id;
-       $scope.column = column;
+    $scope.getGrantsRecord = function() {
+      Users.getGrantsRecord($scope.user, $scope.host)
+        .then(function(response) {
+          $scope.success = '';
+          $scope.record = response[0];
+          // Describe table
+          $scope.headers = response[1];
+        })
+        .catch(function(err) {
+          $scope.error = err;
+        });
+    };
+
+    $scope.getGrantsRecord();
+
+    $scope.grantAll = function() {
+      var update = {
+        column: null,
+        val: 'grant'
+      };
+
+      Users.editGrantsRecord($scope.user, $scope.host, update)
+        .then(function(result) {
+          $scope.success = 'Successfully granted all privileges.';
+        })
+        .catch(function(err) {
+          console.log(err);
+          $scope.error = err;
+        });
+    };
+
+    $scope.revokeAll = function() {
+      var update = {
+        column: null,
+        val: 'revoke'
+      };
+
+      Users.editGrantsRecord($scope.user, $scope.host, update)
+        .then(function(result) {
+          $scope.success = 'Successfully revoked all privileges.';
+        })
+        .catch(function(err) {
+          console.log(err);
+          $scope.error = err;
+        });
+    };
+
+    $scope.editCell = function(id, column) {
+      $scope.isEditing = id;
+      $scope.column = column;
     };
 
     $scope.cancel = function() {
       $scope.isEditing = false;
     };
 
-    $scope.saveCell = function (column, data) {
-     $scope.column = column;
-      
+    $scope.saveCell = function(column, data) {
+      $scope.column = column;
+
       var update = {
         column: $scope.column,
         val: data
       };
 
       Users.editGrantsRecord($scope.user, $scope.host, update)
-      .then(function (result) {
-        $scope.success = 'Successfully updated user privileges.';
-      })
-      .catch(function (err) {
-        console.log(err);
-        $scope.error = err;
-      });
+        .then(function(result) {
+          $scope.success = 'Successfully updated user privileges.';
+        })
+        .catch(function(err) {
+          console.log(err);
+          $scope.error = err;
+        });
       $scope.isEditing = false;
     };
 
@@ -48,7 +83,7 @@ angular.module('nodeadmin.settings.editprivileges', [])
     $scope.getGrantsDescription = function() {
       Users.getGrantsDescription()
         .then(function(result) {
-          console.log('show privileges:' , result)
+          console.log('show privileges:', result)
           $scope.showPrivileges = result;
         })
         .catch(function(err) {

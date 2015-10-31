@@ -327,7 +327,7 @@ angular.module('nodeadmin.services', [])
     getDeleteUser: getDeleteUser,
     deleteUser: deleteUser,
     editGrantsRecord: editGrantsRecord,
-    getGrantsDescription: getGrantsDescription
+    getGrantsDescription: getGrantsDescription,
   };
 
 }])

@@ -8,6 +8,8 @@
     Successfully edited privileges.
   </div>
   <h2 class="text-center">Privileges for {{ user }}</h2>
+  <button class="btn btn-sm btn-success" ng-click="grantAll()">Grant All</button>
+  <button class="btn btn-sm btn-danger" ng-click="revokeAll()">Revoke All</button>
   <div class="table-container">
     <table class="table table-bordered table-hover">
       <thead>
