@@ -5,28 +5,45 @@
   </div>
   <div ng-show="success" class="alert alert-success alert-dismissable" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Successfully edited permissions.
+    Successfully edited privileges.
   </div>
-  <h2 class="text-center">Permissions for {{ user }}</h2>
+  <h2 class="text-center">Privileges for {{ user }}</h2>
   <div class="table-container">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
           <th ng-repeat="header in headers"><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{header.Type}} {{header.Key}}"></span>  {{header.Field}}</th>
-          <tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="row in record">
-              <td ng-repeat="(column, data) in row track by $index">
-                <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span>
-                <div ng-show="isEditing == $id">
-                  <input type="text" class="form-control input-sm" ng-model="data" />
-                  <button ng-click="saveCell(data, $index, $id)" class="btn btn-default btn-xs">Save</button>
-                </span>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in record">
+          <td ng-repeat="(column, data) in row track by $index">
+            <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span>
+            <div ng-show="isEditing == $id">
+              <input type="text" class="form-control input-sm" ng-model="data" />
+              <button ng-click="saveCell(column, data)" class="btn btn-success btn-xs">Save</button>
+              <button ng-click="cancel()" class="btn btn-sm btn-warning btn-xs">Cancel</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 class="text-center">Description of Privileges</h3>
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Privilege</th>
+          <th>Context</th>
+          <th>Comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in showPrivileges">
+          <td> {{ row.Privilege }} </td>
+          <td> {{ row.Context }} </td>
+          <td> {{ row.Comment }} </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>

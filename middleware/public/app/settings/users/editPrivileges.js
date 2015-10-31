@@ -16,24 +16,45 @@ angular.module('nodeadmin.settings.editprivileges', [])
         $scope.error = err;
       });
 
-    $scope.editCell = function (id) {
+    $scope.editCell = function (id, column) {
        $scope.isEditing = id;
+       $scope.column = column;
     };
 
-    $scope.saveCell = function (data, index, id) {
+    $scope.cancel = function() {
+      $scope.isEditing = false;
+    };
+
+    $scope.saveCell = function (column, data) {
+     $scope.column = column;
+      
       var update = {
-        table: 'user',
-        col: $scope.headers[index].Field,
-        val: data,
-        pk: $scope.user
+        column: $scope.column,
+        val: data
       };
-      RecordsFactory.editRecord('mysql', 'user', update)
+
+      Users.editGrantsRecord($scope.user, $scope.host, update)
       .then(function (result) {
         $scope.success = 'Successfully updated user privileges.';
       })
       .catch(function (err) {
         console.log(err);
+        $scope.error = err;
       });
       $scope.isEditing = false;
     };
+
+    // Display description of grants options
+    $scope.getGrantsDescription = function() {
+      Users.getGrantsDescription()
+        .then(function(result) {
+          console.log('show privileges:' , result)
+          $scope.showPrivileges = result;
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    };
+
+    $scope.getGrantsDescription();
   });

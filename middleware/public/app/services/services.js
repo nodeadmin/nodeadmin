@@ -266,7 +266,7 @@ angular.module('nodeadmin.services', [])
   var getGrants = function(user, host) {
     return $http({
       method: 'GET',
-      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/showgrants/'
+      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grants/'
     }).then(function(response) {
       return response.data;
     });
@@ -276,7 +276,17 @@ angular.module('nodeadmin.services', [])
   var getGrantsRecord = function(user, host) {
     return $http({
       method: 'GET',
-      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/getgrantsrecord/'
+      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grantsrecord/'
+    }).then(function(response) {
+      return response.data;
+    });
+  };
+
+  var editGrantsRecord = function(user, host, data) {
+    return $http({
+      method: 'PUT',
+      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grantsrecord',
+      data: data
     }).then(function(response) {
       return response.data;
     });
@@ -295,6 +305,16 @@ angular.module('nodeadmin.services', [])
     return grantUser;
   };
 
+  // Get description of grants options
+  var getGrantsDescription = function() {
+    return $http({
+      method: 'GET',
+      url: '/nodeadmin/api/settings/users/grantsdescription'
+    }).then(function(response) {
+      return response.data;
+    });
+  };
+
   return {
     getAll: getAll,
     editUser: editUser,
@@ -305,7 +325,9 @@ angular.module('nodeadmin.services', [])
     addUser: addUser,
     saveDeleteUser: saveDeleteUser,
     getDeleteUser: getDeleteUser,
-    deleteUser: deleteUser
+    deleteUser: deleteUser,
+    editGrantsRecord: editGrantsRecord,
+    getGrantsDescription: getGrantsDescription
   };
 
 }])

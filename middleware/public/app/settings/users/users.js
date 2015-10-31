@@ -31,6 +31,7 @@ angular.module('nodeadmin.settings.users', [])
       $scope.saveCell = function(column, newData) {
         $scope.newData = newData;
 
+        // If column passed in doesn't match what was assigned in editCell 
         if (column !== $scope.column) {
           $scope.error = 'Error editing user.';
           return;

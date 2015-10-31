@@ -110,13 +110,37 @@ module.exports = {
       }
     });
   },
-// "SELECT * FROM mysql.user WHERE user = " +  "'" + user + "'" +  " AND host =  " + "'" + host + "'" + ""
+
   getGrantsRecord: function(req, res) {
     var user = req.params.user;
     var host = req.params.host;
     var connection = client.getClientDB();
 
-    connection.query("SELECT * FROM mysql.user WHERE user = " +  "'" + user + "'" +  " AND host =  " + "'" + host + "'" + "; DESCRIBE mysql.user", function(err, result) {
+    connection.query("SELECT * FROM mysql.user WHERE user = " + "'" + user + "'" + " AND host =  " + "'" + host + "'" + "; DESCRIBE mysql.user", function(err, result) {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err.toString());
+      } else {
+        res.status(200).send(result);
+      }
+    })
+  },
+
+  editGrantsRecord: function(req, res) {
+    var connection = client.getClientDB();
+    var user = req.params.user;
+    var host = req.params.host;
+    var column = req.body.column;
+    var val = req.body.val;
+
+    // Update column in mysql.user with new val
+    connection.query('')
+  },
+
+  getGrantsDescription: function(req, res) {
+    var connection = client.getClientDB();
+
+    connection.query('SHOW PRIVILEGES', function(err, result) {
       if (err) {
         console.log(err);
         res.status(500).send(err.toString());
