@@ -7,7 +7,8 @@ angular.module('nodeadmin', [
   'nodeadmin.main',
   'nodeadmin.settings',
   'nodeadmin.settings.users',
-  'nodeadmin.settings.grants',
+  'nodeadmin.settings.viewprivileges',
+  'nodeadmin.settings.editprivileges',
   'nodeadmin.settings.adduser',
   'nodeadmin.settings.deleteUser',
   'nodeadmin.system',
@@ -75,24 +76,15 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    // .state('notifications', {
-    //   parent: 'settings',
-    //   url: 'settings/notifications',
-    //   templateUrl: '',
-    //   controller: '',
-    //   data: {
-    //     requireLogin: true
-    //   }
-    // })
-    // .state('advanced', {
-    //   parent: 'settings',
-    //   url: 'settings/advanced',
-    //   templateUrl: '',
-    //   controller: '',
-    //   data: {
-    //     requireLogin: true
-    //   }
-    // })
+    .state('grants', {
+      parent: 'users',
+      url: 'grants',
+      templateUrl: 'app/settings/users/editPrivileges.html',
+      controller: 'EditPrivilegesController',
+      data: {
+        requireLogin: true
+      }
+    })
 
     .state('system', {
       abstract: true,

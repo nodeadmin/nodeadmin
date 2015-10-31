@@ -1,5 +1,5 @@
-angular.module('nodeadmin.settings.grants', [])
-  .controller('GrantsController', function($scope, Users, $modalInstance) {
+angular.module('nodeadmin.settings.viewprivileges', [])
+  .controller('ViewPrivilegesController', function($scope, Users, $modalInstance) {
     
     var grantUser = Users.returnGrantUser();
     $scope.user = grantUser.user;

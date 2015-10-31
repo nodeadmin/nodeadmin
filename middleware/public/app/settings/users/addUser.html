@@ -23,8 +23,10 @@
         </div>
       </div>
     </div>
+    <!-- TODO: prevent footer from overriding body -->
     <div class="modal-footer">
       <button class="btn btn-success" type="submit" ng-click="addUserForm.$valid && addUser()">Save</button>
+      <button class="btn btn-success" type="button" ng-click="addUser(); editPrivileges(user)" ui-sref="grants">Save & Edit Privileges</button>
       <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
   </form>

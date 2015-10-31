@@ -1,4 +1,4 @@
-angular.module('nodeadmin.system.modules', [])
+angular.module('nodeadmin.system.modules', ['ngSanitize'])
 .controller('ModulesController', ['$scope', 'System', '$sce', function ($scope, System, $sce) {
 
 var colorDependencies = function(string) {
