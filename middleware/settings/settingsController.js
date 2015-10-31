@@ -139,7 +139,14 @@ module.exports = {
           console.log(err);
           res.status(500).send(err.toString());
         } else {
-          res.status(200).send(result);
+          connection.query('FLUSH PRIVILEGES', function(err, result) {
+            if (err) {
+              console.log(err);
+              res.status(500).send(err.toString());
+            } else {
+              res.status(200).send(result);
+            }
+          })
         }
       })
     } else if (val === 'revoke') {
@@ -148,7 +155,14 @@ module.exports = {
           console.log(err);
           res.status(500).send(err.toString());
         } else {
-          res.status(200).send(result);
+          connection.query('FLUSH PRIVILEGES', function(err, result) {
+            if (err) {
+              console.log(err);
+              res.status(500).send(err.toString());
+            } else {
+              res.status(200).send(result);
+            }
+          })
         }
       });
     } else {

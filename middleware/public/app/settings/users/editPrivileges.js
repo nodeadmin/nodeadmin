@@ -3,11 +3,11 @@ angular.module('nodeadmin.settings.editprivileges', [])
     $scope.user = $stateParams.user;
     $scope.host = $stateParams.host;
     $scope.headers = [];
+    $scope.success = '';
 
     $scope.getGrantsRecord = function() {
       Users.getGrantsRecord($scope.user, $scope.host)
         .then(function(response) {
-          $scope.success = '';
           $scope.record = response[0];
           // Describe table
           $scope.headers = response[1];
@@ -27,6 +27,7 @@ angular.module('nodeadmin.settings.editprivileges', [])
 
       Users.editGrantsRecord($scope.user, $scope.host, update)
         .then(function(result) {
+          $scope.getGrantsRecord();
           $scope.success = 'Successfully granted all privileges.';
         })
         .catch(function(err) {
@@ -43,6 +44,7 @@ angular.module('nodeadmin.settings.editprivileges', [])
 
       Users.editGrantsRecord($scope.user, $scope.host, update)
         .then(function(result) {
+          $scope.getGrantsRecord();
           $scope.success = 'Successfully revoked all privileges.';
         })
         .catch(function(err) {
@@ -70,6 +72,7 @@ angular.module('nodeadmin.settings.editprivileges', [])
 
       Users.editGrantsRecord($scope.user, $scope.host, update)
         .then(function(result) {
+          $scope.getGrantsRecord();
           $scope.success = 'Successfully updated user privileges.';
         })
         .catch(function(err) {
@@ -83,7 +86,6 @@ angular.module('nodeadmin.settings.editprivileges', [])
     $scope.getGrantsDescription = function() {
       Users.getGrantsDescription()
         .then(function(result) {
-          console.log('show privileges:', result)
           $scope.showPrivileges = result;
         })
         .catch(function(err) {
