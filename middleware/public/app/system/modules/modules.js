@@ -74,10 +74,10 @@ getModules = function() {
   System.getModules()
   .then(function(resp) {
     var modules = resp.data.stdout;
+    colorDependencies(modules);
     if (resp.data.stderr.length > 0) {
       $scope.alerts.error.push(resp.data.stderr);
     }
-    colorDependencies(modules);
   })
   .catch(function(err) {
     // Allow for error displaying on modules page
