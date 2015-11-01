@@ -4,12 +4,18 @@ angular.module('nodeadmin.settings.grants', [])
     var grantUser = Users.returnGrantUser();
     $scope.user = grantUser.user;
     $scope.host = grantUser.host;
+    $scope.grants = [];
 
     $scope.getGrants = function() {
       Users.getGrants($scope.user, $scope.host)
         .then(function(result) {
           console.log('grants result', result)
-          $scope.grants = result;
+          for (var i = 0; i < result.length; i++) {
+            for (var key in result[i]) {
+              $scope.grants.push(result[i][key]);
+            }
+            result[i].toString();
+          }
         })
         .catch(function(err) {
           $modalInstance.close(err);

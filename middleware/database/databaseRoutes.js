@@ -17,7 +17,8 @@ router.route('/:database/fk/:refTable/:refColumn')
   .get(DbController.getForeignValues);  
 
 router.route('/:database/:table')
-  .delete(DbController.dropTable);
+  .delete(DbController.dropTable)
+  .post(DbController.createTable);
 
 router.route('/:database/tables')
   .get(DbController.getTables);

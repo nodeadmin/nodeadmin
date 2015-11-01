@@ -1,7 +1,16 @@
-angular.module('nodeadmin.system.modules', [])
-.controller('ModulesController', ['$scope', 'System', function ($scope, System) {
+angular.module('nodeadmin.system.modules', ['ngSanitize'])
+.controller('ModulesController', ['$scope', 'System', '$sce', function ($scope, System, $sce) {
 
-$scope.colorDependencies = function(string) {
+$scope.alerts = {
+  error:[],
+  success:[]
+};
+
+$scope.closeAlert = function(type, index) {
+  $scope.alerts[type].splice(index, 1);
+};
+
+var colorDependencies = function(string) {
   var byLine = string.split('\n');
   var replacedString = [];
 
@@ -57,18 +66,18 @@ $scope.colorDependencies = function(string) {
     });
   };
   recurseHeirarchy(byLine);
-  var p = document.getElementsByTagName('pre')[0];
-  p.innerHTML = replacedString.join('\n');
+  $scope.modules = $sce.trustAsHtml('<div>' + replacedString.join('</div><div>') + '</div>');
 
 };
 
-$scope.getModules = function() {
+getModules = function() {
   System.getModules()
-  .then(function(modules) {
-    
-    // $scope.modules = $scope.colorDependencies(modules.data);
-    // $scope.modules = modules.data;
-    $scope.colorDependencies(modules.data);
+  .then(function(resp) {
+    var modules = resp.data.stdout;
+    if (resp.data.stderr.length > 0) {
+      $scope.alerts.error.push(resp.data.stderr);
+    }
+    colorDependencies(modules);
   })
   .catch(function(err) {
     // Allow for error displaying on modules page
@@ -77,5 +86,5 @@ $scope.getModules = function() {
 };
 
 // Get modules on load
-$scope.getModules();
+getModules();
 }]);
