@@ -1,10 +1,37 @@
 <div class="container-fluid">
+
 	<div class="row">
-		<h1 class="text-center">{{table}}</h1>
+    <div class="col-md-9">
+		<h1 class="page-header space">{{table}}</h1>
+    </div>
 	</div>
   <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-      <input type="text" class="form-control" ng-model="records.search" />
+    <div class="col-xs-10 col-md-offset-1 space">
+      <span class="glyphicon glyphicon-plus" ng-click="toggleForm()" ng-if="rowing != true" tooltip-placement="right" uib-tooltip="add row"></span>
+      <span class="glyphicon glyphicon-remove" ng-if="rowing == true" ng-click="toggleForm()"></span>
+      <form class="form" ng-if="rowing == true" ng-submit="addRow(row)">
+        <div class="form-group col-xs-2" ng-repeat="header in headers">
+          <label for="{{header.Field}}">{{::header.Field}}</label>
+          <input type="text" class="form-control input-sm" ng-if="!isRef(header.Type) || !isEnum(header.Type)" name="header.Field" placeholder="{{header.Type}} {{header.Extra}}"ng-model="row[header.Field]" />
+          <select class="form-control" ng-if="isRef(header.Field) == true">
+            <option ng-repeat="value in foreignValues">{{value}}</option>
+          </select>
+          <select class="form-control" ng-if="isEnum(header.Type) == true">
+            <option ng-repeat="enum in enums track by $index">{{enum}}</option>
+          </select>
+        </div>
+        <div class="col-xs-offset-9 col-xs-2">
+        <button type="submit" class="btn btn-info" ng-click="rowing = false"><span class="glyphicon glyphicon-floppy-disk"></span> save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4 space">
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
+        <input type="text" class="form-control" placeholder="Filter results" ng-model="search" aria-describedby="basic-addon1">
+      </div>
     </div>
   </div>
   <div class="row">
@@ -12,17 +39,20 @@
      <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th ng-repeat="header in headers"><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{header.Type}} {{header.Key}}"></span>  {{header.Field}}</th>
+            <th ng-repeat="header in headers"><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{::header.Type}} {{::header.Key}}"></span>  {{::header.Field}}</th>
           </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="row in records | filter:records.search">
+        <tr ng-repeat="row in records | filter:search" ng-dblclick="editCell($id, row)">
+          <button ng-show="isEditing == $id">button</button>
           <td ng-repeat="(column, data) in row track by $index">
-            <span ng-hide="isEditing == $id" ng-dblclick="editCell($id)">{{data}}</span>
-            <div ng-show="isEditing == $id">
-              <input type="text" class="form-control input-sm" ng-model="data" />
-                <button ng-click="saveCell(data, $index, $id)" class="btn btn-default btn-xs">Save</button>
-              </span>
+            <span ng-hide="isEditing == $parent.$id" >{{data}}</span>
+            <div ng-if="isEditing == $parent.$id">
+              <input type="text" ng-hide="isRef(column) == true" class="form-control input-sm" ng-model="data" />
+              <select ng-if="isRef(column) == true" class="form-control input-sm">
+                <option ng-repeat="value in foreignValues">{{value}}</option>
+              </select>
+              <button ng-click="updateRow(row, $index, $id)" class="btn btn-default btn-xs">Save</button>
             </div>
           </td>
         </tr>

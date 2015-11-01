@@ -12,7 +12,9 @@
     padding-bottom: .75%;
     border-bottom: 1px solid;
 }
-
+.space {
+  margin-bottom: 50px;
+}
 .grid {
     width: auto;
       height: 100%;
@@ -56,4 +58,8 @@
   #wrapper.toggled .toggle-menu-div {
     left: 0px;
   }
+}
+
+.form-group {
+  padding-left: 10px;
 }
