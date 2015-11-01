@@ -166,10 +166,41 @@ module.exports = {
         }
       });
     } else {
-      // TODO: Update column in mysql.user with new val
-      // connection.query('')      
+      if (val === 'Y') {
+        connection.query("GRANT " + column + " ON *.* TO " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
+          if (err) {
+            console.log(err);
+            res.status(500).send(err.toString());
+          } else {
+            connection.query('FLUSH PRIVILEGES', function(err, result) {
+              if (err) {
+                console.log(err);
+                res.status(500).send(err.toString());
+              } else {
+                res.status(200).send(result);
+              }
+            })
+          }
+        })
+        // REVOKE INSERT ON *.* FROM 'jeffrey'@'localhost';
+      } else if (val === 'N') {
+        connection.query("REVOKE " + column + " ON *.* FROM " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
+          if (err) {
+            console.log(err);
+            res.status(500).send(err.toString());
+          } else {
+            connection.query('FLUSH PRIVILEGES', function(err, result) {
+              if (err) {
+                console.log(err);
+                res.status(500).send(err.toString());
+              } else {
+                res.status(200).send(result);
+              }
+            })
+          }
+        })
+      }
     }
-
   },
 
   getGrantsDescription: function(req, res) {
