@@ -4,12 +4,17 @@
 #home {
   padding-top: 100px;
 }
+#kwikwery {
+  padding-top: 75px;
+}
 .log-line {
     padding-top: .75%;
     padding-bottom: .75%;
     border-bottom: 1px solid;
 }
-
+.space {
+  margin-bottom: 50px;
+}
 .grid {
     width: auto;
       height: 100%;
@@ -24,9 +29,6 @@
   position: fixed;
   top: 52px;
   left: 249px;
-  /*position: absolute;
-  top: -20px;
-  left: -21px;*/
   border-top: none;
   border-left: none;
   border-radius: 0px 0px 7px 0px;
@@ -56,4 +58,8 @@
   #wrapper.toggled .toggle-menu-div {
     left: 0px;
   }
+}
+
+.form-group {
+  padding-left: 10px;
 }

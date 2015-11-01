@@ -12,6 +12,10 @@ router.route('/')
     res.send('eyyyy in db');
   });
 
+  
+router.route('/:database/fk/:refTable/:refColumn')
+  .get(DbController.getForeignValues);  
+
 router.route('/:database/:table')
   .delete(DbController.dropTable)
   .post(DbController.createTable);
@@ -21,8 +25,10 @@ router.route('/:database/tables')
 
 router.route('/:database/:table/:page')
   .get(DbController.getRecords)
-  .put(DbController.updateRecord);
-  
+  .put(DbController.updateRecord)
+  .post(DbController.addRecord);  
+
+
 router.route('/performance')
   .get(DbController.getPerformanceStats);
 

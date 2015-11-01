@@ -1,3 +1,4 @@
+/* jshint strict: false */
 angular.module('nodeadmin.services', [])
 
 .factory('Auth', ['$http', '$window',
@@ -50,7 +51,7 @@ angular.module('nodeadmin.services', [])
           return resp;
         })
         .catch(function(err) {
-          return err
+          return err;
         });
     }
   };
@@ -63,25 +64,48 @@ angular.module('nodeadmin.services', [])
       getRecords: function(db, table, page) {
         return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/' + page)
           .then(function (resp) {
-            console.log(resp.data);
             return resp.data;
           })
           .catch(function(err) {
             return err;
-          })
+          });
       },
-      editRecord: function(db, table, data) {
-        return $http.put('/nodeadmin/api/db/' + db + '/' + table + '/records', data)
+      editRecord: function(db, table, page, data) {
+        console.log('edit record is getting called');
+        return $http.put('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
         .then(function (response) {
           return response;
         })
         .catch(function (err) {
           return err;
         });
+      },
+      addRecord: function (db, table, page, data) {
+        return $http.post('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
       }
-    }
+    };
   }
 ])
+
+.factory('ForeignFactory', ['$http', function ($http) {
+  return {
+    getForeignValues: function (db, refTable, refColumn) {
+      return $http.get('/nodeadmin/api/db/' + db + '/fk/' + refTable + '/' + refColumn)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+    }
+  };
+}])
 
 .factory('DBInfoFactory', ['$http',
   function($http) {
@@ -113,17 +137,17 @@ angular.module('nodeadmin.services', [])
 .factory('QueryFactory', ['$http', 
   function ($http) {
     var submit = function (query) {
-      return $http.post('/nodeadmin/api/db/query', JSON.stringify({"data": query}))
+      return $http.post('/nodeadmin/api/db/query', JSON.stringify({'data': query}))
         .then(function (resp) {
           return resp;
         })
         .catch(function(err) {
           return err;
         });
-    }
+    };
     return {
       submit: submit
-    }
+    };
   }
 ])
   
@@ -166,10 +190,7 @@ angular.module('nodeadmin.services', [])
         data: schema
       }).then(function (response){
         return response;
-      })
-      .catch(function (error){
-        return error;
-      })
+      });
     }
 
     return {
@@ -193,7 +214,7 @@ angular.module('nodeadmin.services', [])
         })
         .then(function (res) {
           return res;
-        })
+        });
       },
 
       deleteDB: function (name) {
@@ -203,10 +224,10 @@ angular.module('nodeadmin.services', [])
           data:name
         })
         .then(function (res){
-          return res
-        })
+          return res;
+        });
       }
-    }
+    };
 
 }])
 

@@ -3,25 +3,29 @@
 var mysql = require('mysql');
 var client = require('../auth/clientdb.js');
 
+var bindFieldLength = function(type, val) {
+  return type+'('+val+')';
+};
+
 
 module.exports = {
 
-  getDatabases: function(req, res) {
+  getDatabases: function (req, res) {
     console.log('database is stored', req.app.locals);
   },
 
-  connect: function(req, res) {
+  connect: function (req, res) {
     var db = client.getClientDB();
-    db.query('SHOW DATABASES', function(err, row) {
+    db.query('SHOW DATABASES', function (err, row) {
       row && res.end(JSON.stringify(row));
     });
   },
 
-  createDatabase: function(req, res) {
+  createDatabase: function (req, res) {
     var connection = client.getClientDB();
     var DatabaseName = req.body.name;
     if (DatabaseName && typeof DatabaseName === 'string' && connection.query) {
-      connection.query('CREATE DATABASE ?? ', [DatabaseName], function(err, result) {
+      connection.query('CREATE DATABASE ?? ', [DatabaseName], function (err, result) {
 
         if (!err) {
           res.status(200).json(result);
@@ -32,7 +36,7 @@ module.exports = {
     }
   },
 
-  deleteDatabase: function(req, res) {
+  deleteDatabase: function (req, res) {
     var connection = client.getClientDB();
     var DatabaseName = req.body.name;
 
@@ -48,16 +52,16 @@ module.exports = {
     }
   },
 
-  getTables: function(req, res) {
+  getTables: function (req, res) {
     var db = req.params.database;
     var connection = client.getClientDB();
 
-    connection.query('USE ??', [db], function(err, result) {
+    connection.query('USE ??', [db], function (err, result) {
       if (err) {
         console.log(err);
         res.status(500).send(err.toString());
       }
-      connection.query('SHOW TABLES', function(err, result) {
+      connection.query('SHOW TABLES', function (err, result) {
         if (err) {
           console.log(err);
           res.status(500).send(err.toString());
@@ -68,17 +72,17 @@ module.exports = {
     });
   },
 
-  dropTable: function(req, res) {
+  dropTable: function (req, res) {
     var db = req.params.database;
     var table = req.params.table;
     var connection = client.getClientDB();
 
-    connection.query('USE ??', [db], function(err, result) {
+    connection.query('USE ??', [db], function (err, result) {
       if (err) {
         console.log(err);
         res.status(500).send(err.toString());
       }
-      connection.query('DROP TABLE ??', [table], function(err, result) {
+      connection.query('DROP TABLE ??', [table], function (err, result) {
         if (err) {
           console.log(err);
           // Displays human-readable errors
@@ -115,7 +119,11 @@ module.exports = {
           break;
         case 'type':
           // currently this wont work for types with an associated length
-          query+= row[prop].concat(' ');
+          var _type = row['fieldLength'] 
+          ? bindFieldLength(row[prop],row['fieldLength']) 
+          : row[prop];
+
+          query+= _type.concat(' ');
           break;
         case 'default':
           // this just straight up isnt implmented yet
@@ -128,7 +136,10 @@ module.exports = {
           query+= 'AUTO_INCREMENT'.concat(' ');
           break;
         case 'null':
-          row[prop] === true ? query+= 'NULL'.concat(' ') : '';
+          query+= row[prop].concat(' ');
+          break;
+        case 'fieldLength':
+          // ignore fieldlength and apply to type
           break;
         default:
           // client is intentionally sql injecting
@@ -146,7 +157,7 @@ module.exports = {
       if(err) {
         res.status(400).json(err);
       } else {
-        res.status(200).json(result);
+        res.status(201).json(result);
       }
     })
   },
@@ -159,62 +170,147 @@ module.exports = {
       limit = [offset, rowCount],
       connection = client.getClientDB();
     connection.query({
-      sql:'USE ??',
+      sql: 'USE ??',
       timeout: 40000,
       values: [db]
-    }, function(err, result) {
+    }, function (err, result) {
       if (err) {
-        console.log(err);
+        res.status(500).json(err);
       }
-      connection.query({
-        sql: 'SELECT * FROM ?? LIMIT ?; DESCRIBE ??; SELECT count(*) FROM ??',
-        timeout: 40000,
-        values: [table, limit, table, table]
-      }, function(err, result, fields) {
+      connection.query('SHOW TABLES', function (err, result) {
         if (err) {
+          console.log(err);
         }
-        res.status(200).json(result);
+        var tables = [];
+        result.forEach(function(table) {
+          for (var key in table) {
+            tables.push(table[key]);
+          }
+        });
+        var tableStr = '';
+        for (var i = 0; i < tables.length; i++) {
+          if (tableStr === '') {
+            tableStr += '(\'' + tables[i] + '\' ';
+          } else if (i === tables.length -1) {
+            tableStr += 'OR \'' + tables[i] + '\')';
+          } else {
+            tableStr += 'OR \'' + tables[i] + '\' ';
+          }
+        }
+        console.log(tableStr);
+        connection.query({
+          sql: 'SELECT * FROM ?? LIMIT ?; DESCRIBE ??; SELECT count(*) FROM ??; SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME=' + tableStr + ' AND TABLE_NAME=?',
+          timeout: 40000,
+          values: [table, limit, table, table, table]
+        }, function (err, result, fields) {
+          if (err) {
+            console.log(err);
+          }
+          res.status(200).json(result);
+        });
       });
     });
   },
 
   updateRecord: function (req, res) {
-    var db = req.params.database, 
-      table = req.body.table,
+    var db = req.params.database,
+      table = req.params.table,
       column = req.body.col,
       value = req.body.val,
       set = {},
       primaryKey = req.body.pk,
       connection = client.getClientDB();
 
-    set[column] = value;
+    set [column] = value;
     connection.query({
-      sql:'USE ??',
+      sql: 'USE ??',
       timeout: 40000,
       values: [db]
-    }, function(err, result) {
+    }, function (err, result) {
       if (err) {
-        console.log(err);
+        res.status(500).json(err);
       }
       connection.query({
         sql: 'UPDATE ?? SET ? WHERE ?? = "PRIMARY KEY"',
         timeout: 40000,
         values: [table, set, primaryKey]
-      }, function(err, result) {
+      }, function (err, result) {
         if (err) {
-          console.log(err);
+          res.status(500).json(err);
         }
+        console.log(result);
         res.status(200).json(result);
       });
     });
   },
-  
-  getPerformanceStats: function(req, res) {
+
+  addRecord: function (req, res) {
+    var database = req.params.database,
+      table = req.params.table,
+      columns = Object.keys(req.body),
+      values = [],
+      connection = client.getClientDB();
+
+    for (var key in req.body) {
+      values.push(req.body[key]);
+    }
+
+    connection.query({
+      sql: 'USE ??',
+      timeout: 40000,
+      values: [database]
+    }, function (err, result) {
+      if (err) {
+        res.status(500).json(err);
+      }
+      connection.query({
+        sql: 'INSERT INTO ?? (??) VALUES (?)',
+        timeout: 40000,
+        values: [table, columns, values]
+      }, function (err, result) {
+        if (err) {
+          res.status(500).json(err);
+        }
+        console.log('Everything is cool!');
+        console.log(result);
+        res.status(201).json(result);
+      });
+    });
+  },
+
+  getForeignValues: function (req, res) {
+    var db = req.params.database,
+      table = req.params.refTable,
+      column = req.params.refColumn,
+      connection = client.getClientDB();
+    console.log(db, table, column);
+    connection.query({
+      sql: 'USE ??',
+      timeout: 40000,
+      values: [db]
+    }, function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+      connection.query({
+        sql: 'SELECT DISTINCT(??) FROM ??',
+        timeout: 40000,
+        values: [column, table]
+      }, function (err, results) {
+        if (err) {
+          console.log(err);
+        }
+        res.status(201).json(results);
+      });
+    });
+  },
+
+  getPerformanceStats: function (req, res) {
     var db = 'performance_schema';
     var table = 'performance_timers';
     var connection = client.getClientDB();
 
-    connection.query('SELECT * FROM ??.??', [db, table], function(err, result) {
+    connection.query('SELECT * FROM ??.??', [db, table], function (err, result) {
       if (err) {
         console.log(err);
       }
@@ -222,12 +318,12 @@ module.exports = {
     });
   },
 
-  getInfoStats: function(req, res) {
+  getInfoStats: function (req, res) {
     var db = 'information_schema';
-    var table = 'processlist'
+    var table = 'processlist';
     var connection = client.getClientDB();
 
-    connection.query('SELECT * FROM ??.??', [db, table], function(err, result) {
+    connection.query('SELECT * FROM ??.??', [db, table], function (err, result) {
       if (err) {
         console.log(err);
       }
@@ -235,10 +331,10 @@ module.exports = {
     });
   },
 
-  queryClientDB: function(req, res) {
-    var connection = client.getClientDB()
+  queryClientDB: function (req, res) {
+    var connection = client.getClientDB();
 
-    connection.query(req.body.data.query, function(err, result) {
+    connection.query(req.body.data.query, function (err, result) {
       if (err) {
         res.status(400).json(err);
       } else {
