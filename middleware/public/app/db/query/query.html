@@ -1,4 +1,4 @@
-<div id="home" class="container-fluid">
+<div id="kwikwery" class="container-fluid">
   <div class="row" style="padding-left: 100px; padding-right: 100px;">
     <uib-alert class="col-md-12" ng-repeat="alert in alerts.success" dismiss-on-timeout="5000"
     type="success" close="closeAlert('success', $index)">{{alert.status}} / {{ alert.msg }} : {{ alert.query }}
@@ -9,14 +9,14 @@
   </div>
   <div class="row" style="padding-left: 100px; padding-right: 100px;">
     <h2 class="text-center">Custom MySQL Queries</h2>
-    <div class="well" style="padding-left: 50px; padding-right: 50px;">
+    <div class="well" style="padding-left: 25px; padding-right: 25px;">
     <ui-codemirror ui-codemirror-opts="cmPrefs" ng-model="query"></ui-codemirror>
     <div class="btn btn-default inline-block" ng-click="submitQuery()">Submit Query</div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" style="padding-left: 80px; padding-right: 80px;">
     <uib-alert class="col-md-12" ng-repeat="table in alerts.table" type="default" close="closeAlert('table', $index)">
-      <table class="table table-striped table-bordered">
+      <table class="table table-condensed table-hover table-bordered">
         <thead>
           <tr>
             <th ng-repeat="header in queryResponseHeaders">{{header}}</th>
