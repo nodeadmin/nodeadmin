@@ -3,10 +3,6 @@
 var mysql = require('mysql');
 var client = require('../auth/clientdb.js');
 
-var bindFieldLength = function(type, val) {
-  return type+'('+val+')';
-};
-
 
 module.exports = {
 
@@ -100,54 +96,82 @@ module.exports = {
     var table = req.params.table;
     var schema = req.body;
 
+    // ** PER FIELD
+    // P_K = PRIMARY KEY, IND = INDEX, UQ = UNIQUE
+    // __________________________
+    // fieldName                       --> required
+    // [
+    //   type,                         --> required
+    //   (fieldLength)                 --> optional for every type almost
+    // ]         
+    // default                         --> constant
+    // null _alias_ ([NULL, NOT NULL]) --> if !Pri_Key
+    // quality [
+    //          PK,                    --> only 1
+    //          IND,                   -->
+    //          UQ                     --> if !NULL
+    // ] 
+
 
     var query = 'CREATE TABLE ??.?? ( ';
     var placeholders = [].concat(database, table);
+
+    var indexes = [];
+
 
     // loop through table field definitions
     while(schema.length) {
 
       // pop off field definition
       var row = schema.shift();
+      
+      // *** fieldName ***
+      try {
+        query+= ' ?? ';
+        placeholders.push(row['fieldName']);
 
-      for( var prop in row ) {
+      } catch(e) {}
 
-        switch(prop) {
-        case 'fieldName':
-          placeholders.push(row[prop]);
-          query+= ' ?? '
-          break;
-        case 'type':
-          // currently this wont work for types with an associated length
-          var _type = row['fieldLength'] 
-          ? bindFieldLength(row[prop],row['fieldLength']) 
-          : row[prop];
+      // *** type & ([fieldLength]) ***
+      try {
 
-          query+= _type.concat(' ');
-          break;
-        case 'default':
-          // this just straight up isnt implmented yet
-          query+= ' ?? ';
-          break;
-        case 'quality':
-          query+= row[prop].concat(' ');
-          break;
-        case 'auto':
-          query+= 'AUTO_INCREMENT'.concat(' ');
-          break;
-        case 'null':
-          query+= row[prop].concat(' ');
-          break;
-        case 'fieldLength':
-          // ignore fieldlength and apply to type
-          break;
-        default:
-          // client is intentionally sql injecting
-          res.status(200).end('<h2>!por que?</h2>');
+        var _type = row['type'];
+
+        if ( row['fieldLength'] ) {
+          _type += ['(', row['fieldLength'], ')'].join('');
+        }
+
+        query += _type.concat(' ');
+
+      } catch (e) {}
+
+      // *** null ***
+      query += row['null'].concat(' ');
+
+      // *** quality ***
+      if(row['quality']) {
+        if( row['quality'] !== 'INDEX') {          
+          query += row['quality'].concat(' ');
+        } else {
+          console.log('IT HAS INDEX');
+          indexes.push(row['fieldName']);
         }
       }
-      // last line in query cannot have comma
+
+      // *** A_I ***
+      if(row['auto']) {
+        query += row['auto'].concat(' ');
+      }
+
+      // comman insertion check
       schema.length >= 1 ?  query+= ' , \n' : ' ';
+
+    }
+
+    // check indexes
+    if(indexes.length >= 1) {
+      query += ', \n ';
+      query += 'INDEX('+indexes[0]+') ';
     }
 
     // close query statement

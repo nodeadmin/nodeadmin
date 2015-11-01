@@ -2,10 +2,14 @@ angular.module('nodeadmin.db.createtable', [])
 .controller('CreateTableViewController', ['$scope', '$uibModal', '$stateParams', 'Tables', function ($scope, $uibModal, $stateParams, Tables) {
 
     $scope.alerts = { success: [], error: [] };
-
-    $scope.fields = [{}];
+    
+    $scope.fields = [{
+      'null':'NOT NULL'
+    }];
     $scope.tablename = '';
     $scope.database = $stateParams.database;
+
+
 
     // closes alert notification & used on close-after-timeout
     $scope.closeAlert = function(type, index) {
@@ -16,7 +20,7 @@ angular.module('nodeadmin.db.createtable', [])
     $scope.addField = function(num) {
 
       do {
-        $scope.fields.push({});
+        $scope.fields.push({'null': 'NOT NULL'});
         
       } while(--num);
       
