@@ -9,7 +9,9 @@
     padding-bottom: .75%;
     border-bottom: 1px solid;
 }
-
+.space {
+  margin-bottom: 50px;
+}
 .grid {
     width: auto;
       height: 100%;

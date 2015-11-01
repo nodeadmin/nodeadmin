@@ -16,6 +16,8 @@ angular.module('nodeadmin.db', [])
     $scope.currentPage = PaganacionFactory.currentPage;
     $scope.recordsCount = PaganacionFactory.records;
     $scope.foreignValues = [];
+    $scope.tableMap = {};
+    $scope.enums = [];
     $scope.foreignColumn = '';
     $scope.getRecords = function () {
       RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page)
@@ -36,9 +38,11 @@ angular.module('nodeadmin.db', [])
     };
 
     $scope.getForeignValues = function (constraints) {
+      console.log(constraints[0]['COLUMN_NAME']);
       var refTable = constraints[0]['REFERENCED_TABLE_NAME'];
       var refColumn = constraints[0]['REFERENCED_COLUMN_NAME'];
       $scope.foreignColumn = refColumn;
+      $scope.tableMap.refColumn = constraints[0]['COLUMN_NAME'];
       ForeignFactory.getForeignValues($stateParams.database, refTable, refColumn)
       .then(function (result) {
         result.forEach(function(item) {
@@ -46,7 +50,6 @@ angular.module('nodeadmin.db', [])
             $scope.foreignValues.push(item[key]);
           }
        });
-      console.log($scope.foreignValues);
       });
     };
 
@@ -60,8 +63,7 @@ angular.module('nodeadmin.db', [])
     };
     
     $scope.isRef = function (column) {
-      console.log($scope.foreignColumn);
-      if (column === 'CountryCode') {
+      if ($scope.tableMap.refColumn === column) {
         return true;
       }
       return false;
@@ -72,8 +74,20 @@ angular.module('nodeadmin.db', [])
       if (numTypes.indexOf(type) > -1) {
         return true;
       }
-      return false;
     };
+    $scope.isEnum = function (input) {
+      var type = input.split('(');
+      if (type[0] === 'enum') {
+         var options = type[1].substr(0, type[1].length - 1).split(',');
+         var noQuotes = [];
+        for (var i = 0; i < options.length; i++) {
+          var temp = options[i].replace(/\'/g, '')
+          noQuotes.push(temp);
+        }
+        $scope.enums = noQuotes;
+        return true;
+      }
+    },
 
     $scope.getPrimaryKey = function (headers) {
       for (var i = 0; i < headers.length; i++) {
@@ -85,9 +99,8 @@ angular.module('nodeadmin.db', [])
       }
     };
 
-    $scope.showForm = function () {
-      $scope.rowing = true;
-      console.log($scope.rowing);
+    $scope.toggleForm = function () {
+      $scope.rowing = $scope.rowing ? false : true;
     };
     
     $scope.addRow = function () {
@@ -96,7 +109,6 @@ angular.module('nodeadmin.db', [])
     };
 
     $scope.editCell = function (id, data) {
-      console.log(data);
       $scope.isEditing = id;
     };
 
@@ -107,7 +119,7 @@ angular.module('nodeadmin.db', [])
         val: data,
         pk: $scope.primaryKey
       };
-      
+      console.log(update);      
       RecordsFactory.editRecord($stateParams.database, $stateParams.table, $stateParams.page, update)
       .then(function (result) {
       })
