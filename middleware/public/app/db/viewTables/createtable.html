@@ -1,5 +1,4 @@
 <div class="container-fluid">
-
   <div class="row">
     <uib-alert class="col-md-11" ng-repeat="alert in alerts.success" dismiss-on-timeout="5000"
     type="success" close="closeAlert('success', $index)">{{alert.status}} / {{ alert.msg }} successful {{ alert.method }}
@@ -122,7 +121,7 @@
         </td>
 
         <td>
-          <input ng-model="field.auto" type="checkbox" value="AUTO_INCREMENT">
+          <input ng-model="field.auto" type="checkbox" ng-true-value="'AUTO_INCREMENT'">
         </td>
 
       </tr>
