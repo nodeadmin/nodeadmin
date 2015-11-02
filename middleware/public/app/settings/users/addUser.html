@@ -2,6 +2,10 @@
   <div class="modal-header">
     <h3 class="modal-title">Add a User</h3>
   </div>
+  <div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{ error }}
+  </div>
   <form name="addUserForm">
     <div class="modal-body">
       <div class="form-group">
@@ -26,7 +30,7 @@
     <!-- TODO: prevent footer from overriding body -->
     <div class="modal-footer">
       <button class="btn btn-success" type="submit" ng-click="addUserForm.$valid && addUser()">Save</button>
-      <button class="btn btn-success" type="button" ng-click="addUserForm.$valid && addUser()" ui-sref="grants({user: user.user, host: user.host})">Save & Edit Privileges</button>
+      <button class="btn btn-success" type="button" ng-click="addUserForm.$valid && addUser(); editPrivileges()">Save & Edit Privileges</button>
       <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
   </form>
