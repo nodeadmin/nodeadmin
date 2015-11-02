@@ -9,12 +9,25 @@ angular.module('nodeadmin.db.createtable', [])
     }];
     $scope.tablename = '';
     $scope.database = $stateParams.database;
+    $scope.customDefault = false;
 
 
 
     // closes alert notification & used on close-after-timeout
     $scope.closeAlert = function(type, index) {
       $scope.alerts[type].splice(index, 1);
+    };
+
+    // change state of default
+    $scope.toggleDefault = function(value) {
+      if($scope.customDefault && value !== 'custom') {
+        $scope.customDefault = false;
+      }
+      if(!$scope.customDefault && value === 'custom') {
+        $scope.customDefault = true;
+      }
+
+
     };
 
     // adds additional field rows to table create form
@@ -36,6 +49,7 @@ angular.module('nodeadmin.db.createtable', [])
 
       if(!$scope.tablename) {
         // todo: - throw error to notification center - must submit table name
+        return;
 
       }
 

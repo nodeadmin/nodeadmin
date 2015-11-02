@@ -103,13 +103,13 @@
         <td>
           <input type="text" name="" ng-model="field.fieldLength" id="">
         </td>
-
         <td>
-          <select ng-model="field.default" name="" id="">
+          <select ng-model="field.default" ng-change="toggleDefault(field.default)" name="" id="">
             <option value="">NONE</option>
-            <option value="">AS DEFINED:</option>
+            <option value="custom">AS DEFINED:</option>
             <option value="null">NULL</option>
             <option value="current_timestamp">CURRENT_TIMESTAMP</option>
+            <input style="margin-top:.5em; width:90%;" ng-model="field.default" ng-show="customDefault" type="text">
           </select>
         </td>
         
