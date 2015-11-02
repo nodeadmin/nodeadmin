@@ -5,7 +5,7 @@ angular.module('nodeadmin.db', [])
     var numTypes=['integer', 'int', 'smallint', 'tinyint', 'mediumint', 'bigint', 'decimal', 'numeric', 'float', 'double', 'bit'];
     $scope.records = {};
     $scope.headers = []; 
-    $scope.row = {};
+    $scope.row = [];
     $scope.rowing = false;
     $scope.error = '';
     $scope.isEditing = ''; 
