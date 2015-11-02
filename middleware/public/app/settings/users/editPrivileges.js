@@ -8,9 +8,6 @@ angular.module('nodeadmin.settings.editprivileges', [])
     console.log('edit priv', $scope.user, $scope.host)
     // Convert headers into readable format & necessary for making queries
     $scope.headersDictionary = {
-      'Host': 'Host',
-      'User': 'User',
-      'Password': 'Password',
       'Select_priv': 'SELECT',
       'Insert_priv': 'INSERT',
       'Update_priv': 'UPDATE',
