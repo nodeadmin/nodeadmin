@@ -3,12 +3,12 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ error }}
   </div>
-  <div ng-show="success" class="alert alert-success alert-dismissable" role="alert">
+  <div ng-show="success" class="alert alert-success alert-dismissable" role="alert"> 
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Successfully added a new user.
+    {{ success }}
   </div>
   <h2 class="text-center">Users</h2>
-  <button class="btn btn-default" ng-click="openAddUser()">Add User</button>
+  <button class="btn btn-sm btn-success" ng-click="openAddUser()">Add User</button>
   <form class="form-horizontal" name="filterForm">
     <div class="row">
       <div class="col-md-4 col-md-offset-4">
@@ -31,11 +31,17 @@
         <tbody>
           <tr ng-repeat="user in users">
             <td ng-repeat="(column, data) in user track by $index">
-              <span>{{data}}</span>
+              <span ng-hide="isEditing == $id" ng-dblclick="editCell($id, column, data, user)">{{data}}</span>
+              <div ng-show="isEditing == $id">
+                <input type="text" class="form-control input-sm" ng-model="data"/>
+                  <button ng-click="saveCell(column, newData)" class="btn btn-sm btn-success btn-xs">Save</button>
+                  <button ng-click="cancel()" class="btn btn-sm btn-warning btn-xs">Cancel</button>
+                </span>
+              </div>
             </td>
             <td>
-              <button class="btn btn-primary" ng-click="openGrants(user)">View Grants</button>
-              <button class="btn btn-primary" >Edit User</button>
+              <button class="btn btn-sm btn-primary" ng-click="openGrants(user)">View & Edit Privileges</button>
+              <button class="btn btn-sm btn-danger" ng-click="openDeleteUser(user)">Delete User</button>
             </td>
           </tr>
         </tbody>

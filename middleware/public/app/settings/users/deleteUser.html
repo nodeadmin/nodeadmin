@@ -1,13 +1,12 @@
-<div id="delete-table">
+<div id="delete-user">
   <div class="modal-header">
-    <h3 class="modal-title">Delete Table</h3>
+    <h3 class="modal-title">Delete User</h3>
   </div>
   <div class="modal-body">
-    <h5>Are you sure you want to delete {{ dropTable }}?</h5>
+    <h5>Are you sure you want to delete {{ deleteUser.user }} @ {{ deleteUser.host }}?</h5>
   </div>
   <div class="modal-footer">
     <button class="btn btn-danger" type="button" ng-click="ok()">Delete</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
   </div>
 </div>
-

@@ -4,8 +4,8 @@ angular.module('nodeadmin.settings.users', [])
       $scope.headers = [];
       $scope.users = [];
 
-      $scope.getUsers = function() {
-        Users.getUsers()
+      $scope.getAll = function() {
+        Users.getAll()
           .then(function(result) {
             $scope.users = result;
           })
@@ -13,42 +13,106 @@ angular.module('nodeadmin.settings.users', [])
             $scope.error = err.data;
           });
       };
-      $scope.getUsers();
+      $scope.getAll();
 
-      $scope.animationsEnabled = true;
+      // Editing user cells
+      $scope.oldData = '';
+      $scope.newData = '';
+      $scope.column = '';
+      $scope.row = {};
+
+      $scope.editCell = function(id, column, oldData, user) {
+        $scope.isEditing = id;
+        $scope.oldData = oldData;
+        $scope.column = column;
+        $scope.row = user;
+      };
+
+      $scope.saveCell = function(column, newData) {
+        $scope.newData = newData;
+
+        // If column passed in doesn't match what was assigned in editCell 
+        if (column !== $scope.column) {
+          $scope.error = 'Error editing user.';
+          return;
+        }
+
+        var update = {
+          column: $scope.column,
+          oldData: $scope.oldData,
+          newData: $scope.newData,
+          row: $scope.row
+        };
+
+        Users.editUser(update)
+          .then(function(result) {
+            // Update view
+            $scope.success = 'Successfully updated user information.';
+            $scope.getAll();
+          })
+          .catch(function(err) {
+            $scope.error = err.data;
+          });
+
+        $scope.isEditing = false;
+      };
+
+      $scope.cancel = function() {
+        $scope.isEditing = false;
+      };
 
       // Grants modal
       $scope.openGrants = function(user) {
         Users.saveGrantInfo(user);
 
         var grantsModalInstance = $uibModal.open({
-          animation: $scope.animationsEnabled,
-          templateUrl: 'app/settings/users/grants.html',
-          controller: 'GrantsController',
+          animation: true,
+          templateUrl: 'app/settings/users/viewPrivileges.html',
+          controller: 'ViewPrivilegesController',
         });
       };
 
+      // Add user modal
       $scope.openAddUser = function() {
         var addUserModalInstance = $uibModal.open({
-          animation: $scope.animationsEnabled,
+          animation: true,
           templateUrl: 'app/settings/users/addUser.html',
           controller: 'AddUserController',
         });
 
         addUserModalInstance.result.then(function(result) {
-          if (result === true) {
+          console.log('add user result', result)
+          // Only results on success - errors handled in modal
+          if (result) {
             // Reload current users
             $scope.users = [];
-            $scope.getUsers();
-            $scope.success = result;
-          } else {
-            $scope.error = result.data;            
-          }
+            $scope.getAll();
+            $scope.success = 'Successfully added a new user.';
+          } 
+        });
+      };
+
+      // Delete user modal
+      $scope.openDeleteUser = function(user) {
+        Users.saveDeleteUser(user);
+        var deleteUserModalInstance = $uibModal.open({
+          animation: true,
+          templateUrl: 'app/settings/users/deleteUser.html',
+          controller: 'DeleteUserController',
         });
 
-        $scope.toggleAnimation = function() {
-          $scope.animationsEnabled = !$scope.animationsEnabled;
-        };
+        deleteUserModalInstance.result.then(function(result) {
+          console.log('delete user result', result)
+          if (result) {
+            // Refresh users 
+            $scope.users = [];
+            $scope.getAll();
+            $scope.success = 'Successfully deleted a user.';
+          } else {
+            // TODO: figure out how errors would come in from query
+            $scope.error = result.data;
+          }
+        });
       };
     }
 
