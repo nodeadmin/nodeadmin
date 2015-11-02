@@ -20,10 +20,9 @@ angular.module('nodeadmin.settings.adduser', [])
 
     $scope.editPrivileges = function() {
       if (!$scope.error) {
-        $state.go('grants', {user: $scope.user.user, host: $scope.user.host})
+        $state.go('grants', {user: $scope.user.user, host: $scope.user.host});
       }
     };
 
   });
 
-// ui-sref="grants({user: user.user, host: user.host})

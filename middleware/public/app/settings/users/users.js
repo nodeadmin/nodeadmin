@@ -81,14 +81,14 @@ angular.module('nodeadmin.settings.users', [])
         });
 
         addUserModalInstance.result.then(function(result) {
-          if (result === true) {
+          console.log('add user result', result)
+          // Only results on success - errors handled in modal
+          if (result) {
             // Reload current users
             $scope.users = [];
             $scope.getAll();
             $scope.success = 'Successfully added a new user.';
-          } else {
-            $scope.error = result.data;
-          }
+          } 
         });
       };
 
@@ -102,12 +102,14 @@ angular.module('nodeadmin.settings.users', [])
         });
 
         deleteUserModalInstance.result.then(function(result) {
-          if (typeof result === 'string') {
-            // TODO: Reload updated users
-            // $scope.users = [];
-            // $scope.getAll();
-            $scope.success = result;
+          console.log('delete user result', result)
+          if (result) {
+            // Refresh users 
+            $scope.users = [];
+            $scope.getAll();
+            $scope.success = 'Successfully deleted a user.';
           } else {
+            // TODO: figure out how errors would come in from query
             $scope.error = result.data;
           }
         });
