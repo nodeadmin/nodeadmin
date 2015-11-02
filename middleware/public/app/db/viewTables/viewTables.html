@@ -34,7 +34,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="table in tables | filter: search">
-            <td ui-sref="records({ database: databaseName, table: table, page: 1 })"> {{ table }} </td>
+            <td class="clickable" title="Click to view records" ui-sref="records({ database: databaseName, table: table, page: 1 })"> {{ table }} </td>
             <!-- TODO: delete table should open modal for that specific table -->
             <td><button class="btn btn-danger btn-xs" type="button" ng-click="open('sm', table)">Delete Table</button></td>
           </tr>
