@@ -5,7 +5,7 @@ angular.module('nodeadmin.db', [])
     var numTypes=['integer', 'int', 'smallint', 'tinyint', 'mediumint', 'bigint', 'decimal', 'numeric', 'float', 'double', 'bit'];
     $scope.records = {};
     $scope.headers = []; 
-    $scope.row = {};
+    $scope.row = [];
     $scope.rowing = false;
     $scope.error = '';
     $scope.isEditing = ''; 
@@ -25,8 +25,10 @@ angular.module('nodeadmin.db', [])
         $scope.records = result[0];
         $scope.headers = result[1];
         $scope.getForeignValues(result[3]);
-        PaganacionFactory.records = result[2][0]['count(*)'];
+        PaganacionFactory.records = result[2][0]['count(*)'] - 100;
+        PaganacionFactory.currentPage = 1;
         $scope.recordsCount = PaganacionFactory.records;
+        console.log($scope.recordsCount);
         $scope.getPrimaryKey($scope.headers);
       })
       .catch(function (err) {
@@ -38,19 +40,22 @@ angular.module('nodeadmin.db', [])
     };
 
     $scope.getForeignValues = function (constraints) {
-      console.log(constraints[0]['COLUMN_NAME']);
-      var refTable = constraints[0]['REFERENCED_TABLE_NAME'];
-      var refColumn = constraints[0]['REFERENCED_COLUMN_NAME'];
-      $scope.foreignColumn = refColumn;
-      $scope.tableMap.refColumn = constraints[0]['COLUMN_NAME'];
-      ForeignFactory.getForeignValues($stateParams.database, refTable, refColumn)
-      .then(function (result) {
-        result.forEach(function(item) {
-          for (var key in item) {
-            $scope.foreignValues.push(item[key]);
-          }
-       });
-      });
+      if (constraints.length > 0) {
+
+        console.log(constraints[0]['COLUMN_NAME']);
+        var refTable = constraints[0]['REFERENCED_TABLE_NAME'];
+        var refColumn = constraints[0]['REFERENCED_COLUMN_NAME'];
+        $scope.foreignColumn = refColumn;
+        $scope.tableMap.refColumn = constraints[0]['COLUMN_NAME'];
+        ForeignFactory.getForeignValues($stateParams.database, refTable, refColumn)
+        .then(function (result) {
+          result.forEach(function(item) {
+            for (var key in item) {
+              $scope.foreignValues.push(item[key]);
+            }
+         });
+        });
+      }
     };
 
     $scope.paganacion = function () {

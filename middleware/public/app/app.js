@@ -24,7 +24,8 @@ angular.module('nodeadmin', [
   'nodeadmin.db.query',
   'ui.router',
   'ui.bootstrap',
-  'chart.js'
+  'chart.js',
+  'angular-toArrayFilter'
 ])
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider
