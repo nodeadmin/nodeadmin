@@ -17,7 +17,7 @@ angular.module('nodeadmin.system.logs', [])
         else if (color === '[31m') {
           color = 'red';
         } else {
-          color = 'white';
+          color = 'wheat';
         }
         var str = substr.split(colorRegex)[2];
         var newLine = httpRegex.test(str) ? first + '<div style="position: relative; bottom: .5em;">' : '';

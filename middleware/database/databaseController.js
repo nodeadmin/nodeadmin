@@ -148,6 +148,16 @@ module.exports = {
       // *** null ***
       query += row['null'].concat(' ');
 
+      // *** default ***
+      if(row['default'] && row['default'] !== '') {
+        if(row['default'] !== 'CURRENT_TIMESTAMP' || row['default'] !== 'NULL' ) {
+          query+='DEFAULT ?';
+          placeholders.push(row['default']);
+        } else {
+          query+= 'DEFAULT ' + row['default'].concat(' ');
+        }
+      }
+
       // *** quality ***
       if(row['quality']) {
         if( row['quality'] !== 'INDEX') {          
@@ -163,7 +173,7 @@ module.exports = {
         query += row['auto'].concat(' ');
       }
 
-      // comman insertion check
+      // comma insertion check
       schema.length >= 1 ?  query+= ' , \n' : ' ';
 
     }
