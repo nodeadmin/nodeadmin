@@ -73,3 +73,9 @@
 .clickable {
   cursor: pointer;
 }
+
+.edit-cell-button {
+  margin-bottom: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+}

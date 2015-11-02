@@ -34,13 +34,13 @@
               <span ng-hide="isEditing == $id" ng-dblclick="editCell($id, column, data, user)">{{data}}</span>
               <div ng-show="isEditing == $id">
                 <input type="text" class="form-control input-sm" ng-model="data"/>
-                  <button ng-click="saveCell(column, newData)" class="btn btn-sm btn-success btn-xs">Save</button>
-                  <button ng-click="cancel()" class="btn btn-sm btn-warning btn-xs">Cancel</button>
+                  <button ng-click="saveCell(column, newData)" class="btn btn-success btn-xs edit-cell-button">Save</button>
+                  <button ng-click="cancel()" class="btn btn-warning btn-xs edit-cell-button">Cancel</button>
                 </span>
               </div>
             </td>
             <td>
-              <button class="btn btn-sm btn-primary" ng-click="openGrants(user)">View & Edit Privileges</button>
+              <button class="btn btn-sm btn-primary" ng-click="openGrants(user)">View Privileges</button>
               <button class="btn btn-sm btn-danger" ng-click="openDeleteUser(user)">Delete User</button>
             </td>
           </tr>

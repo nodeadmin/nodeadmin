@@ -13,13 +13,13 @@
     <div class="form-group pull-right">
       <a ui-sref="createtable({ database: databaseName })">
         <button class="btn btn-default">
-        <span class="text-primary">new table</span>
+        <span class="text-primary">New Table</span>
         </button>
       </a>
     </div>
     <div class="form-group">
       <label style="margin-right:.4em;" for="tablename">Search Tables:</label>
-      <input type="text" class="form-control" ng-model="search" placeholder="name" id="tablename">
+      <input type="text" class="form-control" ng-model="search" id="tablename">
     </div>
   </form>
   <!-- end action -->
@@ -35,8 +35,7 @@
         <tbody>
           <tr ng-repeat="table in tables | filter: search">
             <td class="clickable" title="Click to view records" ui-sref="records({ database: databaseName, table: table, page: 1 })"> {{ table }} </td>
-            <!-- TODO: delete table should open modal for that specific table -->
-            <td><button class="btn btn-danger btn-xs" type="button" ng-click="open('sm', table)">Delete Table</button></td>
+            <td><button class="btn btn-danger btn-sm" type="button" ng-click="open('sm', table)">Delete Table</button></td>
           </tr>
         </tbody>
       </tbody>
