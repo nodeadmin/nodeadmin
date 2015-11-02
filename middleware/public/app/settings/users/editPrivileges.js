@@ -1,9 +1,11 @@
 angular.module('nodeadmin.settings.editprivileges', [])
   .controller('EditPrivilegesController', function($scope, $stateParams, Users, RecordsFactory) {
     $scope.user = $stateParams.user;
-    $scope.host = $stateParams.host;
+    $scope.host = $stateParams.host || 'localhost';
     $scope.headers = [];
     $scope.success = '';
+
+    console.log('edit priv', $scope.user, $scope.host)
     // Convert headers into readable format & necessary for making queries
     $scope.headersDictionary = {
       'Host': 'Host',
@@ -38,24 +40,24 @@ angular.module('nodeadmin.settings.editprivileges', [])
       'Event_priv': 'EVENT',
       'Trigger_priv': 'TRIGGER',
       // TODO: handle these options
-      'Create_tablespace_priv': 'Create_tablespace_priv',
-      'ssl_type': 'ssl_type',
-      'ssl_cipher': 'ssl_cipher',
-      'x509_issuer': 'x509_issuer',
-      'x509_subject': 'x509_subject',
-      'max_questions': 'max_questions',
-      'max_updates': 'max_updates',
-      'max_connections': 'max_connections',
-      'max_user_connections': 'max_user_connections',
-      'plugin': 'plugin',
-      'authentication_string': 'authentication_string' 
+      // 'Create_tablespace_priv': 'Create_tablespace_priv',
+      // 'ssl_type': 'ssl_type',
+      // 'ssl_cipher': 'ssl_cipher',
+      // 'x509_issuer': 'x509_issuer',
+      // 'x509_subject': 'x509_subject',
+      // 'max_questions': 'max_questions',
+      // 'max_updates': 'max_updates',
+      // 'max_connections': 'max_connections',
+      // 'max_user_connections': 'max_user_connections',
+      // 'plugin': 'plugin',
+      // 'authentication_string': 'authentication_string' 
     };
 
     $scope.getGrantsRecord = function() {
       Users.getGrantsRecord($scope.user, $scope.host)
         .then(function(response) {
-          $scope.record = response[0];
-          console.log('record', $scope.record)
+          $scope.record = {};
+          var record = response[0];
           // Describe table
           var headers = response[1];
           // Turn headers into readable format
@@ -64,6 +66,13 @@ angular.module('nodeadmin.settings.editprivileges', [])
               if (headers[i].Field === field) {
                 $scope.headers.push($scope.headersDictionary[field]);
               }
+            }
+          }
+
+          // Remove data that doesn't match to available headersDictionary because it requires more formatting(TODO: format this data properly)
+          for (var key in record[0]) {
+            if (key in $scope.headersDictionary) {
+              $scope.record[key] = record[0][key];
             }
           }
         })
@@ -120,7 +129,6 @@ angular.module('nodeadmin.settings.editprivileges', [])
 
     $scope.saveCell = function(column, data) {
       $scope.column = $scope.headersDictionary[column];
-      console.log('col', $scope.column)
 
       var update = {
         column: $scope.column,
@@ -140,6 +148,7 @@ angular.module('nodeadmin.settings.editprivileges', [])
     };
 
     // Display description of grants options
+    // * This is not a `real` SQL table, just formatted in HTML as one
     $scope.getGrantsDescription = function() {
       Users.getGrantsDescription()
         .then(function(result) {

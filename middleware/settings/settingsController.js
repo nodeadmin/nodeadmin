@@ -27,13 +27,30 @@ module.exports = {
     var password = req.body.password;
     var host = req.body.host || 'localhost';
 
+    console.log('req.body', req.body)
+
     if (!password) {
       connection.query("CREATE USER " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
         if (err) {
           console.log(err);
           res.status(500).send(err.toString());
         } else {
-          res.status(200).send(true);
+          // Default grant all to new users
+          connection.query("GRANT ALL ON *.* TO " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
+            if (err) {
+              console.log(err);
+              res.status(500).send(err.toString());
+            } else {
+              connection.query('FLUSH PRIVILEGES', function(err, result) {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send(err.toString());
+                } else {
+                  res.status(200).send(result);
+                }
+              });
+            }
+          });
         }
       });
     } else {
@@ -42,7 +59,22 @@ module.exports = {
           console.log(err);
           res.status(500).send(err.toString());
         } else {
-          res.status(200).send(true);
+          // Default grant all to new users
+          connection.query("GRANT ALL ON *.* TO " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
+            if (err) {
+              console.log(err);
+              res.status(500).send(err.toString());
+            } else {
+              connection.query('FLUSH PRIVILEGES', function(err, result) {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send(err.toString());
+                } else {
+                  res.status(200).send(result);
+                }
+              })
+            }
+          })
         }
       });
     }

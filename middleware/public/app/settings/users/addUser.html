@@ -7,13 +7,13 @@
       <div class="form-group">
         <label for="mysqlUser" class="col-sm-3 control-label">User</label>
         <div class="col-sm-9">
-          <input type='text' class="form-control" name="mysqlUser" placeholder="mySQL user" ng-model='user.user' ng-required="true" />
+          <input type='text' class="form-control" name="mysqlUser" placeholder="MySQL Username (Maximum 16 characters)" ng-model='user.user' ng-required="true" />
         </div>
       </div>
       <div class="form-group">
         <label for="mysqlPassword" class="col-sm-3 control-label">Password</label>
         <div class="col-sm-9">
-          <input type='password' name="mysqlPassword" class="form-control" placeholder="mySQL Password" ng-model='user.password' />
+          <input type='password' name="mysqlPassword" class="form-control" placeholder="MySQL Password" ng-model='user.password' />
         </div>
       </div>
       <div class="form-group">
@@ -26,7 +26,7 @@
     <!-- TODO: prevent footer from overriding body -->
     <div class="modal-footer">
       <button class="btn btn-success" type="submit" ng-click="addUserForm.$valid && addUser()">Save</button>
-      <button class="btn btn-success" type="button" ng-click="addUser(); editPrivileges(user)" ui-sref="grants">Save & Edit Privileges</button>
+      <button class="btn btn-success" type="button" ng-click="addUserForm.$valid && addUser()" ui-sref="grants({user: user.user, host: user.host})">Save & Edit Privileges</button>
       <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
   </form>

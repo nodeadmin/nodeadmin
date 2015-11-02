@@ -4,6 +4,7 @@ angular.module('nodeadmin.settings.adduser', [])
     $scope.user = {};
 
     $scope.addUser = function() {
+      console.log('user', $scope.user)
       Users.addUser($scope.user)
         .then(function(response) {
           $modalInstance.close(response);
