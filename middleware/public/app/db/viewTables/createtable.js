@@ -3,6 +3,7 @@ angular.module('nodeadmin.db.createtable', [])
 
     $scope.alerts = { success: [], error: [] };
     
+    $scope.add = 1;
     $scope.fields = [{
       'null':'NOT NULL'
     }];
@@ -24,6 +25,10 @@ angular.module('nodeadmin.db.createtable', [])
         
       } while(--num);
       
+    };
+
+    $scope.remove = function(index) {
+      $scope.fields.splice(index,1);
     };
 
     // create table submit handler

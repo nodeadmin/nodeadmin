@@ -9,7 +9,7 @@
     </uib-alert>
   </div>
 
-  <div class="row well" style="margin-top:10px;">
+  <div class="row well well-sm" style="margin-top:10px;">
     <form class="form-inline">
       <div class="form-group">
         <label for="tablename">Table Name: </label>
@@ -17,26 +17,26 @@
       </div>
       <div class="input-group col-xs-2 pull-right">
         <!-- decrement button -->
-        <span class="input-group-btn">
-          <button class="btn btn-danger">-</button>
-        </span>
         <!-- text input -->
+        <!-- <label  for="">Add Column</label> -->
         <input style="" class="form-control" ng-model="toAdd" type="text" name="" value="1" id="fieldamount">
         <!-- increment & add -->
         <div class="input-group-btn">
           <button ng-click="toAdd = toAdd + 1" class="btn btn-primary">+</button>
-          <button ng-click="addField( toAdd )" class="btn btn-default">Go!</button>
+          <button ng-click="addField( toAdd ); toAdd = 1" class="btn btn-default">Add Field!</button>
         </div>
+      
       </div>
     </form>
   </div>
   
-  <div class="table-container">    
-    <table class="table table-hover table-bordered table-condensed" style="margin-top:40px;"> 
+  <div class="table-container">
+    <table class="table table-hover table-bordered table-condensed" style="margin-top:40px;">
       <tbody>
       <thead>
-      <tr>    
-        <th uib-popover="On the Top!" ><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> Name</th>
+      <tr>
+        <th></th>
+        <th>Name</th>
         <th>Type</th>
         <th>Length / Values</th>
         <th>Default</th>
@@ -46,7 +46,12 @@
       </tr>
       </thead>
 
-      <tr ng-repeat="field in fields">
+      <tr ng-repeat="field in fields track by $index">
+
+        <td>
+          <button class="btn btn-xs btn-danger" style="border-radius: 50%;" ng-click="remove($index)">-</button>
+        </td>
+
         <td>
           <input type="text" name="" ng-model="field.fieldName" id="">
         </td>
