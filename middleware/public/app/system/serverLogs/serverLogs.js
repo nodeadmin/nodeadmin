@@ -20,7 +20,7 @@ angular.module('nodeadmin.system.logs', [])
           color = 'white';
         }
         var str = substr.split(colorRegex)[2];
-        var newLine = httpRegex.test(str) ? first + '<div>' : '';
+        var newLine = httpRegex.test(str) ? first + '<div style="position: relative; bottom: .5em;">' : '';
         first = '</div>';
         return newLine + '<span style="color: ' + color + '">' + str + '</span>';
       });
