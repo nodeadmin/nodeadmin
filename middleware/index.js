@@ -33,7 +33,6 @@ module.exports = function nodeadmin(app, port) {
   // }));
     
   //Third party middleware\\
-
   app.use(morgan('dev', {
     stream:accessLogStream
   }));
