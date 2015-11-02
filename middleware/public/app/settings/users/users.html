@@ -7,17 +7,19 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ success }}
   </div>
-  <h2 class="text-center">Users</h2>
-  <button class="btn btn-sm btn-success" ng-click="openAddUser()">Add User</button>
-  <form class="form-horizontal" name="filterForm">
-    <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        <div class="form-group">
-          <input type="text" ng-model="search" class="form-control" placeholder="Search users">
+  <h2 class="text-center page-header space">Users</h2>
+    <form class="form-horizontal col-md-12" name="filterForm">
+      <div class="row well">
+        <div class="form-inline">
+          <span class="col-md-4">
+            <input type="text" ng-model="search" class="form-control" placeholder="Search users" autofocus>
+          </span>
+          <span class="col-md-4 col-md-offset-4">
+            <button class="btn btn-sm btn-success pull-right" ng-click="openAddUser()">Add User</button>
+          </span>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
   <div class="row">
     <div class="col-md-12">
       <table class="table table-bordered table-hover">
