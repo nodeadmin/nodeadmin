@@ -45,7 +45,7 @@
       <tbody>
         <tr ng-repeat="row in records | toArray | filter:search" ng-dblclick="editCell($id, row)">
           <button ng-show="isEditing == $id">button</button>
-          <td ng-repeat="(column, data) in row track by $index">
+          <td class="clickable" title="Double-click to edit" ng-repeat="(column, data) in row track by $index">
             <span ng-hide="isEditing == $parent.$id" >{{data}}</span>
             <div ng-if="isEditing == $parent.$id">
               <input type="text" ng-hide="isRef(column) == true" class="form-control input-sm" ng-model="data" />

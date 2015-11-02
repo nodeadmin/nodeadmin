@@ -30,7 +30,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="user in users">
-            <td ng-repeat="(column, data) in user track by $index">
+            <td class="clickable" title="Double-click to edit" ng-repeat="(column, data) in user track by $index">
               <span ng-hide="isEditing == $id" ng-dblclick="editCell($id, column, data, user)">{{data}}</span>
               <div ng-show="isEditing == $id">
                 <input type="text" class="form-control input-sm" ng-model="data"/>
