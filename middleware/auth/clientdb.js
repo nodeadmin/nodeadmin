@@ -10,6 +10,7 @@ module.exports = {
   },
   getClientDB:function() {
     if(!connection) {
+      return {query: function(){ console.error('Error: Attempted to query, but there is no connection to database.') } };
     } else {
       return connection;
     }
