@@ -22,8 +22,8 @@
         <input style="" class="form-control" ng-model="toAdd" type="text" name="" value="1" id="fieldamount">
         <!-- increment & add -->
         <div class="input-group-btn">
-          <button ng-click="toAdd = toAdd + 1" class="btn btn-primary">+</button>
-          <button ng-click="addField( toAdd ); toAdd = 1" class="btn btn-default">Add Field!</button>
+          <button ng-click="toAdd = toAdd + 1" class="btn btn-success">+</button>
+          <button ng-click="addField( toAdd ); toAdd = 1" class="btn btn-default">Add Field</button>
         </div>
       
       </div>
@@ -49,15 +49,15 @@
       <tr ng-repeat="field in fields track by $index">
 
         <td>
-          <button class="btn btn-xs btn-danger" style="border-radius: 0;" ng-click="remove($index)">-</button>
+          <button class="btn btn-sm btn-danger" ng-click="remove($index)">–</button>
         </td>
 
         <td>
-          <input type="text" name="" ng-model="field.fieldName" id="">
+          <input class="form-control" type="text" name="" ng-model="field.fieldName" id="">
         </td>
 
         <td>
-          <select ng-model="field.type" name="" id="">
+          <select class="form-control" ng-model="field.type" name="" id="">
           <option value="INT"> INT </option>
           <option value="VARCHAR"> VARCHAR </option>
           <option value="TEXT"> TEXT </option>
@@ -101,10 +101,10 @@
         </td>
 
         <td>
-          <input type="text" name="" ng-model="field.fieldLength" id="">
+          <input class="form-control" type="text" name="" ng-model="field.fieldLength" id="">
         </td>
         <td>
-          <select ng-model="field.default" ng-change="toggleDefault(field.default, $index)" name="" id="">
+          <select class="form-control" ng-model="field.default" ng-change="toggleDefault(field.default, $index)" name="" id="">
             <option value="">NONE</option>
             <option value="custom">AS DEFINED:</option>
             <option value="NULL">NULL</option>
@@ -118,7 +118,7 @@
         </td>
 
         <td>
-          <select ng-model="field.quality" name="" id="">
+          <select class="form-control" ng-model="field.quality" name="" id="">
             <option value="PRIMARY KEY">PRIMARY</option>
             <option value="UNIQUE">UNIQUE</option>
             <option value="INDEX">INDEX</option>
@@ -134,6 +134,6 @@
     </table>
   </div>
   <div class="row">
-      <button ng-click="processTable()" class="pull-right text-warning btn btn-default">Create</button>
+      <button ng-click="processTable()" class="pull-right text-warning btn btn-primary">Create</button>
   </div>
 </div>

@@ -19,12 +19,12 @@
       </thead>
       <tbody>
         <tr>
-          <td ng-repeat="(header, data) in record track by $index">
+          <td class="clickable" title="Double-click to edit" ng-repeat="(header, data) in record track by $index">
             <span ng-hide="isEditing == $id" ng-dblclick="editCell($id, header)">{{data}}</span>
             <div ng-show="isEditing == $id">
               <input type="text" class="form-control input-sm" ng-model="data" />
-              <button ng-click="saveCell(header, data)" class="btn btn-success btn-xs">Save</button>
-              <button ng-click="cancel()" class="btn btn-sm btn-warning btn-xs">Cancel</button>
+              <button ng-click="saveCell(header, data)" class="btn btn-success btn-xs edit-cell-button">Save</button>
+              <button ng-click="cancel()" class="btn btn-sm btn-warning btn-xs edit-cell-button">Cancel</button>
             </div>
           </td>
         </tr>

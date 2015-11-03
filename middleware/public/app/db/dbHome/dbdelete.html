@@ -3,13 +3,13 @@
     <h3 class="modal-title">Delete Database</h3>
   </div>
   <div class="modal-body">
-    <select ng-model="data.repeatSelect" id="" autofocus>
+    <select class="form-control" ng-model="data.repeatSelect" id="" autofocus>
       <option ng-repeat="db in data.availableOptions">{{db.Database}}</option>
     </select>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-    <button class="btn btn-danger" type="button" ng-click="delete()">Delete</button>
+    <button class="btn btn-sm btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-sm btn-danger" type="button" ng-click="delete()">Delete</button>
   </div>
 </div>
 

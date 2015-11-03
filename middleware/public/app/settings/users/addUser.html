@@ -1,12 +1,12 @@
 <div id="add-user">
   <div class="modal-header">
-    <h3 class="modal-title">Add a User</h3>
+    <h3 class="modal-title">Add User</h3>
   </div>
   <div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ error }}
   </div>
-  <form name="addUserForm">
+  <form name="addUserForm" class="form-horizontal">
     <div class="modal-body">
       <div class="form-group">
         <label for="mysqlUser" class="col-sm-3 control-label">User</label>
@@ -27,11 +27,10 @@
         </div>
       </div>
     </div>
-    <!-- TODO: prevent footer from overriding body -->
     <div class="modal-footer">
-      <button class="btn btn-success" type="submit" ng-click="addUserForm.$valid && addUser()">Save</button>
-      <button class="btn btn-success" type="button" ng-click="addUserForm.$valid && addUser(); editPrivileges()">Save & Edit Privileges</button>
-      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+      <button class="btn btn-success btn-sm" type="submit" ng-click="addUserForm.$valid && addUser()">Save</button>
+      <button class="btn btn-info btn-sm" type="button" ng-click="addUserForm.$valid && addUser(); editPrivileges()">Save & Edit Privileges</button>
+      <button class="btn btn-warning btn-sm" type="button" ng-click="cancel()">Cancel</button>
     </div>
   </form>
 </div>
