@@ -231,7 +231,6 @@ module.exports = {
             tableStr += 'OR \'' + tables[i] + '\' ';
           }
         }
-        console.log(tableStr);
         connection.query({
           sql: 'SELECT * FROM ?? LIMIT ?; DESCRIBE ??; SELECT count(*) FROM ??; SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME=' + tableStr + ' AND TABLE_NAME=?',
           timeout: 40000,
@@ -251,11 +250,17 @@ module.exports = {
       table = req.params.table,
       column = req.body.col,
       value = req.body.val,
-      set = {},
-      primaryKey = req.body.pk,
+      primaryKeyColumn = req.body.pk,
+      primaryKeyValue = value[req.body.pk],
+      columnValuePiars = [],
       connection = client.getClientDB();
-
-    set [column] = value;
+    console.log(value);
+    var str = ''; 
+    for (var key in value) {
+      str += key + ' = ' + '\'' + value[key] + '\'' + ', ';
+      columnValuePiars.push(str);
+    }
+    str = str.substr(0, str.length - 2);
     connection.query({
       sql: 'USE ??',
       timeout: 40000,
@@ -265,14 +270,15 @@ module.exports = {
         res.status(500).json(err);
       }
       connection.query({
-        sql: 'UPDATE ?? SET ? WHERE ?? = "PRIMARY KEY"',
+        sql: 'UPDATE ?? SET ' + str + ' WHERE ' + primaryKeyColumn + ' = ?',
         timeout: 40000,
-        values: [table, set, primaryKey]
+        values: [table, primaryKeyValue]
       }, function (err, result) {
         if (err) {
+          console.log(err);
           res.status(500).json(err);
         }
-        console.log(result);
+        console.log('is this undefinded? ' + result);
         res.status(200).json(result);
       });
     });
@@ -305,7 +311,6 @@ module.exports = {
         if (err) {
           res.status(500).json(err);
         }
-        console.log('Everything is cool!');
         console.log(result);
         res.status(201).json(result);
       });
@@ -317,7 +322,6 @@ module.exports = {
       table = req.params.refTable,
       column = req.params.refColumn,
       connection = client.getClientDB();
-    console.log(db, table, column);
     connection.query({
       sql: 'USE ??',
       timeout: 40000,
