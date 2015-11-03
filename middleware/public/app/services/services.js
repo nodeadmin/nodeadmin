@@ -61,8 +61,8 @@ angular.module('nodeadmin.services', [])
 .factory('RecordsFactory', ['$http',
   function($http) {
     return {
-      getRecords: function(db, table, page) {
-        return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/' + page)
+      getRecords: function(db, table, page, sortBy, sortDir) {
+        return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/' + page + '?sortBy=' + sortBy + '&sortDir=' + sortDir)
           .then(function (resp) {
             return resp.data;
           })
