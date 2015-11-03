@@ -29,6 +29,7 @@
     "angular-chart.js": "~0.8.5",
     "angular-ui-codemirror": "~0.3.0",
     "angular-sanitize": "~1.4.7",
-    "angular-toArrayFilter": "~1.0.1"
+    "angular-toArrayFilter": "~1.0.1",
+    "angular-spinner": "~0.8.0"
   }
 }

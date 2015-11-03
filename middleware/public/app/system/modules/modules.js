@@ -1,6 +1,5 @@
 angular.module('nodeadmin.system.modules', ['ngSanitize'])
 .controller('ModulesController', ['$scope', 'System', '$sce', function ($scope, System, $sce) {
-
 $scope.alerts = {
   error:[],
   success:[]

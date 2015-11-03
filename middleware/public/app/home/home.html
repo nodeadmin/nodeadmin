@@ -5,7 +5,7 @@
         <div class="col-sm-5">
           <div class="panel panel-default well" style="border: 1px solid;">
             <div class="panel-body">
-              <p ng-show="loading">loading...</p>
+              <p ng-show="loading"><span us-spinner></span></p>
               <p>Hostname: {{ serverStats.hostname }}</p>
               <p>Uptime: {{ serverStats.uptime }}</p>
               <p>Kernel: {{ serverStats.type }}</p>
@@ -17,7 +17,7 @@
         <div class="col-sm-5 col-sm-offset-2">
           <div class="panel panel-default well" style="border: 1px solid;"> 
             <div class="panel-body">
-              <p ng-show="loading">loading...</p>
+              <p ng-show="loading"><span us-spinner></span></p>
               <div ng-repeat="cpu in cpu_cores">
                 <p>Model: {{ cpu.model }}</p>
                 <p>Speed: {{ cpu.speed }}</p>
@@ -31,7 +31,7 @@
       </div>
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3 well" style="border: 1px solid;">
-            <p ng-show="loading">loading...</p>
+            <p ng-show="loading"><span us-spinner></span></p>
             <canvas id="line" class="chart chart-line" chart-data="memory"
               chart-labels="labels" chart-legend="true" chart-series="series"
               chart-click="onClick" chart-options="{animation: false, scaleFontSize:8}" >

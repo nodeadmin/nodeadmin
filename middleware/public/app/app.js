@@ -25,7 +25,8 @@ angular.module('nodeadmin', [
   'ui.router',
   'ui.bootstrap',
   'chart.js',
-  'angular-toArrayFilter'
+  'angular-toArrayFilter',
+  'angularSpinner'
 ])
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
   $stateProvider

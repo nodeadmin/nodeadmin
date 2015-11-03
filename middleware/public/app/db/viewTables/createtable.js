@@ -1,5 +1,5 @@
 angular.module('nodeadmin.db.createtable', [])
-.controller('CreateTableViewController', ['$scope', '$uibModal', '$stateParams', 'Tables', function ($scope, $uibModal, $stateParams, Tables) {
+.controller('CreateTableViewController', ['$scope', '$uibModal', '$stateParams','$state','Tables', function ($scope, $uibModal, $stateParams, $state, Tables) {
 
     $scope.alerts = { success: [], error: [] };
     
@@ -78,11 +78,7 @@ angular.module('nodeadmin.db.createtable', [])
             method:response.config.method,
           });
 
-          $scope.fields = [{
-            'null':false,
-            'default':'',
-            'customDefault':false
-          }];
+          $state.transitionTo('tables', {'database': $scope.database});
 
         })
         .catch(function (error){

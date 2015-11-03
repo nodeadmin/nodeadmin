@@ -136,9 +136,23 @@ module.exports = {
       try {
 
         var _type = row['type'];
+        var _length = row['fieldLength'];
 
-        if ( row['fieldLength'] ) {
-          _type += ['(', row['fieldLength'], ')'].join('');
+        if ( _length) {
+
+          if(typeof _length === 'number') {
+            _type += ['(', row['fieldLength'], ')'].join('');
+          }
+
+          if(typeof _length === 'string') {
+            // return string with placeholders and add to global query
+            var enumPlaceholders =  _length.split(',').map(function (enumval, ind, arr) {
+              placeholders.push(enumval);
+              return '?';
+            }).join(',');
+
+            _type += ['(', enumPlaceholders , ')'].join('');
+          }
         }
 
         query += _type.concat(' ');
