@@ -2,7 +2,7 @@
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav bg-default">
       <li class="sidebar-brand text-primary">
-        Databases
+        <a ui-sref="dbhome">Database Home</a>
       </li>
       <div ng-repeat="db in databases">
         <li><a ui-sref="tables({ database: db.Database })" class="text-primary">{{ db.Database }}</a></li>
