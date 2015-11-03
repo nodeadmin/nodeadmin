@@ -48,7 +48,7 @@
             <span ng-if="isEditing != $parent.$id" >{{data}}</span>
             <div ng-if="isEditing == $parent.$id">
               <input type="text" ng-if="isRef(column) != true" class="form-control input-sm" ng-model="row[column]" />
-              <select ng-if="isRef(column) == true" class="form-control input-sm">
+              <select ng-if="isRef(column) == true" ng-model="row[column]" class="form-control input-sm">
                 <option ng-repeat="value in foreignValues" value="{{value}}" >{{value}}</option>
               </select>
               <button ng-click="updateRow(row, $index, $id)" class="btn btn-success btn-xs edit-cell-button">Save</button>
