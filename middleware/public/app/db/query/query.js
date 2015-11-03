@@ -1,7 +1,7 @@
 angular.module('nodeadmin.db.query', ['ui.codemirror'])
 
 .controller('QueryController', ['$scope', 'QueryFactory', function ($scope, QueryFactory) {
-
+  $scope.loading = false;
   $scope.alerts = {
     error:[],
     success:[],
@@ -30,6 +30,7 @@ angular.module('nodeadmin.db.query', ['ui.codemirror'])
   };
 
   $scope.submitQuery = function () {
+    $scope.loading = true;
     data = { query: $scope.query };
     QueryFactory.submit(data)
     .then(function (resp) {
@@ -52,6 +53,7 @@ angular.module('nodeadmin.db.query', ['ui.codemirror'])
         $scope.queryResponseHeaders = Object.keys(resp.data[0]);
         $scope.queryResponseData = resp.data;
       }
+      $scope.loading = false;
     });
   };
 
