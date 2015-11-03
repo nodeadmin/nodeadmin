@@ -114,18 +114,21 @@ angular.module('nodeadmin.home', [])
   };
 
   $scope.load = function() {
-    return new Promise(function () {
+    return new Promise(function (resolve, reject) {
       
       $scope.getServerStats();
 
-     HSFactory.loadMemory($scope._memoryStream);
-     HSFactory.loadCpus($scope._cpuStream);
+      HSFactory.loadMemory($scope._memoryStream);
+      HSFactory.loadCpus($scope._cpuStream);
+      resolve(undefined);
     })
       // load memory stream module
-   $scope.loading = false;
   };
 
-  $scope.load();
+  $scope.load()
+  .then(function(){
+    $scope.loading = false;
+  });
 
   $scope.$on("$destroy", function () {
     HSFactory.endSocket();
