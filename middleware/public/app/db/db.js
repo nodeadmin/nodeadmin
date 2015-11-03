@@ -18,6 +18,7 @@ angular.module('nodeadmin.db', [])
     $scope.foreignValues = [];
     $scope.tableMap = {};
     $scope.enums = [];
+    $scope.success = false;
     $scope.foreignColumn = '';
     $scope.getRecords = function () {
       RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page)
@@ -78,19 +79,34 @@ angular.module('nodeadmin.db', [])
         return true;
       }
     };
+    
+    $scope.notNull = function (input) {
+      if (input === 'NO') {
+        return true;
+      }
+      return false;
+    }
+
     $scope.isEnum = function (input) {
       var type = input.split('(');
       if (type[0] === 'enum') {
          var options = type[1].substr(0, type[1].length - 1).split(',');
          var noQuotes = [];
         for (var i = 0; i < options.length; i++) {
-          var temp = options[i].replace(/\'/g, '')
+          var temp = options[i].replace(/\'/g, '');
           noQuotes.push(temp);
         }
         $scope.enums = noQuotes;
         return true;
       }
-    },
+    };
+
+    $scope.isAuto = function (extra) {
+      if (extra === 'auto_increment') {
+        return true;
+      }
+      return false;
+    };
 
     $scope.getPrimaryKey = function (headers) {
       for (var i = 0; i < headers.length; i++) {
@@ -108,6 +124,7 @@ angular.module('nodeadmin.db', [])
     
     $scope.addRow = function () {
       console.log($scope.row);
+      $scope.records.push($scope.row);
       RecordsFactory.addRecord($stateParams.database, $stateParams.table, $stateParams.page, $scope.row);
     };
 
@@ -129,7 +146,7 @@ angular.module('nodeadmin.db', [])
       console.log(data);      
       RecordsFactory.editRecord($stateParams.database, $stateParams.table, $stateParams.page, update)
       .then(function (result) {
-        console.log(result);
+        $scope.success = true;
       })
       .catch(function (err) {
         console.log(err);
