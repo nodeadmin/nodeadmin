@@ -11,8 +11,6 @@ angular.module('nodeadmin.db.createtable', [])
     }];
     $scope.tablename = '';
     $scope.database = $stateParams.database;
-    // $scope.customDefault = false;
-
 
 
     // closes alert notification & used on close-after-timeout
