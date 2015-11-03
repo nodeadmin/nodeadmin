@@ -104,17 +104,17 @@
           <input type="text" name="" ng-model="field.fieldLength" id="">
         </td>
         <td>
-          <select ng-model="field.default" ng-change="toggleDefault(field.default)" name="" id="">
+          <select ng-model="field.default" ng-change="toggleDefault(field.default, $index)" name="" id="">
             <option value="">NONE</option>
             <option value="custom">AS DEFINED:</option>
             <option value="NULL">NULL</option>
             <option value="CURRENT_TIMESTAMP">CURRENT_TIMESTAMP</option>
-            <input style="margin-top:.5em; width:90%;" ng-model="field.default" ng-show="customDefault" type="text">
+            <input style="margin-top:.5em; width:90%;" ng-model="field.default" ng-show="field.customDefault" type="text">
           </select>
         </td>
         
         <td>
-          <input ng-model="field.null" type="checkbox" ng-true-value="'NULL'" ng-false-value="'NOT NULL'" name="" id="">
+          <input ng-change="nullChange($index)" ng-model="field.null" type="checkbox" name="" id="">
         </td>
 
         <td>
