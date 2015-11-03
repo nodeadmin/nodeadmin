@@ -1,26 +1,38 @@
 <div class="container-fluid">
   <form class="form-horizontal" name='setupForm' ng-submit='login()'>
     <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        <h1 class="text-center">Node Admin</h1>
-        <h3>MySQL Connection</h3>
-        <div class="form-group">
-          <label for="mysqlUser" class="col-sm-3 control-label">User</label>
-          <div class="col-sm-9">
-            <input type='text' class="form-control" name="mysqlUser" placeholder="MySQL user" ng-model='user.mysqlUser' required autofocus/>
+      <div class="col-md-6 col-md-offset-3">
+        <h1 class="text-center">
+          <img src="resources/nodejs-logo.png" style="position: relative; height: 1em; display: inline; bottom: .125em;"/>
+          Node Admin
+        </h1>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">MySQL Connection</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="mysqlUser" class="col-sm-3 control-label">User</label>
+              <div class="col-sm-9">
+                <input type='text' class="form-control" name="mysqlUser" placeholder="MySQL user" ng-model='user.mysqlUser' required autofocus/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="mysqlPassword" class="col-sm-3 control-label">Password</label>
+              <div class="col-sm-9">
+                <input type='password' name="mysqlPassword" class="form-control" placeholder="MySQL Password" ng-model='user.mysqlPassword' />
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary pull-right">Log In</button>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="mysqlPassword" class="col-sm-3 control-label">Password</label>
-          <div class="col-sm-9">
-            <input type='password' name="mysqlPassword" class="form-control" placeholder="MySQL Password" ng-model='user.mysqlPassword' />
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary pull-right">Log In</button>
-          </div>
-        </div>
+      </div>
       </div>
     </div>
   </form>
