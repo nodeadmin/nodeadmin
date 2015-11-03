@@ -78,6 +78,12 @@ angular.module('nodeadmin.db.createtable', [])
             method:response.config.method,
           });
 
+          $scope.fields = [{
+            'null':false,
+            'default':'',
+            'customDefault':false
+          }];
+
         })
         .catch(function (error){
           $scope.alerts['error'].push(error);
