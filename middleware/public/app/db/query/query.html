@@ -1,4 +1,5 @@
 <div id="kwikwery" class="container-fluid">
+  <span us-spinner ng-show="loading"></span>
   <div class="row" style="padding-left: 100px; padding-right: 100px;">
     <uib-alert class="col-md-12" ng-repeat="alert in alerts.success" dismiss-on-timeout="5000"
     type="success" close="closeAlert('success', $index)">{{alert.status}} / {{ alert.msg }} : {{ alert.query }}
