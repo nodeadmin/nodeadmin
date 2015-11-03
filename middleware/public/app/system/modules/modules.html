@@ -1,13 +1,13 @@
 <div>
-  <div class="col-md-11">
+  <div class="col-md-12">
     <uib-alert ng-repeat="alert in alerts.error"
     type="danger" close="closeAlert('error', $index)">{{alert}}
     </uib-alert>
   </div>
-  <h2 class="text-center col-md-11">Modules</h2>
+  <h2 class="text-center col-md-12">Modules</h2>
   <div class="module-container">
-    <div class="well col-md-11">
-    <pre ng-bind-html="modules" style="background-color:#383838; color:wheat" class="well"></pre>
+    <div class="well col-md-12" style="background-color:#484848;">
+    <pre ng-bind-html="modules" style="background-color:#282828; color:wheat; border: none;" class="well"></pre>
     </div>
   </div>
   <div class="row" ng-show="error">
