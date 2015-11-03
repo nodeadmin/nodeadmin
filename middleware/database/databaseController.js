@@ -140,11 +140,10 @@ module.exports = {
 
         if ( _length) {
 
-          if(typeof _length === 'number') {
+          //  check if length is a number or string
+          if(!isNaN(_length)) {
             _type += ['(', row['fieldLength'], ')'].join('');
-          }
-
-          if(typeof _length === 'string') {
+          } else if(typeof _length === 'string') {
             // return string with placeholders and add to global query
             var enumPlaceholders =  _length.split(',').map(function (enumval, ind, arr) {
               placeholders.push(enumval);

@@ -6,16 +6,6 @@
   padding-top: 100px;
 }
 
-#kwikwery {
-  padding-top: 75px;
-}
-
-.log-line {
-    padding-top: .75%;
-    padding-bottom: .75%;
-    border-bottom: 1px solid;
-}
-
 .space {
   margin-bottom: 50px;
 }
@@ -25,10 +15,11 @@
       height: 100%;
 }
 
-.CodeMirror {
-  border: 1px solid #eee;
-  height: 100px;
+.form-group {
+  padding-left: 10px;
 }
+
+/* Sidebar */
 
 .toggle-menu-div {
   position: fixed;
@@ -48,7 +39,6 @@
 
 .toggle-menu-button {
   position: relative;
-  background-color: transparent;
   border-top: none;
   border-radius: 0px 0px 5px 0px;
   padding: 0px;
@@ -66,11 +56,8 @@
   }
 }
 
-.form-group {
-  padding-left: 10px;
-}
+/* DB pages */
 
-/* Change cursor for editable cells */
 .clickable {
   cursor: pointer;
 }
@@ -79,4 +66,36 @@
   margin-bottom: 5px;
   margin-right: 5px;
   margin-top: 10px;
+}
+
+.privileges-table {
+  margin-bottom: 50px;
+  margin-top: 35px;
+  overflow: scroll;
+}
+
+/* Logs page*/
+
+.log-line {
+    background-color:#282828; 
+    font-size: 12px;
+    padding: 10px; 
+    border-bottom: 1px solid;
+}
+
+/* Custom Query page */
+
+#kwikwery {
+  padding-top: 75px;
+}
+
+.CodeMirror {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  height: 150px;
+  padding: 10px;
+}
+
+.query-submit {
+  margin-top: 20px;
 }
