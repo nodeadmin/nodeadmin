@@ -7,10 +7,10 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Successfully edited privileges.
   </div>
-  <h2 class="text-center">Privileges for {{ user }}</h2>
+  <h2 class="page-header space">Privileges for {{ user }}</h2>
   <button class="btn btn-sm btn-success" ng-click="grantAll()">Grant All</button>
   <button class="btn btn-sm btn-danger" ng-click="revokeAll()">Revoke All</button>
-  <div class="table-container">
+  <div class="table-container privileges-table">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -29,8 +29,10 @@
           </td>
         </tr>
       </tbody>
-    </table>
-    <h3 class="text-center">Description of Privileges</h3>
+      </table>
+      </div>
+    </table class="table-container">
+    <h3 class="page-header space">Description of Privileges</h3>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
