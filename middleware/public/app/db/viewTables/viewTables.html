@@ -7,19 +7,23 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ success }}
   </div>
-  <h2 class="text-center">Tables</h2>
+  <h2 class="text-center page-header space">Tables</h2>
   <!-- begin action -->
-  <form class="form-inline well well-sm" name="filterForm">
-    <div class="form-group pull-right">
-      <a ui-sref="createtable({ database: databaseName })">
-        <button class="btn btn-primary btn-sm">
-        Create Table
-        </button>
-      </a>
-    </div>
-    <div class="form-group">
-      <label style="margin-right:.4em;" for="tablename">Search Tables:</label>
-      <input type="text" class="form-control" ng-model="search" id="tablename" autofocus>
+  <form class="form-horizontal col-md-12" name="filterForm">
+    <div class="row well">
+      <div class="form-inline">
+        <span class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
+            <input type="text" class="form-control" placeholder="Filter Tables" ng-model="search" aria-describedby="basic-addon1" autofocus>
+          </div>
+        </span>
+        <span class="col-md-4 col-md-offset-4">
+          <button ui-sref="createtable({ database: databaseName })" class="btn btn-primary btn-sm pull-right">
+          Create Table
+          </button>
+        </span>
+      </div>
     </div>
   </form>
   <!-- end action -->
