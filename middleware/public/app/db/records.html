@@ -44,13 +44,12 @@
       </thead>
       <tbody>
         <tr ng-repeat="row in records | toArray | filter:search" ng-dblclick="editCell($id, row)">
-          <button ng-show="isEditing == $id">button</button>
           <td ng-repeat="(column, data) in row track by $index">
-            <span ng-hide="isEditing == $parent.$id" >{{data}}</span>
+            <span ng-if="isEditing != $parent.$id" >{{data}}</span>
             <div ng-if="isEditing == $parent.$id">
-              <input type="text" ng-hide="isRef(column) == true" class="form-control input-sm" ng-model="data" />
+              <input type="text" ng-if="isRef(column) != true" class="form-control input-sm" ng-model="row[column]" />
               <select ng-if="isRef(column) == true" class="form-control input-sm">
-                <option ng-repeat="value in foreignValues">{{value}}</option>
+                <option ng-repeat="value in foreignValues" value="{{value}}" >{{value}}</option>
               </select>
               <button ng-click="updateRow(row, $index, $id)" class="btn btn-default btn-xs">Save</button>
             </div>
@@ -63,4 +62,6 @@
   <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
       <uib-pagination total-items="recordsCount" ng-change="paganacion()" ng-model="currentPage" rotate="false" boundary-links="true" max-size="maxSize" items-per-page="100"></uib-pagination>
+    </div>
+  </div>
 </div>
