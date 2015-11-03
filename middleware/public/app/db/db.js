@@ -115,6 +115,10 @@ angular.module('nodeadmin.db', [])
       $scope.isEditing = id;
     };
 
+    $scope.cancel = function() {
+        $scope.isEditing = false;
+    };
+
     $scope.updateRow = function (data, index) {
       var update = {
         table: $stateParams.table,

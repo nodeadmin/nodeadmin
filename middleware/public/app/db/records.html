@@ -21,7 +21,7 @@
           </select>
         </div>
         <div class="col-xs-offset-9 col-xs-2">
-        <button type="submit" class="btn btn-info" ng-click="rowing = false"><span class="glyphicon glyphicon-floppy-disk"></span> save</button>
+        <button type="submit" class="btn btn-sm btn-success" ng-click="rowing = false">Save</button>
         </div>
       </form>
     </div>
@@ -44,14 +44,15 @@
       </thead>
       <tbody>
         <tr ng-repeat="row in records | toArray | filter:search" ng-dblclick="editCell($id, row)">
-          <td ng-repeat="(column, data) in row track by $index">
+          <td class="clickable" ng-repeat="(column, data) in row track by $index">
             <span ng-if="isEditing != $parent.$id" >{{data}}</span>
             <div ng-if="isEditing == $parent.$id">
               <input type="text" ng-if="isRef(column) != true" class="form-control input-sm" ng-model="row[column]" />
               <select ng-if="isRef(column) == true" class="form-control input-sm">
                 <option ng-repeat="value in foreignValues" value="{{value}}" >{{value}}</option>
               </select>
-              <button ng-click="updateRow(row, $index, $id)" class="btn btn-default btn-xs">Save</button>
+              <button ng-click="updateRow(row, $index, $id)" class="btn btn-success btn-xs edit-cell-button">Save</button>
+              <button ng-click="cancel()" class="btn btn-warning btn-xs edit-cell-button">Cancel</button>
             </div>
           </td>
         </tr>
