@@ -21,8 +21,10 @@
       </div>
     </div>
   </div>
-  <div class="row" style="padding-left: 80px; padding-right: 80px;">
-    <uib-alert class="col-md-12" ng-repeat="table in alerts.table" type="default" close="closeAlert('table', $index)">
+  <div class="row">
+  <div class="col-sm-1">
+  </div>
+    <uib-alert class="col-sm-10" ng-repeat="table in alerts.table" type="default" close="closeAlert('table', $index)">
     <table class="table table-condensed table-hover table-bordered">
       <thead>
         <tr>
@@ -36,5 +38,7 @@
       </tbody>
     </table>
     </uib-alert>
+    <div class="col-sm-1">
+    </div>
   </div>
 </div>
