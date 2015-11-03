@@ -5,21 +5,21 @@
   </div>
   <div ng-show="success" class="alert alert-success alert-dismissable" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Successfully deleted {{ success }}
+    {{ success }}
   </div>
   <h2 class="text-center">Tables</h2>
   <!-- begin action -->
-  <form class="form-inline well" name="filterForm">
+  <form class="form-inline well well-sm" name="filterForm">
     <div class="form-group pull-right">
       <a ui-sref="createtable({ database: databaseName })">
-      <button class="btn btn-default">
-        <span class="text-primary">new table</span>
-      </button>
+        <button class="btn btn-primary btn-sm">
+        Create Table
+        </button>
       </a>
     </div>
     <div class="form-group">
       <label style="margin-right:.4em;" for="tablename">Search Tables:</label>
-      <input type="text" class="form-control" ng-model="search" placeholder="name" id="tablename">
+      <input type="text" class="form-control" ng-model="search" id="tablename" autofocus>
     </div>
   </form>
   <!-- end action -->
@@ -34,9 +34,8 @@
         </thead>
         <tbody>
           <tr ng-repeat="table in tables | filter: search">
-            <td ui-sref="records({ database: databaseName, table: table, page: 1 })"> {{ table }} </td>
-            <!-- TODO: delete table should open modal for that specific table -->
-            <td><button class="btn btn-danger btn-xs" type="button" ng-click="open('sm', table)">Delete Table</button></td>
+            <td class="clickable" title="Click to view records" ui-sref="records({ database: databaseName, table: table, page: 1 })"> {{ table }} </td>
+            <td><button class="btn btn-danger btn-sm" type="button" ng-click="open('sm', table)">Delete Table</button></td>
           </tr>
         </tbody>
       </tbody>

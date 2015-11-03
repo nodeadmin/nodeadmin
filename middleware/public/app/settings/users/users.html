@@ -3,21 +3,23 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ error }}
   </div>
-  <div ng-show="success" class="alert alert-success alert-dismissable" role="alert">
+  <div ng-show="success" class="alert alert-success alert-dismissable" role="alert"> 
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Successfully added a new user.
+    {{ success }}
   </div>
-  <h2 class="text-center">Users</h2>
-  <button class="btn btn-default" ng-click="openAddUser()">Add User</button>
-  <form class="form-horizontal" name="filterForm">
-    <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        <div class="form-group">
-          <input type="text" ng-model="search" class="form-control" placeholder="Search users">
+  <h2 class="text-center page-header space">Users</h2>
+    <form class="form-horizontal col-md-12" name="filterForm">
+      <div class="row well">
+        <div class="form-inline">
+          <span class="col-md-4">
+            <input type="text" ng-model="search" class="form-control" placeholder="Search users" autofocus>
+          </span>
+          <span class="col-md-4 col-md-offset-4">
+            <button class="btn btn-sm btn-success pull-right" ng-click="openAddUser()">Add User</button>
+          </span>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
   <div class="row">
     <div class="col-md-12">
       <table class="table table-bordered table-hover">
@@ -30,12 +32,18 @@
         </thead>
         <tbody>
           <tr ng-repeat="user in users">
-            <td ng-repeat="(column, data) in user track by $index">
-              <span>{{data}}</span>
+            <td class="clickable" title="Double-click to edit" ng-repeat="(column, data) in user track by $index">
+              <span ng-hide="isEditing == $id" ng-dblclick="editCell($id, column, data, user)">{{data}}</span>
+              <div ng-show="isEditing == $id">
+                <input type="text" class="form-control input-sm" ng-model="data"/>
+                  <button ng-click="saveCell(column, newData)" class="btn btn-success btn-xs edit-cell-button">Save</button>
+                  <button ng-click="cancel()" class="btn btn-warning btn-xs edit-cell-button">Cancel</button>
+                </span>
+              </div>
             </td>
             <td>
-              <button class="btn btn-primary" ng-click="openGrants(user)">View Grants</button>
-              <button class="btn btn-primary" >Edit User</button>
+              <button class="btn btn-sm btn-primary" ng-click="openGrants(user)">View Privileges</button>
+              <button class="btn btn-sm btn-danger" ng-click="openDeleteUser(user)">Delete User</button>
             </td>
           </tr>
         </tbody>

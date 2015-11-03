@@ -1,20 +1,25 @@
 #wrapper {
   padding-top: 50px;  
 }
+
 #home {
   padding-top: 100px;
 }
+
 #kwikwery {
   padding-top: 75px;
 }
+
 .log-line {
     padding-top: .75%;
     padding-bottom: .75%;
     border-bottom: 1px solid;
 }
+
 .space {
   margin-bottom: 50px;
 }
+
 .grid {
     width: auto;
       height: 100%;
@@ -32,6 +37,7 @@
   border-top: none;
   border-left: none;
   border-radius: 0px 0px 7px 0px;
+  box-shadow: 2px 2px 2px lightslategrey;
   padding: 0px;
   margin: 0px;
   -webkit-transition: all 0.5s ease;
@@ -62,4 +68,15 @@
 
 .form-group {
   padding-left: 10px;
+}
+
+/* Change cursor for editable cells */
+.clickable {
+  cursor: pointer;
+}
+
+.edit-cell-button {
+  margin-bottom: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
 }

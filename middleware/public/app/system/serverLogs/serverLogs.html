@@ -1,6 +1,6 @@
 <div>
-  <h2>Logs</h2>
-  <div class="module-container well">
-      <div class="log-line" style="font-size:10px;" ng-repeat="log in logfile track by $index">{{ log }}</div>
+  <h2 class="text-center page-header space">Logs</h2>
+  <div class="module-container well" style="background-color:#484848;">
+      <div class="log-line" style="font-size:12px; background-color:#282828; padding: 10px;" ng-repeat="log in logfile track by $index" ng-bind-html="log"></div>
   </div>
 </div>

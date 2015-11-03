@@ -25,6 +25,7 @@ angular.module('nodeadmin.db.viewTables', [])
       $scope.animationsEnabled = true;
 
       $scope.open = function(size, tableName) {
+        $scope.tableName = tableName;
         Tables.saveTableName(tableName);
 
         var modalInstance = $uibModal.open({
@@ -35,12 +36,11 @@ angular.module('nodeadmin.db.viewTables', [])
         });
 
         modalInstance.result.then(function(result) {
-          // TODO: find better solution for success vs error
-          if (typeof result === 'string') {
+          if (result === $scope.tableName) {
             // Reload current tables in view
             $scope.tables = [];
             $scope.getTables();
-            $scope.success = result;
+            $scope.success = 'Successfully deleted ' + result;
           } else {
             $scope.error = result.data;
           }
