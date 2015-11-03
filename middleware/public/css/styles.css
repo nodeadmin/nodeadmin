@@ -74,13 +74,21 @@
   overflow: scroll;
 }
 
-/* Logs page*/
+/* System pages */
+
+.module-well {
+  background-color:#282828;
+  border-radius: 5px; 
+  border-width: 0;
+  color:wheat; 
+}
 
 .log-line {
-    background-color:#282828; 
-    font-size: 12px;
-    padding: 10px; 
-    border-bottom: 1px solid;
+  background-color:#282828; 
+  border-radius: 5px;
+  font-size: 12px;
+  padding: 10px; 
+  border-bottom: 1px solid;
 }
 
 /* Custom Query page */
