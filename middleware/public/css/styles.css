@@ -32,6 +32,7 @@
   border-top: none;
   border-left: none;
   border-radius: 0px 0px 7px 0px;
+  box-shadow: 2px 2px 2px lightslategrey;
   padding: 0px;
   margin: 0px;
   -webkit-transition: all 0.5s ease;
