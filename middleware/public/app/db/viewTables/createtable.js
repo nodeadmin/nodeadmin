@@ -5,11 +5,13 @@ angular.module('nodeadmin.db.createtable', [])
     
     $scope.add = 1;
     $scope.fields = [{
-      'null':'NOT NULL'
+      'null':false,
+      'default':'',
+      'customDefault':false
     }];
     $scope.tablename = '';
     $scope.database = $stateParams.database;
-    $scope.customDefault = false;
+    // $scope.customDefault = false;
 
 
 
@@ -19,22 +21,32 @@ angular.module('nodeadmin.db.createtable', [])
     };
 
     // change state of default
-    $scope.toggleDefault = function(value) {
-      if($scope.customDefault && value !== 'custom') {
-        $scope.customDefault = false;
+    $scope.toggleDefault = function(value, index) {
+      if($scope.fields[index].customDefault && value !== 'custom') {
+        $scope.fields[index].customDefault = false;
       }
-      if(!$scope.customDefault && value === 'custom') {
-        $scope.customDefault = true;
+      if(!$scope.fields[index].customDefault && value === 'custom') {
+        $scope.fields[index].customDefault = true;
       }
 
+      if(value === 'NULL') {
+        $scope.fields[index].null = true;
+      }
 
     };
+
+    // checks default is not set to not null if not nullable
+    $scope.nullChange = function(index) {
+      if($scope.fields[index].null === false && $scope.fields[index].default === 'NULL') {
+        $scope.fields[index].default = '';
+      }
+    }
 
     // adds additional field rows to table create form
     $scope.addField = function(num) {
 
       do {
-        $scope.fields.push({'null': 'NOT NULL'});
+        $scope.fields.push({'null': false, 'default':'', 'customDefault': false});
         
       } while(--num);
       
@@ -65,6 +77,12 @@ angular.module('nodeadmin.db.createtable', [])
             status:response.status,
             method:response.config.method,
           });
+
+          $scope.fields = [{
+            'null':false,
+            'default':'',
+            'customDefault':false
+          }];
 
         })
         .catch(function (error){
