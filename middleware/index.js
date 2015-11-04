@@ -8,7 +8,7 @@ var randomstring = require('randomstring')
 
 
 
-//NodeAdmin Routers\\
+// *** NodeAdmin Routers ***
 var auth = require('./auth/authRoutes.js');
 var database = require('./database/databaseRoutes.js');
 var settings = require('./settings/settingsRoutes.js');
@@ -18,24 +18,22 @@ var home = require('./home/homeRoutes.js');
 module.exports = function nodeadmin(app, port) {
   'use strict';
 
-  //Socket Connection\\
+  // ** Socket Connection
   var server = http.createServer(app);
   var io = sock(server);
 
   var expressListen = app.listen;
   app.listen = server.listen.bind(server);
-  // server.listen(port || 8000);
 
-  //Socket Controller\\
+
+  // ** Socket Controller
   require('./sockets/socketController.js')(io);
 
-  //Logs\\
-  var accessLogStream = fs.createWriteStream(__dirname + '/serverLogs/access.log', {flags: 'a'});
-  // app.use(morgan('combined', {
-  //   stream:accessLogStream
-  // }));
+  // ** Logs
+  var accessLogStream = fs.createWriteStream(__dirname + '/serverlogs/access.log', {flags: 'a'});
+  
     
-  //Third party middleware\\
+  // ** Third party middleware
   app.use(morgan('dev', {
     stream:accessLogStream
   }));
@@ -53,17 +51,14 @@ module.exports = function nodeadmin(app, port) {
     app.locals.secret = secret;
   });
   
-  //Routes\\
+  // ** Routes
   app.use('/nodeadmin/api/auth', auth);
   app.use('/nodeadmin/api/db', database);
   app.use('/nodeadmin/api/settings',settings);
   app.use('/nodeadmin/api/system',system);
   app.use('/nodeadmin/api/home',home);
-  app.use('/nodeadmin/', function(req,res){
-    res.send('hello');
-  });
 
-  //Middleware\\
+  // ** Middleware
   return function nodeadmin(req,res,next) {
     next();
   };
