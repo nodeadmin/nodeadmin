@@ -148,14 +148,23 @@
     var enums = [];
     var service = {
       numTypes: numTypes,
-      enums: enums,
+      getEnums: getEnums,
       isNum: isNum,
       isEnum: isEnum,
       isAuto: isAuto,
-      notNull: notNull
+      notNull: notNull,
+      enums: enums
     };
 
     return service;
+
+    function setEnums(array) {
+      enums = array;
+    }
+
+    function getEnums() {
+      return enums;
+    }
 
     function isNum(input) {
       var type = input.split('(')[0];
@@ -173,9 +182,10 @@
           var temp = options[i].replace(/\'/g, '');
           noQuotes.push(temp);
         }
-        enums = noQuotes;
+        setEnums(noQuotes);
         return true;
       }
+      return false;
     }
 
     function isAuto(extra) {
@@ -245,6 +255,7 @@
           });
 
           setForeignValuesArray(temp);
+          console.log(getForeignValuesArray());
 
         }
 
@@ -266,16 +277,24 @@
     var primaryKey;
 
     var service = {
-      primaryKey: primaryKey,
+      retrievePrimaryKey: retrievePrimaryKey,
       getPrimaryKey: getPrimaryKey
     };
 
     return service;
 
+    function retrievePrimaryKey() {
+      return primaryKey;
+    }
+
+    function setPrimaryKey(val) {
+      primaryKey = val;
+    }
+
     function getPrimaryKey(headers) {
       for (var i = 0; i < headers.length; i++) {
         if (headers[i].Key === 'PRI') {
-          primaryKey = headers[i].Field;
+          setPrimaryKey(headers[i].Field);
           return;
         }
         console.log('No Primary key');
