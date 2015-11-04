@@ -345,7 +345,7 @@
           data: user
         })
         .then(addUserComplete)
-        .catch(addUserFailed);
+        // .catch(addUserFailed);
 
       function addUserComplete(response) {
         return response.data;
@@ -353,6 +353,7 @@
 
       function addUserFailed(err) {
         console.error(err);
+        return err.data;
       }
     }
 
