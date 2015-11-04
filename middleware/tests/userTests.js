@@ -136,7 +136,7 @@ describe('Users API Route', function() {
           done();
         }
       });
-  }); // Closes 'it should edit users'
+  }); // Closes 'it should edit users\' host and username'
 
   it('should delete users', function(done) {
 

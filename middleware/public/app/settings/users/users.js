@@ -46,7 +46,7 @@ angular.module('nodeadmin.settings.users', [])
           row: $scope.row
         };
 
-        Users.editUser(update)
+        Users.editUser(update, $scope.row.user, $scope.row.host)
           .then(function(result) {
             // Update view
             $scope.alerts.success.push({
