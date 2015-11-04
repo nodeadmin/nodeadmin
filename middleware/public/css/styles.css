@@ -103,3 +103,7 @@
 .query-submit {
   margin-top: 20px;
 }
+
+.thin-grey-border {
+  border: 1px solid solid grey;
+}
