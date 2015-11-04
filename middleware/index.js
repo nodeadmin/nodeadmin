@@ -4,7 +4,19 @@ var http = require('http');
 var sock = require('socket.io');
 var morgan = require('morgan');
 var fs = require('fs');
-var secret = require('./secret.js');
+var secret = 'Heyo Taytay';
+
+fs.readFile('./secret.js', function(err, data){
+  if (err.code === 'ENOENT') {
+    var secret = 'randomly generated string';
+    var data = "module.exports = '" + secret + "';";
+    fs.writeFileSync(__dirname + '/secret.js', data);
+  }
+});
+// var secret = require('./secret.js');
+
+
+
 
 //NodeAdmin Routers\\
 var auth = require('./auth/authRoutes.js');
