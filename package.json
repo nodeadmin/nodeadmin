@@ -1,10 +1,11 @@
 {
-  "name": "cloistered-babka",
+  "name": "nodeadmin",
   "version": "1.0.0",
   "description": "node server admin middleware",
-  "main": "index.js",
+  "main": "middleware/index.js",
   "scripts": {
-    "test": "mocha ./middleware/tests/"
+    "test": "mocha ./middleware/tests/",
+    "install": "bower install"
   },
   "repository": {
     "type": "git",

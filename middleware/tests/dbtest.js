@@ -8,7 +8,7 @@ var client = require('../auth/clientdb.js');
 
 var token;
 
-describe('Database CRUD Opeations', function(){
+describe('CRUD', function(){
 
 
   before(function (done){
@@ -31,94 +31,124 @@ describe('Database CRUD Opeations', function(){
   });
 
 
-  it('should successfully create a new database', function (done) {
+  describe('CREATE Datatbase', function(){
+    var database_before;
 
-    request.post('/nodeadmin/api/db/create')
-      .set('Authorization', token)
-      .send({
-        name:'mochadb'
-      })
-      .expect(201)
-      .end(function (err, res){
-        if(err) {
-          done(err);
-        } else {
-          done();          
-        }
-      })
-    
-  })
+    after(function (done){
+      request.delete('/nodeadmin/api/db/delete')
+        .set('Authorization', token)
+        .send({
+          name:'mochadb'
+        })
+        .expect(200)
+        .end(done);
+    });
 
+    it('should successfully create a new database', function (done) {
 
-  it('should successfully create a database table', function (done) {
-
-    var schema = [
-    {
-      'fieldName':'id',
-      'type':'INT',
-      'null': false,
-      'auto': true,
-      'quality': 'PRIMARY KEY'
-    },
-    {
-      'fieldName':'name',
-      'type':'VARCHAR',
-      'fieldLength':200,
-      'null': false,
-      'auto': true,
-      'quality': 'PRIMARY KEY'
-    },
-    ];
-
-    request.post('/nodeadmin/api/mochadb/testtable')
-      .set('Authorization', token)
-      .send({
-        schema:schema
-      })
-      .expect(200)
-      .end(function (err, res){
-        if(err) {
-          done(err);
-        } else {
-          done();          
-        }
+      request.post('/nodeadmin/api/db/create')
+        .set('Authorization', token)
+        .send({ name:'mochadb' })
+        .expect(201)
+        .end(function (err, res){
+          if(err) {
+            done(err);
+          } else {
+            done();
+          }
+        });
     })
-    
-  })
-
-  it('should successfully delete a database table', function (done) {
-    
-    request.delete('/nodeadmin/api/mochadb/testtable')
-      .set('Authorization', token)
-      .expect(200)
-      .end(function (err, res){
-        if(err) {
-          done(err);
-        } else {
-          done();          
-        }
-    })
-    
-  })
 
 
-  it('should successfully delete database', function (done) {
 
-    request.post('/nodeadmin/api/db/delete')
-      .set('Authorization', token)
-      .send({
-        name:'mochadb'
+  });
+
+  describe('DELETE Database', function() {
+
+
+    it('should successfully delete database', function (done) {
+
+      request.post('/nodeadmin/api/db/delete')
+        .set('Authorization', token)
+        .send({
+          name:'mochadb'
+        })
+        .expect(200)
+        .end(function (err, res){
+          if(err) {
+            done(err);
+          } else {
+            done();
+          }
       })
-      .expect(200)
-      .end(function (err, res){
-        if(err) {
-          done(err);
-        } else {
-          done();          
-        }
     })
-    
+
   })
 
+
+
+
+  
+
+  describe('CREATE Table', function() {
+
+    it('should successfully create a database table', function (done) {
+
+      var schema = [
+      {
+        'fieldName':'id',
+        'type':'INT',
+        'null': false,
+        'auto': true,
+        'quality': 'PRIMARY KEY'
+      },
+      {
+        'fieldName':'name',
+        'type':'VARCHAR',
+        'fieldLength':200,
+        'null': false,
+        'auto': true,
+        'quality': 'PRIMARY KEY'
+      },
+      ];
+
+      request.post('/nodeadmin/api/mochadb/testtable')
+        .set('Authorization', token)
+        .send({
+          schema:schema
+        })
+        .expect(200)
+        .end(function (err, res){
+          if(err) {
+            done(err);
+          } else {
+            done();
+          }
+      })
+      
+    })
+
+
+  });
+
+  describe('DROP TABLE', function () {
+
+    
+    it('should successfully delete a database table', function (done) {
+      
+      request.delete('/nodeadmin/api/mochadb/testtable')
+        .set('Authorization', token)
+        .expect(200)
+        .end(function (err, res){
+          if(err) {
+            done(err);
+          } else {
+            done();
+          }
+      })
+      
+    });
+
+  })
 
 });
