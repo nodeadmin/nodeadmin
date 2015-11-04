@@ -4,6 +4,7 @@ var http = require('http');
 var sock = require('socket.io');
 var morgan = require('morgan');
 var fs = require('fs');
+var secret = require('./secret.js');
 
 //NodeAdmin Routers\\
 var auth = require('./auth/authRoutes.js');
@@ -39,7 +40,7 @@ module.exports = function nodeadmin(app, port) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use('/nodeadmin', express.static(__dirname + '/public'));
-  app.locals.secret = 'Rwue0IHNM563p0Aa50dcsO8qxeZNFYr9';
+  app.locals.secret = secret;
   
   //Routes\\
   app.use('/nodeadmin/api/auth', auth);

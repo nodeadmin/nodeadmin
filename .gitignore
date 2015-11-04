@@ -7,9 +7,10 @@ dist/
 
 .DS_Store
 
+#secret file
+secret.js
 
 middleware/public/lib/
-
 
 ### node etc ###
 

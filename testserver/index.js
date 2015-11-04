@@ -13,3 +13,5 @@ app.use('/', function(req, res, next) {
 });
 
 app.listen(4040);
+
+module.exports = app;

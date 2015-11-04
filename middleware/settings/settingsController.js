@@ -27,8 +27,6 @@ module.exports = {
     var password = req.body.password;
     var host = req.body.host || 'localhost';
 
-    console.log('req.body', req.body)
-
     if (!password) {
       connection.query("CREATE USER " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
         if (err) {
@@ -46,7 +44,7 @@ module.exports = {
                   console.log(err);
                   res.status(500).send(err.toString());
                 } else {
-                  res.status(200).send(result);
+                  res.status(201).send(result);
                 }
               });
             }
@@ -70,7 +68,7 @@ module.exports = {
                   console.log(err);
                   res.status(500).send(err.toString());
                 } else {
-                  res.status(200).send(result);
+                  res.status(201).send(result);
                 }
               })
             }
