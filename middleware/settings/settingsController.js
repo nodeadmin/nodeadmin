@@ -93,7 +93,7 @@ module.exports = {
     // Add new user information
     newRow[column] = newData;
 
-    connection.query("RENAME USER " + "'" + row.user + "'" + "@" + "'" + row.host + "'" + " TO " + "'" + newRow.user + "'" + "@" + "'" + newRow.host + "'" + "", function(err, result) {
+    connection.query('RENAME USER ?@? TO ?@?', [row.user, row.host, newRow.user, newRow.host], function(err, result) {
       if (err) {
         console.log(err);
         res.status(500).send(err.toString());

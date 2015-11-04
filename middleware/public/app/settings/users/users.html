@@ -32,7 +32,7 @@
               <span ng-hide="isEditing == $id" ng-dblclick="editCell($id, column, data, user)">{{data}}</span>
               <div ng-show="isEditing == $id">
                 <input type="text" class="form-control input-sm" ng-model="data"/>
-                <button ng-click="saveCell(column, newData)" class="btn btn-success btn-xs edit-cell-button">Save</button>
+                <button ng-click="saveCell(column, data)" class="btn btn-success btn-xs edit-cell-button">Save</button>
                 <button ng-click="cancel()" class="btn btn-warning btn-xs edit-cell-button">Cancel</button>
               </span>
             </div>
