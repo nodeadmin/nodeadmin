@@ -1,17 +1,10 @@
 angular.module('nodeadmin.db.dbhome', [])
-.controller('DBHomeController', ['$scope', 'DBInfoFactory', '$uibModal','$state',
-  function ($scope, DBInfoFactory, $uibModal, $state) {
+.controller('DBHomeController', ['$scope', 'DBInfoFactory', '$uibModal','$state', 'AlertCenter',
+  function ($scope, DBInfoFactory, $uibModal, $state, AlertCenter) {
 
     $scope.animationsEnabled = true;
     
-    $scope.alerts = {
-      error:[],
-      success:[]
-    };
-
-    $scope.closeAlert = function(type, index) {
-      $scope.alerts[type].splice(index, 1);
-    };
+    AlertCenter.addAll($scope);
 
     $scope.open = function(type) {
       if(type === 'createDB') {
@@ -30,11 +23,10 @@ angular.module('nodeadmin.db.dbhome', [])
           .then(function (results){
             // refresh parent view sidebar to ensure DB was created properly
             $scope.$parent.loadDatabases();
-            
-            $scope.alerts[results.status === 200 ? 'success' : 'error'].push({
-              msg:results.statusText,
+            var message = results.status === 200 ? 'success' : 'error';
+            $scope.alerts[message].push({
+              msg:results.statusText + ' ' + message + ' ' + results.config.method,
               status:results.status,
-              method:results.config.method,
             });
           });
       }
@@ -56,10 +48,10 @@ angular.module('nodeadmin.db.dbhome', [])
         modalInstance.result
           .then(function (results) {
             // set success message
-            $scope.alerts[results.status === 200 ? 'success' : 'error'].push({
-              msg:results.statusText,
-              status:results.status,
-              method:results.config.method,
+            var message = results.status === 200 ? 'success' : 'error'
+            $scope.alerts[message].push({
+              msg:results.statusText + " " + message + " " + results.config.method,
+              status:results.status
             });
           });
       }

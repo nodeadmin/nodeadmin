@@ -1,12 +1,5 @@
 <div id="edit-privileges">
-  <div ng-show="error" class="alert alert-danger alert-dismissable" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    {{error}}
-  </div>
-  <div ng-show="success" class="alert alert-success alert-dismissable" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Successfully edited privileges.
-  </div>
+  <alert-center></alert-center>
   <h2 class="page-header space">Privileges for {{ user }}</h2>
   <button class="btn btn-sm btn-success" ng-click="grantAll()">Grant All</button>
   <button class="btn btn-sm btn-danger" ng-click="revokeAll()">Revoke All</button>
