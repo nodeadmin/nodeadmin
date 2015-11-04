@@ -1,10 +1,9 @@
 <div class="container-fluid">
-
-	<div class="row">
+  <div class="row">
     <div class="col-md-9">
-		<h2 class="page-header space">{{table}}</h2>
+      <h2 class="page-header space">{{table}}</h2>
     </div>
-	</div>
+  </div>
   <div class="row">
     <div class="col-xs-10 col-md-offset-1 space">
       <span class="glyphicon glyphicon-plus" ng-click="toggleForm()" ng-if="rowing != true" tooltip-placement="right" uib-tooltip="add row"></span>
@@ -23,14 +22,14 @@
           </select>
         </div>
         <div class="col-xs-offset-9 col-xs-2">
-        <button type="submit" class="btn btn-sm btn-success" ng-click="rowing = false">Save</button>
+          <button type="submit" class="btn btn-sm btn-success" ng-click="rowing = false">Save</button>
         </div>
       </form>
     </div>
   </div>
   <div class="alert alert-success alert-dismissable" role="alert" ng-if="success">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <p>Record updaated succeessfully</p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <p>Record updaated succeessfully</p>
   </div>
   <div class="row">
     <div class="col-md-4 col-md-offset-4 space">
@@ -42,33 +41,33 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-     <table class="table table-bordered table-hover">
+      <table class="table table-bordered table-hover">
         <thead>
           <tr>
             <th ng-repeat="header in headers"><div><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{::header.Type}} {{::header.Key}}"></span><span class="glyphicon glyphicon-chevron-down pull-right" data-placement="top" uib-tooltip="Sort" ng-click="toggleSort(header.Field)"></span></div> {{::header.Field}}</th>
           </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="row in records | toArray | filter:search" ng-dblclick="editCell($id, row)">
-          <td class="clickable" title="Double-click to edit" ng-repeat="(column, data) in row track by $index">
-            <span ng-if="isEditing != $parent.$id" >{{data}}</span>
-            <div ng-if="isEditing == $parent.$id">
-              <input type="text" ng-if="!isRef(column) && !isEnum(column)" class="form-control input-sm" ng-model="row[column]" />
-              <select ng-if="isRef(column) == true" ng-model="row[column]" class="form-control input-sm">
-                <option ng-repeat="value in foreignValues" value="{{value}}" >{{value}}</option>
-              </select>
-              <button ng-click="updateRow(row, $index, $id)" class="btn btn-success btn-xs edit-cell-button">Save</button>
-              <button ng-click="cancel()" class="btn btn-warning btn-xs edit-cell-button">Cancel</button>
-            </div>
-          </td>
-        </tr>
-      </table> 
-      <div class="col-sm-2 col-sm-offset-5" ng-show="loading"><h4 class="text-centered">Loading...</h4></div>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in records | toArray | filter:search" ng-dblclick="editRow($id, row)">
+            <td class="clickable" title="Double-click to edit" ng-repeat="(column, data) in row track by $index">
+              <span ng-if="isEditing != $parent.$id" >{{data}}</span>
+              <div ng-if="isEditing == $parent.$id">
+                <input type="text" ng-if="!isRef(column) && !isEnum(column)" class="form-control input-sm" ng-model="row[column]" />
+                <select ng-if="isRef(column) == true" ng-model="row[column]" class="form-control input-sm">
+                  <option ng-repeat="value in foreignValues" value="{{value}}" >{{value}}</option>
+                </select>
+                <button ng-click="updateRow(row, $index, $id)" class="btn btn-success btn-xs edit-cell-button">Save</button>
+                <button ng-click="cancel()" class="btn btn-warning btn-xs edit-cell-button">Cancel</button>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <div class="col-sm-2 col-sm-offset-5" ng-show="loading"><h4 class="text-centered">Loading...</h4></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <uib-pagination total-items="recordsCount" ng-change="pagination()" ng-model="currentPage" rotate="false" boundary-links="true" max-size="maxSize" items-per-page="100"></uib-pagination>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
-      <uib-pagination total-items="recordsCount" ng-change="paganacion()" ng-model="currentPage" rotate="false" boundary-links="true" max-size="maxSize" items-per-page="100"></uib-pagination>
-    </div>
-  </div>
-</div>

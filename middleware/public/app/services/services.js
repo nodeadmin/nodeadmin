@@ -246,8 +246,6 @@
     function returnDropTableName() {
       return dropTableName;
     }
-
-
   }
 
   //DATABASE FACTORY//
@@ -434,7 +432,6 @@
       function getGrantsRecordFailed(err) {
         console.error(err);
       }
-
     }
 
     function editGrantsRecord(user, host, data) {
@@ -484,7 +481,6 @@
       function getGrantsDescriptionFailed(err) {
         console.error(err);
       }
-
     }
   }
 })();
