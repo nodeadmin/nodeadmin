@@ -4,15 +4,10 @@ var router = express.Router();
 var tokenCheck = require('../auth/tokenCheck.js');
 var DbController = require('./databaseController.js');
 
+// require token for all database operations
 router.use(tokenCheck);
 
-router.route('/')
-  .get(function(req, res) {
-    'use strict';
-    res.send('eyyyy in db');
-  });
 
-  
 router.route('/:database/fk/:refTable/:refColumn')
   .get(DbController.getForeignValues);  
 

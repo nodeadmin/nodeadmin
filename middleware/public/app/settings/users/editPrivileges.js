@@ -1,9 +1,10 @@
 angular.module('nodeadmin.settings.editprivileges', [])
-  .controller('EditPrivilegesController', function($scope, $stateParams, Users, RecordsFactory) {
+  .controller('EditPrivilegesController', function($scope, $stateParams, Users, RecordsFactory, AlertCenter) {
     $scope.user = $stateParams.user;
     $scope.host = $stateParams.host || 'localhost';
     $scope.headers = [];
-    $scope.success = '';
+
+    AlertCenter.addAll($scope);
 
     console.log('edit priv', $scope.user, $scope.host)
     // Convert headers into readable format & necessary for making queries
@@ -74,7 +75,10 @@ angular.module('nodeadmin.settings.editprivileges', [])
           }
         })
         .catch(function(err) {
-          $scope.error = err;
+          $scope.alerts.error.push({
+            status: '400',
+            msg: err
+          });
         });
     };
 
@@ -89,11 +93,17 @@ angular.module('nodeadmin.settings.editprivileges', [])
       Users.editGrantsRecord($scope.user, $scope.host, update)
         .then(function(result) {
           $scope.getGrantsRecord();
-          $scope.success = 'Successfully granted all privileges.';
+          $scope.alerts.success.push({
+            msg: 'Successfully edited privileges.',
+            status: '400'
+          });
         })
         .catch(function(err) {
           console.log(err);
-          $scope.error = err;
+          $scope.alerts.error.push({
+            status: '400',
+            msg: err
+          });
         });
     };
 
@@ -106,11 +116,17 @@ angular.module('nodeadmin.settings.editprivileges', [])
       Users.editGrantsRecord($scope.user, $scope.host, update)
         .then(function(result) {
           $scope.getGrantsRecord();
-          $scope.success = 'Successfully revoked all privileges.';
+          $scope.alerts.success.push({
+            msg: 'Successfully revoked all privileges.',
+            status: '400'
+          });
         })
         .catch(function(err) {
           console.log(err);
-          $scope.error = err;
+          $scope.alerts.error.push({
+            status: '400',
+            msg: err
+          });
         });
     };
 
@@ -135,11 +151,17 @@ angular.module('nodeadmin.settings.editprivileges', [])
       Users.editGrantsRecord($scope.user, $scope.host, update)
         .then(function(result) {
           $scope.getGrantsRecord();
-          $scope.success = 'Successfully updated user privileges.';
+          $scope.alerts.success.push({
+            msg: 'Successfully updated user privileges.',
+            status: '400'
+          });
         })
         .catch(function(err) {
           console.log(err);
-          $scope.error = err;
+          $scope.alerts.error.push({
+            status: '400',
+            msg: err
+          });
         });
       $scope.isEditing = false;
     };

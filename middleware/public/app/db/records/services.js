@@ -94,7 +94,7 @@
 
     return service;
 
-    function setSortBy (val) {
+    function setSortBy(val) {
       sortBy = val;
     }
 
@@ -110,7 +110,7 @@
       return sortDir;
     }
 
-    function setCurrentTable (val) {
+    function setCurrentTable(val) {
       currentTable = val;
     }
 
@@ -237,22 +237,23 @@
           .catch(getForeignValuesFailed);
 
         function getForeignValuesComplete(result) {
-            var temp = [];
-            result.forEach(function (item) {
-              for (var key in item) {
-                temp.push(item[key]);
-              }
-            });
+          var temp = [];
+          result.forEach(function (item) {
+            for (var key in item) {
+              temp.push(item[key]);
+            }
+          });
 
-            setForeignValuesArray(temp);
+          setForeignValuesArray(temp);
 
-          }
+        }
 
         function getForeignValuesFailed(err) {
           console.error(err);
         }
       }
     }
+
     function isRef(column) {
       if (tableMap.refColumn === column) {
         return true;
