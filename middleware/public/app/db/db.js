@@ -21,6 +21,11 @@ angular.module('nodeadmin.db', [])
     $scope.success = false;
     $scope.foreignColumn = '';
     $scope.getRecords = function () {
+      if (SortingFactory.currentTable !== $stateParams.table) {
+        SortingFactory.sortBy = '';
+        SortingFactory.sortDir = '';
+        SortingFactory.currentTable = $stateParams.table;
+      }
       RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, SortingFactory.sortBy, SortingFactory.sortDir)
       .then(function (result) {
         $scope.records = result[0];
@@ -200,7 +205,8 @@ angular.module('nodeadmin.db', [])
 .factory('SortingFactory', [function () {
   return {
     sortBy: '',
-    sortDir: ''
+    sortDir: '',
+    currentTable: ''
   };
 }])
 .controller('DBController', ['$scope','dbFactory', function ($scope, dbFactory) {
