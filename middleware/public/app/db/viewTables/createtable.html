@@ -1,12 +1,13 @@
 <div class="container-fluid">
   <div class="row">
-    <uib-alert class="col-md-11" ng-repeat="alert in alerts.success" dismiss-on-timeout="5000"
+    <alert-center class="col-md-11"></alert-center>
+    <!-- <uib-alert class="col-md-11" ng-repeat="alert in alerts.success" dismiss-on-timeout="5000"
     type="success" close="closeAlert('success', $index)">{{alert.status}} / {{ alert.msg }} successful {{ alert.method }}
     </uib-alert>
     <uib-alert class="col-md-11" ng-repeat="alert in alerts.error"
     type="danger" close="closeAlert('error', $index)"> 
     Error {{alert.status}} / {{ alert.statusText }} ( {{ alert.data.sqlState }} - {{ alert.data.code }} )
-    </uib-alert>
+    </uib-alert> -->
   </div>
 
   <div class="row well" style="margin-top:10px;">

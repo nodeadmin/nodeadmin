@@ -1,7 +1,8 @@
 angular.module('nodeadmin.db.createtable', [])
-.controller('CreateTableViewController', ['$scope', '$uibModal', '$stateParams','$state','Tables', function ($scope, $uibModal, $stateParams, $state, Tables) {
+.controller('CreateTableViewController', ['$scope', '$uibModal', '$stateParams','$state','Tables', 'AlertCenter',
+  function ($scope, $uibModal, $stateParams, $state, Tables, AlertCenter) {
 
-    $scope.alerts = { success: [], error: [] };
+    AlertCenter.addAll($scope);
     
     $scope.add = 1;
     $scope.fields = [{
@@ -11,12 +12,6 @@ angular.module('nodeadmin.db.createtable', [])
     }];
     $scope.tablename = '';
     $scope.database = $stateParams.database;
-
-
-    // closes alert notification & used on close-after-timeout
-    $scope.closeAlert = function(type, index) {
-      $scope.alerts[type].splice(index, 1);
-    };
 
     // change state of default
     $scope.toggleDefault = function(value, index) {
@@ -71,16 +66,18 @@ angular.module('nodeadmin.db.createtable', [])
         .then(function (response) {
           console.log('\n response ', response);
           $scope.alerts['success'].push({
-            msg:response.statusText,
-            status:response.status,
-            method:response.config.method,
+            msg:response.statusText + ' successful ' + response.config.method,
+            status:response.status
           });
 
           $state.transitionTo('tables', {'database': $scope.database});
 
         })
         .catch(function (error){
-          $scope.alerts['error'].push(error);
+          $scope.alerts['error'].push({
+            msg:error.statusText + " " + error.data.sqlState + " " + error.data.code,
+            status: error.status
+          });
         });
     };
 
