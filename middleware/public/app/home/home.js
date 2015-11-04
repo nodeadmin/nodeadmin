@@ -109,7 +109,17 @@ angular.module('nodeadmin.home', [])
   };
 
   $scope._cpuStream = function(data) {
-    $scope.cpu_cores = data;
+    if($scope.cpu_cores.length > 0) {
+      for(var i=0; i < data.length; i++) {
+        $scope.cpu_cores[i].times = data[i].times;
+      }
+    } else {
+      for(var i=0; i < data.length; i++) {
+        data[i].labels = ['system', 'user', 'idle'];
+        data[i]._stat = [data[i].times.sys, data[i].times.user, data[i].times.idle]
+      }
+      $scope.cpu_cores = data;
+    }
     $scope.$digest();
   };
 
