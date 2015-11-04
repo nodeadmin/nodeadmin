@@ -6,7 +6,6 @@ angular.module('nodeadmin.settings.editprivileges', [])
 
     AlertCenter.addAll($scope);
 
-    console.log('edit priv', $scope.user, $scope.host)
     // Convert headers into readable format & necessary for making queries
     $scope.headersDictionary = {
       'Select_priv': 'SELECT',
