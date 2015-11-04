@@ -6,7 +6,7 @@ var ls;
 module.exports = function (io) {
   io.of('/system').on('connection', function (socket) {
     socket.on('getlogs', function () {
-      ls = ls || spawn('tail', ['-f', __dirname + "/../serverLogs/access.log"]);
+      ls = ls || spawn('tail', ['-f', __dirname + "/../serverlogs/access.log"]);
       ls.stdout.on('readable', function() {
         var buffer = this.read();
         if(buffer !== null) {
@@ -19,7 +19,7 @@ module.exports = function (io) {
       ls.kill();
       ls.on('exit', function () {
         ls = null;
-        fs.truncate(__dirname + '/../serverLogs/access.log');
+        fs.truncate(__dirname + '/../serverlogs/access.log');
       });
     });
 
