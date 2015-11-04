@@ -356,10 +356,10 @@
       }
     }
 
-    function editUser(data) {
+    function editUser(data, user, host) {
       return $http({
           method: 'PUT',
-          url: '/nodeadmin/api/settings/users/',
+          url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/',
           data: data,
         })
         .then(editUserComplete)
