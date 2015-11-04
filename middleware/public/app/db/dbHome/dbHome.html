@@ -15,39 +15,47 @@
     </div>
   </div>
 
-  <div style="" class="row">
-      <div style="border:1px solid grey;" class="col-md-11">
-        <h4>Performance Timers</h4>
-        <table class="table table-condensed table-hover">
+  <div class="row">
+      <div  class="col-md-11">
+        <div class="panel panel-default thin-grey-border">
+          <div class="panel-heading">
+            <h4 class="panel-title">Performance Timers</h4>
+          </div>
+          <table class="table table-condensed table-hover table-bordered">
+            <thead>
+              <tr>
+                <th ng-repeat="header in perfHeaders">{{header}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="row in perfRows">
+                <td ng-repeat="(column, data) in row">{{data}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  </div>
+
+  <div style="margin-top:40px;" class="row">
+    <div class="col-md-11">
+      <div class="panel panel-default thin-grey-border">
+        <div class="panel-heading">
+          <h4 class="panel-title">Process List</h4>
+        </div>
+        <table class="table table-condensed table-hover table-bordered">
           <thead>
             <tr>
-              <th ng-repeat="header in perfHeaders">{{header}}</th>
+              <th ng-repeat="header in infoHeaders">{{header}}</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="row in perfRows">
+            <tr ng-repeat="row in infoRows">
               <td ng-repeat="(column, data) in row">{{data}}</td>
             </tr>
           </tbody>
         </table>
       </div>
-  </div>
-
-  <div style="margin-top:40px;" class="row">
-    <div style="border:1px solid grey;" class="col-md-11">
-      <h4>Process List</h4>
-      <table class="table table-condensed table-hover">
-        <thead>
-          <tr>
-            <th ng-repeat="header in infoHeaders">{{header}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="row in infoRows">
-            <td ng-repeat="(column, data) in row">{{data}}</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
   </div>
