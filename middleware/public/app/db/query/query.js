@@ -1,16 +1,14 @@
 angular.module('nodeadmin.db.query', ['ui.codemirror'])
 
-.controller('QueryController', ['$scope', 'QueryFactory', function ($scope, QueryFactory) {
+.controller('QueryController', ['$scope', 'QueryFactory', 'AlertCenter', function ($scope, QueryFactory, AlertCenter) {
   $scope.loading = false;
-  $scope.alerts = {
-    error:[],
-    success:[],
-    table: []
-  };
+  
 
-  $scope.closeAlert = function(type, index) {
-    $scope.alerts[type].splice(index, 1);
-  };
+  // adds $scope.alerts obj with success and error array [{status: str, msg: str}]
+  // adds $scope.closeAlert function 
+  AlertCenter.addAll($scope); 
+  console.log($scope.alerts)
+  $scope.alerts.table = []; // for use with a separate alert
 
   $scope.cmPrefs = {
     mode: 'text/x-mssql',

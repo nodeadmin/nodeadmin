@@ -24,7 +24,7 @@ module.exports = {
       connection.query('CREATE DATABASE ?? ', [DatabaseName], function (err, result) {
 
         if (!err) {
-          res.status(200).json(result);
+          res.status(201).json(result);
         } else {
           res.status(422).json(err);
         }
