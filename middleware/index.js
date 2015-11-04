@@ -4,7 +4,9 @@ var http = require('http');
 var sock = require('socket.io');
 var morgan = require('morgan');
 var fs = require('fs');
-var secret = require('./secret.js');
+var randomstring = require('randomstring')
+
+
 
 //NodeAdmin Routers\\
 var auth = require('./auth/authRoutes.js');
@@ -40,7 +42,16 @@ module.exports = function nodeadmin(app, port) {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
   app.use('/nodeadmin', express.static(__dirname + '/public'));
-  app.locals.secret = secret;
+  // creates secret.js with a random string if it hasn't been initialized\\
+  fs.readFile('./secret.js', function(err, data) {
+    if (err.code === 'ENOENT') {
+      var randomString = randomstring.generate();
+      var contents = "module.exports = '" + randomString + "';";
+      fs.writeFileSync(__dirname + '/secret.js', contents);
+    }
+    var secret = require('./secret.js');
+    app.locals.secret = secret;
+  });
   
   //Routes\\
   app.use('/nodeadmin/api/auth', auth);
