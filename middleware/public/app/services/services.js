@@ -44,7 +44,7 @@
         return !!$window.localStorage.getItem('nodeadmin');
       }
 
-      function logout = () {
+      function logout() {
         return $http({
             method: 'GET',
             url: '/nodeadmin/api/auth/logout',
@@ -68,7 +68,7 @@
     function System($http) {
       var service = {
         getModules: getModules
-
+      };
         return service;
 
         function getModules() {
