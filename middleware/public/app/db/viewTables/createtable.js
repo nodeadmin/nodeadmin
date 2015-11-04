@@ -64,7 +64,6 @@ angular.module('nodeadmin.db.createtable', [])
 
       Tables.createTable($scope.database, $scope.tablename, $scope.fields)
         .then(function (response) {
-          console.log('\n response ', response);
           $scope.alerts['success'].push({
             msg:response.statusText + ' successful ' + response.config.method,
             status:response.status

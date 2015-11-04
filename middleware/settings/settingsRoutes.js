@@ -13,11 +13,10 @@ router.route('/')
 
 router.route('/users')
   .get(SettingsController.getUsers)
-  .post(SettingsController.addUser)
-  // TODO: move PUT to /users/:user/:host
-  .put(SettingsController.editUser);
+  .post(SettingsController.addUser);
 
 router.route('/users/:user/:host')
+  .put(SettingsController.editUser)
   .delete(SettingsController.deleteUser);
 
 // 'SHOW GRANTS' per user
