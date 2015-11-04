@@ -23,11 +23,14 @@
 
 .toggle-menu-div {
   position: fixed;
-  top: 52px;
-  left: 249px;
+  /*top: 52px;*/
+  top: 3.65em;
+  /*left: 249px;*/
+  left: 17.85em;
   border-top: none;
   border-left: none;
   border-radius: 0px 0px 7px 0px;
+  background-color: #f7f7f7;
   box-shadow: 2px 2px 2px lightslategrey;
   padding: 0px;
   margin: 0px;
@@ -38,6 +41,7 @@
 }
 
 .toggle-menu-button {
+  background-color: #f7f7f7;
   position: relative;
   border-top: none;
   border-radius: 0px 0px 5px 0px;
