@@ -1,362 +1,503 @@
 /* jshint strict: false */
-angular.module('nodeadmin.services', [])
+(function () {
+    'use strict';
+    angular
+      .module('nodeadmin.services', [])
+      .factory('Auth', Auth)
+      .factory('System', System)
+      .factory('Stats', Stats)
+      .factory('DBInfoFactory', DBInfoFactory)
+      .factory('QueryFactory', QueryFactory)
+      .factory('Tables', Tables)
+      .factory('DatabaseFactory', DatabaseFactory)
+      .factory('Users', Users);
 
-.factory('Auth', ['$http', '$window',
-  function($http, $window) {
-    var login = function(user) {
-      return $http({
-        method: 'POST',
-        url: '/nodeadmin/api/auth/login',
-        data: user
-      }).then(function (resp) {
-        return resp.data.token;
-      });
-    };
+    //AUTH FACTORY//
 
-    var isAuth = function() {
-      return !!$window.localStorage.getItem('nodeadmin');
-    };
+    function Auth($http, $window) {
+      var service = {
+        login: login,
+        isAuth: isAuth,
+      };
 
-    var logout = function() {
-      return $http({
-        method:'GET',
-        url:'/nodeadmin/api/auth/logout',
-      });
-    };
+      return service;
 
-    return {
-      login: login,
-      isAuth: isAuth,
-      logout:logout
-    };
-
-  }
-])
-
-.factory('System', function($http) {
-  var getModules = function() {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/system/modules'
-    }).then(function (resp) {
-      return resp;
-    });
-  };
-
-  return {
-    getModules: getModules
-  };
-})
-
-.factory('Stats', function($http) {
-  return {
-    serverStats: function() {
-      return $http({
-          method: 'GET',
-          url: '/nodeadmin/api/home/os'
-        })
-        .then(function (resp) {
-          return resp;
-        })
-        .catch(function(err) {
-          return err;
-        });
-    }
-  };
-
-})
-
-.factory('RecordsFactory', ['$http',
-  function($http) {
-    return {
-      getRecords: function(db, table, page, sortBy, sortDir) {
-        return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/' + page + '?sortBy=' + sortBy + '&sortDir=' + sortDir)
-          .then(function (resp) {
-            return resp.data;
+      function login(user) {
+        return $http({
+            method: 'POST',
+            url: '/nodeadmin/api/auth/login',
+            data: user
           })
-          .catch(function(err) {
-            return err;
-          });
-      },
-      editRecord: function(db, table, page, data) {
-        console.log('edit record is getting called');
-        return $http.put('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
-        .then(function (response) {
-          return response;
-        })
-        .catch(function (err) {
-          return err;
-        });
-      },
-      addRecord: function (db, table, page, data) {
-        return $http.post('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
+          .then(loginComplete)
+          .catch(loginFailed);
+
+        function loginComplete(response) {
+          return response.data.token;
+        }
+
+        function loginFailed(err) {
+          console.error(err);
+        }
       }
-    };
-  }
-])
 
-.factory('ForeignFactory', ['$http', function ($http) {
-  return {
-    getForeignValues: function (db, refTable, refColumn) {
-      return $http.get('/nodeadmin/api/db/' + db + '/fk/' + refTable + '/' + refColumn)
-      .then(function (response) {
-        return response.data;
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-    }
-  };
-}])
+      function isAuth() {
+        return !!$window.localStorage.getItem('nodeadmin');
+      }
 
-.factory('DBInfoFactory', ['$http',
-  function($http) {
-    var getPerformanceTimers = function() {
-      return $http({
-        method: 'GET',
-        url: '/nodeadmin/api/db/performance',
-      }).then(function(resp) {
-        // console.log(resp);
-        return resp.data;
-      });
-    };
-    var getInfo = function() {
-      return $http({
-        method: 'GET',
-        url: '/nodeadmin/api/db/info',
-      }).then(function(resp) {
-        // console.log(resp);
-        return resp.data;
-      });
-    };
+      function logout = () {
+        return $http({
+            method: 'GET',
+            url: '/nodeadmin/api/auth/logout',
+          })
+          .then(logoutComplete)
+          .catch(logoutFailed);
 
-    return {
-      getPerformanceTimers: getPerformanceTimers,
-      getInfo: getInfo
-    };
-}])
+        function logoutComplete(response) {
+          return responsel
+        }
 
-.factory('QueryFactory', ['$http', 
-  function ($http) {
-    var submit = function (query) {
-      return $http.post('/nodeadmin/api/db/query', JSON.stringify({'data': query}))
-        .then(function (resp) {
-          return resp;
-        })
-        .catch(function(err) {
-          return err;
-        });
-    };
-    return {
-      submit: submit
-    };
-  }
-])
-  
-.factory('Tables', ['$http',
-  function($http) {
-
-    // Allow access to table name between DeleteTable & TableView controllers
-    var dropTableName;
-
-    var getTables = function(databaseName) {
-      return $http({
-        method: 'GET',
-        url: '/nodeadmin/api/db/' + databaseName + '/tables'
-      }).then(function(response) {
-        return response.data;
-      });
-    };
-
-    var saveTableName = function(tableName) {
-      dropTableName = tableName;
-    };
-
-    var returnDropTableName = function() {
-      return dropTableName;
-    };
-
-    var dropTable = function(databaseName, tableName) {
-      return $http({
-        method: 'DELETE',
-        url: '/nodeadmin/api/db/' + databaseName + '/' + tableName + ''
-      }).then(function(response) {
-        return response.data;
-      });
-    };
-
-    var createTable = function(database, table, schema) {
-      return $http({
-        method:'POST',
-        url: ['/nodeadmin/api/db',database, table].join('/'),
-        data: schema
-      }).then(function (response){
-        return response;
-      });
+        function logoutFailed(err) {
+          console.error
+          (err);
+        }
+      };
     }
 
-    return {
-      getTables: getTables,
-      saveTableName: saveTableName,
-      returnDropTableName: returnDropTableName,
-      dropTable: dropTable,
-      createTable: createTable
-    };
-  }
-])
+    //SYSTEM FACTORY//
 
-.factory('DatabaseFactory', ['$http', 
-  function ($http) {
-    return {
-      createDB:function(name) {
-        return $http({
-          method:'POST',
-          url:'/nodeadmin/api/db/create/',
-          data:name
-        })
-        .then(function (res) {
-          return res;
-        });
-      },
+    function System($http) {
+      var service = {
+        getModules: getModules
 
-      deleteDB: function (name) {
-        return $http({
-          method:'POST',
-          url:'/nodeadmin/api/db/delete/',
-          data:name
-        })
-        .then(function (res){
-          return res;
-        });
+        return service;
+
+        function getModules() {
+          return $http({
+              method: 'GET',
+              url: '/nodeadmin/api/system/modules'
+            })
+            .then(getModulesComplete)
+            .catch(getModulesFailed);
+
+          function getModulesComplete(response) {
+            return response;
+          }
+
+          function getModulesFailed(err) {
+            console.error(err);
+          }
+        }
       }
-    };
 
-}])
+      //STATS FACTORY
 
-.factory('Users', ['$http', function($http) {
-  // Saves user for getting grants & for deleting
-  var grantUser = {};
-  var deletedUser = {};
+      function Stats($http) {
+        var service = {
+          serverStats: serverStats
+        };
 
-  var getAll = function() {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/settings/users'
-    }).then(function(response) {
-      return response.data;
-    });
-  };
+        return service;
 
-  var addUser = function(user) {
-    return $http({
-      method: 'POST',
-      url: '/nodeadmin/api/settings/users',
-      data: user
-    }).then(function(response) {
-      return response.data;
-    });
-  };
+        function serverStats() {
+          return $http({
+              method: 'GET',
+              url: '/nodeadmin/api/home/os'
+            })
+            .then(serverStatsComplete)
+            .catch(serverStatsFailed);
 
-  var editUser = function(data) {
-    return $http({
-      method: 'PUT',
-      url: '/nodeadmin/api/settings/users/',
-      data: data,
-    }).then(function (response) {
-      return response.data;
-    });
-  };
+          function serverStatsComplete(response) {
+            return response;
+          }
 
-  // For sharing information between modal & main view
-  var saveDeleteUser = function(user) {
-    deletedUser = user;
-  };
+          function serverStatsFailed(err) {
+            console.error(err);
+          }
+        }
+      }
 
-  var getDeleteUser = function() {
-    return deletedUser;
-  };
+      //DBINFO FACTORY//
 
-  var deleteUser = function(user, host) {
-    return $http({
-      method: 'DELETE',
-      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/'    
-    }).then(function(response) {
-      return response.data;
-    });
-  };
+      function DBInfoFactory($http) {
+        var service = {
+          getPerformanceTimers: getPerformanceTimers,
+          getInfo: getInfo
+        };
 
-  // 'SHOW GRANTS' per user
-  var getGrants = function(user, host) {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grants/'
-    }).then(function(response) {
-      return response.data;
-    });
-  };
+        return service;
 
-  // Get grants record per user for editing
-  var getGrantsRecord = function(user, host) {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grantsrecord/'
-    }).then(function(response) {
-      return response.data;
-    });
-  };
+        function getPerformanceTimers() {
+          return $http({
+              method: 'GET',
+              url: '/nodeadmin/api/db/performance',
+            })
+            .then(getPerformanceTimersComplete)
+            .catch(getPerformanceTimersFailed);
 
-  var editGrantsRecord = function(user, host, data) {
-    return $http({
-      method: 'PUT',
-      url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grantsrecord',
-      data: data
-    }).then(function(response) {
-      return response.data;
-    });
-  };
+          function getPerformanceTimersComplete(response) {
+            return response.data;
+          }
 
-  // For sharing information between modal & main view
-  var saveGrantInfo = function(userInfo) {
-    var user = userInfo.user;
-    var host = userInfo.host;
+          function getPerformanceTimersFailed(err) {
+            console.error(err);
+          }
+        }
 
-    grantUser.user = user;
-    grantUser.host = host;
-  };
+        function getInfo() {
+          return $http({
+              method: 'GET',
+              url: '/nodeadmin/api/db/info',
+            })
+            .then(getInfoComplete)
+            .catch(getInfoFailed);
 
-  var returnGrantUser = function() {
-    return grantUser;
-  };
+          function getInfoComplete(response) {
+            return response.data;
+          }
 
-  // Get description of grants options
-  var getGrantsDescription = function() {
-    return $http({
-      method: 'GET',
-      url: '/nodeadmin/api/settings/users/grantsdescription'
-    }).then(function(response) {
-      return response.data;
-    });
-  };
+          function getInfoFailed(err) {
+            console.error(err);
+          }
+        }
+      }
 
-  return {
-    getAll: getAll,
-    editUser: editUser,
-    getGrants: getGrants,
-    getGrantsRecord: getGrantsRecord,
-    saveGrantInfo: saveGrantInfo,
-    returnGrantUser: returnGrantUser,
-    addUser: addUser,
-    saveDeleteUser: saveDeleteUser,
-    getDeleteUser: getDeleteUser,
-    deleteUser: deleteUser,
-    editGrantsRecord: editGrantsRecord,
-    getGrantsDescription: getGrantsDescription,
-  };
+      //QUERY FACTORY
 
-}])
+      function QueryFactory($http) {
+        var service = {
+          submit: submit
+        };
+
+        return service;
+
+        function submit(query) {
+          return $http.post('/nodeadmin/api/db/query', JSON.stringify({
+              'data': query
+            }))
+            .then(submitComplete)
+            .catch(submitFailed);
+
+          function submitComplete(response) {
+            return response;
+          }
+
+          function submitFailed(err) {
+            console.error(err);
+          }
+        }
+      }
+
+      //TABLES FACTORY
+
+      function Tables($http) {
+
+        // Allow access to table name between DeleteTable & TableView controllers
+        var dropTableName;
+
+        var service = {
+          getTables: getTables,
+          saveTableName: saveTableName,
+          returnDropTableName: returnDropTableName,
+          dropTable: dropTable,
+          createTable: createTable
+        };
+
+        return service;
+
+        function getTables(databaseName) {
+          return $http({
+              method: 'GET',
+              url: '/nodeadmin/api/db/' + databaseName + '/tables'
+            })
+            .then(getTablesComplete)
+            .catch(getTablesFailed);
+
+          function getTablesComplete(response) {
+            return response.data;
+          }
+
+          function getTablesFailed(err) {
+            console.error(err);
+          }
+        }
+
+        function dropTable(databaseName, tableName) {
+          return $http({
+              method: 'DELETE',
+              url: '/nodeadmin/api/db/' + databaseName + '/' + tableName + ''
+            })
+            .then(dropTableComplete)
+            .catch(dropTableFailed);
+
+          function dropTableComplete(response) {
+            return response.data;
+          }
+
+          function dropTableFailed(err) {
+            console.error(err);
+          }
+        }
+
+        function createTable(database, table, schema) {
+          return $http({
+              method: 'POST',
+              url: ['/nodeadmin/api/db', database, table].join('/'),
+              data: schema
+            })
+            .then(createTableComplete)
+            .catch(createTableFailed);
+
+          function createTableComplete(response) {
+            return response;
+          }
+
+          function createTableFailed(err) {
+            console.error(err);
+          }
+        }
+
+        function saveTableName(tableName) {
+          dropTableName = tableName;
+        }
+
+        function returnDropTableName() {
+          return dropTableName;
+        }
+      }
+
+      //DATABASE FACTORY//
+
+      function DatabaseFactory($http) {
+        var service = {
+          createDB: createDB,
+          deleteDB: deleteDB
+        };
+
+        return service;
+
+        function createDB(name) {
+          return $http({
+              method: 'POST',
+              url: '/nodeadmin/api/db/create/',
+              data: name
+            })
+            .then(createDBComplete)
+            .catch(createDBFailed);
+
+          function createDBComplete(response) {
+            return response;
+          }
+
+          function createDBFailed(err) {
+            console.error(err);
+          }
+        }
+
+        function deleteDB(name) {
+          return $http({
+              method: 'POST',
+              url: '/nodeadmin/api/db/delete/',
+              data: name
+            })
+            .then(deleteDBComplete)
+            .catch(deleteDBFailed);
+
+          function deleteDBComplete(response) {
+            return response;
+          }
+
+          function deleteDBFailed(err) {
+            console.error(err);
+          }
+        }
+      }
+
+      //USERS FACTORY//
+
+      function Users($http) {
+        // Saves user for getting grants & for deleting
+        var grantUser = {};
+        var deletedUser = {};
+
+        var service = {
+          getAll: getAll,
+          editUser: editUser,
+          getGrants: getGrants,
+          getGrantsRecord: getGrantsRecord,
+          saveGrantInfo: saveGrantInfo,
+          returnGrantUser: returnGrantUser,
+          addUser: addUser,
+          saveDeleteUser: saveDeleteUser,
+          getDeleteUser: getDeleteUser,
+          deleteUser: deleteUser,
+          editGrantsRecord: editGrantsRecord,
+          getGrantsDescription: getGrantsDescription,
+        };
+
+        return service;
+
+        function getAll() {
+          return $http({
+              method: 'GET',
+              url: '/nodeadmin/api/settings/users'
+            })
+            .then(getAllComplete)
+            .catch(getAllFailed)
+
+          function getAllComplete(response) {
+            return response.data;
+          }
+
+          function getAllFailed(err) {
+            console.error(err);
+          }
+        }
+
+        function addUser(user) {
+          return $http({
+              method: 'POST',
+              url: '/nodeadmin/api/settings/users',
+              data: user
+            })
+            .then(addUserComplete)
+            .catch(addUserFailed);
+
+          function addUserComplete(response) {
+            return response.data;
+          }
+
+          function addUserFailed(err) {
+            console.error(err);
+          }
+        }
+
+        function editUser(data) {
+          return $http({
+              method: 'PUT',
+              url: '/nodeadmin/api/settings/users/',
+              data: data,
+            })
+            .then(editUserComplete)
+            .catch(editUserFailed);
+
+          function editUserComplete(response) {
+            return response.data;
+          }
+
+          function editUserFailed(err) {
+            console.error(err);
+          }
+        }
+
+        function deleteUser(user, host) {
+          return $http({
+              method: 'DELETE',
+              url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/'
+            })
+            .then(deleteUserComplete)
+            .catch(deleteUserFailed);
+
+          function deleteUserComplete(response) {
+            return response.data;
+          }
+
+          function deleteUserFailed(err) {
+            console.error(err);
+          }
+        }
+
+        // For sharing information between modal & main view
+        function saveDeleteUser(user) {
+          deletedUser = user;
+        }
+
+        function getDeleteUser() {
+          return deletedUser;
+        }
+
+        // 'SHOW GRANTS' per user
+        function getGrants(user, host) {
+          return $http({
+              method: 'GET',
+              url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grants/'
+            })
+            .then(getGrantsComplete)
+            .catch(getGrantsFailed);
+
+          function getGrantsComplete(response) {
+            return response.data;
+          }
+
+          function getGrantsFailed(err) {
+            console.error(err);
+          }
+        }
+
+        // Get grants record per user for editing
+        function getGrantsRecord(user, host) {
+          return $http({
+              method: 'GET',
+              url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grantsrecord/'
+            })
+            .then(getGrantsRecordComplete)
+            .catch(getGrantsRecordFailed);
+
+          function getGrantsRecordComplete(response) {
+            return response.data;
+          }
+
+          function getGrantsRecordFailed(err) {
+            console.error(err);
+          }
+        }
+
+        function editGrantsRecord(user, host, data) {
+          return $http({
+              method: 'PUT',
+              url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grantsrecord',
+              data: data
+            })
+            .then(editGrantsRecordComplete)
+            .catch(editGrantsRecordFailed);
+
+          function editGrantsRecordComplete(response) {
+            return response.data;
+          }
+
+          function editGrantsRecordFailed(err) {
+            console.error(err);
+          }
+        }
+
+        // For sharing information between modal & main view
+        function saveGrantInfo(userInfo) {
+          var user = userInfo.user;
+          var host = userInfo.host;
+
+          grantUser.user = user;
+          grantUser.host = host;
+        }
+
+        function returnGrantUser() {
+          return grantUser;
+        }
+
+        // Get description of grants options
+        function getGrantsDescription() {
+          return $http({
+              method: 'GET',
+              url: '/nodeadmin/api/settings/users/grantsdescription'
+            })
+            .then(getGrantsDescriptionComplete)
+            .catch(getGrantsDescriptionFailed);
+
+          function getGrantsDescriptionComplete(response) {
+            return response.data;
+          }
+
+          function getGrantsDescriptionFailed(err) {
+            console.error(err);
+          }
+        }
+      }
+    })();
