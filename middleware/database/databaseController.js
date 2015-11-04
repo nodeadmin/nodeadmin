@@ -140,11 +140,10 @@ module.exports = {
 
         if ( _length) {
 
-          if(typeof _length === 'number') {
+          //  check if length is a number or string
+          if(!isNaN(_length)) {
             _type += ['(', row['fieldLength'], ')'].join('');
-          }
-
-          if(typeof _length === 'string') {
+          } else if(typeof _length === 'string') {
             // return string with placeholders and add to global query
             var enumPlaceholders =  _length.split(',').map(function (enumval, ind, arr) {
               placeholders.push(enumval);
@@ -215,8 +214,11 @@ module.exports = {
       table = req.params.table,
       rowCount = 100, //Shouldn't be hardcoded, need to add a query to get request, but this will do for now
       offset = req.params.page > 1 ? req.params.page * rowCount : 0,
+      sortBy = req.query.sortBy,
+      sortDir = req.query.sortDir,
       limit = [offset, rowCount],
       connection = client.getClientDB();
+      console.log(req.query);
     connection.query({
       sql: 'USE ??',
       timeout: 40000,
@@ -245,6 +247,19 @@ module.exports = {
             tableStr += 'OR \'' + tables[i] + '\' ';
           }
         }
+        if (sortBy && sortDir) {
+          
+          connection.query({
+            sql: 'SELECT * FROM ?? ORDER BY ?? ' + sortDir +  ' LIMIT ?; DESCRIBE ??; SELECT count(*) FROM ??; SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME=' + tableStr + ' AND TABLE_NAME=?',
+            timeout: 40000,
+            values: [table, sortBy, limit, table, table, table]
+          }, function (err, result, fields) {
+            if (err) {
+              console.log(err);
+            }
+            res.status(200).json(result);
+          });
+        } else {
         connection.query({
           sql: 'SELECT * FROM ?? LIMIT ?; DESCRIBE ??; SELECT count(*) FROM ??; SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME=' + tableStr + ' AND TABLE_NAME=?',
           timeout: 40000,
@@ -255,6 +270,8 @@ module.exports = {
           }
           res.status(200).json(result);
         });
+
+        }
       });
     });
   },

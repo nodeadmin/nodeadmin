@@ -11,9 +11,9 @@
       <span class="glyphicon glyphicon-remove" ng-if="rowing == true" ng-click="toggleForm()"></span>
       <form class="form" ng-if="rowing == true" ng-submit="addRow(row)">
         <div class="form-group col-xs-2" ng-repeat="header in headers">
-          <label for="{{header.Field}}" ng-if="!notNull(header.Null)">{{::header.Field}}</label>
-          <label for="{{header.Field}}" ng-if="notNull(header.Null)">{{::header.Field}}*</label>
-          <input type="text" class="form-control input-sm" ng-if="!isRef(header.Field) && !isEnum(header.Type) && !isAuto(header.Extra)" name="header.Field" placeholder="{{header.Type}} {{header.Extra}}"ng-model="row[header.Field]" />
+          <label for="{{::header.Field}}" ng-if="!notNull(header.Null)">{{::header.Field}}</label>
+          <label for="{{::header.Field}}" ng-if="notNull(header.Null)">{{::header.Field}}*</label>
+          <input type="text" class="form-control input-sm" ng-if="!isRef(header.Field) && !isEnum(header.Type) && !isAuto(header.Extra)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="row[header.Field]" />
           <input type="text" class="form-control input-sm" ng-if="isAuto(header.Extra)" name="header.Field" ng-model="row[header.Field]"readonly />
           <select class="form-control input-sm" ng-if="isRef(header.Field) == true" ng-model="row[header.Field]">
             <option ng-repeat="value in foreignValues">{{value}}</option>
@@ -45,7 +45,7 @@
      <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th ng-repeat="header in headers"><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{::header.Type}} {{::header.Key}}"></span>  {{::header.Field}}</th>
+            <th ng-repeat="header in headers"><div><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{::header.Type}} {{::header.Key}}"></span><span class="glyphicon glyphicon-chevron-down pull-right" data-placement="top" uib-tooltip="Sort" ng-click="toggleSort(header.Field)"></span></div> {{::header.Field}}</th>
           </tr>
       </thead>
       <tbody>

@@ -1,7 +1,7 @@
 /* jshint strict: false */
 angular.module('nodeadmin.db', [])
-.controller('RecordsController', ['$scope', 'RecordsFactory', 'PaganacionFactory', 'ForeignFactory', '$state', '$stateParams',
-  function ($scope, RecordsFactory, PaganacionFactory, ForeignFactory, $state, $stateParams) {
+.controller('RecordsController', ['$scope', 'RecordsFactory', 'PaganacionFactory', 'ForeignFactory', 'SortingFactory', '$state', '$stateParams',
+  function ($scope, RecordsFactory, PaganacionFactory, ForeignFactory, SortingFactory, $state, $stateParams) {
     var numTypes=['integer', 'int', 'smallint', 'tinyint', 'mediumint', 'bigint', 'decimal', 'numeric', 'float', 'double', 'bit'];
     $scope.records = {};
     $scope.headers = []; 
@@ -21,7 +21,7 @@ angular.module('nodeadmin.db', [])
     $scope.success = false;
     $scope.foreignColumn = '';
     $scope.getRecords = function () {
-      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page)
+      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, SortingFactory.sortBy, SortingFactory.sortDir)
       .then(function (result) {
         $scope.records = result[0];
         $scope.headers = result[1];
@@ -62,7 +62,9 @@ angular.module('nodeadmin.db', [])
       $state.go('records', {
         database:$stateParams.database,
         table: $scope.table,
-        page: $scope.currentPage 
+        page: $scope.currentPage,
+        sortBy: $stateParams.sortBy,
+        sortDir: $stateParams.sortDir
       });
     };
     
@@ -85,7 +87,7 @@ angular.module('nodeadmin.db', [])
         return true;
       }
       return false;
-    }
+    };
 
     $scope.isEnum = function (input) {
       var type = input.split('(');
@@ -121,7 +123,29 @@ angular.module('nodeadmin.db', [])
     $scope.toggleForm = function () {
       $scope.rowing = $scope.rowing ? false : true;
     };
-    
+
+    $scope.toggleSort = function (column) {
+      console.log('This is sortBy: ' + $stateParams.sortBy);
+      if (SortingFactory.sortBy !== column) {
+        SortingFactory.sortBy = column;
+        SortingFactory.sortDir = 'DESC';
+      } else {
+        if (SortingFactory.sortDir === 'DESC') {
+          SortingFactory.sortDir = 'ASC'
+        } else {
+          SortingFactory.sortDir = 'DESC'
+        }
+      } 
+      $state.go('records', {
+        database: $stateParams.database,
+        table: $stateParams.table,
+        sortBy: SortingFactory.sortBy,
+        sortDir: SortingFactory.sortDir
+      }, {location: true});
+      console.log(SortingFactory.sortBy);
+      $scope.getRecords();
+
+    };
     $scope.addRow = function () {
       console.log($scope.row);
       $scope.records.push($scope.row);
@@ -171,6 +195,12 @@ angular.module('nodeadmin.db', [])
     currentPage: 1,
     records: 0,
     maxSize: 10
+  };
+}])
+.factory('SortingFactory', [function () {
+  return {
+    sortBy: '',
+    sortDir: ''
   };
 }])
 .controller('DBController', ['$scope','dbFactory', function ($scope, dbFactory) {

@@ -1,54 +1,54 @@
-<div id="home" class="container-fluid">
+<div id="home" class="container">
   <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <div class="row">
-        <div class="col-sm-5">
-          <div class="panel panel-default well" style="border: 1px solid;">
-            <div class="panel-header">
-              <h3 class="panel-title">Server Properties</h3>
-            </div>
-            <div class="panel-body">
-              <p ng-show="loading"><span us-spinner></span></p>
-              <p>Hostname: {{ serverStats.hostname }}</p>
-              <p>Uptime: {{ serverStats.uptime }}</p>
-              <p>Kernel: {{ serverStats.type }}</p>
-              <p>Load Averages: {{ serverStats.load }}</p>
-              <p>Memory: {{ serverStats.memory | limitTo:3 }} Gb</p>
-            </div>
-          </div>
+
+    <div class="col-sm-6">
+      <div class="panel panel-default" style="border: 1px solid;">
+        <div class="panel-heading">
+          <h3 class="panel-title">Server Properties</h3>
         </div>
-        <div class="col-sm-5 col-sm-offset-2">
-          <div class="panel panel-default well" style="border: 1px solid;"> 
-            <div class="panel-header">
-              <h3 class="panel-title">CPU Stats</h3>
-            </div>
-            <div class="panel-body">
-              <p ng-show="loading"><span us-spinner></span></p>
-              <div ng-repeat="cpu in cpu_cores">
-                <p>Model: {{ cpu.model }}</p>
-                <p>Speed: {{ cpu.speed }}</p>
-                <p>User: {{ cpu.times.user | toHours | number: 2 }} hrs</p>
-                <p>System: {{ cpu.times.sys | toHours | number: 2}} hrs</p>
-                <p>Idle: {{ cpu.times.idle | toHours | number: 2}} hrs</p>
-              </div>
-            </div>
-          </div>
+        <div class="panel-body">
+          <p ng-show="loading"><span us-spinner></span></p>
+          <p>Hostname: {{ serverStats.hostname }}</p>
+          <p>Uptime: {{ serverStats.uptime }}</p>
+          <p>Kernel: {{ serverStats.type }}</p>
+          <p>Load Averages: {{ serverStats.load }}</p>
+          <p>Memory: {{ serverStats.memory | limitTo:3 }} Gb</p>
         </div>
       </div>
-        <div class="row">
-          <div class="col-sm-6 col-sm-offset-3 panel panel-default well" style="border: 1px solid;">
-            <div class="panel-header">
-              <h3 class="panel-title">Memory Pressure</h3>
-            </div>
-            <div class="panel-body">
-              <p ng-show="loading"><span us-spinner></span></p>
-              <canvas id="line" class="chart chart-line" chart-data="memory"
-                chart-labels="labels" chart-legend="true" chart-series="series"
-                chart-click="onClick" chart-options="{animation: false, scaleFontSize:8}" >
-              </canvas> 
-            </div>
-          </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default" style="border: 1px solid;">
+        <div class="panel-heading">
+          <h3 class="panel-title">Memory Pressure</h3>
         </div>
+        <div class="panel-body">
+          <p ng-show="loading"><span us-spinner></span></p>
+          <canvas id="line" class="chart chart-line" chart-data="memory"
+            chart-labels="labels" chart-legend="true" chart-series="series"
+            chart-click="onClick" chart-options="{animation: false, scaleFontSize:8}">
+          </canvas>
+        </div>
+      </div>
     </div>
   </div>
-</div
+  <div class="row">
+    <div class="panel panel-primary" ng-repeat="cpu in cpu_cores track by $index">
+    <div class="panel-heading" >CPU {{ $index + 1}}</div>
+      <div class="panel-body">
+        <div class="col-sm-6">
+          <p ng-show="loading"><span us-spinner></span></p>
+          <p>Model: {{ cpu.model }}</p>
+          <p>Speed: {{ cpu.speed }}</p>
+          <p>User: {{ cpu.times.user | toHours | number: 2 }} hrs</p>
+          <p>System: {{ cpu.times.sys | toHours | number: 2}} hrs</p>
+          <p>Idle: {{ cpu.times.idle | toHours | number: 2}} hrs</p>
+        </div>
+        <div class="col-md-6">
+          <canvas id="doughnut" class="chart chart-doughnut"
+            chart-data="cpu._stat" chart-labels="cpu.labels">
+          </canvas> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
