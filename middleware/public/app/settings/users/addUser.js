@@ -6,7 +6,6 @@ angular.module('nodeadmin.settings.adduser', [])
     AlertCenter.addAll($scope);
 
     $scope.addUser = function() {
-      console.log('user', $scope.user)
       Users.addUser($scope.user)
         .then(function(response) {
           $modalInstance.close(response);

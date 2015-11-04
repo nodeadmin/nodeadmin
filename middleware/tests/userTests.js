@@ -7,10 +7,10 @@ var connection = client.getClientDB();
 
 var token;
 
-describe('Auth API Route', function() {
+describe('USER CRUD', function() {
 
-  it('should sign in an existing user with valid password', function(done) {
-
+  // Pass in your login information
+  before(function(done) {
     request.post('/nodeadmin/api/auth/login')
       .send({
         mysqlUser: 'root',
@@ -19,23 +19,13 @@ describe('Auth API Route', function() {
       .expect(200)
       .end(function(err, res) {
         if (err) {
-          done(err);
+          done('error');
         } else {
           token = res.body.token;
           done();
         }
       });
-
-  }); // Closes 'it should sign in an existing user with valid password'
-
-  it('should return a token on login', function(done) {
-
-    expect(token).to.be.ok;
-    done();
-
-  }); // Closes 'it should return a token on login'
-
-}); // Closes 'describe Auth API Route'
+  });
 
 
 describe('Users API Route', function() {
@@ -118,15 +108,61 @@ describe('Users API Route', function() {
   it('should edit users\' host and username', function(done) {
 
     request
-      .put('/nodeadmin/api/settings/users')
+      .put('/nodeadmin/api/settings/users/RickandMorty/host')
       .set('Authorization', token)
       .send({
-        column: 'host',
         newData: 'localhost',
-        row: {
-          host: 'host',
-          user: 'RickandMorty'
+        oldData: 'host'
+      })
+      .expect(200)
+      .end(function(err, res) {
+        if (err) {
+          done(err);
+        } else {
+          done();
         }
+      });
+  }); // Closes 'it should edit users\' host and username'
+
+  it('should get all grants per user', function(done) {
+
+    request
+      .get('/nodeadmin/api/settings/users/RickandMorty3/host/grants')
+      .set('Authorization', token)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) {
+          done(err);
+        } else {
+          done();
+        }
+      });
+  }); // Closes 'it should get all grants per user'
+
+
+  it('should get grants record per user', function(done) {
+
+    request
+      .get('/nodeadmin/api/settings/users/RickandMorty3/host/grantsrecord')
+      .set('Authorization', token)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) {
+          done(err);
+        } else {
+          done();
+        }
+      });
+  }); // Closes 'it should get grants record per user'
+
+  it('should edit users\' grants record', function(done) {
+
+    request
+      .put('/nodeadmin/api/settings/users/RickandMorty3/host/grantsrecord')
+      .set('Authorization', token)
+      .send({
+        column: 'UPDATE',
+        val: 'N'
       })
       .expect(200)
       .end(function(err, res) {
@@ -141,7 +177,7 @@ describe('Users API Route', function() {
   it('should delete users', function(done) {
 
     request
-      .delete('/nodeadmin/api/settings/users/RickandMorty/host')
+      .delete('/nodeadmin/api/settings/users/RickandMorty/localhost')
       .set('Authorization', token)
       .expect(200)
       .end(function(err, res) {
@@ -175,3 +211,5 @@ describe('Users API Route', function() {
   }); // Closes 'it should delete users'
 
 }); // Closes 'describe Users API Route'
+
+}); // Closes 'describe CRUD'
