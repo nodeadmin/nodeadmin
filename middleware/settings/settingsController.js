@@ -80,20 +80,22 @@ module.exports = {
 
   editUser: function(req, res) {
     var connection = client.getClientDB();
-    var column = req.body.column;
-    var oldData = req.body.oldData;
     var newData = req.body.newData;
-    var row = req.body.row;
+    var oldData = req.body.oldData;
+    var user = req.params.user;
+    var host = req.params.host;
+    var newUser;
+    var newHost;
 
-    // Copy old information
-    var newRow = {};
-    newRow.host = row.host;
-    newRow.user = row.user;
+    if (oldData === user) {
+      newUser = newData;
+      newHost = host;
+    } else if (oldData === host) {
+      newHost = newData;
+      newUser = user;
+    }
 
-    // Add new user information
-    newRow[column] = newData;
-
-    connection.query("RENAME USER " + "'" + row.user + "'" + "@" + "'" + row.host + "'" + " TO " + "'" + newRow.user + "'" + "@" + "'" + newRow.host + "'" + "", function(err, result) {
+    connection.query('RENAME USER ?@? TO ?@?', [user, host, newUser, newHost], function(err, result) {
       if (err) {
         console.log(err);
         res.status(500).send(err.toString());

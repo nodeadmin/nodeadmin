@@ -1,5 +1,5 @@
 /* jshint strict: false */
-(function () {
+(function() {
   'use strict';
   angular
     .module('nodeadmin.services', [])
@@ -18,7 +18,9 @@
     var service = {
       login: login,
       isAuth: isAuth,
+      logout: logout
     };
+
 
     return service;
 
@@ -44,8 +46,7 @@
       return !!$window.localStorage.getItem('nodeadmin');
     }
 
-    function logout
-    () {
+    function logout() {
       return $http({
           method: 'GET',
           url: '/nodeadmin/api/auth/logout',
@@ -360,7 +361,7 @@
           data: user
         })
         .then(addUserComplete)
-        .catch(addUserFailed);
+        // .catch(addUserFailed);
 
       function addUserComplete(response) {
         return response.data;

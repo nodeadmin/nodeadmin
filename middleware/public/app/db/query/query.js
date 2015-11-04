@@ -7,7 +7,6 @@ angular.module('nodeadmin.db.query', ['ui.codemirror'])
   // adds $scope.alerts obj with success and error array [{status: str, msg: str}]
   // adds $scope.closeAlert function 
   AlertCenter.addAll($scope); 
-  console.log($scope.alerts)
   $scope.alerts.table = []; // for use with a separate alert
 
   $scope.cmPrefs = {

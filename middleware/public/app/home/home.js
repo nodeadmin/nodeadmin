@@ -80,7 +80,6 @@ angular.module('nodeadmin.home', [])
   $scope.getServerStats = function() {
     Stats.serverStats()
       .then(function (stats){
-        console.log(stats);
         stats.data.memory = toFileSize(stats.data.memory);
         var _load = stats.data.load.reduce(function (avg, sample) {
           return avg += sample;

@@ -6,14 +6,13 @@ angular.module('nodeadmin.settings.adduser', [])
     AlertCenter.addAll($scope);
 
     $scope.addUser = function() {
-      console.log('user', $scope.user)
       Users.addUser($scope.user)
         .then(function(response) {
           $modalInstance.close(response);
         })
         .catch(function(err) {
           // $scope.error = err.data;
-          console.log(err);
+          console.error(err.data);
           $scope.alerts.error.push({
             status: '400',
             msg: err.data
