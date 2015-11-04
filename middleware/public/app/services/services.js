@@ -1,5 +1,5 @@
 /* jshint strict: false */
-(function () {
+(function() {
   'use strict';
   angular
     .module('nodeadmin.services', [])
@@ -18,6 +18,7 @@
     var service = {
       login: login,
       isAuth: isAuth,
+      logout: logout
     };
 
     return service;
@@ -40,12 +41,7 @@
       }
     }
 
-    function isAuth() {
-      return !!$window.localStorage.getItem('nodeadmin');
-    }
-
-    function logout
-    () {
+    function logout() {
       return $http({
           method: 'GET',
           url: '/nodeadmin/api/auth/logout',
@@ -60,7 +56,11 @@
       function logoutFailed(err) {
         console.error(err);
       }
-    };
+    }
+
+    function isAuth() {
+      return !!$window.localStorage.getItem('nodeadmin');
+    }
   }
 
   //SYSTEM FACTORY//
@@ -69,6 +69,7 @@
     var service = {
       getModules: getModules
     };
+
     return service;
 
     function getModules() {
@@ -263,6 +264,7 @@
     function returnDropTableName() {
       return dropTableName;
     }
+
   }
 
   //DATABASE FACTORY//
@@ -450,6 +452,7 @@
       function getGrantsRecordFailed(err) {
         console.error(err);
       }
+
     }
 
     function editGrantsRecord(user, host, data) {
@@ -499,6 +502,7 @@
       function getGrantsDescriptionFailed(err) {
         console.error(err);
       }
+
     }
   }
 })();
