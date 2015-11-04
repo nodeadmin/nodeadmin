@@ -35,4 +35,39 @@ describe('Auth API Route', function() {
 
   }); // Closes 'it should return a token on login'
 
+  it('should not sign in a user that doesn\'t exist', function(done) {
+
+    request.post('/nodeadmin/api/auth/login')
+      .send({
+        username: 'Laura',
+        password: '123'
+      })
+      .expect(500)
+      .end(function(err) {
+        if (err) {
+          done(err);
+        } else {
+          done();
+        }
+      });
+  }); // Closes 'it should not sign in a user that doesn\'t exist'
+
+  it('should not sign in a user with an invalid password', function(done) {
+
+    request.post('/nodeadmin/api/auth/login')
+      .send({
+        username: 'root',
+        password: 'beer'
+      })
+      .expect(500)
+      .end(function(err) {
+        if (err) {
+          done(err);
+        } else {
+          done();
+        }
+      });
+  }); // Closes 'it should not sign in a user with an invalid password'
+
+
 }); // Closes 'describe Auth API Route'
