@@ -54,7 +54,7 @@
         .catch(logoutFailed);
 
       function logoutComplete(response) {
-        return responsel
+        return response;
       }
 
       function logoutFailed(err) {
