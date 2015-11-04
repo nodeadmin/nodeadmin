@@ -167,7 +167,7 @@ angular.module('nodeadmin', [
     })
     .state('kwikwery', {
       parent: 'main',
-      url:'kwikwery',
+      url:'query',
       templateUrl: 'app/db/query/query.html',
       controller: 'QueryController',
       data: {
