@@ -103,14 +103,14 @@ module.exports = {
     // [
     //   type,                         --> required
     //   (fieldLength)                 --> optional for every type almost
-    // ]         
+    // ]
     // default                         --> constant
     // null _alias_ ([NULL, NOT NULL]) --> if !Pri_Key
     // quality [
     //          PK,                    --> only 1
     //          IND,                   -->
     //          UQ                     --> if !NULL
-    // ] 
+    // ]
 
 
     var query = 'CREATE TABLE ??.?? ( ';
@@ -124,7 +124,7 @@ module.exports = {
 
       // pop off field definition
       var row = schema.shift();
-      
+
       // *** fieldName ***
       try {
         query+= ' ?? ';
@@ -173,7 +173,7 @@ module.exports = {
 
       // *** quality ***
       if(row['quality']) {
-        if( row['quality'] !== 'INDEX') {          
+        if( row['quality'] !== 'INDEX') {
           query += row['quality'].concat(' ');
         } else {
           console.log('IT HAS INDEX');
@@ -248,7 +248,7 @@ module.exports = {
           }
         }
         if (sortBy && sortDir) {
-          
+
           connection.query({
             sql: 'SELECT * FROM ?? ORDER BY ?? ' + sortDir +  ' LIMIT ?; DESCRIBE ??; SELECT count(*) FROM ??; SELECT TABLE_NAME, COLUMN_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE REFERENCED_TABLE_NAME=' + tableStr + ' AND TABLE_NAME=?',
             timeout: 40000,
@@ -286,7 +286,7 @@ module.exports = {
       columnValuePiars = [],
       connection = client.getClientDB();
     console.log(value);
-    var str = ''; 
+    var str = '';
     for (var key in value) {
       str += key + ' = ' + '\'' + value[key] + '\'' + ', ';
       columnValuePiars.push(str);

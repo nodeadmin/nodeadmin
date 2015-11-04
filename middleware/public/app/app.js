@@ -161,7 +161,7 @@ angular.module('nodeadmin', [
     .state('records', {
       parent: 'db',
       url: '/:database/:table/:page?sortBy&sortDir',
-      templateUrl: 'app/db/records.html',
+      templateUrl: 'app/db/records/records.html',
       controller: 'RecordsController',
       data: {
         requireLogin: false

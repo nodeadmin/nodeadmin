@@ -5,12 +5,12 @@
     .module('nodeadmin.records', [])
     .controller('RecordsController', RecordsController);
 
-  function RecordsController($scope, RecordsFactory, PaginationFactory, ForeignFactory, SortingFactory, TypeCheckFactory, PrimaryKeyFactory, AlertCenter, $state, $stateParams) {
+  function RecordsController($scope, RecordsFactory, PaginationFactory, ForeignFactory, SortingFactory, TypeCheckFactory, PrimaryKeyFactory, $state, $stateParams) {
 
     $scope.records = {};
     $scope.headers = [];
     $scope.row = {};
-    $scope.foreignValues = ForeignFactory.foreignValues;
+    $scope.foreignValues = ForeignFactory.getForeignValuesArray();
     $scope.enums = TypeCheckFactory.enums;
 
     $scope.rowing = false;
@@ -25,29 +25,38 @@
 
     $scope.init = function () {
       SortingFactory.currentTableReset($stateParams.table);
-      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, SortingFactory.sortBy, SortingFactory.sortDir)
+      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, SortingFactory.getSortBy(), SortingFactory.getSortDir())
         .then(getRecordsComplete)
         .catch(getRecordsFailed)
         .finally(loadingComplete);
 
-        function getRecordsComplete(result) {
-          $scope.records = result[0];
-          $scope.headers = result[1];
-          ForeignFactory.setupForeignValues(result[3]);
-          PaginationFactory.records = result[2][0]['count(*)'] - 100;
-          PaginationFactory.currentPage = $stateParams.page;
-          PrimaryKeyFactory.getPrimaryKey($scope.headers);
-        }
+      function getRecordsComplete(result) {
+        $scope.records = result[0];
+        $scope.headers = result[1];
+        ForeignFactory.setupForeignValues(result[3]);
+        PaginationFactory.records = result[2][0]['count(*)'] - 100;
+        PaginationFactory.currentPage = $stateParams.page;
+        PrimaryKeyFactory.getPrimaryKey($scope.headers);
 
-        function getRecordsFailed(err) {
-          console.error(err);
-        }
+        $scope.recordsCount = PaginationFactory.records;
+        $scope.currentPage = PaginationFactory.currentPage;
+      }
 
-        function loadingComplete() {
-          $scope.loading = false;
-        }
+      function getRecordsFailed(err) {
+        console.error(err);
+      }
+
+      function loadingComplete() {
+        $scope.foreignValues = ForeignFactory.getForeignValuesArray();
+        $scope.loading = false;
+      }
     };
 
+    $scope.$watch('ForeignFactory.getForeignValuesArray()', function (newVal, oldVal, scope) {
+      if (newVal) {
+        $scope.foreignValues = newVal;
+      }
+    });
     $scope.pagination = function () {
       $state.go('records', {
         database: $stateParams.database,
@@ -59,16 +68,18 @@
     };
 
     $scope.toggleSort = function (column) {
+      console.log(column);
       SortingFactory.toggleSort(column);
-       $state.go('records', {
+      console.log(SortingFactory.sortBy, SortingFactory.sortDir);
+      $state.go('records', {
         database: $stateParams.database,
         table: $stateParams.table,
-        sortBy: SortingFactory.sortBy,
-        sortDir: SortingFactory.sortDir
+        sortBy: SortingFactory.getSortBy(),
+        sortDir: SortingFactory.getSortDir()
       }, {
         location: true
       });
-      //$scope.getRecords();
+      $scope.init();
     };
 
     $scope.toggleForm = function () {
@@ -111,20 +122,23 @@
         .then(editRecordComplete)
         .catch(editRecordFailed)
         .finally(setEditToFalse)
-        function editRecordComplete(response) {
-          //Display some success message to user
-          $scope.success = true;
-        }
-        function editRecordFailed(err) {
-          //display some failure message to user
-          console.error(err);
-        }
-        function setEditToFalse() {
-          $scope.isEditing = false;
-        }
+
+      function editRecordComplete(response) {
+        //Display some success message to user
+        $scope.success = true;
+      }
+
+      function editRecordFailed(err) {
+        //display some failure message to user
+        console.error(err);
+      }
+
+      function setEditToFalse() {
+        $scope.isEditing = false;
+      }
     };
 
-    $scope.isRef = function(column) {
+    $scope.isRef = function (column) {
       return ForeignFactory.isRef(column);
     };
 
@@ -148,5 +162,3 @@
     $scope.init();
   }
 })();
-
-

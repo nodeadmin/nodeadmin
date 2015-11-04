@@ -49,7 +49,7 @@
 
   function System($http) {
     var service = {
-      etModules: getModules
+      getModules: getModules
     };
 
     return service;
@@ -86,7 +86,7 @@
           method: 'GET',
           url: '/nodeadmin/api/home/os'
         })
-        .then(serverStatsCompete)
+        .then(serverStatsComplete)
         .catch(serverStatsFailed);
 
       function serverStatsComplete(response) {

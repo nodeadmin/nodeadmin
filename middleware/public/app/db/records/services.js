@@ -85,35 +85,61 @@
     var currentTable = '';
 
     var service = {
-      sortBy: sortBy,
-      sortDir: sortDir,
-      currentTable: currentTable,
       currentTableReset: currentTableReset,
-      toggleSort: toggleSort
-
+      toggleSort: toggleSort,
+      getSortBy: getSortBy,
+      getSortDir: getSortDir,
+      getCurrentTable: getCurrentTable
     };
 
     return service;
 
+    function setSortBy (val) {
+      sortBy = val;
+    }
+
+    function getSortBy(val) {
+      return sortBy;
+    }
+
+    function setSortDir(val) {
+      sortDir = val;
+    }
+
+    function getSortDir() {
+      return sortDir;
+    }
+
+    function setCurrentTable (val) {
+      currentTable = val;
+    }
+
+    function getCurrentTable() {
+      return currentTable;
+    }
+
     function currentTableReset(table) {
-      if (currentTable !== table) {
-        sortBy = '';
-        sortDir = '';
-        currentTable = $stateParams.table;
+      if (getCurrentTable() !== table) {
+        setSortBy('');
+        setSortDir('');
+        setCurrentTable(table);
       }
+      return;
     }
 
     function toggleSort(column) {
-      if (sortBy !== column) {
-        sortBy = column;
-        sortDir = 'DESC';
+      console.log('im getting called');
+      if (getSortBy() !== column) {
+        setSortBy(column);
+        setSortDir('DESC');
       } else {
-        if (sortDir === 'DESC') {
-          sortDir = 'ASC';
+        if (getSortDir() === 'DESC') {
+          setSortDir('ASC');
         } else {
-          sortDir = 'DESC';
+          setSortDir('DESC');
         }
       }
+      return;
     }
   }
 
@@ -125,7 +151,6 @@
       enums: enums,
       isNum: isNum,
       isEnum: isEnum,
-      isRef: isRef,
       isAuto: isAuto,
       notNull: notNull
     };
@@ -168,16 +193,25 @@
     }
   }
 
-  function ForeignFactory($http) {
+  function ForeignFactory($http, $stateParams) {
     var foreignValues = [];
     var tableMap = {};
     var service = {
-      foreignValues: foreignValues,
+      getForeignValuesArray: getForeignValuesArray,
       getForeignValues: getForeignValues,
-      setupForeignValues: setupForeignValues
+      setupForeignValues: setupForeignValues,
+      isRef: isRef
     };
 
     return service;
+
+    function setForeignValuesArray(array) {
+      foreignValues = array;
+    }
+
+    function getForeignValuesArray() {
+      return foreignValues;
+    }
 
     function getForeignValues(db, refTable, refColumn) {
       return $http.get('/nodeadmin/api/db/' + db + '/fk/' + refTable + '/' + refColumn)
@@ -203,11 +237,15 @@
           .catch(getForeignValuesFailed);
 
         function getForeignValuesComplete(result) {
+            var temp = [];
             result.forEach(function (item) {
               for (var key in item) {
-                foreignValues.push(item[key]);
+                temp.push(item[key]);
               }
             });
+
+            setForeignValuesArray(temp);
+
           }
 
         function getForeignValuesFailed(err) {
