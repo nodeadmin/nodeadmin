@@ -1,25 +1,26 @@
 /* jshint strict: false */
 (function() {
-  'use strict';
-  angular
-    .module('nodeadmin.services', [])
-    .factory('Auth', Auth)
-    .factory('System', System)
-    .factory('Stats', Stats)
-    .factory('DBInfoFactory', DBInfoFactory)
-    .factory('QueryFactory', QueryFactory)
-    .factory('Tables', Tables)
-    .factory('DatabaseFactory', DatabaseFactory)
-    .factory('Users', Users);
+    'use strict';
+    angular
+      .module('nodeadmin.services', [])
+      .factory('Auth', Auth)
+      .factory('System', System)
+      .factory('Stats', Stats)
+      .factory('DBInfoFactory', DBInfoFactory)
+      .factory('QueryFactory', QueryFactory)
+      .factory('Tables', Tables)
+      .factory('DatabaseFactory', DatabaseFactory)
+      .factory('Users', Users);
 
-  //AUTH FACTORY//
+    //AUTH FACTORY//
 
-  function Auth($http, $window) {
-    var service = {
-      login: login,
-      isAuth: isAuth,
-      logout: logout
-  };
+    function Auth($http, $window) {
+      var service = {
+        login: login,
+        isAuth: isAuth,
+        logout: logout
+      };
+    };
 
     return service;
 
