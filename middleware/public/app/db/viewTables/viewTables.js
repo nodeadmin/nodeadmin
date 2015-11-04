@@ -1,8 +1,10 @@
 angular.module('nodeadmin.db.viewTables', [])
-  .controller('TableViewController', ['$scope', '$uibModal', '$stateParams', 'Tables',
-    function($scope, $uibModal, $stateParams, Tables) {
+  .controller('TableViewController', ['$scope', '$uibModal', '$stateParams', 'Tables', 'AlertCenter',
+    function($scope, $uibModal, $stateParams, Tables, AlertCenter) {
 
       $scope.tables = [];
+
+      AlertCenter.addAll($scope);
 
       $scope.getTables = function() {
         var databaseName = $stateParams.database;
@@ -15,6 +17,10 @@ angular.module('nodeadmin.db.viewTables', [])
           })
           .catch(function(err) {
             $scope.error = err.data;
+            $scope.alerts.error.push({
+              status: 'Error',
+              msg: err.data
+            });
           });
       };
 
@@ -41,8 +47,16 @@ angular.module('nodeadmin.db.viewTables', [])
             $scope.tables = [];
             $scope.getTables();
             $scope.success = 'Successfully deleted ' + result;
+            $scope.alerts.success.push({
+              msg: 'Successfully deleted ' + result,
+              status: '200'
+            });
           } else {
             $scope.error = result.data;
+            $scope.alerts.error.push({
+              msg: result.data,
+              status: '400'
+            });
           }
         });
       };
