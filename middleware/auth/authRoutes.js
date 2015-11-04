@@ -3,10 +3,10 @@ var router = express.Router();
 var mysql = require('promise-mysql');
 var jwt = require('jsonwebtoken');
 var connectionWrapper = require('./clientdb.js');
+var authcontroller = require('./authcontroller.js');
+
+
 router.route('/login')
-  .get(function (req, res) {
-    res.send('eyyyy in auth');
-  })
   .post(function (req, res) {
     mysql.createConnection({
       user: req.body.mysqlUser,
@@ -33,5 +33,9 @@ router.route('/login')
       }
     });
   });
+
+router.route('/logout')
+  .get(authcontroller.logout);
+
 
 module.exports = router;

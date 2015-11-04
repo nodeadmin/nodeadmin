@@ -17,9 +17,17 @@ angular.module('nodeadmin.services', [])
       return !!$window.localStorage.getItem('nodeadmin');
     };
 
+    var logout = function() {
+      return $http({
+        method:'GET',
+        url:'/nodeadmin/api/auth/logout',
+      });
+    };
+
     return {
       login: login,
       isAuth: isAuth,
+      logout:logout
     };
 
   }
