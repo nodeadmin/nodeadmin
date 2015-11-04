@@ -7,10 +7,10 @@
     <uib-alert class="col-md-12" ng-repeat="alert in alerts.error"
     type="danger" close="closeAlert('error', $index)">{{alert.status}} / {{ alert.msg }} : {{ alert.error }}
     </uib-alert>
-    <h2 class="page-header space">Custom MySQL Queries</h2>
   </div>
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
+      <h2 class="page-header space">Custom MySQL Queries</h2>
       <div class="well clearfix">
         <ui-codemirror ui-codemirror-opts="cmPrefs" ng-model="query"></ui-codemirror>
         <button class="btn btn-primary pull-right query-submit" ng-click="submitQuery()">Submit Query</button>
