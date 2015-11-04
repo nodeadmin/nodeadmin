@@ -1,11 +1,6 @@
 <div>
   <div class="row">
-    <uib-alert class="col-md-11" ng-repeat="alert in alerts.success" dismiss-on-timeout="5000"
-    type="success" close="closeAlert('success', $index)">{{alert.status}} / {{ alert.msg }} successful {{ alert.method }}
-    </uib-alert>
-    <uib-alert class="col-md-11" ng-repeat="alert in alerts.error"
-    type="danger" close="closeAlert('error', $index)">{{alert.status}} / {{ alert.msg }} error {{ alert.method }}
-    </uib-alert>
+    <alert-center class="col-md-11"></alert-center>
   </div>
 
   <div class="row">

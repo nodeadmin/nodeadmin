@@ -1,8 +1,10 @@
 angular.module('nodeadmin.settings.users', [])
-  .controller('UsersController', ['$scope', 'Users', '$uibModal',
-    function($scope, Users, $uibModal) {
+  .controller('UsersController', ['$scope', 'Users', '$uibModal', 'AlertCenter',
+    function($scope, Users, $uibModal, AlertCenter) {
       $scope.headers = [];
       $scope.users = [];
+
+      AlertCenter.addAll($scope);
 
       $scope.getAll = function() {
         Users.getAll()
@@ -47,7 +49,10 @@ angular.module('nodeadmin.settings.users', [])
         Users.editUser(update, $scope.row.user, $scope.row.host)
           .then(function(result) {
             // Update view
-            $scope.success = 'Successfully updated user information.';
+            $scope.alerts.success.push({
+              msg: 'Successfully updated user information.',
+              status: '200'
+            });
             $scope.getAll();
           })
           .catch(function(err) {
@@ -87,7 +92,11 @@ angular.module('nodeadmin.settings.users', [])
             // Reload current users
             $scope.users = [];
             $scope.getAll();
-            $scope.success = 'Successfully added a new user.';
+            // $scope.success = 'Successfully added a new user.';
+            $scope.alerts.success.push({
+              msg: 'Successfully added a new user.',
+              status: '200'
+            });
           } 
         });
       };
@@ -107,10 +116,19 @@ angular.module('nodeadmin.settings.users', [])
             // Refresh users 
             $scope.users = [];
             $scope.getAll();
-            $scope.success = 'Successfully deleted a user.';
+            // $scope.success = 'Successfully deleted a user.';
+            $scope.alerts.success.push({
+              msg: 'Successfully deleted a user.',
+              status: '200'
+            });
+
           } else {
             // TODO: figure out how errors would come in from query
-            $scope.error = result.data;
+            // $scope.error = result.data;
+            $scope.alerts.error.push({
+              msg: result.data,
+              status: '400'
+            });
           }
         });
       };

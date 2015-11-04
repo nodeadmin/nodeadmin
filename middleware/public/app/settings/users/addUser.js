@@ -1,7 +1,9 @@
 angular.module('nodeadmin.settings.adduser', [])
-  .controller('AddUserController', function($scope, Users, $modalInstance, $state) { 
+  .controller('AddUserController', function($scope, Users, $modalInstance, $state, AlertCenter) { 
 
     $scope.user = {};
+
+    AlertCenter.addAll($scope);
 
     $scope.addUser = function() {
       Users.addUser($scope.user)
@@ -9,7 +11,12 @@ angular.module('nodeadmin.settings.adduser', [])
           $modalInstance.close(response);
         })
         .catch(function(err) {
-          $scope.error = err.data;
+          // $scope.error = err.data;
+          console.log(err);
+          $scope.alerts.error.push({
+            status: '400',
+            msg: err.data
+          })
         });
     };
 
