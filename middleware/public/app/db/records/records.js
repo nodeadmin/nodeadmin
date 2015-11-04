@@ -11,8 +11,17 @@
     $scope.headers = [];
     $scope.row = {};
     $scope.foreignValues = ForeignFactory.getForeignValuesArray();
-    $scope.enums = TypeCheckFactory.enums;
+    $scope.enums = TypeCheckFactory.getEnums();
 
+
+    $scope.$watch(function() {
+      return ForeignFactory.enums;
+    }, function(newVal, oldVal) {
+      if (newVal) {
+        console.log('THERE IS A NEW VALUE', newVal);
+        $scope.$digest();
+      }
+    });
     $scope.rowing = false;
     $scope.loading = true;
     $scope.success = false;
@@ -27,19 +36,26 @@
       SortingFactory.currentTableReset($stateParams.table);
       RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, SortingFactory.getSortBy(), SortingFactory.getSortDir())
         .then(getRecordsComplete)
+        .then(getForeignValues)
         .catch(getRecordsFailed)
         .finally(loadingComplete);
 
       function getRecordsComplete(result) {
         $scope.records = result[0];
         $scope.headers = result[1];
-        ForeignFactory.setupForeignValues(result[3]);
         PaginationFactory.records = result[2][0]['count(*)'] - 100;
         PaginationFactory.currentPage = $stateParams.page;
         PrimaryKeyFactory.getPrimaryKey($scope.headers);
-
         $scope.recordsCount = PaginationFactory.records;
         $scope.currentPage = PaginationFactory.currentPage;
+        return result;
+      }
+
+      function getForeignValues(result) {
+        console.log(result);
+        ForeignFactory.setupForeignValues(result[3]);
+        $scope.foreignValues = ForeignFactory.getForeignValuesArray();
+        console.log($scope.foreignValues);
       }
 
       function getRecordsFailed(err) {
@@ -47,7 +63,7 @@
       }
 
       function loadingComplete() {
-        $scope.foreignValues = ForeignFactory.getForeignValuesArray();
+
         $scope.loading = false;
       }
     };
@@ -55,6 +71,7 @@
     $scope.$watch('ForeignFactory.getForeignValuesArray()', function (newVal, oldVal, scope) {
       if (newVal) {
         $scope.foreignValues = newVal;
+        $scope.$digest();
       }
     });
     $scope.pagination = function () {
@@ -90,7 +107,8 @@
       $scope.records.push($scope.row);
       RecordsFactory.addRecord($stateParams.database, $stateParams.table, $stateParams.page, $scope.row)
         .then(addRecordComplete)
-        .catch(addRecordFailed);
+        .catch(addRecordFailed)
+        .finally($scope.rowing = false);
 
       function addRecordComplete(response) {
         //TODO: SEND REPONSE TO CLIENT
@@ -115,8 +133,10 @@
         table: $stateParams.table,
         cols: $scope.headers,
         val: data,
-        pk: PrimaryKeyFactory.primaryKey
+        pk: PrimaryKeyFactory.retrievePrimaryKey()
       };
+
+      console.log(update);
 
       RecordsFactory.editRecord($stateParams.database, $stateParams.table, $stateParams.page, update)
         .then(editRecordComplete)
@@ -147,8 +167,11 @@
     };
 
     $scope.isEnum = function (column) {
-      return TypeCheckFactory.isEnum(column);
+      var bool = TypeCheckFactory.isEnum(column);
+      $scope.enums = TypeCheckFactory.getEnums();
+      return bool;
     };
+
 
     $scope.isAuto = function (column) {
       return TypeCheckFactory.isAuto(column);
