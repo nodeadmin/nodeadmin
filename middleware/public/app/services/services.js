@@ -41,6 +41,10 @@
       }
     }
 
+    function isAuth() {
+      return !!$window.localStorage.getItem('nodeadmin');
+    }
+
     function logout() {
       return $http({
           method: 'GET',
@@ -56,10 +60,6 @@
       function logoutFailed(err) {
         console.error(err);
       }
-    }
-
-    function isAuth() {
-      return !!$window.localStorage.getItem('nodeadmin');
     }
   }
 
@@ -96,7 +96,6 @@
     var service = {
       serverStats: serverStats
     };
-
     return service;
 
     function serverStats() {
@@ -264,8 +263,6 @@
     function returnDropTableName() {
       return dropTableName;
     }
-
-
   }
 
   //DATABASE FACTORY//
@@ -371,14 +368,13 @@
 
       function addUserFailed(err) {
         console.error(err);
-        return err.data;
       }
     }
 
-    function editUser(data, user, host) {
+    function editUser(data) {
       return $http({
           method: 'PUT',
-          url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/',
+          url: '/nodeadmin/api/settings/users/',
           data: data,
         })
         .then(editUserComplete)
@@ -453,7 +449,6 @@
       function getGrantsRecordFailed(err) {
         console.error(err);
       }
-
     }
 
     function editGrantsRecord(user, host, data) {
@@ -503,7 +498,6 @@
       function getGrantsDescriptionFailed(err) {
         console.error(err);
       }
-
     }
   }
 })();

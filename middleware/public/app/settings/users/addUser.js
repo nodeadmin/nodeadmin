@@ -12,7 +12,7 @@ angular.module('nodeadmin.settings.adduser', [])
         })
         .catch(function(err) {
           // $scope.error = err.data;
-          console.log(err);
+          console.error(err.data);
           $scope.alerts.error.push({
             status: '400',
             msg: err.data

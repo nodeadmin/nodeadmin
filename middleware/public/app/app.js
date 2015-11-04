@@ -24,6 +24,8 @@ angular.module('nodeadmin', [
   'nodeadmin.db.createtable',
   'nodeadmin.db.deleteTable',
   'nodeadmin.db.query',
+  'nodeadmin.records',
+  'nodeadmin.records.services',
   'ui.router',
   'ui.bootstrap',
   'chart.js',
@@ -159,10 +161,10 @@ angular.module('nodeadmin', [
     .state('records', {
       parent: 'db',
       url: '/:database/:table/:page?sortBy&sortDir',
-      templateUrl: 'app/db/records.html',
+      templateUrl: 'app/db/records/records.html',
       controller: 'RecordsController',
       data: {
-        requireLogin: false 
+        requireLogin: false
       }
     })
     .state('kwikwery', {
@@ -174,7 +176,7 @@ angular.module('nodeadmin', [
         requireLogin: false
       }
     });
-   
+
     $urlRouterProvider.otherwise('/login');
 })
 // Hidden for dev (requires login to access states)
@@ -191,7 +193,7 @@ angular.module('nodeadmin', [
     if (toState.data.requireLogin && !Auth.isAuth()) {
       // User isn't authenticated, so prevent state change
       event.preventDefault();
-      $state.transitionTo('login');         
+      $state.transitionTo('login');
     }
   });
 });
