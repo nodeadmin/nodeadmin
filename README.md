@@ -31,7 +31,7 @@ npm install nodeadmin
 
 ## API
 
-```
+```javascript
 var express = require('express');
 var app = express();
 
