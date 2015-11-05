@@ -107,7 +107,6 @@
 
       function addRecordComplete(response) {
         //TODO: SEND REPONSE TO CLIENT
-        console.log(response);
       }
 
       function addRecordFailed(err) {
