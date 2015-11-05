@@ -90,7 +90,7 @@ function ($scope, System, $sce, AlertCenter) {
       console.log(newStr);
       $scope.alerts.error.push({
         status: 'Error',
-        msg: err.data.error
+        msg: newStr
       });
     })
   };
