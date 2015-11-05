@@ -5,7 +5,7 @@
   "main": "middleware/index.js",
   "scripts": {
     "test": "mocha ./middleware/tests/",
-    "install": "bower install"
+    "postinstall": "npm install --prefix ./middleware/public/"
   },
   "repository": {
     "type": "git",
