@@ -165,6 +165,8 @@ module.exports = {
     var column = req.body.column;
     var val = req.body.val;
 
+    console.log('req.body', req.body, req.params)
+
     if (val === 'grant') {
       connection.query("GRANT ALL ON *.* TO " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
         if (err) {
@@ -214,7 +216,6 @@ module.exports = {
             })
           }
         })
-        // REVOKE INSERT ON *.* FROM 'jeffrey'@'localhost';
       } else if (val === 'N') {
         connection.query("REVOKE " + column + " ON *.* FROM " + "'" + user + "'" + "@" + "'" + host + "'" + "", function(err, result) {
           if (err) {

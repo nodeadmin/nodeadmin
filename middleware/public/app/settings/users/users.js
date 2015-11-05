@@ -86,7 +86,6 @@ angular.module('nodeadmin.settings.users', [])
         });
 
         addUserModalInstance.result.then(function(result) {
-          console.log('add user result', result)
           // Only results on success - errors handled in modal
           if (result) {
             // Reload current users
@@ -111,7 +110,6 @@ angular.module('nodeadmin.settings.users', [])
         });
 
         deleteUserModalInstance.result.then(function(result) {
-          console.log('delete user result', result)
           if (result) {
             // Refresh users 
             $scope.users = [];
