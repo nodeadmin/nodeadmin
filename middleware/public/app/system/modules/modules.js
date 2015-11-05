@@ -84,10 +84,10 @@ function ($scope, System, $sce, AlertCenter) {
     })
     .catch(function(err) {
       // Allow for error displaying on modules page
-      $scope.error = err.data.error;
-      var nodeadminRGXP = /(ERR! extraneous: nodeadmin@\d+.\d+.\d+ [\w-\/]+)/;
+      // $scope.error = err.data.error;
+      var nodeadminRGXP = /( ERR! extraneous: nodeadmin@\d+.\d+.\d+ [\w-\/]+)/;
       var error = err.data.error.toString().replace(nodeadminRGXP, '');
-      if(error !== 'Error / npm ') {
+      if(error !== 'npm') {
         $scope.alerts.error.push({
           status: 'Error',
           msg: error
