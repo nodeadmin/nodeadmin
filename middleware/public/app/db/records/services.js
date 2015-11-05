@@ -255,7 +255,6 @@
           });
 
           setForeignValuesArray(temp);
-          console.log(getForeignValuesArray());
 
         }
 
