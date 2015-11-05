@@ -2,11 +2,6 @@
 
 A fantastically elegant tool for MySQL and Node.js/Express management.
 
-## Team
-
-  - __Product Owner__: [Taylor Lehman](https://github.com/taylorleh)
-  - __Scrum Master__: [Alex Hutchison](https://github.com/dutchers)
-  - __Development Team Members__: [Laura Knight](https://github.com/ljknight), [Andrew Nickell](https://github.com/nickell-andrew), [Taylor Lehman](https://github.com/taylorleh), [Alex Hutchison](https://github.com/dutchers)
 
 ## Table of Contents
 1. [Team](#team)
@@ -16,6 +11,12 @@ A fantastically elegant tool for MySQL and Node.js/Express management.
 1. [Usage](#usage)
 1. [Development](#development)
 1. [Contributing](#contributing)
+
+## Team
+
+  - __Product Owner__: [Taylor Lehman](https://github.com/taylorleh)
+  - __Scrum Master__: [Alex Hutchison](https://github.com/dutchers)
+  - __Development Team Members__: [Laura Knight](https://github.com/ljknight), [Andrew Nickell](https://github.com/nickell-andrew), [Taylor Lehman](https://github.com/taylorleh), [Alex Hutchison](https://github.com/dutchers)
 
 ## Installation
 
@@ -61,7 +62,6 @@ Navigate to /nodeadmin and log in to your server's MySQL database with a usernam
 ### Roadmap
 
 View the project roadmap [here](https://github.com/nodeadmin/nodeadmin/issues).
-
 
 ## Contributing
 
