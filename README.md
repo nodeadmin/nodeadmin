@@ -1,6 +1,6 @@
 # NodeAdmin
 
-> A fantasticly elegant tool for DB/Server Management with NodeJS/Express
+> A fantastically elegant tool for MySQL and Node.js/Express management
 
 ## Team
 
@@ -10,7 +10,7 @@
 
 ## Table of Contents
 1. [Installation](#installation)
-1. [Api](#api)
+1. [API](#api)
 1. [Usage](#usage)
 1. [Requirements](#requirements)
 1. [Team](#team)
@@ -19,46 +19,46 @@
 ## Installation
 
 ```
-npm install --save nodeadmin
+npm install nodeadmin
 ```
 
 ## Requirements
 
-- Node 4.x.x
+- Node.js 4.x.x
 - Express 4.x.x
 
 ## API
 
 ```
-var nodeadmin = require(nodeadmin);
+var express = require('express');
+var app = express();
+var nodeadmin = require('nodeadmin');
 app.use( nodeadmin( app, port ) );
 ```
-starts your express server on the given port and enables the /nodeadmin route. 
-
-- There is **no need** to call
-```  app.listen( port )   ```. 
-
-- Additionally, it **should not** be called as it will prevent the server from functioning correctly.
+This starts your Express server on the given port and enables the /nodeadmin route. 
 
 ## Usage
 
-Navigate to /nodeadmin and log in to your server's mysql database with a username and password
+Navigate to /nodeadmin and log in to your server's MySQL database with a username and password.
 
-> **Overview** displays stats on the server's physical properties/memory pressure
+> **Overview** displays stats on the server's physical properties and memory pressure.
 
 > **DB** gives authenticated users GUI CRUD access to databases, tables, and records on the server.
 
-> **System** displays installed npm package tree.
+> **System** 
+  - **Modules** displays installed npm package tree.
+  - **Logs** shows real-time server logs.
 
-> **Kwikwery** provides a simple window to directly query the mysql server.
+> **Direct Queries** provides a simple window to directly query the MySQL server.
 
-> **Settings** offers a variety of (not yet implemented) options for configuring Nodeadmin
+> **Settings** 
+  - **Users** offers the ability to perform CRUD operations on MySQL users and their privileges.
 
-<!-- ## Development -->
+## Development
 
 ### Roadmap
 
-View the project roadmap [here](https://github.com/cloistered-babka/cloistered-babka/issues)
+View the project roadmap [here](https://github.com/nodeadmin/nodeadmin/issues).
 
 
 ## Contributing
