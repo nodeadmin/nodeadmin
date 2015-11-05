@@ -1,6 +1,6 @@
 # NodeAdmin
 
-A fantastically elegant tool for MySQL and Node.js/Express management
+A fantastically elegant tool for MySQL and Node.js/Express management.
 
 ## Team
 
@@ -33,7 +33,7 @@ npm install nodeadmin
 var express = require('express');
 var app = express();
 var nodeadmin = require('nodeadmin');
-app.use( nodeadmin( app, port ) );
+app.use(nodeadmin(app, port));
 ```
 This starts your Express server on the given port and enables the /nodeadmin route. 
 
