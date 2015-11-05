@@ -12,6 +12,7 @@
     $scope.row = {};
     $scope.foreignValues = [];
     $scope.enums = TypeCheckFactory.getEnums();
+    $scope.maxDate = new Date(2020, 5, 22);
 
     $scope.rowing = false;
     $scope.loading = true;
@@ -45,7 +46,7 @@
 
       function getForeignValues(result) {
         $scope.foreignValues = ForeignFactory.getForeignValuesArray();
-        }
+      }
 
 
       function getRecordsFailed(err) {
@@ -130,7 +131,7 @@
       RecordsFactory.editRecord($stateParams.database, $stateParams.table, $stateParams.page, update)
         .then(editRecordComplete)
         .catch(editRecordFailed)
-        .finally(setEditToFalse)
+        .finally(setEditToFalse);
 
       function editRecordComplete(response) {
         $scope.success = true;
@@ -161,10 +162,23 @@
 
 
     $scope.isAuto = function (column, value) {
-      return TypeCheckFactory.isAuto(column)
+      return TypeCheckFactory.isAuto(column);
     };
     $scope.notNull = function (column) {
       return TypeCheckFactory.notNull(column);
+    };
+
+    $scope.isDate = function (column) {
+      console.log(column);
+      return TypeCheckFactory.isDate(column);
+    };
+
+    $scope.open = function($event) {
+      $scope.status.opened = true;
+    };
+
+    $scope.status = {
+      opened: false
     };
 
     $scope.init();
