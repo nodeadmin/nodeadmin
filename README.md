@@ -6,7 +6,7 @@ A fantastically elegant tool for MySQL and Node.js/Express management.
 ## Table of Contents
 1. [Team](#team)
 1. [Installation](#installation)
-1. [Set Up](#set_up)
+1. [Set Up](#setup)
 1. [Usage](#usage)
 1. [Development](#development)
 1. [Contributing](#contributing)
