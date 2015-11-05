@@ -459,7 +459,7 @@
           data: data
         })
         .then(editGrantsRecordComplete)
-        .catch(editGrantsRecordFailed);
+        // .catch(editGrantsRecordFailed);
 
       function editGrantsRecordComplete(response) {
         return response.data;
