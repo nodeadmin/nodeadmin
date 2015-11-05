@@ -85,14 +85,14 @@ function ($scope, System, $sce, AlertCenter) {
     .catch(function(err) {
       // Allow for error displaying on modules page
       $scope.error = err.data.error;
-      var nodeadminRGXP = /(ERR! extraneous: nodeadmin@\d+.\d+.\d+ ([\w-\/]+)+)/g;
-      var str = 'Error / npm ERR! extraneous: nodeadmin@1.0.0 /Users/Drew/HR/2015-08-databases/node_modules/nodeadmin'
-      var newStr = err.data.error.replace(nodeadminRGXP, '');
-      var otherStr = str.replace(nodeadminRGXP, '');
-      $scope.alerts.error.push({
-        status: 'Error',
-        msg: otherStr
-      });
+      var nodeadminRGXP = /(ERR! extraneous: nodeadmin@\d+.\d+.\d+ ([\w-\/]+)+)/;
+      var error = err.data.error.replace(nodeadminRGXP, '');
+      if(error !== 'Error / npm ') {
+        $scope.alerts.error.push({
+          status: 'Error',
+          msg: error
+        });
+      }
     })
   };
 
