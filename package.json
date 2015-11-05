@@ -1,7 +1,8 @@
 {
   "name": "nodeadmin",
-  "version": "1.0.0",
-  "description": "node server admin middleware",
+  "version": "0.1.0",
+  "description": "A fantastically elegant tool for MySQL and Node.js/Express management",
+  "keywords": ["express", "mysql", "middlware"],
   "main": "middleware/index.js",
   "scripts": {
     "test": "mocha ./middleware/tests/test.js",
@@ -9,14 +10,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloistered-babka/cloistered-babka.git"
+    "url": "git+https://github.com/nodeadmin/nodeadmin"
   },
-  "author": "Taylor Lehman, Laura Knight, Andrew Nickell, Alex Hutchison",
+  "contributors": [
+    {"name": "Alex Hutchison", "url": "https://github.com/dutchers",}, 
+    {"name": "Andrew Nickell", "url": "https://github.com/nickell-andrew",}, 
+    {"name": "Laura Knight", "url": "https://github.com/ljknight",}, 
+    {"name": "Taylor Lehman", "url": "https://github.com/taylorleh",}
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cloistered-babka/cloistered-babka/issues"
+    "url": "https://github.com/nodeadmin/nodeadmin/issues"
   },
-  "homepage": "https://github.com/cloistered-babka/cloistered-babka#readme",
+  "homepage": "http://nodeadmin.github.io",
   "dependencies": {
     "bcrypt": "^0.8.5",
     "bluebird": "^2.10.2",
