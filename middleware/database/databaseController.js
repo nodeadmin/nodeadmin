@@ -176,7 +176,6 @@ module.exports = {
         if( row['quality'] !== 'INDEX') {
           query += row['quality'].concat(' ');
         } else {
-          console.log('IT HAS INDEX');
           indexes.push(row['fieldName']);
         }
       }
