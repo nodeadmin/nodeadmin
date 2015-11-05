@@ -1,6 +1,5 @@
 var Promise = require('bluebird');
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
 var HomeController = Promise.promisifyAll(require('./HomeController'));
 var tokenCheck = require('../auth/tokenCheck.js');
 
@@ -34,13 +33,13 @@ router.route('/os')
   });
 
 router.route('/connections')
-  .get(function(req, res){
+  .get(function (req, res){
     'use strict';
     HomeController.getServerConnectionsAsync(req)
       .then(function (data) {
       })
       .catch(function (err) {
-        console.log(err);
+        res.status(500).json(err);
       });
   });
 
@@ -49,11 +48,10 @@ router.route('/cpu')
     'use strict';
     HomeController.getCpusAsync()
       .then(function (cpus){
-        res.end(JSON.stringify(cpus));
-
+        res.status(200).json(cpus);
       })
       .catch(function (err){
-        res.end(JSON.stringify(err));
+        res.status(500).json(err);
       });
   });
 

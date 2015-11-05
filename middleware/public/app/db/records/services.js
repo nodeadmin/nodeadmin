@@ -128,7 +128,6 @@
     }
 
     function toggleSort(column) {
-      console.log('im getting called');
       if (getSortBy() !== column) {
         setSortBy(column);
         setSortDir('DESC');
