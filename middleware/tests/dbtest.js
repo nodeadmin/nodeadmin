@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var request = require('supertest')('http://localhost:4000');
+var request = require('supertest')('http://localhost:3000');
 
 var client = require('../auth/clientdb.js');
 // var connection = client.getClientDB();
@@ -34,15 +34,6 @@ xdescribe('CRUD', function(){
   describe('CREATE Datatbase', function(){
     var database_before;
 
-    after(function (done){
-      request.delete('/nodeadmin/api/db/delete')
-        .set('Authorization', token)
-        .send({
-          name:'mochadb'
-        })
-        .expect(200)
-        .end(done);
-    });
 
     it('should successfully create a new database', function (done) {
 
@@ -52,6 +43,7 @@ xdescribe('CRUD', function(){
         .expect(201)
         .end(function (err, res){
           if(err) {
+
             done(err);
           } else {
             done();
@@ -64,7 +56,6 @@ xdescribe('CRUD', function(){
   });
 
   describe('DELETE Database', function() {
-
 
     it('should successfully delete database', function (done) {
 
@@ -92,6 +83,17 @@ xdescribe('CRUD', function(){
 
   describe('CREATE Table', function() {
 
+
+    before(function (done){
+      request.post('/nodeadmin/api/db/create')
+        .set('Authorization', token)
+        .send({name :'mochadb'})
+        .expect(201)
+        .end(done)
+    });
+
+
+
     it('should successfully create a database table', function (done) {
 
       var schema = [
@@ -107,17 +109,14 @@ xdescribe('CRUD', function(){
         'type':'VARCHAR',
         'fieldLength':200,
         'null': false,
-        'auto': true,
-        'quality': 'PRIMARY KEY'
+        'auto': false
       },
       ];
 
-      request.post('/nodeadmin/api/mochadb/testtable')
+      request.post('/nodeadmin/api/db/mochadb/testtable')
         .set('Authorization', token)
-        .send({
-          schema:schema
-        })
-        .expect(200)
+        .send(schema)
+        .expect(201)
         .end(function (err, res){
           if(err) {
             done(err);
@@ -125,18 +124,25 @@ xdescribe('CRUD', function(){
             done();
           }
       })
-      
     })
-
-
   });
+
 
   describe('DROP TABLE', function () {
 
+    after(function (done){
+      request.post('/nodeadmin/api/db/delete')
+        .set('Authorization', token)
+        .send({
+          name:'mochadb'
+        })
+        .expect(200)
+        .end(done)
+    })
     
     it('should successfully delete a database table', function (done) {
       
-      request.delete('/nodeadmin/api/mochadb/testtable')
+      request.delete('/nodeadmin/api/db/mochadb/testtable')
         .set('Authorization', token)
         .expect(200)
         .end(function (err, res){
