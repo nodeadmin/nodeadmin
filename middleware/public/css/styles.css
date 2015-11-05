@@ -11,10 +11,6 @@ body h1, h2, h3, h4, h5, h5, h6, p, a, td{
   padding-top: 50px;
 }
 
-#home {
-  padding-top: 100px;
-}
-
 .space {
   margin-bottom: 50px;
 }
@@ -84,6 +80,17 @@ body h1, h2, h3, h4, h5, h5, h6, p, a, td{
   #wrapper.toggled .toggle-menu-div {
     left: 0px;
   }
+}
+
+/* Home page */
+
+#home {
+  padding-bottom: 80px;
+  padding-top: 100px;
+}
+
+.cpu-panel {
+  margin-top: 40px;
 }
 
 /* DB pages */
