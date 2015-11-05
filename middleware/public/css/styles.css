@@ -2,10 +2,6 @@
   padding-top: 50px;  
 }
 
-#home {
-  padding-top: 100px;
-}
-
 .space {
   margin-bottom: 50px;
 }
@@ -75,6 +71,17 @@
   #wrapper.toggled .toggle-menu-div {
     left: 0px;
   }
+}
+
+/* Home page */
+
+#home {
+  padding-bottom: 80px;
+  padding-top: 100px;
+}
+
+.cpu-panel {
+  margin-top: 40px;
 }
 
 /* DB pages */
