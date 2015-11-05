@@ -85,6 +85,9 @@ function ($scope, System, $sce, AlertCenter) {
     .catch(function(err) {
       // Allow for error displaying on modules page
       $scope.error = err.data.error;
+      var nodeadminRGXP = /(ERR! extraneous: nodeadmin@\d+.\d+.\d+ ([\w-\/]+)+)/g;
+      var newStr = err.data.error.replace(nodeadminRGXP, '');
+      console.log(newStr);
       $scope.alerts.error.push({
         status: 'Error',
         msg: err.data.error
