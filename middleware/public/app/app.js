@@ -30,6 +30,7 @@ angular.module('nodeadmin', [
   'ui.bootstrap',
   'chart.js',
   'angular-toArrayFilter',
+  'pasvaz.bindonce',
   'angularSpinner'
 ])
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider) {

@@ -10,7 +10,7 @@
     $scope.records = {};
     $scope.headers = [];
     $scope.row = {};
-    $scope.foreignValues = ForeignFactory.getForeignValuesArray();
+    $scope.foreignValues = [];
     $scope.enums = TypeCheckFactory.getEnums();
 
 
@@ -22,6 +22,7 @@
         $scope.$digest();
       }
     });
+
     $scope.rowing = false;
     $scope.loading = true;
     $scope.success = false;
@@ -48,15 +49,14 @@
         PrimaryKeyFactory.getPrimaryKey($scope.headers);
         $scope.recordsCount = PaginationFactory.records;
         $scope.currentPage = PaginationFactory.currentPage;
+        ForeignFactory.setupForeignValues(result[3]);
         return result;
       }
 
       function getForeignValues(result) {
-        console.log(result);
-        ForeignFactory.setupForeignValues(result[3]);
         $scope.foreignValues = ForeignFactory.getForeignValuesArray();
-        console.log($scope.foreignValues);
-      }
+        }
+
 
       function getRecordsFailed(err) {
         console.error(err);
@@ -68,12 +68,6 @@
       }
     };
 
-    $scope.$watch('ForeignFactory.getForeignValuesArray()', function (newVal, oldVal, scope) {
-      if (newVal) {
-        $scope.foreignValues = newVal;
-        $scope.$digest();
-      }
-    });
     $scope.pagination = function () {
       $state.go('records', {
         database: $stateParams.database,
@@ -100,6 +94,7 @@
     };
 
     $scope.toggleForm = function () {
+      $scope.foreignValues = ForeignFactory.getForeignValuesArray();
       $scope.rowing = $scope.rowing ? false : true;
     };
 
@@ -108,7 +103,7 @@
       RecordsFactory.addRecord($stateParams.database, $stateParams.table, $stateParams.page, $scope.row)
         .then(addRecordComplete)
         .catch(addRecordFailed)
-        .finally($scope.rowing = false);
+        .finally(addRecordReset);
 
       function addRecordComplete(response) {
         //TODO: SEND REPONSE TO CLIENT
@@ -118,9 +113,16 @@
       function addRecordFailed(err) {
         console.error(err);
       }
+
+      function addRecordReset() {
+        $scope.rowing = false;
+        $scope.success = true;
+        $scope.init();
+      }
     };
 
     $scope.editRow = function (id) {
+      $scope.foreignValues = ForeignFactory.getForeignValuesArray();
       $scope.isEditing = id;
     };
 
@@ -173,15 +175,15 @@
     };
 
 
-    $scope.isAuto = function (column) {
-      return TypeCheckFactory.isAuto(column);
+    $scope.isAuto = function (column, value) {
+      return TypeCheckFactory.isAuto(column)
     };
-
     $scope.notNull = function (column) {
       return TypeCheckFactory.notNull(column);
     };
 
 
+    $scope.init();
     $scope.init();
   }
 })();
