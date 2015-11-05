@@ -21,12 +21,13 @@ angular.module('nodeadmin.db.dbhome', [])
 
         modalInstance.result
           .then(function (results){
+            console.log(results);
             // refresh parent view sidebar to ensure DB was created properly
             $scope.$parent.loadDatabases();
-            var message = results.status === 200 ? 'success' : 'error';
+            var message = (results.status < 400 && results.status >= 200) ? 'success' : 'error';
             $scope.alerts[message].push({
-              msg:results.statusText + ' ' + message + ' ' + results.config.method,
-              status:results.status,
+              msg:(results.data.code ? results.data.code + " - " : '') + results.statusText,
+              status:results.status
             });
           });
       }
@@ -48,9 +49,9 @@ angular.module('nodeadmin.db.dbhome', [])
         modalInstance.result
           .then(function (results) {
             // set success message
-            var message = results.status === 200 ? 'success' : 'error'
+            var message = (results.status < 400 && results.status >= 200) ? 'success' : 'error'
             $scope.alerts[message].push({
-              msg:results.statusText + " " + message + " " + results.config.method,
+              msg:(results.data.code ? results.data.code + " - " : '') + results.statusText,
               status:results.status
             });
           });
