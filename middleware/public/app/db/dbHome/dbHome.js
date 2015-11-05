@@ -21,7 +21,6 @@ angular.module('nodeadmin.db.dbhome', [])
 
         modalInstance.result
           .then(function (results){
-            console.log(results);
             // refresh parent view sidebar to ensure DB was created properly
             $scope.$parent.loadDatabases();
             var message = (results.status < 400 && results.status >= 200) ? 'success' : 'error';

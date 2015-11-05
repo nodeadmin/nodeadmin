@@ -41,17 +41,17 @@ This starts your Express server on the given port and enables the /nodeadmin rou
 
 Navigate to /nodeadmin and log in to your server's MySQL database with a username and password.
 
-> **Overview** displays stats on the server's physical properties and memory pressure.
+- **Overview** displays stats on the server's physical properties and memory pressure.
 
-> **DB** gives authenticated users GUI CRUD access to databases, tables, and records on the server.
+- **DB** gives authenticated users GUI CRUD access to databases, tables, and records on the server.
 
-> **System** 
+- **System** 
   - **Modules** displays installed npm package tree.
   - **Logs** shows real-time server logs.
 
-> **Direct Queries** provides a simple window to directly query the MySQL server.
+- **Direct Queries** provides a simple window to directly query the MySQL server.
 
-> **Settings** 
+- **Settings** 
   - **Users** offers the ability to perform CRUD operations on MySQL users and their privileges.
 
 ## Development
