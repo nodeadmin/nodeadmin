@@ -1,6 +1,6 @@
 # NodeAdmin
 
-> A fantasticly elegant tool for DB/Server Management with NodeJS/Express
+> A fantastically elegant tool for MySQL and Node.js/Express management
 
 ## Team
 
@@ -10,7 +10,7 @@
 
 ## Table of Contents
 1. [Installation](#installation)
-1. [Api](#api)
+1. [API](#api)
 1. [Usage](#usage)
 1. [Requirements](#requirements)
 1. [Team](#team)
@@ -35,16 +35,11 @@ var app = express();
 var nodeadmin = require('nodeadmin');
 app.use( nodeadmin( app, port ) );
 ```
-starts your express server on the given port and enables the /nodeadmin route. 
-
-- There is **no need** to call
-```  app.listen( port )   ```. 
-
-- Additionally, it **should not** be called as it will prevent the server from functioning correctly.
+This starts your Express server on the given port and enables the /nodeadmin route. 
 
 ## Usage
 
-Navigate to /nodeadmin and log in to your server's mysql database with a username and password
+Navigate to /nodeadmin and log in to your server's MySQL database with a username and password.
 
 > **Overview** displays stats on the server's physical properties and memory pressure.
 

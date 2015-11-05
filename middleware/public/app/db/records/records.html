@@ -9,7 +9,7 @@
     <div class="col-xs-10 col-md-offset-1 space">
       <span class="glyphicon glyphicon-plus clickable" ng-click="toggleForm()" ng-if="rowing != true" tooltip-placement="right" uib-tooltip="add row"></span>
       <span class="glyphicon glyphicon-remove clickable" ng-if="rowing == true" ng-click="toggleForm()"></span>
-      <form class="form" ng-if="rowing == true" ng-submit="addRow(row)">
+      <form class="form" ng-if="rowing == true" ng-submit="addRow(row)" bindonce>
         <div class="form-group col-xs-2" ng-repeat="header in headers">
           <label for="{{::header.Field}}" bo-if="!notNull(header.Null)">{{::header.Field}}</label>
           <label for="{{::header.Field}}" bo-if="notNull(header.Null)">{{::header.Field}}*</label>
