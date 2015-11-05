@@ -218,7 +218,6 @@ module.exports = {
       sortDir = req.query.sortDir,
       limit = [offset, rowCount],
       connection = client.getClientDB();
-      console.log(req.query);
     connection.query({
       sql: 'USE ??',
       timeout: 40000,
@@ -285,7 +284,6 @@ module.exports = {
       primaryKeyValue = value[req.body.pk],
       columnValuePiars = [],
       connection = client.getClientDB();
-    console.log(value);
     var str = '';
     for (var key in value) {
       str += key + ' = ' + '\'' + value[key] + '\'' + ', ';
@@ -309,7 +307,6 @@ module.exports = {
           console.log(err);
           res.status(500).json(err);
         }
-        console.log('is this undefinded? ' + result);
         res.status(200).json(result);
       });
     });
@@ -342,7 +339,6 @@ module.exports = {
         if (err) {
           res.status(500).json(err);
         }
-        console.log(result);
         res.status(201).json(result);
       });
     });
