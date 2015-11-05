@@ -32,15 +32,12 @@ angular.module('nodeadmin.db.query', ['ui.codemirror'])
     QueryFactory.submit(data)
     .then(function (resp) {
 
-      // console.log(resp);
-      
-      result = (resp.status === 200) ? 'success' : 'error';
+      console.log(resp);
+      result = (resp.status >= 200 && resp.status < 400) ? 'success' : 'error';
       $scope.alerts[result].push(
         {
-          msg:resp.statusText,
-          status:resp.status,
-          error: resp.data.code,
-          query: JSON.parse(resp.config.data).data.query
+          msg:(resp.data.code ? resp.data.code + " - ": "") + resp.statusText,
+          status:resp.status
         }
       );
 

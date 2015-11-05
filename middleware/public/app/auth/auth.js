@@ -14,6 +14,7 @@ angular.module('nodeadmin.auth', [])
       })
       .catch(function(err) {
         console.error(err.data.error);
+        console.error(err.data);
         // Allow for error displaying on login page
         $scope.error = err.data.error;
       });
