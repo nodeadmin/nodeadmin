@@ -6,7 +6,6 @@ A fantastically elegant tool for MySQL and Node.js/Express management.
 ## Table of Contents
 1. [Team](#team)
 1. [Installation](#installation)
-1. [Requirements](#requirements)
 1. [API](#api)
 1. [Usage](#usage)
 1. [Development](#development)
@@ -23,11 +22,6 @@ A fantastically elegant tool for MySQL and Node.js/Express management.
 ```
 npm install nodeadmin
 ```
-
-## Requirements
-
-- Node.js 4.x.x
-- Express 4.x.x
 
 ## API
 
