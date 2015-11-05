@@ -8,7 +8,7 @@ var client = require('../auth/clientdb.js');
 
 var token;
 
-xdescribe('CRUD', function(){
+describe('CRUD', function(){
 
 
   before(function (done){
