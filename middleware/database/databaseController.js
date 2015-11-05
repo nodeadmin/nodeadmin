@@ -183,7 +183,7 @@ module.exports = {
 
       // *** A_I ***
       if(row['auto']) {
-        query += row['auto'].concat(' ');
+        query += "AUTO_INCREMENT ";
       }
 
       // comma insertion check
