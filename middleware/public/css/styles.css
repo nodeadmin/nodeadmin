@@ -1,12 +1,3 @@
-@font-face {
-  font-family: 'Gotham',
-  src: url('../resources/Gotham-Book.otf');
-}
-
-body h1, h2, h3, h4, h5, h5, h6, p, a, td{
-  font-family: 'Gotham';
-}
-
 #wrapper {
   padding-top: 50px;
 }
