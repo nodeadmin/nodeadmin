@@ -9,11 +9,12 @@ A fantastically elegant tool for MySQL and Node.js/Express management.
   - __Development Team Members__: [Laura Knight](https://github.com/ljknight), [Andrew Nickell](https://github.com/nickell-andrew), [Taylor Lehman](https://github.com/taylorleh), [Alex Hutchison](https://github.com/dutchers)
 
 ## Table of Contents
+1. [Team](#team)
 1. [Installation](#installation)
+1. [Requirements](#requirements)
 1. [API](#api)
 1. [Usage](#usage)
-1. [Requirements](#requirements)
-1. [Team](#team)
+1. [Development](#development)
 1. [Contributing](#contributing)
 
 ## Installation
