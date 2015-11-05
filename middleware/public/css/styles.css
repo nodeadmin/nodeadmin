@@ -28,6 +28,23 @@ body h1, h2, h3, h4, h5, h5, h6, p, a, td{
   padding-left: 10px;
 }
 
+/* Login page */
+
+.logo-login {
+  bottom: .125em;
+  display: inline; 
+  height: 1em; 
+  position: relative; 
+}
+
+.login-header {
+  margin-top: 15%;
+}
+
+.login-panel {
+  margin-top: 10%;
+}
+
 /* Sidebar */
 
 .toggle-menu-div {
