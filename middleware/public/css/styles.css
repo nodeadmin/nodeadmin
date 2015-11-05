@@ -1,5 +1,14 @@
+@font-face {
+  font-family: 'Gotham',
+  src: url('../resources/Gotham-Book.otf');
+}
+
+body h1, h2, h3, h4, h5, h5, h6, p, a, td{
+  font-family: 'Gotham';
+}
+
 #wrapper {
-  padding-top: 50px;  
+  padding-top: 50px;
 }
 
 .space {
@@ -106,16 +115,16 @@
 
 .module-well {
   background-color:#282828;
-  border-radius: 5px; 
+  border-radius: 5px;
   border-width: 0;
-  color:wheat; 
+  color:wheat;
 }
 
 .log-line {
-  background-color:#282828; 
+  background-color:#282828;
   border-radius: 5px;
   font-size: 12px;
-  padding: 10px; 
+  padding: 10px;
   border-bottom: 1px solid;
 }
 

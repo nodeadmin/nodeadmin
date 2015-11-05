@@ -2,22 +2,23 @@
   <div class="row">
     <div class="col-md-9">
       <h2 class="page-header space">{{table}}</h2>
+
     </div>
   </div>
   <div class="row">
     <div class="col-xs-10 col-md-offset-1 space">
       <span class="glyphicon glyphicon-plus clickable" ng-click="toggleForm()" ng-if="rowing != true" tooltip-placement="right" uib-tooltip="add row"></span>
       <span class="glyphicon glyphicon-remove clickable" ng-if="rowing == true" ng-click="toggleForm()"></span>
-      <form class="form" ng-if="rowing == true" ng-submit="addRow(row)">
+      <form class="form" ng-if="rowing == true" ng-submit="addRow(row)" bindonce>
         <div class="form-group col-xs-2" ng-repeat="header in headers">
-          <label for="{{::header.Field}}" ng-if="!notNull(header.Null)">{{::header.Field}}</label>
-          <label for="{{::header.Field}}" ng-if="notNull(header.Null)">{{::header.Field}}*</label>
-          <input type="text" class="form-control input-sm" ng-if="!isRef(header.Field) && !isEnum(header.Type) && !isAuto(header.Extra)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="row[header.Field]" />
-          <input type="text" class="form-control input-sm" ng-if="isAuto(header.Extra)" name="header.Field" ng-model="row[header.Field]"readonly />
-          <select class="form-control input-sm" ng-if="isRef(header.Field) == true" ng-model="row[header.Field]">
+          <label for="{{::header.Field}}" bo-if="!notNull(header.Null)">{{::header.Field}}</label>
+          <label for="{{::header.Field}}" bo-if="notNull(header.Null)">{{::header.Field}}*</label>
+          <input type="text" class="form-control input-sm" bo-if="!isRef(header.Field) && !isEnum(header.Type) && !isAuto(header.Extra)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="row[header.Field]" />
+          <input type="text" class="form-control input-sm" bo-if="isAuto(header.Extra)" name="header.Field" ng-model="row[header.Field]"readonly />
+          <select class="form-control input-sm" bo-if="isRef(header.Field) == true" ng-model="row[header.Field]">
             <option ng-repeat="value in foreignValues">{{value}}</option>
           </select>
-          <select class="form-control input-sm" ng-if="isEnum(header.Type) == true">
+          <select class="form-control input-sm" bo-if="isEnum(header.Type) == true">
             <option ng-repeat="enum in enums track by $index">{{enum}}</option>
           </select>
         </div>
@@ -41,7 +42,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-bordered table-hover">
+      <table class="table table-bordered table-hover" bindonce>
         <thead>
           <tr>
             <th ng-repeat="header in headers"><div><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{::header.Type}} {{::header.Key}}"></span><span class="glyphicon glyphicon-chevron-down pull-right clickable" data-placement="top" uib-tooltip="Sort" ng-click="toggleSort(header.Field)"></span></div> {{::header.Field}}</th>
