@@ -23,7 +23,7 @@ A fantastically elegant tool for MySQL and Node.js/Express management.
 npm install nodeadmin
 ```
 
-## Set Up {#setup}
+## Set Up 
 
 ```javascript
 var express = require('express');
