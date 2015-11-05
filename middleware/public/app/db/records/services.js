@@ -304,7 +304,6 @@
           setPrimaryKey(headers[i].Field);
           return;
         }
-        console.log('No Primary key');
       }
     }
   }

@@ -7,7 +7,7 @@
   </div>
   <div class="row">
     <div class="col-xs-10 col-md-offset-1 space">
-      <span class="glyphicon glyphicon-plus clickable" ng-click="toggleForm()" ng-if="rowing != true" tooltip-placement="right" uib-tooltip="add row"></span>
+      <span class="glyphicon glyphicon-plus clickable" ng-click="toggleForm()" ng-if="rowing != true" tooltip-placement="right" uib-tooltip="Add Row"></span>
       <span class="glyphicon glyphicon-remove clickable" ng-if="rowing == true" ng-click="toggleForm()"></span>
       <form class="form" ng-if="rowing == true" ng-submit="addRow(row)" bindonce>
         <div class="form-group col-xs-2" ng-repeat="header in headers">
@@ -36,13 +36,13 @@
   </div>
   <div class="alert alert-success alert-dismissable" role="alert" ng-if="success">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <p>Record updaated succeessfully</p>
+    <p>Record updated successfully</p>
   </div>
   <div class="row">
     <div class="col-md-12 space well">
-      <div class="input-group col-md-2">
+      <div class="input-group col-md-3">
         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
-        <input type="text" class="form-control" placeholder="Filter results" ng-model="search" aria-describedby="basic-addon1">
+        <input type="text" class="form-control" placeholder="Filter Results" ng-model="search" aria-describedby="basic-addon1">
       </div>
     </div>
   </div>
