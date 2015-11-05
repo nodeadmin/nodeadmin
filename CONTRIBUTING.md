@@ -166,10 +166,3 @@ This is just to help you organize your process
 If you follow all of these guidelines and make good changes, you should have
 no problem getting your changes merged in.
 
-
-<!-- Links -->
-[curriculum workflow diagram]: http://i.imgur.com/p0e4tQK.png
-[cons of merge]: https://f.cloud.github.com/assets/1577682/1458274/1391ac28-435e-11e3-88b6-69c85029c978.png
-[tools workflow diagram]: http://i.imgur.com/kzlrDj7.png
-[Git Flow]: http://nvie.com/posts/a-successful-git-branching-model/
-[GitHub Flow]: http://scottchacon.com/2011/08/31/github-flow.html
