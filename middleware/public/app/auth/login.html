@@ -2,24 +2,24 @@
   <form class="form-horizontal" name='setupForm' ng-submit='login()'>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h1 class="text-center">
-          <img src="resources/nodejs-logo.png" style="position: relative; height: 1em; display: inline; bottom: .125em;"/>
+        <h1 class="text-center login-header">
+          <img src="resources/nodejs-logo.png" class="logo-login"/>
           NodeAdmin
         </h1>
-        <div class="panel panel-primary">
+        <div class="panel panel-primary login-panel">
           <div class="panel-heading">
             <h3 class="panel-title">MySQL Connection</h3>
           </div>
           <div class="panel-body">
             <div class="form-group">
               <label for="mysqlUser" class="col-sm-3 control-label">User</label>
-              <div class="col-sm-9">
+              <div class="col-sm-7">
                 <input type='text' class="form-control" name="mysqlUser" placeholder="MySQL user" ng-model='user.mysqlUser' required autofocus/>
               </div>
             </div>
             <div class="form-group">
               <label for="mysqlPassword" class="col-sm-3 control-label">Password</label>
-              <div class="col-sm-9">
+              <div class="col-sm-7 offset">
                 <input type='password' name="mysqlPassword" class="form-control" placeholder="MySQL Password" ng-model='user.mysqlPassword' />
               </div>
             </div>
