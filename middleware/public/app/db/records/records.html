@@ -6,8 +6,8 @@
   </div>
   <div class="row">
     <div class="col-xs-10 col-md-offset-1 space">
-      <span class="glyphicon glyphicon-plus" ng-click="toggleForm()" ng-if="rowing != true" tooltip-placement="right" uib-tooltip="add row"></span>
-      <span class="glyphicon glyphicon-remove" ng-if="rowing == true" ng-click="toggleForm()"></span>
+      <span class="glyphicon glyphicon-plus clickable" ng-click="toggleForm()" ng-if="rowing != true" tooltip-placement="right" uib-tooltip="add row"></span>
+      <span class="glyphicon glyphicon-remove clickable" ng-if="rowing == true" ng-click="toggleForm()"></span>
       <form class="form" ng-if="rowing == true" ng-submit="addRow(row)">
         <div class="form-group col-xs-2" ng-repeat="header in headers">
           <label for="{{::header.Field}}" ng-if="!notNull(header.Null)">{{::header.Field}}</label>
@@ -44,7 +44,7 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th ng-repeat="header in headers"><div><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{::header.Type}} {{::header.Key}}"></span><span class="glyphicon glyphicon-chevron-down pull-right" data-placement="top" uib-tooltip="Sort" ng-click="toggleSort(header.Field)"></span></div> {{::header.Field}}</th>
+            <th ng-repeat="header in headers"><div><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{::header.Type}} {{::header.Key}}"></span><span class="glyphicon glyphicon-chevron-down pull-right clickable" data-placement="top" uib-tooltip="Sort" ng-click="toggleSort(header.Field)"></span></div> {{::header.Field}}</th>
           </tr>
         </thead>
         <tbody>
