@@ -31,8 +31,6 @@ angular.module('nodeadmin.db.query', ['ui.codemirror'])
     data = { query: $scope.query };
     QueryFactory.submit(data)
     .then(function (resp) {
-
-      console.log(resp);
       result = (resp.status >= 200 && resp.status < 400) ? 'success' : 'error';
       $scope.alerts[result].push(
         {

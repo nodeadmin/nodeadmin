@@ -94,7 +94,7 @@
         .finally(addRecordReset);
 
       function addRecordComplete(response) {
-        console.log(response);
+        //TODO: SEND REPONSE TO CLIENT
       }
 
       function addRecordFailed(err) {

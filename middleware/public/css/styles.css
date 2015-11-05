@@ -15,6 +15,33 @@
   padding-left: 10px;
 }
 
+/* Site-wide Lumen fixes */ 
+
+.panel {
+  border-top: 1px solid #e7e7e7;
+  padding: 10px;
+}
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid #dddddd;
+}
+
+.btn:hover {
+  /*margin-top: 0;*/
+  margin-bottom: 0;
+  border-bottom-width: 3px;
+}
+
+.btn-xs:hover {
+  margin-top: 11px;
+  margin-bottom: 5px;
+  border-bottom-width: 3px;
+}
+
+button.btn.btn-primary.pull-right.query-submit:hover {
+  margin-top: 21px;
+}
+
 /* Login page */
 
 .logo-login {
@@ -36,10 +63,8 @@
 
 .toggle-menu-div {
   position: fixed;
-  /*top: 52px;*/
-  top: 3.65em;
-  /*left: 249px;*/
-  left: 17.85em;
+  top: 3.8em;
+  left: 17.8em;
   border-top: none;
   border-left: none;
   border-radius: 0px 0px 7px 0px;
@@ -53,17 +78,32 @@
   transition: all 0.5s ease;
 }
 
+.glyphicon {
+  top: 3px;
+}
+
+.toggle-menu-div .glyphicon {
+  top: 5px;
+}
+
 .toggle-menu-button {
-  background-color: #f7f7f7;
+  /*background-color: #f7f7f7;*/
   position: relative;
+  height: 2em;
   border-top: none;
   border-radius: 0px 0px 5px 0px;
   padding: 0px;
   margin: 0px;
 }
 
+.toggle-menu-div .btn-default {
+  border-color: #f7f7f7;
+  background-color: #f7f7f7;
+}
+
 .toggle-menu-button:hover {
   text-decoration: none;
+  margin: 0;
   /*color: #fff;*/
 }
 
