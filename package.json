@@ -22,7 +22,6 @@
     "bluebird": "^2.10.2",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
-    "express-session": "^1.11.3",
     "jsonwebtoken": "^5.4.0",
     "morgan": "^1.6.1",
     "mysql": "^2.9.0",

@@ -66,7 +66,7 @@ angular.module('nodeadmin.settings.editprivileges', [])
             }
           }
 
-          // Remove data that doesn't match to available headersDictionary because it requires more formatting(TODO: format this data properly)
+          // Remove data that doesn't match to available headersDictionary because it requires more formatting (TODO: format this data properly)
           for (var key in record[0]) {
             if (key in $scope.headersDictionary) {
               $scope.record[key] = record[0][key];
@@ -98,10 +98,9 @@ angular.module('nodeadmin.settings.editprivileges', [])
           });
         })
         .catch(function(err) {
-          console.log(err);
           $scope.alerts.error.push({
             status: '400',
-            msg: err
+            msg: err.data
           });
         });
     };
@@ -121,7 +120,6 @@ angular.module('nodeadmin.settings.editprivileges', [])
           });
         })
         .catch(function(err) {
-          console.log(err);
           $scope.alerts.error.push({
             status: '400',
             msg: err

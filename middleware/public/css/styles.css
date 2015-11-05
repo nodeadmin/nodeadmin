@@ -1,18 +1,5 @@
-@font-face {
-  font-family: 'Gotham',
-  src: url('../resources/Gotham-Book.otf');
-}
-
-body h1, h2, h3, h4, h5, h5, h6, p, a, td{
-  font-family: 'Gotham';
-}
-
 #wrapper {
   padding-top: 50px;
-}
-
-#home {
-  padding-top: 100px;
 }
 
 .space {
@@ -26,6 +13,23 @@ body h1, h2, h3, h4, h5, h5, h6, p, a, td{
 
 .form-group {
   padding-left: 10px;
+}
+
+/* Login page */
+
+.logo-login {
+  bottom: .125em;
+  display: inline; 
+  height: 1em; 
+  position: relative; 
+}
+
+.login-header {
+  margin-top: 15%;
+}
+
+.login-panel {
+  margin-top: 10%;
 }
 
 /* Sidebar */
@@ -67,6 +71,17 @@ body h1, h2, h3, h4, h5, h5, h6, p, a, td{
   #wrapper.toggled .toggle-menu-div {
     left: 0px;
   }
+}
+
+/* Home page */
+
+#home {
+  padding-bottom: 80px;
+  padding-top: 100px;
+}
+
+.cpu-panel {
+  margin-top: 40px;
 }
 
 /* DB pages */

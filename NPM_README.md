@@ -1,6 +1,6 @@
 # NodeAdmin
 
-> A fantasticly elegant tool for DB/Server Management with NodeJS/Express
+> A fantastically elegant tool for MySQL and Node.js/Express management
 
 ## Team
 
