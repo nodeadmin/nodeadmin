@@ -71,7 +71,9 @@ angular.module('nodeadmin.db.dbhome', [])
       DBInfoFactory.getInfo()
       .then(function (data) {
         var infoData = data;
-        delete infoData[0]['HOST'];
+        for (var i = 0; i < infoData.length; i++) {
+          delete infoData[i]['HOST'];
+        }
         $scope.infoHeaders = Object.keys(infoData[0]);
         $scope.infoRows = infoData;
       });
