@@ -13,16 +13,6 @@
     $scope.foreignValues = [];
     $scope.enums = TypeCheckFactory.getEnums();
 
-
-    $scope.$watch(function() {
-      return ForeignFactory.enums;
-    }, function(newVal, oldVal) {
-      if (newVal) {
-        console.log('THERE IS A NEW VALUE', newVal);
-        $scope.$digest();
-      }
-    });
-
     $scope.rowing = false;
     $scope.loading = true;
     $scope.success = false;
@@ -79,9 +69,7 @@
     };
 
     $scope.toggleSort = function (column) {
-      console.log(column);
       SortingFactory.toggleSort(column);
-      console.log(SortingFactory.sortBy, SortingFactory.sortDir);
       $state.go('records', {
         database: $stateParams.database,
         table: $stateParams.table,
@@ -106,7 +94,6 @@
         .finally(addRecordReset);
 
       function addRecordComplete(response) {
-        //TODO: SEND REPONSE TO CLIENT
         console.log(response);
       }
 
@@ -146,12 +133,10 @@
         .finally(setEditToFalse)
 
       function editRecordComplete(response) {
-        //Display some success message to user
         $scope.success = true;
       }
 
       function editRecordFailed(err) {
-        //display some failure message to user
         console.error(err);
       }
 
@@ -182,8 +167,6 @@
       return TypeCheckFactory.notNull(column);
     };
 
-
-    $scope.init();
     $scope.init();
   }
 })();
