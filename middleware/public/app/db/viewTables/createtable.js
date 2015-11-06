@@ -54,6 +54,10 @@ angular.module('nodeadmin.db.createtable', [])
 
       if(!$scope.tablename) {
         // todo: - throw error to notification center - must submit table name
+        $scope.alerts['error'].push({
+          status:'Error ',
+          msg: 'You must specify a table name'
+        });
         return;
 
       }
