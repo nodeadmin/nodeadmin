@@ -10,13 +10,32 @@
     .factory('PrimaryKeyFactory', PrimaryKeyFactory);
 
   function RecordsFactory($http) {
+    var result = {
+      success: false,
+      failure: false
+    }
     var service = {
       getRecords: getRecords,
       editRecord: editRecord,
-      addRecord: addRecord
+      addRecord: addRecord,
+      getResult: getResult,
+      setResult: setResult
     };
 
     return service;
+
+    function setResult(condition) {
+      if (result[condition]) {
+        result[condition] = false;
+      } else {
+        result[condition] = true;
+      }
+
+    }
+
+    function getResult(condition) {
+      return result[condition];
+    }
 
     function getRecords(db, table, page, sortBy, sortDir) {
       return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/' + page + '?sortBy=' + sortBy + '&sortDir=' + sortDir)
@@ -54,11 +73,13 @@
         .catch(addRecordFailed);
 
       function addRecordComplete(response) {
+        setResult('success');
         return response.date;
       }
 
       function addRecordFailed(err) {
-        console.log(err);
+        setResult('failure');
+        console.error(err);
       }
     }
 

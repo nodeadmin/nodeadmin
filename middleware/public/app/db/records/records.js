@@ -16,7 +16,8 @@
 
     $scope.rowing = false;
     $scope.loading = true;
-    $scope.success = false;
+    $scope.success = RecordsFactory.getResult('success');
+    $scope.error = RecordsFactory.getResult('failure');
     $scope.isEditing = false;
 
     $scope.table = $stateParams.table;
@@ -33,14 +34,16 @@
         .finally(loadingComplete);
 
       function getRecordsComplete(result) {
-        $scope.records = result[0];
-        $scope.headers = result[1];
-        PaginationFactory.records = result[2][0]['count(*)'] - 100;
+        $scope.records = result[0].length ? result[0] : '';
+        $scope.headers =result[1].length ? result[1] : '';
+        PaginationFactory.records = result[2][0] > 0 ? result[2][0]['count(*)'] - 100 : 0;
         PaginationFactory.currentPage = $stateParams.page;
         PrimaryKeyFactory.getPrimaryKey($scope.headers);
         $scope.recordsCount = PaginationFactory.records;
         $scope.currentPage = PaginationFactory.currentPage;
-        ForeignFactory.setupForeignValues(result[3]);
+        if (result[3]) {
+          ForeignFactory.setupForeignValues(result[3]);
+        }
         return result;
       }
 
@@ -95,16 +98,20 @@
         .finally(addRecordReset);
 
       function addRecordComplete(response) {
-        //TODO: SEND REPONSE TO CLIENT
+        console.log('THIS IS GETTING LOGGED FROM record.js' + response);
+        $scope.success = RecordsFactory.getResult('success');
+        $scope.error = RecordsFactory.getResult('failure');
       }
 
       function addRecordFailed(err) {
         console.error(err);
+        $scope.error = true;
       }
 
       function addRecordReset() {
+        RecordsFactory.setResult('success');
+        RecordsFactory.setResult('failure');
         $scope.rowing = false;
-        $scope.success = true;
         $scope.init();
       }
     };
