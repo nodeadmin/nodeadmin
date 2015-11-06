@@ -81,7 +81,7 @@ function ($scope, System, $sce, AlertCenter) {
         if(error !== 'npm') {
           $scope.alerts.error.push({
             status: 'Error',
-            msg: resp.data.stderr
+            msg: error
           });
         }
       }
