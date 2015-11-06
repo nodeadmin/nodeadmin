@@ -1,5 +1,5 @@
 angular.module('nodeadmin.settings.viewprivileges', [])
-  .controller('ViewPrivilegesController', function($scope, Users, $modalInstance) {
+  .controller('ViewPrivilegesController', function($scope, Users, $uibModalInstance) {
     
     var grantUser = Users.returnGrantUser();
     $scope.user = grantUser.user;
@@ -21,12 +21,12 @@ angular.module('nodeadmin.settings.viewprivileges', [])
           }
         })
         .catch(function(err) {
-          $modalInstance.close(err);
+          $uibModalInstance.close(err);
         });
     };
 
     $scope.cancel = function() {
-      $modalInstance.dismiss('close');
+      $uibModalInstance.dismiss('close');
     };
 
     $scope.getGrants();
