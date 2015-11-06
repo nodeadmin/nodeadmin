@@ -1,9 +1,9 @@
 var expect = require('chai').expect;
 // Pass in your URL & run server
-var request = require('supertest')('http://192.168.99.101:4040');
+// var request = require('supertest')('http://192.168.99.101:4040');
+var request = require('supertest')('localhost:4040');
+var conn = require('../test.js').connection;
 
-var client = require('../auth/clientdb.js');
-var connection = client.getClientDB();
 
 var token;
 

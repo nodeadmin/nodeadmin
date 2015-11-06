@@ -1,11 +1,9 @@
-
-
-
+var common = exports;
 var mysql = require('mysql');
 var exec = require('child_process').exec;
-var fakeserver = exec('node ', __dirname + '/../../testserver/index.js');
+common.fakeserver = exec('node ../testserver/index.js');
 
-var connection = mysql.createConnection({
+common.connection = mysql.createConnection({
   host     : process.env.MYSQL_HOST,
   port     : process.env.MYSQL_PORT,
   user     : process.env.MYSQL_USER,
@@ -13,13 +11,46 @@ var connection = mysql.createConnection({
 });
 
 
-connection.connect(function (err) {
+common.connection.connect(function (err) {
   if(err) {
-    throw Error('Please rerun npm test in this format: process.env.MYSQL_HOST process.env.MYSQL_PORT process.env.MYSQL_USER process.env.MYSQL_PASSWORD npm test');
+    console.error('Please rerun npm test in this format: process.env.MYSQL_HOST process.env.MYSQL_PORT process.env.MYSQL_USER process.env.MYSQL_PASSWORD npm test');
+    console.log('\n \n');
+    console.error('error connecting: ' + err.stack);
+    return;
   }
-})
 
-console.log(connection);
+});
+
+var Mocha = require('mocha'),
+    fs = require('fs'),
+    path = require('path');
+
+// Instantiate a Mocha instance.
+var mocha = new Mocha();
+
+var testDir = __dirname + '/lib';
+
+// Add each .js file to the mocha instance
+fs.readdirSync(testDir).filter(function(file){
+    // Only keep the .js files
+    return file.substr(-3) === '.js';
+
+}).forEach(function(file){
+    mocha.addFile(
+        path.join(testDir, file)
+    );
+});
+
+// Run the tests.
+mocha.run(function(failures){
+  process.on('exit', function () {
+    process.exit(failures);
+  });
+});
+
+
+
+
 
 
 
