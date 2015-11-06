@@ -34,14 +34,7 @@
       </form>
     </div>
   </div>
-  <div class="alert alert-success alert-dismissable" role="alert" ng-if="success">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <p>Record updated successfully</p>
-  </div>
-    <div class="alert alert-danger alert-dismissable" role="alert" ng-if="error">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <p>There was an error adding the record to the database.</p>
-  </div>
+  <alert-center></alert-center>
   <div class="row">
     <div class="col-md-12 space well">
       <div class="input-group col-md-2">
