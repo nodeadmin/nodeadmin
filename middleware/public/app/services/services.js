@@ -31,14 +31,9 @@
           data: user
         })
         .then(loginComplete)
-        .catch(loginFailed);
 
       function loginComplete(response) {
         return response.data.token;
-      }
-
-      function loginFailed(err) {
-        console.error(err);
       }
     }
 
