@@ -4,7 +4,7 @@
   "description": "node server admin middleware",
   "main": "middleware/index.js",
   "scripts": {
-    "test": "mocha ./middleware/tests/",
+    "test": "node ./middleware/tests/test.js",
     "postinstall": "npm install --prefix ./middleware/public/"
   },
   "repository": {

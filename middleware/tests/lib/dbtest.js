@@ -1,21 +1,17 @@
+var connection = require('../test.js');
 var expect = require('chai').expect;
-var request = require('supertest')('http://localhost:3000');
-
-var client = require('../auth/clientdb.js');
-// var connection = client.getClientDB();
-
+var request = require('supertest')('http://localhost:4040');
 
 
 var token;
-
-xdescribe('CRUD', function(){
+describe('CRUD', function(){
 
 
   before(function (done){
     request.post('/nodeadmin/api/auth/login')
       .send({
-        mysqlUser: 'taylor',
-        mysqlPassword:'winget'
+        mysqlUser: connection.user,
+        mysqlPassword:connection.password
       })
       .expect(200)
       .end(function (err, res) {
