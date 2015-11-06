@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "description": "A fantastically elegant interface for MySQL and Node.js/Express management",
   "keywords": ["express", "mysql", "middlware"],
-  "main": "middleware/index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "node ./middleware/tests/test.js",
-    "postinstall": "npm install --prefix ./middleware/public/"
+    "test": "node ./src/tests/test.js",
+    "postinstall": "npm install --prefix ./src/public/"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/nodeadmin/nodeadmin/issues"
   },
-  "homepage": "http://nodeadmin.github.io",
+  "homepage": "http://nodeadmin.github.io/nodeadmin",
   "dependencies": {
     "bcrypt": "^0.8.5",
     "bluebird": "^2.10.2",
