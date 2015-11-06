@@ -78,7 +78,7 @@ function ($scope, System, $sce, AlertCenter) {
       colorDependencies(modules);
       if (resp.data.stderr.length > 0) {
         var error = resp.data.stderr.toString().replace(nodeadminRGXP, '');
-        if(error !== 'npm') {
+        if(error.length > 4) {
           $scope.alerts.error.push({
             status: 'Error',
             msg: error
@@ -88,15 +88,14 @@ function ($scope, System, $sce, AlertCenter) {
     })
     .catch(function(err) {
       // Allow for error displaying on modules page
-      // $scope.error = err.data.error;
       var error = err.data.error.toString().replace(nodeadminRGXP, '');
-      if(error !== 'npm') {
+      if(error.length > 4) {
         $scope.alerts.error.push({
           status: 'Error',
           msg: error
         });
       }
-    })
+    });
   };
 
   // Get modules on load
