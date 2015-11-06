@@ -90,7 +90,6 @@
     };
 
     $scope.addRow = function () {
-      $scope.records.push($scope.row);
       RecordsFactory.addRecord($stateParams.database, $stateParams.table, $stateParams.page, $scope.row)
         .then(addRecordComplete)
         .catch(addRecordFailed)
