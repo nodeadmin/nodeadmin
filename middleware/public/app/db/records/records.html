@@ -13,8 +13,14 @@
         <div class="form-group col-xs-2" ng-repeat="header in headers">
           <label for="{{::header.Field}}" bo-if="!notNull(header.Null)">{{::header.Field}}</label>
           <label for="{{::header.Field}}" bo-if="notNull(header.Null)">{{::header.Field}}*</label>
-          <input type="text" class="form-control input-sm" bo-if="!isRef(header.Field) && !isEnum(header.Type) && !isAuto(header.Extra)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="row[header.Field]" />
+          <input type="text" class="form-control input-sm" bo-if="!isRef(header.Field) && !isEnum(header.Type) && !isAuto(header.Extra) && !isDate(header.Type)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="row[header.Field]" />
           <input type="text" class="form-control input-sm" bo-if="isAuto(header.Extra)" name="header.Field" ng-model="row[header.Field]"readonly />
+          <div class="input-group" bo-if="isDate(header.Type)">
+            <input type="text" class="form-control" uib-datepicker-popup="" ng-model="row[header.Field]" is-open="status.opened" min-date="null" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </div>
           <select class="form-control input-sm" bo-if="isRef(header.Field) == true" ng-model="row[header.Field]">
             <option ng-repeat="value in foreignValues">{{value}}</option>
           </select>
