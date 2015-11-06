@@ -3,6 +3,7 @@ var request = require('supertest')('http://localhost:4040');
 var connection = require('../test.js');
 
 var token;
+
 describe('USER CRUD', function() {
 
   // Pass in your login information

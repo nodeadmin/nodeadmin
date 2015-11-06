@@ -2,7 +2,6 @@ var serverenv = exports;
 var spawn = require('child_process').spawn;
 var fs = require('fs');
 
-
 serverenv.host = process.env.MYSQL_HOST,
 serverenv.port = process.env.MYSQL_PORT,
 serverenv.user = process.env.MYSQL_USER,
