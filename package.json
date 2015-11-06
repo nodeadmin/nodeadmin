@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/nodeadmin/nodeadmin/issues"
   },
-  "homepage": "http://nodeadmin.github.io",
+  "homepage": "http://nodeadmin.github.io/nodeadmin",
   "dependencies": {
     "bcrypt": "^0.8.5",
     "bluebird": "^2.10.2",
