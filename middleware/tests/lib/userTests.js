@@ -171,6 +171,9 @@ describe('Users API Route', function() {
   }); // Closes 'it should edit users\' host and username'
 
   it('should delete users', function(done) {
+    after(function (){
+      console.log('done');
+    })
 
     request
       .delete('/nodeadmin/api/settings/users/RickandMorty/localhost')

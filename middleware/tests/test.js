@@ -1,21 +1,28 @@
 var serverenv = exports;
-var mysql = require('mysql');
 var spawn = require('child_process').spawn;
+var fs = require('fs');
+
 
 serverenv.host = process.env.MYSQL_HOST,
 serverenv.port = process.env.MYSQL_PORT,
 serverenv.user = process.env.MYSQL_USER,
 serverenv.password = process.env.MYSQL_PASSWORD;
-serverenv.fakeserver = spawn('node',[process.cwd()+  '/testserver/index.js']);
 
-serverenv.fakeserver.on('data', function (res){
-  console.log(res);
-})
-serverenv.fakeserver.on('err', function (res){
-  console.error(res);
-})
+// listen for mocha tests and write error to log
+serverenv.fakeserver = spawn('node',[process.cwd()+  '/testserver/index.js'], {
+    stdio: [
+      0,
+      'pipe',
+      fs.openSync('err.out', 'w')
+    ]
+});
+
+
+// temporary work around
 serverenv.fakeserver.stdout.on('data', function(data){
-  console.log(String(data));
+  setTimeout(function(){
+    serverenv.fakeserver.kill();
+  }, 1500)
 });
 
 
@@ -48,9 +55,6 @@ setTimeout(function(){
     });
   });
 
-},2000)
-
-
-
+}, 2000)
 
 
