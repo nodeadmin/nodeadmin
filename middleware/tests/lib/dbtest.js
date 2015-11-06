@@ -1,14 +1,16 @@
+// var conn =process.env.CONNECTION;
+// console.log('here is mocha running with tests and connn ----------> \n', conn);
 var expect = require('chai').expect;
 var request = require('supertest')('http://localhost:3000');
 
-var client = require('../auth/clientdb.js');
+// var client = require('../auth/clientdb.js');
 // var connection = client.getClientDB();
 
 
 
 var token;
 
-xdescribe('CRUD', function(){
+describe('CRUD', function(){
 
 
   before(function (done){
