@@ -53,7 +53,6 @@
     }
 
     function editRecord(db, table, page, data) {
-      console.log('edit record is getting called');
       return $http.put('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
         .then(editRecordComplete)
         .catch(editRecordFailed);
