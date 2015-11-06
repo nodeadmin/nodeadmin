@@ -71,25 +71,31 @@ function ($scope, System, $sce, AlertCenter) {
   };
 
   getModules = function() {
+    var nodeadminRGXP = /( ERR! extraneous: nodeadmin@\d+.\d+.\d+ [\w-\/]+)/;
     System.getModules()
     .then(function(resp) {
       var modules = resp.data.stdout;
       colorDependencies(modules);
       if (resp.data.stderr.length > 0) {
-        $scope.alerts.error.push({
-          status: 'Error',
-          msg: resp.data.stderr
-        });
+        var error = resp.data.stderr.toString().replace(nodeadminRGXP, '');
+        if(error.length > 4) {
+          $scope.alerts.error.push({
+            status: 'Error',
+            msg: error
+          });
+        }
       }
     })
     .catch(function(err) {
       // Allow for error displaying on modules page
-      $scope.error = err.data.error;
-      $scope.alerts.error.push({
-        status: 'Error',
-        msg: err.data.error
-      });
-    })
+      var error = err.data.error.toString().replace(nodeadminRGXP, '');
+      if(error.length > 4) {
+        $scope.alerts.error.push({
+          status: 'Error',
+          msg: error
+        });
+      }
+    });
   };
 
   // Get modules on load
