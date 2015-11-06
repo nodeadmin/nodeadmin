@@ -1,8 +1,16 @@
 {
   "name": "nodeadmin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A fantastically elegant interface for MySQL and Node.js/Express management",
-  "keywords": ["express", "mysql", "middleware"],
+  "keywords": [
+    "express",
+    "mysql",
+    "middleware",
+    "admin",
+    "server admin",
+    "databases",
+    "dashboard"
+  ],
   "main": "middleware/index.js",
   "scripts": {
     "test": "node ./middleware/tests/test.js",
@@ -13,10 +21,22 @@
     "url": "git+https://github.com/nodeadmin/nodeadmin"
   },
   "contributors": [
-    {"name": "Alex Hutchison", "url": "https://github.com/dutchers"},
-    {"name": "Andrew Nickell", "url": "https://github.com/nickell-andrew"},
-    {"name": "Laura Knight", "url": "https://github.com/ljknight"},
-    {"name": "Taylor Lehman", "url": "https://github.com/taylorleh"}
+    {
+      "name": "Alex Hutchison",
+      "url": "https://github.com/dutchers"
+    },
+    {
+      "name": "Andrew Nickell",
+      "url": "https://github.com/nickell-andrew"
+    },
+    {
+      "name": "Laura Knight",
+      "url": "https://github.com/ljknight"
+    },
+    {
+      "name": "Taylor Lehman",
+      "url": "https://github.com/taylorleh"
+    }
   ],
   "license": "MIT",
   "bugs": {
