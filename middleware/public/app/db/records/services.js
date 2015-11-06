@@ -40,46 +40,24 @@
     function getRecords(db, table, page, sortBy, sortDir) {
       return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/' + page + '?sortBy=' + sortBy + '&sortDir=' + sortDir)
         .then(getRecordsComplete)
-        .catch(getRecordsFailed);
+      //   .catch(getRecordsFailed);
 
       function getRecordsComplete(response) {
         return response.data;
       }
 
-      function getRecordsFailed(err) {
-        console.error(err);
-      }
+      // function getRecordsFailed(err) {
+      //   console.error(err);
+      // }
 
     }
 
     function editRecord(db, table, page, data) {
       return $http.put('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
-        .then(editRecordComplete)
-        .catch(editRecordFailed);
-
-      function editRecordComplete(response) {
-        return response;
-      }
-
-      function editRecordFailed(err) {
-        console.error(err);
-      }
     }
 
     function addRecord(db, table, page, data) {
       return $http.post('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
-        .then(addRecordComplete)
-        .catch(addRecordFailed);
-
-      function addRecordComplete(response) {
-        setResult('success');
-        return response.date;
-      }
-
-      function addRecordFailed(err) {
-        setResult('failure');
-        console.error(err);
-      }
     }
 
   }

@@ -5,7 +5,9 @@
     .module('nodeadmin.records', [])
     .controller('RecordsController', RecordsController);
 
-  function RecordsController($scope, RecordsFactory, PaginationFactory, ForeignFactory, SortingFactory, TypeCheckFactory, PrimaryKeyFactory, $state, $stateParams) {
+  function RecordsController($scope, RecordsFactory, PaginationFactory, ForeignFactory, SortingFactory, TypeCheckFactory, PrimaryKeyFactory, $state, $stateParams, AlertCenter) {
+
+    AlertCenter.addAll($scope);
 
     $scope.records = {};
     $scope.headers = [];
@@ -16,8 +18,6 @@
 
     $scope.rowing = false;
     $scope.loading = true;
-    $scope.success = RecordsFactory.getResult('success');
-    $scope.error = RecordsFactory.getResult('failure');
     $scope.isEditing = false;
 
     $scope.table = $stateParams.table;
@@ -52,6 +52,10 @@
       }
 
       function getRecordsFailed(err) {
+        $scope.alerts.error.push({
+          status: 'Error',
+          mgs: 'Failed to fetch records for this table.'
+        })
         console.error(err);
       }
 
@@ -96,13 +100,18 @@
         .finally(addRecordReset);
 
       function addRecordComplete(response) {
-        $scope.success = RecordsFactory.getResult('success');
-        $scope.error = RecordsFactory.getResult('failure');
+        $scope.alerts.success.push({
+          status: 'Success',
+          msg: 'Record updated.'
+        });
       }
 
       function addRecordFailed(err) {
+        $scope.alerts.error.push({
+          status: 'Error',
+          msg: 'Unable to add record to the database'
+        });
         console.error(err);
-        $scope.error = true;
       }
 
       function addRecordReset() {
@@ -136,10 +145,17 @@
         .finally(setEditToFalse);
 
       function editRecordComplete(response) {
-        $scope.success = true;
+        $scope.alerts.success.push({
+          status: 'Success',
+          msg: 'Record updated.'
+        });
       }
 
       function editRecordFailed(err) {
+        $scope.alerts.error.push({
+          status: 'Error',
+          msg: 'Unable to add record to the database'
+        });
         console.error(err);
       }
 
