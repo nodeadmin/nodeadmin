@@ -51,7 +51,6 @@
         $scope.foreignValues = ForeignFactory.getForeignValuesArray();
       }
 
-
       function getRecordsFailed(err) {
         console.error(err);
       }
@@ -98,7 +97,6 @@
         .finally(addRecordReset);
 
       function addRecordComplete(response) {
-        console.log('THIS IS GETTING LOGGED FROM record.js' + response);
         $scope.success = RecordsFactory.getResult('success');
         $scope.error = RecordsFactory.getResult('failure');
       }
