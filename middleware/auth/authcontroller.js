@@ -20,7 +20,6 @@ module.exports = {
         client.bindClientDB(conn);
         res.status(200).json({token: token});
     }).catch(function (e) {
-      console.log(e);
       if(e.errno === 1045) {
         res.status(500).json({error: 'We couldn\'t connect to the host with the credentials you provided. Please try again.'});
       } else if (e.errno === 'ENOTFOUND') {

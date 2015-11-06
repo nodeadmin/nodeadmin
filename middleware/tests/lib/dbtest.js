@@ -2,10 +2,9 @@ var connection = require('../test.js');
 var expect = require('chai').expect;
 var request = require('supertest')('http://localhost:4040');
 
-
 var token;
-describe('CRUD', function(){
 
+describe('CRUD', function(){
 
   before(function (done){
     request.post('/nodeadmin/api/auth/login')
@@ -25,7 +24,6 @@ describe('CRUD', function(){
         }    
       });
   });
-
 
   describe('CREATE Datatbase', function(){
     var database_before;

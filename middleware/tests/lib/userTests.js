@@ -1,6 +1,4 @@
 var expect = require('chai').expect;
-// Pass in your URL & run server
-
 var request = require('supertest')('http://localhost:4040');
 var connection = require('../test.js');
 

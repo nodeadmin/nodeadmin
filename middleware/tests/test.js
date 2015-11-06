@@ -2,7 +2,6 @@ var serverenv = exports;
 var mysql = require('mysql');
 var spawn = require('child_process').spawn;
 
-
 serverenv.host = process.env.MYSQL_HOST,
 serverenv.port = process.env.MYSQL_PORT,
 serverenv.user = process.env.MYSQL_USER,
@@ -18,7 +17,6 @@ serverenv.fakeserver.on('err', function (res){
 serverenv.fakeserver.stdout.on('data', function(data){
   console.log(String(data));
 });
-
 
 
 var Mocha = require('mocha'),
@@ -40,7 +38,6 @@ fs.readdirSync(testDir).filter(function(file){
         path.join(testDir, file)
     );
 });
-
 
 
 setTimeout(function(){

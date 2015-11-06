@@ -1,9 +1,7 @@
 var expect = require('chai').expect;
-// Pass in your URL & run server
-// var request = require('supertest')('http://192.168.99.101:4040');
-var request = require('supertest')('http://localhost:4040');
-var conn = require('../test.js');
 
+var request = require('supertest')('http://localhost:4040');
+var connection = require('../test.js');
 
 var token;
 
@@ -22,15 +20,15 @@ describe('Auth API Route', function() {
 
     request.post('/nodeadmin/api/auth/login')
       .send({
-        mysqlUser: conn.user,
-        mysqlPassword: conn.password
+        mysqlUser: connection.user,
+        mysqlPassword: connection.password
       })
       .expect(200)
       .end(function(err, res) {
         if(err){
           done(err);
-          return;
         } 
+        token = res.body.token;
         done();
       });
 
@@ -47,8 +45,8 @@ describe('Auth API Route', function() {
 
     request.post('/nodeadmin/api/auth/login')
       .send({
-        username: 'Laura',
-        password: '123'
+        mysqlUser: 'fakeuser',
+        mysqlPassword: '123'
       })
       .expect(500)
       .end(function(err) {
@@ -64,8 +62,8 @@ describe('Auth API Route', function() {
 
     request.post('/nodeadmin/api/auth/login')
       .send({
-        username: 'root',
-        password: 'beer'
+        mysqlUser: 'root',
+        mysqlPassword: 'beer'
       })
       .expect(500)
       .end(function(err) {
