@@ -13,9 +13,9 @@
     "url": "git+https://github.com/nodeadmin/nodeadmin"
   },
   "contributors": [
-    {"name": "Alex Hutchison", "url": "https://github.com/dutchers"}, 
-    {"name": "Andrew Nickell", "url": "https://github.com/nickell-andrew"}, 
-    {"name": "Laura Knight", "url": "https://github.com/ljknight"}, 
+    {"name": "Alex Hutchison", "url": "https://github.com/dutchers"},
+    {"name": "Andrew Nickell", "url": "https://github.com/nickell-andrew"},
+    {"name": "Laura Knight", "url": "https://github.com/ljknight"},
     {"name": "Taylor Lehman", "url": "https://github.com/taylorleh"}
   ],
   "license": "MIT",
@@ -24,7 +24,6 @@
   },
   "homepage": "http://nodeadmin.github.io/nodeadmin",
   "dependencies": {
-    "bcrypt": "^0.8.5",
     "bluebird": "^2.10.2",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
