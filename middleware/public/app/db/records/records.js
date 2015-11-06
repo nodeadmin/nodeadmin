@@ -102,7 +102,7 @@
       function addRecordComplete(response) {
         $scope.alerts.success.push({
           status: 'Success',
-          msg: 'Record updated.'
+          msg: 'Record created.'
         });
       }
 
