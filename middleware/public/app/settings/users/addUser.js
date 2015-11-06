@@ -1,5 +1,5 @@
 angular.module('nodeadmin.settings.adduser', [])
-  .controller('AddUserController', function($scope, Users, $modalInstance, $state, AlertCenter) { 
+  .controller('AddUserController', function($scope, Users, $uibModalInstance, $state, AlertCenter) { 
 
     $scope.user = {};
 
@@ -8,7 +8,7 @@ angular.module('nodeadmin.settings.adduser', [])
     $scope.addUser = function() {
       Users.addUser($scope.user)
         .then(function(response) {
-          $modalInstance.close(response);
+          $uibModalInstance.close(response);
         })
         .catch(function(err) {
           // $scope.error = err.data;
@@ -21,7 +21,7 @@ angular.module('nodeadmin.settings.adduser', [])
     };
 
     $scope.cancel = function() {
-      $modalInstance.dismiss('close');
+      $uibModalInstance.dismiss('close');
     };
 
     $scope.editPrivileges = function() {

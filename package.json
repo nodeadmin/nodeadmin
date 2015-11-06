@@ -2,7 +2,7 @@
   "name": "nodeadmin",
   "version": "0.1.0",
   "description": "A fantastically elegant interface for MySQL and Node.js/Express management",
-  "keywords": ["express", "mysql", "middlware"],
+  "keywords": ["express", "mysql", "middleware"],
   "main": "middleware/index.js",
   "scripts": {
     "test": "node ./middleware/tests/test.js",

@@ -1,5 +1,5 @@
 angular.module('nodeadmin.db.deleteTable', [])
-  .controller('DeleteTableController', function($scope, $modalInstance, $stateParams, Tables) {
+  .controller('DeleteTableController', function($scope, $uibModalInstance, $stateParams, Tables) {
 
   $scope.dropTable = Tables.returnDropTableName();
 
@@ -7,14 +7,14 @@ angular.module('nodeadmin.db.deleteTable', [])
     // Drop table
     Tables.dropTable($stateParams.database, $scope.dropTable)
       .then(function(droppedTable) {
-        $modalInstance.close(droppedTable);
+        $uibModalInstance.close(droppedTable);
       })
       .catch(function(err) {
-        $modalInstance.close(err);
+        $uibModalInstance.close(err);
       });
   };
 
   $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 });

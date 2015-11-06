@@ -1,5 +1,5 @@
 angular.module('nodeadmin.db.deletedb', [])
-.controller('DBDeleteController', function ($scope, $modalInstance, DatabaseFactory, databases) {
+.controller('DBDeleteController', function ($scope, $uibModalInstance, DatabaseFactory, databases) {
 
   $scope.data = {
     repeatSelect: null,
@@ -12,15 +12,15 @@ angular.module('nodeadmin.db.deletedb', [])
       .then(function (res) {
         var ind = databases.map(function (db) { return db.Database; }).indexOf($scope.data.repeatSelect);
         databases.splice(ind, 1);
-        $modalInstance.close(res);
+        $uibModalInstance.close(res);
       })
       .catch(function (error) {
-        $modalInstance.close(error);
+        $uibModalInstance.close(error);
       })
   };
 
   $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 
 
