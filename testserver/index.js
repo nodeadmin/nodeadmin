@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var mysql = require('mysql');
 
-var nodeadmin = require('../middleware/index.js');
+var nodeadmin = require(__dirname + '/../middleware/index.js');
 
 
 app.use(nodeadmin(app, 4040));

@@ -1,20 +1,16 @@
 var expect = require('chai').expect;
-// Pass in your URL & run server
-var request = require('supertest')('http://192.168.99.101:4040');
-
-// var client = require('../auth/clientdb.js');
-var connection = require('../test.js').connection;
+var request = require('supertest')('http://localhost:4040');
+var connection = require('../test.js');
 
 var token;
-
 describe('USER CRUD', function() {
 
   // Pass in your login information
   before(function(done) {
     request.post('/nodeadmin/api/auth/login')
       .send({
-        mysqlUser: 'root',
-        mysqlPassword: 'babka'
+        mysqlUser: connection.user,
+        mysqlPassword: connection.password
       })
       .expect(200)
       .end(function(err, res) {

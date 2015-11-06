@@ -1,29 +1,35 @@
 var expect = require('chai').expect;
-// Pass in your URL & run server
-// var request = require('supertest')('http://192.168.99.101:4040');
-var request = require('supertest')('localhost:4040');
-var conn = require('../test.js').connection;
 
+var request = require('supertest')('http://localhost:4040');
+var connection = require('../test.js');
 
 var token;
 
 describe('Auth API Route', function() {
+  // it('should connect to homepage', function(done){
+  //   request.get('/')
+  //     .status(200)
+  //     .end(function(err, res){
+  //       console.log('tried to get homepage and here it is', err);
+  //       done()
+  //     })
+  // })
+
 
   it('should sign in an existing user with valid password', function(done) {
 
     request.post('/nodeadmin/api/auth/login')
       .send({
-        mysqlUser: 'root',
-        mysqlPassword: 'babka'
+        mysqlUser: connection.user,
+        mysqlPassword: connection.password
       })
       .expect(200)
       .end(function(err, res) {
-        if (err) {
+        if(err){
           done(err);
-        } else {
-          token = res.body.token;
-          done();
-        }
+        } 
+        token = res.body.token;
+        done();
       });
 
   }); // Closes 'it should sign in an existing user with valid password'
@@ -39,8 +45,8 @@ describe('Auth API Route', function() {
 
     request.post('/nodeadmin/api/auth/login')
       .send({
-        username: 'Laura',
-        password: '123'
+        mysqlUser: 'fakeuser',
+        mysqlPassword: '123'
       })
       .expect(500)
       .end(function(err) {
@@ -56,8 +62,8 @@ describe('Auth API Route', function() {
 
     request.post('/nodeadmin/api/auth/login')
       .send({
-        username: 'root',
-        password: 'beer'
+        mysqlUser: 'root',
+        mysqlPassword: 'beer'
       })
       .expect(500)
       .end(function(err) {
