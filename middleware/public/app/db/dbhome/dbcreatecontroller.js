@@ -1,5 +1,5 @@
 angular.module('nodeadmin.db.createdb', [])
-.controller('DBCreateController', function ($scope, $modalInstance, DatabaseFactory, state) {
+.controller('DBCreateController', function ($scope, $uibModalInstance, DatabaseFactory, state) {
 
   $scope.database = {};
 
@@ -12,10 +12,10 @@ angular.module('nodeadmin.db.createdb', [])
       DatabaseFactory.createDB($scope.database)
         .then(function (res) {
           // close modal and send mysql response
-          $modalInstance.close(res);
+          $uibModalInstance.close(res);
         })
         .catch(function (error) {
-          $modalInstance.close(error);
+          $uibModalInstance.close(error);
         })
     } else {
       // TODO: error handling
@@ -24,7 +24,7 @@ angular.module('nodeadmin.db.createdb', [])
   };
 
   $scope.cancel = function() {
-    $modalInstance.dismiss('cancel');
+    $uibModalInstance.dismiss('cancel');
   };
 
 })
