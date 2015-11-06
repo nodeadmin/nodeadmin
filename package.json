@@ -2,11 +2,11 @@
   "name": "nodeadmin",
   "version": "0.1.0",
   "description": "A fantastically elegant interface for MySQL and Node.js/Express management",
-  "keywords": ["express", "mysql", "middlware"],
-  "main": "src/index.js",
+  "keywords": ["express", "mysql", "middleware"],
+  "main": "middleware/index.js",
   "scripts": {
-    "test": "node ./src/tests/test.js",
-    "postinstall": "npm install --prefix ./src/public/"
+    "test": "node ./middleware/tests/test.js",
+    "postinstall": "npm install --prefix ./middleware/public/"
   },
   "repository": {
     "type": "git",
