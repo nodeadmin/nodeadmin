@@ -235,16 +235,23 @@ module.exports = {
             tables.push(table[key]);
           }
         });
+
         var tableStr = '';
-        for (var i = 0; i < tables.length; i++) {
-          if (tableStr === '') {
-            tableStr += '(\'' + tables[i] + '\' ';
-          } else if (i === tables.length -1) {
-            tableStr += 'OR \'' + tables[i] + '\')';
-          } else {
-            tableStr += 'OR \'' + tables[i] + '\' ';
+        if (tables.length === 1) {
+          //if there is no foreign key constraints
+          tableStr = '\'' + tables[0] + '\'';
+        } else {
+          for (var i = 0; i < tables.length; i++) {
+            if (tableStr === '') {
+              tableStr += '(\'' + tables[i] + '\' ';
+            } else if (i === tables.length -1) {
+              tableStr += 'OR \'' + tables[i] + '\')';
+            } else {
+              tableStr += 'OR \'' + tables[i] + '\' ';
+            }
           }
         }
+
         if (sortBy && sortDir) {
 
           connection.query({
