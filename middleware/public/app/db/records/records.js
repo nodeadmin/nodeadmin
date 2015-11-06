@@ -126,8 +126,6 @@
         pk: PrimaryKeyFactory.retrievePrimaryKey()
       };
 
-      console.log(update);
-
       RecordsFactory.editRecord($stateParams.database, $stateParams.table, $stateParams.page, update)
         .then(editRecordComplete)
         .catch(editRecordFailed)
@@ -169,7 +167,6 @@
     };
 
     $scope.isDate = function (column) {
-      console.log(column);
       return TypeCheckFactory.isDate(column);
     };
 

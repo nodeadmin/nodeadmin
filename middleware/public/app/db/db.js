@@ -26,9 +26,6 @@ angular.module('nodeadmin.db', [])
       dbFactory.getDatabases()
         .then(function (dbs) {
           $scope.databases = dbs.data;
-
-          // $scope.$digest();
-
         });
     };
 
