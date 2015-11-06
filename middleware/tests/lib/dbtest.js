@@ -159,4 +159,23 @@ describe('CRUD', function(){
 
   })
 
+  describe('QUERY DB', function () {
+
+    it('should be able to accept direct database queries', function (done) {
+
+      request.post('/nodeadmin/api/query')
+        .set('Authorization', token)
+        .expect(200)
+        .end(function (err, res){
+          if(err) {
+            done(err);
+          } else {
+            done();
+          }
+        });
+
+    });
+
+  });
+
 });

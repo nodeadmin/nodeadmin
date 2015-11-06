@@ -152,6 +152,7 @@
       isEnum: isEnum,
       isAuto: isAuto,
       notNull: notNull,
+      isDate: isDate,
       enums: enums
     };
 
@@ -198,6 +199,14 @@
       if (input === 'NO') {
         return true;
       }
+      return false;
+    }
+
+    function isDate(input) {
+      if (input === 'date') {
+        return true;
+      }
+
       return false;
     }
   }
