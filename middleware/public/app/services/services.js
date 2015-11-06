@@ -245,16 +245,6 @@
           url: ['/nodeadmin/api/db', database, table].join('/'),
           data: schema
         })
-        .then(createTableComplete)
-        .catch(createTableFailed);
-
-      function createTableComplete(response) {
-        return response;
-      }
-
-      function createTableFailed(err) {
-        console.error(err);
-      }
     }
 
     function saveTableName(tableName) {
