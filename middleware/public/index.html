@@ -8,40 +8,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <!-- Leaving bootstrap for glyphicons -->
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/lumen.css">
-    <link rel="stylesheet" href="node_modules/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="lib/angular-chart.js/dist/angular-chart.css">
     <link rel="stylesheet" href="css/simple-sidebar.css">
-    <link rel="stylesheet" type="text/css" href="node_modules/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" type="text/css" href="node_modules/codemirror/theme/monokai.css">
+    <link rel="stylesheet" type="text/css" href="lib/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="lib/codemirror/theme/monokai.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="shortcut icon" href="resources/favicon.ico" />
+
+    <!-- Place favicon.ico in the root directory -->
   </head>
   <body>
-  
   <!-- content -->
   <div ui-view></div>
   <!--[if lt IE 8]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
+
   <!-- Dependencies -->
-  <script src="node_modules/socket.io-client/socket.io.js"></script>
-  <script src="node_modules/angular/angular.min.js"></script>
-  <script src="node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <script src="node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="node_modules/chart.js/Chart.min.js"></script>
-  <script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
-  <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
-  <script src="node_modules/angular-toArrayFilter/toArrayFilter.js"></script>
-  <script src="node_modules/spin.js/spin.min.js"></script>
-  <script src="node_modules/angular-spinner/angular-spinner.min.js"></script>
-  <script src="node_modules/angular-bindonce/bindonce.min.js"></script>
-  <script src="node_modules/codemirror/lib/codemirror.js"></script>
-  <script src="node_modules/angular-ui-codemirror/src/ui-codemirror.js"></script>
-  <script src="node_modules/codemirror/mode/sql/sql.js"></script>
+  <script src="lib/socket.io-client/socket.io.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/jquery/dist/jquery.min.js"></script>
+  <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="lib/Chart.js/Chart.js"></script>
+  <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
+  <script src="lib/angular-sanitize/angular-sanitize.js"></script>
+  <script src="lib/angular-toArrayFilter/toArrayFilter.js"></script>
+  <script src="lib/spin.js/spin.js"></script>
+  <script src="lib/angular-spinner/angular-spinner.js"></script>
+  <script src="lib/angular-bindonce/bindonce.min.js"></script>
+  <script src="lib/codemirror/lib/codemirror.js"></script>
+  <script src="lib/angular-ui-codemirror/ui-codemirror.js"></script>
+  <script src="lib/codemirror/mode/sql/sql.js"></script>
   <!-- scripts -->
   <script src="app/services/services.js"></script>
   <script src="app/auth/auth.js"></script>
