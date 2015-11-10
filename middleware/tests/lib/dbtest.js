@@ -10,7 +10,8 @@ describe('CRUD', function(){
     request.post('/nodeadmin/api/auth/login')
       .send({
         mysqlUser: connection.user,
-        mysqlPassword:connection.password
+        mysqlPassword:connection.password,
+        mysqlHost: connection.host
       })
       .expect(200)
       .end(function (err, res) {

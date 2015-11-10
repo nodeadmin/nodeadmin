@@ -8,6 +8,7 @@ module.exports = {
     mysql.createConnection({
       user: req.body.mysqlUser,
       password: req.body.mysqlPassword,
+      host: req.body.mysqlHost,
       multipleStatements: true
     }).then(function(conn) {
         var token = jwt.sign({msg: 'welcome!'}, req.app.locals.secret);
