@@ -1,6 +1,6 @@
 var Promise = require('bluebird');
 var router = require('express').Router();
-var HomeController = Promise.promisifyAll(require('./HomeController'));
+var HomeController = Promise.promisifyAll(require('./homeController'));
 var tokenCheck = require('../auth/tokenCheck.js');
 
 router.use(tokenCheck);
