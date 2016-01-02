@@ -1,4 +1,4 @@
-angular.module('nodeadmin.settings.viewprivileges', [])
+angular.module('nodeadmin.settings.viewPrivileges', [])
   .controller('ViewPrivilegesController', function($scope, Users, $uibModalInstance) {
     
     var grantUser = Users.returnGrantUser();

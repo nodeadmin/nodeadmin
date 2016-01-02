@@ -1,4 +1,4 @@
-angular.module('nodeadmin.db.dbhome', [])
+angular.module('nodeadmin.db.dbHome', [])
 .controller('DBHomeController', ['$scope', 'DBInfoFactory', '$uibModal','$state', 'AlertCenter',
   function ($scope, DBInfoFactory, $uibModal, $state, AlertCenter) {
 

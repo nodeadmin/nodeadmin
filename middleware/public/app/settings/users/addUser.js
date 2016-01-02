@@ -1,4 +1,4 @@
-angular.module('nodeadmin.settings.adduser', [])
+angular.module('nodeadmin.settings.addUser', [])
   .controller('AddUserController', function($scope, Users, $uibModalInstance, $state, AlertCenter) { 
 
     $scope.user = {};

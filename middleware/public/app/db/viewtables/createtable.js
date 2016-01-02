@@ -1,4 +1,4 @@
-angular.module('nodeadmin.db.createtable', [])
+angular.module('nodeadmin.db.createTable', [])
 .controller('CreateTableViewController', ['$scope', '$uibModal', '$stateParams','$state','Tables', 'AlertCenter',
   function ($scope, $uibModal, $stateParams, $state, Tables, AlertCenter) {
 

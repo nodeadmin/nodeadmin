@@ -1,4 +1,4 @@
-angular.module('nodeadmin.db.createdb', [])
+angular.module('nodeadmin.db.createDb', [])
 .controller('DBCreateController', function ($scope, $uibModalInstance, DatabaseFactory, state) {
 
   $scope.database = {};
