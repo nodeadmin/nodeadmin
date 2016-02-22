@@ -1,5 +1,5 @@
 (function () {
-  'use strict';
+  
   angular
     .module('nodeadmin.records.services', [])
     .factory('RecordsFactory', RecordsFactory)
