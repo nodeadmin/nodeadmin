@@ -1,4 +1,4 @@
-angular.module('nodeadmin.db.deletedb', [])
+angular.module('nodeadmin.db.deleteDb', [])
 .controller('DBDeleteController', function ($scope, $uibModalInstance, DatabaseFactory, databases) {
 
   $scope.data = {

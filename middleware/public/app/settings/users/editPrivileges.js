@@ -1,4 +1,4 @@
-angular.module('nodeadmin.settings.editprivileges', [])
+angular.module('nodeadmin.settings.editPrivileges', [])
   .controller('EditPrivilegesController', function($scope, $stateParams, Users, RecordsFactory, AlertCenter) {
     $scope.user = $stateParams.user;
     $scope.host = $stateParams.host || 'localhost';

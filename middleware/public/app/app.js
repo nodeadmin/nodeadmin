@@ -9,19 +9,19 @@ angular.module('nodeadmin', [
   'nodeadmin.main',
   'nodeadmin.settings',
   'nodeadmin.settings.users',
-  'nodeadmin.settings.viewprivileges',
-  'nodeadmin.settings.editprivileges',
-  'nodeadmin.settings.adduser',
+  'nodeadmin.settings.viewPrivileges',
+  'nodeadmin.settings.editPrivileges',
+  'nodeadmin.settings.addUser',
   'nodeadmin.settings.deleteUser',
   'nodeadmin.system',
   'nodeadmin.system.modules',
   'nodeadmin.system.logs',
   'nodeadmin.db',
-  'nodeadmin.db.dbhome',
-  'nodeadmin.db.createdb',
-  'nodeadmin.db.deletedb',
+  'nodeadmin.db.dbHome',
+  'nodeadmin.db.createDb',
+  'nodeadmin.db.deleteDb',
   'nodeadmin.db.viewTables',
-  'nodeadmin.db.createtable',
+  'nodeadmin.db.createTable',
   'nodeadmin.db.deleteTable',
   'nodeadmin.db.query',
   'nodeadmin.records',
@@ -132,7 +132,7 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    .state('dbhome', {
+    .state('dbHome', {
       parent: 'db',
       url: '',
       templateUrl: 'app/db/dbHome/dbHome.html',
@@ -150,10 +150,10 @@ angular.module('nodeadmin', [
         requireLogin: true
       }
     })
-    .state('createtable', {
+    .state('createTable', {
       parent: 'db',
-      url: '/:database/createtable',
-      templateUrl: 'app/db/viewTables/createtable.html',
+      url: '/:database/createTable',
+      templateUrl: 'app/db/viewTables/createTable.html',
       controller: 'CreateTableViewController',
       data: {
         requireLogin: true
