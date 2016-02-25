@@ -135,7 +135,7 @@ angular.module('nodeadmin', [
     .state('dbhome', {
       parent: 'db',
       url: '',
-      templateUrl: 'app/db/dbHome/dbHome.html',
+      templateUrl: 'app/db/dbhome/dbhome.html',
       controller: 'DBHomeController',
       data: {
         requireLogin: true
@@ -144,7 +144,7 @@ angular.module('nodeadmin', [
     .state('tables', {
       parent: 'db',
       url: '/:database',
-      templateUrl: 'app/db/viewTables/viewTables.html',
+      templateUrl: 'app/db/viewtables/viewtables.html',
       controller: 'TableViewController',
       data: {
         requireLogin: true
@@ -153,7 +153,7 @@ angular.module('nodeadmin', [
     .state('createtable', {
       parent: 'db',
       url: '/:database/createtable',
-      templateUrl: 'app/db/viewTables/createtable.html',
+      templateUrl: 'app/db/viewtables/createtable.html',
       controller: 'CreateTableViewController',
       data: {
         requireLogin: true

@@ -11,7 +11,7 @@ angular.module('nodeadmin.db.dbhome', [])
 
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'app/db/dbHome/dbcreate.html',
+          templateUrl: 'app/db/dbhome/dbcreate.html',
           controller: 'DBCreateController',
           size: 'sm',
           resolve: {
@@ -35,7 +35,7 @@ angular.module('nodeadmin.db.dbhome', [])
 
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'app/db/dbHome/dbdelete.html',
+          templateUrl: 'app/db/dbhome/dbdelete.html',
           controller: 'DBDeleteController',
           size: 'sm',
           resolve: {
