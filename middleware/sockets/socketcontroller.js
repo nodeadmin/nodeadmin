@@ -1,5 +1,5 @@
 var spawn = require('child_process').spawn;
-var HomeController = require('../home/homeController');
+var HomeController = require('../home/homecontroller');
 var fs = require('fs');
 var ls;
 

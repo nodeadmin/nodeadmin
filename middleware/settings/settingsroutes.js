@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var tokenCheck = require('../auth/tokenCheck.js');
-var SettingsController = require('./settingsController.js');
+var tokenCheck = require('../auth/tokencheck.js');
+var SettingsController = require('./settingscontroller.js');
 
 router.use(tokenCheck);
 

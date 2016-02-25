@@ -9,11 +9,11 @@ var randomstring = require('randomstring')
 
 
 // *** NodeAdmin Routers ***
-var auth = require('./auth/authRoutes.js');
-var database = require('./database/databaseRoutes.js');
-var settings = require('./settings/settingsRoutes.js');
-var system = require('./system/systemRoutes.js');
-var home = require('./home/homeRoutes.js');
+var auth = require('./auth/authroutes.js');
+var database = require('./database/databaseroutes.js');
+var settings = require('./settings/settingsroutes.js');
+var system = require('./system/systemroutes.js');
+var home = require('./home/homeroutes.js');
 
 module.exports = function nodeadmin(app, port) {
   'use strict';
@@ -27,7 +27,7 @@ module.exports = function nodeadmin(app, port) {
 
 
   // ** Socket Controller
-  require('./sockets/socketController.js')(io);
+  require('./sockets/socketcontroller.js')(io);
 
   // ** Logs
   var accessLogStream = fs.createWriteStream(__dirname + '/serverlogs/access.log', {flags: 'a'});

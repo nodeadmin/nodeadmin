@@ -1,7 +1,7 @@
 /* jshint strict: false, unused: false */
 var router = require('express').Router();
-var tokenCheck = require('../auth/tokenCheck.js');
-var DbController = require('./databaseController.js');
+var tokenCheck = require('../auth/tokencheck.js');
+var DbController = require('./databasecontroller.js');
 
 // require token for all database operations
 router.use(tokenCheck);
