@@ -172,8 +172,8 @@
       return TypeCheckFactory.isNum(column);
     };
 
-    $scope.isEnum = function (column) {
-      var bool = TypeCheckFactory.isEnum(column);
+    $scope.isEnum = function (column, ind) {
+      var bool = TypeCheckFactory.isEnum($scope.headers[ind].Type);
       $scope.enums = TypeCheckFactory.getEnums();
       return bool;
     };
