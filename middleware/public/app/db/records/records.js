@@ -14,6 +14,7 @@
     $scope.row = {};
     $scope.foreignValues = [];
     $scope.enums = TypeCheckFactory.getEnums();
+    $scope.dateCols = {};
     $scope.maxDate = new Date(2020, 5, 22);
 
     $scope.rowing = false;
@@ -30,6 +31,7 @@
       RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, SortingFactory.getSortBy(), SortingFactory.getSortDir())
         .then(getRecordsComplete)
         .then(getForeignValues)
+        .then(fillDateTypes)
         .catch(getRecordsFailed)
         .finally(loadingComplete);
 
@@ -49,6 +51,14 @@
 
       function getForeignValues(result) {
         $scope.foreignValues = ForeignFactory.getForeignValuesArray();
+      }
+
+      function fillDateTypes() {
+        for(var i=0; i < $scope.headers.length; i++) {
+          if($scope.headers[i].Type === 'date') {
+            $scope.dateCols[$scope.headers[i].Field] = 'YYYY-MM-DD';
+          }
+        }
       }
 
       function getRecordsFailed(err) {
@@ -94,6 +104,15 @@
     };
 
     $scope.addRow = function () {
+      var row = $scope.row;
+
+      for(var col in row) {
+        if(col in $scope.dateCols) {
+          $scope.row[col] = moment(new Date($scope.row[col])).format($scope.dateCols[col]);
+        }
+      }
+
+
       RecordsFactory.addRecord($stateParams.database, $stateParams.table, $stateParams.page, $scope.row)
         .then(addRecordComplete)
         .catch(addRecordFailed)
@@ -130,6 +149,7 @@
     $scope.cancel = function () {
       $scope.isEditing = false;
     };
+
 
     $scope.updateRow = function (data) {
       var update = {
