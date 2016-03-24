@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col-md-9">
       <h2 class="page-header space">{{table}}</h2>
-
     </div>
   </div>
   <div class="row">
@@ -13,10 +12,10 @@
         <div class="form-group col-xs-2" ng-repeat="header in headers track by $index">
           <label for="{{::header.Field}}" bo-if="!notNull(header.Null)">{{::header.Field}}</label>
           <label for="{{::header.Field}}" bo-if="notNull(header.Null)">{{::header.Field}}*</label>
-          <input type="text" class="form-control input-sm" bo-if="!isRef(header.Field) && !isEnum(header.Type, $index) && !isAuto(header.Extra) && !isDate(header.Type)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="row[header.Field]" />
+          <input type="text" class="form-control input-sm" bo-if="!isRef(header.Field) && !isEnum(header.Type, $index) && !isAuto(header.Extra) && !isDate(header.Field)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="row[header.Field]" />
           <input type="text" class="form-control input-sm" bo-if="isAuto(header.Extra)" name="header.Field" ng-model="row[header.Field]"readonly />
-          <div class="input-group" bo-if="isDate(header.Type)">
-            <input type="text" class="form-control" uib-datepicker-popup="" ng-model="row[header.Field]" is-open="status.opened" min-date="null" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+          <div class="input-group" bo-if="isDate(header.Field)">
+            <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="row[header.Field]" is-open="status.opened" close-text="Close" />
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
@@ -56,14 +55,22 @@
             <td class="clickable" title="Double-click to edit" ng-repeat="(column, data) in row track by $index">
               <span ng-if="isEditing != $parent.$id" >{{data}}</span>
               <div ng-if="isEditing == $parent.$id">
-                <input type="text" ng-if="!isRef(column) && !isEnum(column, $index)" class="form-control input-sm" ng-model="row[column]" />
+                <input type="text" ng-if="!isRef(column) && !isEnum(column, $index) && !isDate(column)" class="form-control input-sm" ng-model="row[column]" />
                 <select ng-if="isEnum(column, $index)" ng-model="row[column]" class="form-control input-sm">
                   <option ng-repeat="enum in enums" value="{{enum}}" >{{enum}}</option>
                 </select>
                 <select ng-if="isRef(column) == true" ng-model="row[column]" class="form-control input-sm">
                   <option ng-repeat="value in foreignValues" value="{{value}}" >{{value}}</option>
                 </select>
-                <button ng-click="updateRow(row, $index, $id)" class="btn btn-success btn-xs edit-cell-button">Save</button>
+                <div class="form-inline" bo-if="isDate(column)">
+                  <p class="input-group input-group-sm">
+                    <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" datepicker-options="dateOptions" ng-model="row[column]" is-open="status.opened" close-text="Close" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </p>
+                </div>
+                <button ng-click="updateRow(row)" class="btn btn-success btn-xs edit-cell-button">Save</button>
                 <button ng-click="cancel()" class="btn btn-warning btn-xs edit-cell-button">Cancel</button>
               </div>
             </td>
