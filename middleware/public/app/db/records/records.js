@@ -9,7 +9,7 @@
 
     AlertCenter.addAll($scope);
 
-    $scope.records = {};
+    $scope.records = [];
     $scope.headers = [];
     $scope.row = {};
     $scope.foreignValues = [];
@@ -25,6 +25,17 @@
     $scope.maxSize = PaginationFactory.maxSize;
     $scope.currentPage = PaginationFactory.currentPage;
     $scope.recordsCount = PaginationFactory.records;
+
+    var prepareDateTypes = function(recordData) {
+
+      for(var col in recordData) {
+        if(col in $scope.dateCols) {
+          recordData[col] = moment(new Date(recordData[col])).format($scope.dateCols[col]);
+        }
+      }
+      return recordData;
+    };
+
 
     $scope.init = function () {
       SortingFactory.currentTableReset($stateParams.table);
@@ -103,17 +114,9 @@
       $scope.rowing = $scope.rowing ? false : true;
     };
 
-    $scope.addRow = function () {
-      var row = $scope.row;
+    $scope.addRow = function (data) {
 
-      for(var col in row) {
-        if(col in $scope.dateCols) {
-          $scope.row[col] = moment(new Date($scope.row[col])).format($scope.dateCols[col]);
-        }
-      }
-
-
-      RecordsFactory.addRecord($stateParams.database, $stateParams.table, $stateParams.page, $scope.row)
+      RecordsFactory.addRecord($stateParams.database, $stateParams.table, $stateParams.page, prepareDateTypes(data))
         .then(addRecordComplete)
         .catch(addRecordFailed)
         .finally(addRecordReset);
@@ -152,10 +155,11 @@
 
 
     $scope.updateRow = function (data) {
+
       var update = {
         table: $stateParams.table,
         cols: $scope.headers,
-        val: data,
+        val: prepareDateTypes(data),
         pk: PrimaryKeyFactory.retrievePrimaryKey()
       };
 
@@ -207,7 +211,7 @@
     };
 
     $scope.isDate = function (column) {
-      return TypeCheckFactory.isDate(column);
+      return column in $scope.dateCols;
     };
 
     $scope.open = function($event) {
