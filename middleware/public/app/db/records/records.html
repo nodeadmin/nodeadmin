@@ -9,23 +9,23 @@
     <div class="col-xs-10 col-md-offset-1 space">
       <span class="glyphicon glyphicon-plus clickable" ng-click="toggleForm()" ng-if="rowing != true" tooltip-placement="right" uib-tooltip="add row"></span>
       <span class="glyphicon glyphicon-remove clickable" ng-if="rowing == true" ng-click="toggleForm()"></span>
-      <form class="form" ng-if="rowing == true" ng-submit="addRow(row)" bindonce>
-        <div class="form-group col-xs-2" ng-repeat="header in headers track by $index">
+      <form class="form" ng-if="rowing == true" ng-submit="addRow(records.row)" bindonce>
+        <div class="form-group col-xs-2" ng-repeat="header in records.structure track by $index">
           <label for="{{::header.Field}}" bo-if="!notNull(header.Null)">{{::header.Field}}</label>
           <label for="{{::header.Field}}" bo-if="notNull(header.Null)">{{::header.Field}}*</label>
-          <input type="text" class="form-control input-sm" bo-if="!isRef(header.Field) && !isEnum(header.Type, $index) && !isAuto(header.Extra) && !isDate(header.Field)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="row[header.Field]" />
-          <input type="text" class="form-control input-sm" bo-if="isAuto(header.Extra)" name="header.Field" ng-model="row[header.Field]"readonly />
+          <input type="text" class="form-control input-sm" bo-if="!isRef(header.Field) && !isEnum(header.Field, $index) && !isAuto(header.Extra) && !isDate(header.Field)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="records.row[header.Field]" />
+          <input type="text" class="form-control input-sm" bo-if="isAuto(header.Extra)" name="header.Field" ng-model="records.row[header.Field]"readonly />
           <div class="input-group" bo-if="isDate(header.Field)">
-            <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="row[header.Field]" is-open="status.opened" close-text="Close" />
+            <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="records.row[header.Field]" is-open="status.opened" close-text="Close" />
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
             </span>
           </div>
-          <select class="form-control input-sm" bo-if="isRef(header.Field) == true" ng-model="row[header.Field]">
+          <select class="form-control input-sm" bo-if="isRef(header.Field) == true" ng-model="records.row[header.Field]">
             <option ng-repeat="value in foreignValues">{{value}}</option>
           </select>
-          <select class="form-control input-sm" bo-if="isEnum(header.Field, $index) == true" ng-model="row[header.Field]">
-            <option value="{{enum}}" ng-repeat="enum in enums track by $index">{{enum}}</option>
+          <select class="form-control input-sm" bo-if="isEnum(header.Field, $index)" ng-model="records.row[header.Field]">
+            <option value="{{enum}}" ng-repeat="enum in records.enums[header.Field]">{{enum}}</option>
           </select>
         </div>
         <div class="col-xs-offset-9 col-xs-2">
@@ -52,13 +52,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="row in records | toArray | filter:search" ng-dblclick="editRow($id, row)">
+          <tr ng-repeat="row in records.data | toArray | filter:search" ng-dblclick="editRow($id, row)">
             <td class="clickable" title="Double-click to edit" ng-repeat="(column, data) in row track by $index">
               <span ng-if="isEditing != $parent.$id" >{{data}}</span>
               <div ng-if="isEditing == $parent.$id">
                 <input type="text" ng-if="!isRef(column) && !isEnum(column, $index) && !isDate(column)" class="form-control input-sm" ng-model="row[column]" />
                 <select ng-if="isEnum(column, $index)" ng-model="row[column]" class="form-control input-sm">
-                  <option ng-repeat="enum in enums" value="{{enum}}" >{{enum}}</option>
+                  <option ng-repeat="enum in records.enums[column]" value="{{enum}}" >{{enum}}</option>
                 </select>
                 <select ng-if="isRef(column) == true" ng-model="row[column]" class="form-control input-sm">
                   <option ng-repeat="value in foreignValues" value="{{value}}" >{{value}}</option>
