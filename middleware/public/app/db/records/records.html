@@ -52,7 +52,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="row in records.data | toArray | filter:search" ng-dblclick="editRow($id, row)">
+          <tr ng-repeat="row in records.data | toArray | filter:search" ng-dblclick="editRow($id); $event.preventDefault();">
             <td class="clickable" title="Double-click to edit" ng-repeat="(column, data) in row track by $index">
               <span ng-if="isEditing != $parent.$id" >{{data}}</span>
               <div ng-if="isEditing == $parent.$id">
