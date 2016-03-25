@@ -48,7 +48,7 @@
       <table class="table table-bordered table-hover" bindonce>
         <thead>
           <tr>
-            <th ng-repeat="header in headers"><div><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{::header.Type}} {{::header.Key}}"></span><span class="glyphicon glyphicon-chevron-down pull-right clickable" data-placement="top" uib-tooltip="Sort" ng-click="toggleSort(header.Field)"></span></div> {{::header.Field}}</th>
+            <th ng-repeat="header in records.structure"><div><span class="glyphicon glyphicon-info-sign" data-placement="top" uib-tooltip="{{::header.Type}} {{::header.Key}}"></span><span class="glyphicon glyphicon-chevron-down pull-right clickable" data-placement="top" uib-tooltip="Sort" ng-click="toggleSort(header.Field)"></span></div> {{::header.Field}}</th>
           </tr>
         </thead>
         <tbody>
