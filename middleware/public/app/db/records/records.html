@@ -15,7 +15,7 @@
           <label for="{{::header.Field}}" bo-if="notNull(header.Null)">{{::header.Field}}*</label>
           <input type="text" class="form-control input-sm" bo-if="!isRef(header.Field) && !isEnum(header.Field, $index) && !isAuto(header.Extra) && !isDate(header.Field)" name="header.Field" placeholder="{{::header.Type}} {{::header.Key}} {{::header.Extra}}"ng-model="records.row[header.Field]" />
           <input type="text" class="form-control input-sm" bo-if="isAuto(header.Extra)" name="header.Field" ng-model="records.row[header.Field]"readonly />
-          <div class="input-group" bo-if="isDate(header.Field)">
+          <div class="input-group input-group-sm" bo-if="isDate(header.Field)">
             <input type="text" class="form-control" uib-datepicker-popup="dd-MMMM-yyyy" ng-model="records.row[header.Field]" is-open="status.opened" close-text="Close" />
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
