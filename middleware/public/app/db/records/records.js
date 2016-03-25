@@ -9,13 +9,15 @@
 
     AlertCenter.addAll($scope);
 
-    $scope.records = [];
-    $scope.headers = [];
-    $scope.row = {};
+
+    $scope.records = {
+      row: {},
+      data: [],
+      structure: [],
+      enums: {},
+      dateCols: {}
+    };
     $scope.foreignValues = [];
-    $scope.enums = TypeCheckFactory.getEnums();
-    $scope.dateCols = {};
-    $scope.maxDate = new Date(2020, 5, 22);
 
     $scope.rowing = false;
     $scope.loading = true;
@@ -27,13 +29,23 @@
     $scope.recordsCount = PaginationFactory.records;
 
     var prepareDateTypes = function(recordData) {
-
+      var dates = $scope.records.dateCols;
       for(var col in recordData) {
-        if(col in $scope.dateCols) {
-          recordData[col] = moment(new Date(recordData[col])).format($scope.dateCols[col]);
+        if(col in dates) {
+          recordData[col] = moment(new Date(recordData[col])).format(dates[col]);
         }
       }
       return recordData;
+    };
+
+    var fillEnumTypes = function() {
+      var structure = $scope.records.structure;
+      for(var i=0; i < structure.length; i++) {
+        if(structure[i].Type.slice(0,4) === 'enum') {
+          $scope.records.enums[structure[i].Field] = structure[i].Type.replace(/'|\(|enum|\)/g, '').split(',');
+        }
+      }
+
     };
 
 
@@ -43,15 +55,17 @@
         .then(getRecordsComplete)
         .then(getForeignValues)
         .then(fillDateTypes)
+        .then(fillEnumTypes)
         .catch(getRecordsFailed)
         .finally(loadingComplete);
 
       function getRecordsComplete(result) {
-        $scope.records = result[0].length ? result[0] : '';
-        $scope.headers =result[1].length ? result[1] : '';
+        $scope.records.data = result[0];
+        $scope.records.structure = result[1];
+
         PaginationFactory.records = result[2][0] > 0 ? result[2][0]['count(*)'] - 100 : 0;
         PaginationFactory.currentPage = $stateParams.page;
-        PrimaryKeyFactory.getPrimaryKey($scope.headers);
+        PrimaryKeyFactory.getPrimaryKey($scope.records.structure);
         $scope.recordsCount = PaginationFactory.records;
         $scope.currentPage = PaginationFactory.currentPage;
         if (result[3]) {
@@ -65,9 +79,10 @@
       }
 
       function fillDateTypes() {
-        for(var i=0; i < $scope.headers.length; i++) {
-          if($scope.headers[i].Type === 'date') {
-            $scope.dateCols[$scope.headers[i].Field] = 'YYYY-MM-DD';
+        var structure = $scope.records.structure;
+        for(var i=0; i < structure.length; i++) {
+          if(structure[i].Type === 'date') {
+            $scope.records.dateCols[structure[i].Field] = 'YYYY-MM-DD';
           }
         }
       }
@@ -81,7 +96,6 @@
       }
 
       function loadingComplete() {
-
         $scope.loading = false;
       }
     };
@@ -133,7 +147,6 @@
           status: 'Error',
           msg: 'Unable to add record to the database'
         });
-        console.error(err);
       }
 
       function addRecordReset() {
@@ -158,7 +171,7 @@
 
       var update = {
         table: $stateParams.table,
-        cols: $scope.headers,
+        cols: $scope.records.structure,
         val: prepareDateTypes(data),
         pk: PrimaryKeyFactory.retrievePrimaryKey()
       };
@@ -180,7 +193,6 @@
           status: 'Error',
           msg: 'Unable to add record to the database'
         });
-        console.error(err);
       }
 
       function setEditToFalse() {
@@ -197,9 +209,7 @@
     };
 
     $scope.isEnum = function (column, ind) {
-      var bool = TypeCheckFactory.isEnum($scope.headers[ind].Type);
-      $scope.enums = TypeCheckFactory.getEnums();
-      return bool;
+      return column in $scope.records.enums;
     };
 
 
@@ -211,7 +221,7 @@
     };
 
     $scope.isDate = function (column) {
-      return column in $scope.dateCols;
+      return column in $scope.records.dateCols;
     };
 
     $scope.open = function($event) {
