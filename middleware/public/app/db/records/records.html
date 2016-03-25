@@ -24,7 +24,7 @@
           <select class="form-control input-sm" bo-if="isRef(header.Field) == true" ng-model="row[header.Field]">
             <option ng-repeat="value in foreignValues">{{value}}</option>
           </select>
-          <select class="form-control input-sm" bo-if="isEnum(header.Type, $index) == true" ng-model="row[header.Field]">
+          <select class="form-control input-sm" bo-if="isEnum(header.Field, $index) == true" ng-model="row[header.Field]">
             <option value="{{enum}}" ng-repeat="enum in enums track by $index">{{enum}}</option>
           </select>
         </div>

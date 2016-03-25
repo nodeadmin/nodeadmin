@@ -9,13 +9,20 @@
 
     AlertCenter.addAll($scope);
 
-    $scope.records = [];
-    $scope.headers = [];
+    // $scope.records = [];
+
+    $scope.records2 = {
+      data: [],
+      structure: [],
+      enums: {},
+      dateCols: {}
+    };
+    // $scope.headers = [];
     $scope.row = {};
     $scope.foreignValues = [];
-    $scope.enums = TypeCheckFactory.getEnums();
-    $scope.dateCols = {};
-    $scope.maxDate = new Date(2020, 5, 22);
+    // $scope.enums = TypeCheckFactory.getEnums();
+    // $scope.dateCols = {};
+    // $scope.maxDate = new Date(2020, 5, 22);
 
     $scope.rowing = false;
     $scope.loading = true;
@@ -27,13 +34,23 @@
     $scope.recordsCount = PaginationFactory.records;
 
     var prepareDateTypes = function(recordData) {
-
+      var dates = $scope.records2.dateCols;
       for(var col in recordData) {
-        if(col in $scope.dateCols) {
-          recordData[col] = moment(new Date(recordData[col])).format($scope.dateCols[col]);
+        if(col in dates) {
+          recordData[col] = moment(new Date(recordData[col])).format(dates[col]);
         }
       }
       return recordData;
+    };
+
+    var fillEnumTypes = function() {
+      var structure = $scope.records2.structure;
+      for(var i=0; i < structure.length; i++) {
+        if(structure[i].Type.slice(0,4) === 'enum') {
+          $scope.records2.enums[structure[i].Field] = structure[i].Field;
+        }
+      }
+
     };
 
 
@@ -43,12 +60,17 @@
         .then(getRecordsComplete)
         .then(getForeignValues)
         .then(fillDateTypes)
+        .then(fillEnumTypes)
         .catch(getRecordsFailed)
         .finally(loadingComplete);
 
       function getRecordsComplete(result) {
         $scope.records = result[0].length ? result[0] : '';
+        $scope.records2.data = result[0];
+
         $scope.headers =result[1].length ? result[1] : '';
+        $scope.records2.structure = result[1];
+
         PaginationFactory.records = result[2][0] > 0 ? result[2][0]['count(*)'] - 100 : 0;
         PaginationFactory.currentPage = $stateParams.page;
         PrimaryKeyFactory.getPrimaryKey($scope.headers);
@@ -65,9 +87,10 @@
       }
 
       function fillDateTypes() {
-        for(var i=0; i < $scope.headers.length; i++) {
-          if($scope.headers[i].Type === 'date') {
-            $scope.dateCols[$scope.headers[i].Field] = 'YYYY-MM-DD';
+        var structure = $scope.records2.structure;
+        for(var i=0; i < structure.length; i++) {
+          if(structure[i].Type === 'date') {
+            $scope.records2.dateCols[structure[i].Field] = 'YYYY-MM-DD';
           }
         }
       }
@@ -197,9 +220,10 @@
     };
 
     $scope.isEnum = function (column, ind) {
-      var bool = TypeCheckFactory.isEnum($scope.headers[ind].Type);
-      $scope.enums = TypeCheckFactory.getEnums();
-      return bool;
+      return column in $scope.records2.enums;
+      // var bool = TypeCheckFactory.isEnum($scope.headers[ind].Type);
+      // $scope.enums = TypeCheckFactory.getEnums();
+      // return bool;
     };
 
 
@@ -211,7 +235,7 @@
     };
 
     $scope.isDate = function (column) {
-      return column in $scope.dateCols;
+      return column in $scope.records2.dateCols;
     };
 
     $scope.open = function($event) {

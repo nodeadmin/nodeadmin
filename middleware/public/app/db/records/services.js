@@ -39,16 +39,9 @@
 
     function getRecords(db, table, page, sortBy, sortDir) {
       return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/' + page + '?sortBy=' + sortBy + '&sortDir=' + sortDir)
-        .then(getRecordsComplete)
-      //   .catch(getRecordsFailed);
-
-      function getRecordsComplete(response) {
-        return response.data;
-      }
-
-      // function getRecordsFailed(err) {
-      //   console.error(err);
-      // }
+        .then(function (response) {
+          return response.data;
+        })
 
     }
 
