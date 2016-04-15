@@ -35,11 +35,16 @@
     </div>
   </div>
   
-  <div class="row">
+  <div class="row form-inline">
     <div class="col-md-12 space well">
       <div class="input-group col-md-2">
         <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-search"></span></span>
         <input type="text" class="form-control" placeholder="Filter results" ng-model="search" aria-describedby="basic-addon1">
+      </div>
+      <div class="form-group pull-right">
+        <label for="ipp">items per page: </label>
+        <select name="ipp" ng-change="change()" ng-model="showItems.selection" ng-options="v as v for v in showItems.opts" class="form-control">
+        </select>
       </div>
     </div>
   </div>
