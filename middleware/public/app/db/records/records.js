@@ -23,6 +23,10 @@
     $scope.loading = true;
     $scope.isEditing = false;
 
+    $scope.showItems = {
+      selection:'30',
+      opts: ['30','60','90']
+    };
     $scope.table = $stateParams.table;
     $scope.maxSize = PaginationFactory.maxSize;
     $scope.currentPage = PaginationFactory.currentPage;
@@ -63,7 +67,7 @@
         $scope.records.data = result[0];
         $scope.records.structure = result[1];
 
-        PaginationFactory.records = result[2][0] > 0 ? result[2][0]['count(*)'] - 100 : 0;
+        PaginationFactory.records = result[2][0]['count(*)'];
         PaginationFactory.currentPage = $stateParams.page;
         PrimaryKeyFactory.getPrimaryKey($scope.records.structure);
         $scope.recordsCount = PaginationFactory.records;
@@ -121,6 +125,9 @@
         location: true
       });
       $scope.init();
+    };
+    
+    $scope.changeListAmt = function() {
     };
 
     $scope.toggleForm = function () {

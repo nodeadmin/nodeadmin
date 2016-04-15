@@ -43,7 +43,7 @@
       </div>
       <div class="form-group pull-right">
         <label for="ipp">items per page: </label>
-        <select name="ipp" ng-change="change()" ng-model="showItems.selection" ng-options="v as v for v in showItems.opts" class="form-control">
+        <select name="ipp" ng-change="changeListAmt()" ng-model="showItems.selection" ng-options="v as v for v in showItems.opts" class="form-control">
         </select>
       </div>
     </div>
@@ -87,7 +87,15 @@
     </div>
     <div class="row">
       <div class="col-sm-8 col-sm-offset-2">
-        <uib-pagination total-items="recordsCount" ng-change="pagination()" ng-model="currentPage" rotate="false" boundary-links="true" max-size="maxSize" items-per-page="100"></uib-pagination>
+        <uib-pagination
+          total-items="recordsCount"
+          ng-change="pagination()"
+          ng-model="currentPage"
+          rotate="false"
+          boundary-links="true"
+          max-size="maxSize"
+          items-per-page="showItems.selection">
+        </uib-pagination>
       </div>
     </div>
   </div>
