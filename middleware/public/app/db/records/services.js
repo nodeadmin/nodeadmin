@@ -37,8 +37,13 @@
       return result[condition];
     }
 
-    function getRecords(db, table, page, sortBy, sortDir) {
-      return $http.get('/nodeadmin/api/db/' + db + '/' + table + '/' + page + '?sortBy=' + sortBy + '&sortDir=' + sortDir)
+    function getRecords(db, table, page, params) {
+      var url = ['/nodeadmin/api/db',db,table,page].join('/').concat('?');
+      Object.keys(params).forEach(function (q) {
+        params[q] && (url += [q, params[q]].join('=').concat('&'));
+      });
+
+      return $http.get(url)
         .then(function (response) {
           return response.data;
         })
@@ -73,6 +78,7 @@
   function SortingFactory() {
     var sortBy = '';
     var sortDir = '';
+    var limitPerPage = null;
     var currentTable = '';
 
     var service = {
@@ -80,7 +86,9 @@
       toggleSort: toggleSort,
       getSortBy: getSortBy,
       getSortDir: getSortDir,
-      getCurrentTable: getCurrentTable
+      getCurrentTable: getCurrentTable,
+      getLimit: getPageLimit,
+      setLimit: setPageLimit
     };
 
     return service;
@@ -89,7 +97,7 @@
       sortBy = val;
     }
 
-    function getSortBy(val) {
+    function getSortBy() {
       return sortBy;
     }
 
@@ -108,6 +116,15 @@
     function getCurrentTable() {
       return currentTable;
     }
+
+    function setPageLimit(val) {
+      limitPerPage = val;
+    }
+
+    function getPageLimit() {
+      return limitPerPage;
+    }
+
 
     function currentTableReset(table) {
       if (getCurrentTable() !== table) {

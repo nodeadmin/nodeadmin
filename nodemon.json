@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "ignore": ["middleware/public/*", "middleware/secret.js", "middleware/serverlogs/access.log"]
+}

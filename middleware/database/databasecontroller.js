@@ -215,7 +215,7 @@ module.exports = {
       offset = req.params.page > 1 ? (req.params.page -1) * rowCount : 0,
       sortBy = req.query.sortBy,
       sortDir = req.query.sortDir,
-      limit = [offset, rowCount],
+      limit = [offset, Number(rowCount)],
       connection = client.getClientDB();
     connection.query({
       sql: 'USE ??',

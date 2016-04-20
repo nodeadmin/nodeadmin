@@ -55,7 +55,11 @@
 
     $scope.init = function () {
       SortingFactory.currentTableReset($stateParams.table);
-      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, SortingFactory.getSortBy(), SortingFactory.getSortDir())
+      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page,{
+        sortBy: SortingFactory.getSortBy(),
+        sortDir: SortingFactory.getSortDir(),
+        limit: SortingFactory.getLimit()
+      })
         .then(getRecordsComplete)
         .then(getForeignValues)
         .then(fillDateTypes)
@@ -128,6 +132,16 @@
     };
     
     $scope.changeListAmt = function() {
+      SortingFactory.setLimit($scope.showItems.selection);
+      $state.go('records', {
+        database: $stateParams.database,
+        table: $stateParams.table,
+        sortBy: SortingFactory.getSortBy(),
+        sortDir: SortingFactory.getSortDir()
+      }, {
+        location: true
+      });
+      $scope.init();
     };
 
     $scope.toggleForm = function () {
