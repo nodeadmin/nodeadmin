@@ -211,11 +211,11 @@ module.exports = {
   getRecords: function(req, res) {
     var db = req.params.database,
       table = req.params.table,
-      rowCount = 100, //Shouldn't be hardcoded, need to add a query to get request, but this will do for now
-      offset = req.params.page > 1 ? req.params.page * rowCount : 0,
+      rowCount = req.query.limit || 30,
+      offset = req.params.page > 1 ? (req.params.page -1) * rowCount : 0,
       sortBy = req.query.sortBy,
       sortDir = req.query.sortDir,
-      limit = [offset, rowCount],
+      limit = [offset, Number(rowCount)],
       connection = client.getClientDB();
     connection.query({
       sql: 'USE ??',

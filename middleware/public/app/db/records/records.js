@@ -23,6 +23,10 @@
     $scope.loading = true;
     $scope.isEditing = false;
 
+    $scope.showItems = {
+      selection:$stateParams.limit || '30',
+      opts: ['30','60','90']
+    };
     $scope.table = $stateParams.table;
     $scope.maxSize = PaginationFactory.maxSize;
     $scope.currentPage = PaginationFactory.currentPage;
@@ -51,7 +55,11 @@
 
     $scope.init = function () {
       SortingFactory.currentTableReset($stateParams.table);
-      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, SortingFactory.getSortBy(), SortingFactory.getSortDir())
+      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, {
+        sortBy: SortingFactory.getSortBy(),
+        sortDir: SortingFactory.getSortDir(),
+        limit: SortingFactory.getLimit()
+      })
         .then(getRecordsComplete)
         .then(getForeignValues)
         .then(fillDateTypes)
@@ -63,7 +71,7 @@
         $scope.records.data = result[0];
         $scope.records.structure = result[1];
 
-        PaginationFactory.records = result[2][0] > 0 ? result[2][0]['count(*)'] - 100 : 0;
+        PaginationFactory.records = result[2][0]['count(*)'];
         PaginationFactory.currentPage = $stateParams.page;
         PrimaryKeyFactory.getPrimaryKey($scope.records.structure);
         $scope.recordsCount = PaginationFactory.records;
@@ -91,7 +99,7 @@
         $scope.alerts.error.push({
           status: 'Error',
           mgs: 'Failed to fetch records for this table.'
-        })
+        });
         console.error(err);
       }
 
@@ -117,6 +125,20 @@
         table: $stateParams.table,
         sortBy: SortingFactory.getSortBy(),
         sortDir: SortingFactory.getSortDir()
+      }, {
+        location: true
+      });
+      $scope.init();
+    };
+    
+    $scope.changeListAmt = function() {
+      SortingFactory.setLimit($scope.showItems.selection);
+      $state.go('records', {
+        database: $stateParams.database,
+        table: $stateParams.table,
+        sortBy: SortingFactory.getSortBy(),
+        sortDir: SortingFactory.getSortDir(),
+        limit: SortingFactory.getLimit()
       }, {
         location: true
       });
