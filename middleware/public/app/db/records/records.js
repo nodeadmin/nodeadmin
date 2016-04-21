@@ -24,7 +24,7 @@
     $scope.isEditing = false;
 
     $scope.showItems = {
-      selection:'30',
+      selection:$stateParams.limit || '30',
       opts: ['30','60','90']
     };
     $scope.table = $stateParams.table;
@@ -55,7 +55,7 @@
 
     $scope.init = function () {
       SortingFactory.currentTableReset($stateParams.table);
-      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page,{
+      RecordsFactory.getRecords($stateParams.database, $stateParams.table, $stateParams.page, {
         sortBy: SortingFactory.getSortBy(),
         sortDir: SortingFactory.getSortDir(),
         limit: SortingFactory.getLimit()
@@ -99,7 +99,7 @@
         $scope.alerts.error.push({
           status: 'Error',
           mgs: 'Failed to fetch records for this table.'
-        })
+        });
         console.error(err);
       }
 
@@ -137,7 +137,8 @@
         database: $stateParams.database,
         table: $stateParams.table,
         sortBy: SortingFactory.getSortBy(),
-        sortDir: SortingFactory.getSortDir()
+        sortDir: SortingFactory.getSortDir(),
+        limit: SortingFactory.getLimit()
       }, {
         location: true
       });
