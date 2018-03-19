@@ -27,7 +27,7 @@
     function login(user) {
       return $http({
           method: 'POST',
-          url: '/nodeadmin/api/auth/login',
+          url: '/myadmin/api/auth/login',
           data: user
         })
         .then(loginComplete)
@@ -44,7 +44,7 @@
     function logout() {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/auth/logout',
+          url: '/myadmin/api/auth/logout',
         })
         .then(logoutComplete)
         .catch(logoutFailed);
@@ -70,7 +70,7 @@
     function getModules() {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/system/modules'
+          url: '/myadmin/api/system/modules'
         })
         .then(getModulesComplete)
         .catch(getModulesFailed);
@@ -97,7 +97,7 @@
     function serverStats() {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/home/os'
+          url: '/myadmin/api/home/os'
         })
         .then(serverStatsComplete)
         .catch(serverStatsFailed);
@@ -125,7 +125,7 @@
     function getPerformanceTimers() {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/db/performance',
+          url: '/myadmin/api/db/performance',
         })
         .then(getPerformanceTimersComplete)
         .catch(getPerformanceTimersFailed);
@@ -142,7 +142,7 @@
     function getInfo() {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/db/info',
+          url: '/myadmin/api/db/info',
         })
         .then(getInfoComplete)
         .catch(getInfoFailed);
@@ -167,7 +167,7 @@
     return service;
 
     function submit(query) {
-      return $http.post('/nodeadmin/api/db/query', JSON.stringify({
+      return $http.post('/myadmin/api/db/query', JSON.stringify({
           'data': query
         }))
         .then(submitComplete)
@@ -203,7 +203,7 @@
     function getTables(databaseName) {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/db/' + databaseName + '/tables'
+          url: '/myadmin/api/db/' + databaseName + '/tables'
         })
         .then(getTablesComplete)
         .catch(getTablesFailed);
@@ -220,7 +220,7 @@
     function dropTable(databaseName, tableName) {
       return $http({
           method: 'DELETE',
-          url: '/nodeadmin/api/db/' + databaseName + '/' + tableName + ''
+          url: '/myadmin/api/db/' + databaseName + '/' + tableName + ''
         })
         .then(dropTableComplete)
         .catch(dropTableFailed);
@@ -237,7 +237,7 @@
     function createTable(database, table, schema) {
       return $http({
           method: 'POST',
-          url: ['/nodeadmin/api/db', database, table].join('/'),
+          url: ['/myadmin/api/db', database, table].join('/'),
           data: schema
         })
     }
@@ -264,7 +264,7 @@
     function createDB(name) {
       return $http({
           method: 'POST',
-          url: '/nodeadmin/api/db/create/',
+          url: '/myadmin/api/db/create/',
           data: name
         })
         .then(createDBComplete)
@@ -282,7 +282,7 @@
     function deleteDB(name) {
       return $http({
           method: 'POST',
-          url: '/nodeadmin/api/db/delete/',
+          url: '/myadmin/api/db/delete/',
           data: name
         })
         .then(deleteDBComplete)
@@ -325,7 +325,7 @@
     function getAll() {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/settings/users'
+          url: '/myadmin/api/settings/users'
         })
         .then(getAllComplete)
         .catch(getAllFailed)
@@ -342,7 +342,7 @@
     function addUser(user) {
       return $http({
           method: 'POST',
-          url: '/nodeadmin/api/settings/users',
+          url: '/myadmin/api/settings/users',
           data: user
         })
         .then(addUserComplete)
@@ -360,7 +360,7 @@
     function editUser(data) {
       return $http({
           method: 'PUT',
-          url: '/nodeadmin/api/settings/users/',
+          url: '/myadmin/api/settings/users/',
           data: data,
         })
         .then(editUserComplete)
@@ -378,7 +378,7 @@
     function deleteUser(user, host) {
       return $http({
           method: 'DELETE',
-          url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/'
+          url: '/myadmin/api/settings/users/' + user + '/' + host + '/'
         })
         .then(deleteUserComplete)
         .catch(deleteUserFailed);
@@ -405,7 +405,7 @@
     function getGrants(user, host) {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grants/'
+          url: '/myadmin/api/settings/users/' + user + '/' + host + '/grants/'
         })
         .then(getGrantsComplete)
         .catch(getGrantsFailed);
@@ -423,7 +423,7 @@
     function getGrantsRecord(user, host) {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grantsrecord/'
+          url: '/myadmin/api/settings/users/' + user + '/' + host + '/grantsrecord/'
         })
         .then(getGrantsRecordComplete)
         .catch(getGrantsRecordFailed);
@@ -440,7 +440,7 @@
     function editGrantsRecord(user, host, data) {
       return $http({
           method: 'PUT',
-          url: '/nodeadmin/api/settings/users/' + user + '/' + host + '/grantsrecord',
+          url: '/myadmin/api/settings/users/' + user + '/' + host + '/grantsrecord',
           data: data
         })
         .then(editGrantsRecordComplete)
@@ -472,7 +472,7 @@
     function getGrantsDescription() {
       return $http({
           method: 'GET',
-          url: '/nodeadmin/api/settings/users/grantsdescription'
+          url: '/myadmin/api/settings/users/grantsdescription'
         })
         .then(getGrantsDescriptionComplete)
         .catch(getGrantsDescriptionFailed);

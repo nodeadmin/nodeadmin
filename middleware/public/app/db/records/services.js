@@ -38,7 +38,7 @@
     }
 
     function getRecords(db, table, page, params) {
-      var url = ['/nodeadmin/api/db',db,table,page].join('/').concat('?');
+      var url = ['/myadmin/api/db',db,table,page].join('/').concat('?');
       Object.keys(params).forEach(function (q) {
         params[q] && (url += [q, params[q]].join('=').concat('&'));
       });
@@ -51,11 +51,11 @@
     }
 
     function editRecord(db, table, page, data) {
-      return $http.put('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
+      return $http.put('/myadmin/api/db/' + db + '/' + table + '/' + page, data)
     }
 
     function addRecord(db, table, page, data) {
-      return $http.post('/nodeadmin/api/db/' + db + '/' + table + '/' + page, data)
+      return $http.post('/myadmin/api/db/' + db + '/' + table + '/' + page, data)
     }
 
   }
@@ -240,7 +240,7 @@
     }
 
     function getForeignValues(db, refTable, refColumn) {
-      return $http.get('/nodeadmin/api/db/' + db + '/fk/' + refTable + '/' + refColumn)
+      return $http.get('/myadmin/api/db/' + db + '/fk/' + refTable + '/' + refColumn)
         .then(getForeignValuesComplete)
         .catch(getForeignValuesFailed);
 

@@ -2,7 +2,7 @@
 
 A fantastically elegant interface for MySQL and Node.js/Express management, like phpmyadmin.
 
-This project is exported from <https://github.com/node-mysql-admin/node-mysql-admin>.
+This project is exported from <https://github.com/nodeadmin/nodeadmin>.
 
 ## Installation
 
