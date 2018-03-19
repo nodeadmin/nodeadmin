@@ -1,5 +1,5 @@
 {
-  "name": "mysql-admin",
+  "name": "node-myadmin",
   "version": "0.1.1",
   "description": "A fantastically elegant interface for MySQL and Node.js/Express/Koa management",
   "keywords": [
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stanzhai/mysql-admin"
+    "url": "git+https://github.com/stanzhai/node-myadmin"
   },
   "contributors": [
     {
@@ -45,7 +45,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stanzhai/mysql-admin/issues"
+    "url": "https://github.com/stanzhai/node-myadmin/issues"
   },
   "dependencies": {
     "bluebird": "^2.10.2",
