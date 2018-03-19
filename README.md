@@ -1,13 +1,13 @@
-# NodeMyAdmin
+# NodeMySQLAdmin
 
 A fantastically elegant interface for MySQL and Node.js/Express management, like phpmyadmin.
 
-This project is exported from <https://github.com/nodeadmin/nodeadmin>.
+This project is exported from <https://github.com/node-mysql-admin/node-mysql-admin>.
 
 ## Installation
 
 ```
-npm install node-myadmin
+npm install node-mysql-admin
 ```
 
 ## Setup
@@ -16,10 +16,10 @@ npm install node-myadmin
 var express = require('express');
 var app = express();
 
-var mysqlAdmin = require('node-myadmin');
+var mysqlAdmin = require('node-mysql-admin');
 app.use(mysqlAdmin(app));
 ```
-Passing your instantiated Express app into NodeAdmin is required for the middleware to function properly.
+Passing your instantiated Express app into node-mysql-admin is required for the middleware to function properly.
 
 Note: node-myadmin currently does not support Windows.
 
@@ -31,12 +31,12 @@ To begin using node-myadmin, simply follow the instructions below.
 
 ### Login
 Navigate to yourdomain/myadmin and log in using your MySQL Server credentials.
-NodeAdmin will attempt to connect to your MySQL server and validate the information
+node-mysql-admin will attempt to connect to your MySQL server and validate the information
 you provided. Once verified, you will be redirected to the Overview page.
 
 ### Navbar
 
-The navbar located at the top of the page contains links to all the main views within NodeAdmin and a button to logout is available throughout the app. The navbar includes links to Overview, DB, System, Direct Query, and Settings. These pages are described below.
+The navbar located at the top of the page contains links to all the main views within node-mysql-admin and a button to logout is available throughout the app. The navbar includes links to Overview, DB, System, Direct Query, and Settings. These pages are described below.
 
 ### Overview
 This page displays a dashboard of relevant server information including CPU usage, a
@@ -96,7 +96,7 @@ The System view has two main components. The first is the Modules view. This sec
 
 ![Image of direct queries](https://i.gyazo.com/7f29974fd44e4404a853d7888f40186f.gif)
 
-Direct Queries provides the ability to execute raw SQL queries directly from NodeAdmin. Type in the desired query and click 'submit query'. If the query was successful, a table containing the results of the query will be displayed the query window. If the query was unsuccessful, an error message will pop up detailing why the query was unsuccessful.
+Direct Queries provides the ability to execute raw SQL queries directly from node-mysql-admin. Type in the desired query and click 'submit query'. If the query was successful, a table containing the results of the query will be displayed the query window. If the query was unsuccessful, an error message will pop up detailing why the query was unsuccessful.
 
 ### Settings
 
