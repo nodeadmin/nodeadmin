@@ -2,25 +2,12 @@
 
 A fantastically elegant interface for MySQL and Node.js/Express management.
 
-
-## Table of Contents
-1. [Team](#team)
-1. [Installation](#installation)
-1. [Setup](#setup)
-1. [Usage](#usage)
-1. [Development](#development)
-1. [Contributing](#contributing)
-
-## Team
-
-  - __Product Owner__: [Taylor Lehman](https://github.com/taylorleh)
-  - __Scrum Master__: [Alex Hutchison](https://github.com/dutchers)
-  - __Development Team Members__: [Laura Knight](https://github.com/ljknight), [Andrew Nickell](https://github.com/nickell-andrew), [Taylor Lehman](https://github.com/taylorleh), [Alex Hutchison](https://github.com/dutchers)
+This project is exported from <https://github.com/nodeadmin/nodeadmin>.
 
 ## Installation
 
 ```
-npm install nodeadmin
+npm install mysql-admin
 ```
 
 ## Setup
@@ -29,16 +16,16 @@ npm install nodeadmin
 var express = require('express');
 var app = express();
 
-var nodeadmin = require('nodeadmin');
-app.use(nodeadmin(app));
+var mysqlAdmin = require('mysql-admin');
+app.use(mysqlAdmin(app));
 ```
 Passing your instantiated Express app into NodeAdmin is required for the middleware to function properly.
 
-Note: NodeAdmin currently does not support Windows.
+Note: mysql-admin currently does not support Windows.
 
 ## Usage
 
-To begin using NodeAdmin, simply follow the instructions below.
+To begin using mysql-admin, simply follow the instructions below.
 
 [Login](#login) | [Navbar](#navbar) | [Overview](#overview) | [Database](#database) | [System](#system) | [Settings](#settings)
 
@@ -144,7 +131,7 @@ Note: All tests will only pass if the MySQL user has all grants and CRUD access 
 
 ### Roadmap
 
-View the project roadmap [here](https://github.com/nodeadmin/nodeadmin/issues).
+View the project roadmap [here](https://github.com/stanzhai/mysql-admin/issues).
 
 ## Contributing
 
