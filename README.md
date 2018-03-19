@@ -1,13 +1,13 @@
-# NodeAdmin
+# NodeMyAdmin
 
-A fantastically elegant interface for MySQL and Node.js/Express management.
+A fantastically elegant interface for MySQL and Node.js/Express management, like phpmyadmin.
 
 This project is exported from <https://github.com/nodeadmin/nodeadmin>.
 
 ## Installation
 
 ```
-npm install mysql-admin
+npm install node-myadmin
 ```
 
 ## Setup
@@ -16,16 +16,16 @@ npm install mysql-admin
 var express = require('express');
 var app = express();
 
-var mysqlAdmin = require('mysql-admin');
+var mysqlAdmin = require('node-myadmin');
 app.use(mysqlAdmin(app));
 ```
 Passing your instantiated Express app into NodeAdmin is required for the middleware to function properly.
 
-Note: mysql-admin currently does not support Windows.
+Note: node-myadmin currently does not support Windows.
 
 ## Usage
 
-To begin using mysql-admin, simply follow the instructions below.
+To begin using node-myadmin, simply follow the instructions below.
 
 [Login](#login) | [Navbar](#navbar) | [Overview](#overview) | [Database](#database) | [System](#system) | [Settings](#settings)
 
@@ -131,7 +131,7 @@ Note: All tests will only pass if the MySQL user has all grants and CRUD access 
 
 ### Roadmap
 
-View the project roadmap [here](https://github.com/stanzhai/mysql-admin/issues).
+View the project roadmap [here](https://github.com/stanzhai/node-myadmin/issues).
 
 ## Contributing
 
