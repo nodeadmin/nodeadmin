@@ -55,7 +55,7 @@ app.listen(3333);
 
 ## Usage
 
-To begin using node-myadmin, simply follow the instructions below.
+To begin using node-mysql-admin, simply follow the instructions below.
 
 [Login](#login) | [Navbar](#navbar) | [Overview](#overview) | [Database](#database) | [System](#system) | [Settings](#settings)
 
