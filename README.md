@@ -2,11 +2,11 @@
 
 [![npm version](https://badge.fury.io/js/node-mysql-admin.svg)](https://badge.fury.io/js/node-mysql-admin)
 
-  [![NPM Version][npm-image]][npm-url]
-  [![NPM Downloads][downloads-image]][downloads-url]
-  [![Linux Build][travis-image]][travis-url]
-  [![Windows Build][appveyor-image]][appveyor-url]
-  [![Test Coverage][coveralls-image]][coveralls-url]
+[![NPM Version][npm-image]][npm-url]
+[![NPM Downloads][downloads-image]][downloads-url]
+[![Linux Build][travis-image]][travis-url]
+[![Windows Build][appveyor-image]][appveyor-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
 
 A fantastically elegant interface for MySQL and Node.js/Express management, like phpmyadmin.
 
