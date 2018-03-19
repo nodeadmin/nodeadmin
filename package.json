@@ -1,9 +1,10 @@
 {
-  "name": "nodeadmin",
+  "name": "nodeMyAdmin",
   "version": "0.1.1",
-  "description": "A fantastically elegant interface for MySQL and Node.js/Express management",
+  "description": "A fantastically elegant interface for MySQL and Node.js/Express/Koa management",
   "keywords": [
     "express",
+    "koa",
     "mysql",
     "middleware",
     "admin",
@@ -18,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nodeadmin/nodeadmin"
+    "url": "git+https://github.com/stanzhai/nodeMyAdmin"
   },
   "contributors": [
     {
@@ -36,13 +37,16 @@
     {
       "name": "Taylor Lehman",
       "url": "https://github.com/taylorleh"
+    },
+    {
+      "name": "Stan Zhai",
+      "url": "https://github.com/stanzhai"
     }
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nodeadmin/nodeadmin/issues"
+    "url": "https://github.com/stanzhai/nodeMyAdmin/issues"
   },
-  "homepage": "http://nodeadmin.github.io/nodeadmin",
   "dependencies": {
     "bluebird": "^2.10.2",
     "body-parser": "^1.14.1",

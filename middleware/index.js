@@ -6,8 +6,6 @@ var morgan = require('morgan');
 var fs = require('fs');
 var randomstring = require('randomstring')
 
-
-
 // *** NodeAdmin Routers ***
 var auth = require('./auth/authroutes.js');
 var database = require('./database/databaseroutes.js');
@@ -25,14 +23,12 @@ module.exports = function nodeadmin(app, port) {
   var expressListen = app.listen;
   app.listen = server.listen.bind(server);
 
-
   // ** Socket Controller
   require('./sockets/socketcontroller.js')(io);
 
   // ** Logs
   var accessLogStream = fs.createWriteStream(__dirname + '/serverlogs/access.log', {flags: 'a'});
   
-    
   // ** Third party middleware
   app.use(morgan('dev', {
     stream:accessLogStream
