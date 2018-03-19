@@ -30,7 +30,7 @@ To begin using node-myadmin, simply follow the instructions below.
 [Login](#login) | [Navbar](#navbar) | [Overview](#overview) | [Database](#database) | [System](#system) | [Settings](#settings)
 
 ### Login
-Navigate to yourdomain/nodeadmin and log in using your MySQL Server credentials.
+Navigate to yourdomain/myadmin and log in using your MySQL Server credentials.
 NodeAdmin will attempt to connect to your MySQL server and validate the information
 you provided. Once verified, you will be redirected to the Overview page.
 

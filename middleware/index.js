@@ -6,14 +6,14 @@ var morgan = require('morgan');
 var fs = require('fs');
 var randomstring = require('randomstring')
 
-// *** NodeAdmin Routers ***
+// *** myadmin Routers ***
 var auth = require('./auth/authroutes.js');
 var database = require('./database/databaseroutes.js');
 var settings = require('./settings/settingsroutes.js');
 var system = require('./system/systemroutes.js');
 var home = require('./home/homeroutes.js');
 
-module.exports = function nodeadmin(app, port) {
+module.exports = function myadmin(app, port) {
   'use strict';
 
   // ** Socket Connection
@@ -35,7 +35,7 @@ module.exports = function nodeadmin(app, port) {
   }));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true}));
-  app.use('/nodeadmin', express.static(__dirname + '/public'));
+  app.use('/myadmin', express.static(__dirname + '/public'));
   // creates secret.js with a random string if it hasn't been initialized\\
   fs.readFile('./secret.js', function(err, data) {
     if (err.code === 'ENOENT') {
@@ -48,14 +48,14 @@ module.exports = function nodeadmin(app, port) {
   });
   
   // ** Routes
-  app.use('/nodeadmin/api/auth', auth);
-  app.use('/nodeadmin/api/db', database);
-  app.use('/nodeadmin/api/settings',settings);
-  app.use('/nodeadmin/api/system',system);
-  app.use('/nodeadmin/api/home',home);
+  app.use('/myadmin/api/auth', auth);
+  app.use('/myadmin/api/db', database);
+  app.use('/myadmin/api/settings',settings);
+  app.use('/myadmin/api/system',system);
+  app.use('/myadmin/api/home',home);
 
   // ** Middleware
-  return function nodeadmin(req,res,next) {
+  return function myadmin(req,res,next) {
     next();
   };
 
