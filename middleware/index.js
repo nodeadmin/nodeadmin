@@ -58,6 +58,4 @@ module.exports = function myadmin(app, port) {
   return function myadmin(req,res,next) {
     next();
   };
-
-
 };

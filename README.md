@@ -1,8 +1,6 @@
-# NodeMySQLAdmin
+# Node MySQL Admin
 
 A fantastically elegant interface for MySQL and Node.js/Express management, like phpmyadmin.
-
-This project is exported from <https://github.com/nodeadmin/nodeadmin>.
 
 ## Installation
 
@@ -11,6 +9,10 @@ npm install node-mysql-admin
 ```
 
 ## Setup
+
+Note: node-mysql-admin currently does not support Windows.
+
+### Within Express
 
 ```javascript
 var express = require('express');
@@ -21,7 +23,35 @@ app.use(mysqlAdmin(app));
 ```
 Passing your instantiated Express app into node-mysql-admin is required for the middleware to function properly.
 
-Note: node-myadmin currently does not support Windows.
+### Within Koa
+
+```javascript
+var express = require('express')
+  , Koa = require('koa')
+  , nodeMyAdmin = require('node-mysql-admin');
+  
+const app = new Koa();
+const expressApp = express();
+expressApp.use(nodeMyAdmin(expressApp));
+
+app.use(function*(next) {
+	// do routing by simple matching, koa-route may also work
+	if (this.path.startsWith('/myadmin')) {
+		// direct to express
+		if (this.status === 404 || this.status === '404') {
+			delete this.res.statusCode
+		}
+		// stop koa future processing (NOTE not sure it is un-doc feature or not?)
+		this.respond = false
+		// pass req and res to express
+		expressApp(this.req, this.res)
+	} else {
+		// go to next middleware
+		yield next
+	}
+});
+app.listen(3333);
+```
 
 ## Usage
 
@@ -136,3 +166,8 @@ View the project roadmap [here](https://github.com/stanzhai/node-myadmin/issues)
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## Acknowledgement
+
+This project is exported from <https://github.com/nodeadmin/nodeadmin>. Thanks for all the developer and testers.
+
