@@ -1,55 +1,74 @@
-# NodeAdmin
+# Node MySQL Admin
 
-A fantastically elegant interface for MySQL and Node.js/Express management.
+[![npm version](https://badge.fury.io/js/node-mysql-admin.svg)](https://badge.fury.io/js/node-mysql-admin)
 
-
-## Table of Contents
-1. [Team](#team)
-1. [Installation](#installation)
-1. [Setup](#setup)
-1. [Usage](#usage)
-1. [Development](#development)
-1. [Contributing](#contributing)
-
-## Team
-
-  - __Product Owner__: [Taylor Lehman](https://github.com/taylorleh)
-  - __Scrum Master__: [Alex Hutchison](https://github.com/dutchers)
-  - __Development Team Members__: [Laura Knight](https://github.com/ljknight), [Andrew Nickell](https://github.com/nickell-andrew), [Taylor Lehman](https://github.com/taylorleh), [Alex Hutchison](https://github.com/dutchers)
+A fantastically elegant interface for MySQL and Node.js/Express management, like phpmyadmin.
 
 ## Installation
 
 ```
-npm install nodeadmin
+npm install node-mysql-admin
 ```
 
 ## Setup
+
+Note: node-mysql-admin currently does not support Windows.
+
+### Within Express
 
 ```javascript
 var express = require('express');
 var app = express();
 
-var nodeadmin = require('nodeadmin');
-app.use(nodeadmin(app));
+var mysqlAdmin = require('node-mysql-admin');
+app.use(mysqlAdmin(app));
 ```
-Passing your instantiated Express app into NodeAdmin is required for the middleware to function properly.
+Passing your instantiated Express app into node-mysql-admin is required for the middleware to function properly.
 
-Note: NodeAdmin currently does not support Windows.
+### Within Koa
+
+```javascript
+var express = require('express')
+  , Koa = require('koa')
+  , nodeMyAdmin = require('node-mysql-admin');
+  
+const app = new Koa();
+const expressApp = express();
+expressApp.use(nodeMyAdmin(expressApp));
+
+app.use(function*(next) {
+	// do routing by simple matching, koa-route may also work
+	if (this.path.startsWith('/myadmin')) {
+		// direct to express
+		if (this.status === 404 || this.status === '404') {
+			delete this.res.statusCode
+		}
+		// stop koa future processing (NOTE not sure it is un-doc feature or not?)
+		this.respond = false
+		// pass req and res to express
+		expressApp(this.req, this.res)
+	} else {
+		// go to next middleware
+		yield next
+	}
+});
+app.listen(3333);
+```
 
 ## Usage
 
-To begin using NodeAdmin, simply follow the instructions below.
+To begin using node-mysql-admin, simply follow the instructions below.
 
 [Login](#login) | [Navbar](#navbar) | [Overview](#overview) | [Database](#database) | [System](#system) | [Settings](#settings)
 
 ### Login
-Navigate to yourdomain/nodeadmin and log in using your MySQL Server credentials.
-NodeAdmin will attempt to connect to your MySQL server and validate the information
+Navigate to yourdomain/myadmin and log in using your MySQL Server credentials.
+node-mysql-admin will attempt to connect to your MySQL server and validate the information
 you provided. Once verified, you will be redirected to the Overview page.
 
 ### Navbar
 
-The navbar located at the top of the page contains links to all the main views within NodeAdmin and a button to logout is available throughout the app. The navbar includes links to Overview, DB, System, Direct Query, and Settings. These pages are described below.
+The navbar located at the top of the page contains links to all the main views within node-mysql-admin and a button to logout is available throughout the app. The navbar includes links to Overview, DB, System, Direct Query, and Settings. These pages are described below.
 
 ### Overview
 This page displays a dashboard of relevant server information including CPU usage, a
@@ -109,7 +128,7 @@ The System view has two main components. The first is the Modules view. This sec
 
 ![Image of direct queries](https://i.gyazo.com/7f29974fd44e4404a853d7888f40186f.gif)
 
-Direct Queries provides the ability to execute raw SQL queries directly from NodeAdmin. Type in the desired query and click 'submit query'. If the query was successful, a table containing the results of the query will be displayed the query window. If the query was unsuccessful, an error message will pop up detailing why the query was unsuccessful.
+Direct Queries provides the ability to execute raw SQL queries directly from node-mysql-admin. Type in the desired query and click 'submit query'. If the query was successful, a table containing the results of the query will be displayed the query window. If the query was unsuccessful, an error message will pop up detailing why the query was unsuccessful.
 
 ### Settings
 
@@ -144,8 +163,13 @@ Note: All tests will only pass if the MySQL user has all grants and CRUD access 
 
 ### Roadmap
 
-View the project roadmap [here](https://github.com/nodeadmin/nodeadmin/issues).
+View the project roadmap [here](https://github.com/stanzhai/node-myadmin/issues).
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## Acknowledgement
+
+This project is exported from <https://github.com/nodeadmin/nodeadmin>. Thanks for all the developer and testers.
+

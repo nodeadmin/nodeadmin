@@ -1,13 +1,15 @@
 {
-  "name": "nodeadmin",
-  "version": "0.1.1",
-  "description": "A fantastically elegant interface for MySQL and Node.js/Express management",
+  "name": "node-mysql-admin",
+  "version": "0.1.8",
+  "description": "A fantastically elegant interface for MySQL and Node.js/Express/Koa management, like phpMyAdmin",
   "keywords": [
     "express",
+    "koa",
     "mysql",
     "middleware",
     "admin",
-    "server admin",
+    "mysql admin",
+    "myAdmin",
     "databases",
     "dashboard"
   ],
@@ -18,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nodeadmin/nodeadmin"
+    "url": "git+https://github.com/stanzhai/node-mysql-admin"
   },
   "contributors": [
     {
@@ -36,13 +38,16 @@
     {
       "name": "Taylor Lehman",
       "url": "https://github.com/taylorleh"
+    },
+    {
+      "name": "Stan Zhai",
+      "url": "https://github.com/stanzhai"
     }
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nodeadmin/nodeadmin/issues"
+    "url": "https://github.com/stanzhai/node-mysql-admin/issues"
   },
-  "homepage": "http://nodeadmin.github.io/nodeadmin",
   "dependencies": {
     "bluebird": "^2.10.2",
     "body-parser": "^1.14.1",
