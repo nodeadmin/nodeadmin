@@ -1,6 +1,6 @@
 {
   "name": "node-mysql-admin",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A fantastically elegant interface for MySQL and Node.js/Express/Koa management, like phpMyAdmin",
   "keywords": [
     "express",
