@@ -5,7 +5,7 @@ angular.module('nodeadmin.db', [])
     getDatabases: function () {
       return $http({
         method: 'GET',
-        url: '/myadmin/api/db/connect'
+        url: 'api/db/connect'
       });
     }
   };
