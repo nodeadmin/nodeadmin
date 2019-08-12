@@ -12,6 +12,12 @@
           </div>
           <div class="panel-body">
             <div class="form-group">
+              <label for="mysqlHost" class="col-sm-3 control-label">Host</label>
+              <div class="col-sm-7 offset">
+                <input type='host' name="mysqlHost" class="form-control" placeholder="localhost:3306" ng-model='user.mysqlHost' />
+              </div>
+            </div>
+            <div class="form-group">
               <label for="mysqlUser" class="col-sm-3 control-label">User</label>
               <div class="col-sm-7">
                 <input type='text' class="form-control" name="mysqlUser" placeholder="MySQL user" ng-model='user.mysqlUser' required autofocus/>
@@ -21,12 +27,6 @@
               <label for="mysqlPassword" class="col-sm-3 control-label">Password</label>
               <div class="col-sm-7 offset">
                 <input type='password' name="mysqlPassword" class="form-control" placeholder="MySQL Password" ng-model='user.mysqlPassword' />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="mysqlHost" class="col-sm-3 control-label">Host</label>
-              <div class="col-sm-7 offset">
-                <input type='host' name="mysqlHost" class="form-control" placeholder="localhost:3306" ng-model='user.mysqlHost' />
               </div>
             </div>
           </div>
